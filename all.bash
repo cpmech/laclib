@@ -3,3 +3,4 @@
 cd build
 cmake ../src
 make
+make test
