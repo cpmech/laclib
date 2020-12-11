@@ -1,5 +1,5 @@
 set(TESTS
-  z_test_get_selfpath
+  z_test_util
 )
 
 foreach(var ${TESTS})
