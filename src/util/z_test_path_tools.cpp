@@ -6,11 +6,15 @@ TEST_CASE("testing path_tools")
 {
     SUBCASE("path_get_self_exe")
     {
-        CHECK(path_get_self_exe().size() > 4);
+        auto self_exe = path_get_self_exe();
+        CHECK(self_exe.size() > 17);
+        CHECK(self_exe.substr(self_exe.size() - 17) == "z_test_path_tools");
     }
 
     SUBCASE("path_get_current")
     {
-        CHECK(path_get_current().size() > 4);
+        auto current_path = path_get_current();
+        CHECK(current_path.size() > 14);
+        CHECK(current_path.substr(current_path.size() - 14) == "build/src/util");
     }
 }
