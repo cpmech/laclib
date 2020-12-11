@@ -36,7 +36,7 @@ ReadMatrixResults read_matrix(std::string filename, bool mirrorIfSym)
     bool initialized = false;
     size_t deltaIndex = 0;
     size_t id = 0;
-    size_t sz = 0;
+    size_t sz = 1;
     size_t start = 0;
     size_t endp1 = 0;
     size_t indexNnz = 0;
