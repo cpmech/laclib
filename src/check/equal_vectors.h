@@ -2,7 +2,7 @@
 #include <vector>
 
 template <class T>
-bool equal_int_vectors(const std::vector<T> &a, const std::vector<T> &b)
+bool equal_vectors(const std::vector<T> &a, const std::vector<T> &b)
 {
     if (a.size() != b.size())
     {
@@ -19,7 +19,7 @@ bool equal_int_vectors(const std::vector<T> &a, const std::vector<T> &b)
 }
 
 template <class T>
-bool equal_flt_vectors(const std::vector<T> &a, const std::vector<T> &b, T tolerance)
+bool equal_vectors_tol(const std::vector<T> &a, const std::vector<T> &b, T tolerance)
 {
     if (a.size() != b.size())
     {
