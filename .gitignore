@@ -1,13 +1,11 @@
-CMakeFiles
+CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
 Makefile
 CTestTestfile.cmake
-Testing
+Testing/
+build/
 
 *.o
 *.a
 *.so
-
-build/check
-build/sparse

@@ -1,15 +1,3 @@
 {
-  "files.exclude": {
-    "**/CMakeFiles": true,
-    "**/CMakeCache.txt": true,
-    "**/cmake_install.cmake": true,
-    "**/Makefile": true,
-    "**/CTestTestfile.cmake": true,
-    "**/Testing": true,
-    "**/*.o": true,
-    "**/*.a": true,
-    "**/*.so": true,
-    "build/check": true,
-    "build/sparse": true
-  }
+  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
 }
