@@ -1,6 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "../util/doctest.h"
-#include "../util/get_current_path.h"
+#include "../util/path_tools.h"
 #include "read_matrix.h"
 
 TEST_CASE("testing the return value from read_matrix")
@@ -12,7 +12,7 @@ TEST_CASE("testing the return value from read_matrix")
 
     SUBCASE("small-sparse-matrix")
     {
-        auto data_path = get_current_path() + "/../../../data";
+        auto data_path = path_get_current() + "/../../../data";
         auto mtx_path = data_path + "/small-sparse-matrix.mtx";
         read_matrix(mtx_path, true);
     }

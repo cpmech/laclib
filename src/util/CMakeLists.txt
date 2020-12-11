@@ -1,5 +1,6 @@
 set(TESTS
-  z_test_util
+  z_test_path_tools
+  z_test_string_tools
 )
 
 foreach(var ${TESTS})

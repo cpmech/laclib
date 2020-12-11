@@ -1,9 +1,10 @@
 #pragma once
+#include <filesystem>
 #include <string>
 #include <unistd.h>
 #include <limits.h>
 
-std::string get_selfpath()
+std::string path_get_self_exe()
 {
     char buff[PATH_MAX];
     ssize_t len = ::readlink("/proc/self/exe", buff, sizeof(buff) - 1);
@@ -13,4 +14,9 @@ std::string get_selfpath()
         return std::string(buff);
     }
     throw "cannot read self/exe path";
+}
+
+std::string path_get_current()
+{
+    return std::filesystem::current_path();
 }

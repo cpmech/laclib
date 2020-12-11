@@ -1,27 +1,6 @@
-#include <iostream>
 #include <fstream>
-#include <string>
-#include <sstream>
-#include <algorithm>
-#include <iterator>
 #include "read_matrix.h"
-
-bool has_prefix(std::string line, std::string search_criterion)
-{
-    if (line.rfind(search_criterion, 0) == 0)
-    {
-        return true;
-    }
-    return false;
-}
-
-std::vector<std::string> fields(std::string line)
-{
-    std::istringstream iss(line);
-    std::vector<std::string> res(std::istream_iterator<std::string>{iss},
-                                 std::istream_iterator<std::string>());
-    return res;
-}
+#include "../util/string_tools.h"
 
 ReadMatrixResults read_matrix(std::string filename, bool mirrorIfSym)
 {
@@ -44,9 +23,9 @@ ReadMatrixResults read_matrix(std::string filename, bool mirrorIfSym)
     std::string line;
     while (getline(myfile, line))
     {
-        if (has_prefix(line, "%%MatrixMarket"))
+        if (string_has_prefix(line, "%%MatrixMarket"))
         {
-            auto info = fields(line);
+            auto info = string_fields(line);
             if (info[1] != "matrix")
             {
                 throw "can only read \"matrix\" MatrixMarket at the moment";
@@ -71,12 +50,12 @@ ReadMatrixResults read_matrix(std::string filename, bool mirrorIfSym)
             continue;
         }
 
-        if (has_prefix(line, "%"))
+        if (string_has_prefix(line, "%"))
         {
             continue;
         }
 
-        auto r = fields(line);
+        auto r = string_fields(line);
 
         if (!initialized)
         {
