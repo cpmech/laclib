@@ -20,6 +20,8 @@ ReadMatrixResults read_matrix(string filename, bool mirrorIfSym)
     size_t start = 0;
     size_t endp1 = 0;
     size_t indexNnz = 0;
+    size_t m, n, nnz, i, j;
+    double x;
     string line;
 
     while (getline(myfile, line))
@@ -33,27 +35,27 @@ ReadMatrixResults read_matrix(string filename, bool mirrorIfSym)
                 if (info.size() != 5)
                 {
                     myfile.close();
-                    throw "info header starting with %%MatrixMarket is incorrect";
+                    throw "read_matrix: info header starting with %%MatrixMarket is incorrect";
                 }
                 if (info[1] != "matrix")
                 {
                     myfile.close();
-                    throw "can only read \"matrix\" MatrixMarket at the moment";
+                    throw "read_matrix: can only read \"matrix\" MatrixMarket at the moment";
                 }
                 if (info[2] != "coordinate")
                 {
                     myfile.close();
-                    throw "can only read \"coordinate\" MatrixMarket at the moment";
+                    throw "read_matrix: can only read \"coordinate\" MatrixMarket at the moment";
                 }
                 if (info[3] != "real")
                 {
                     myfile.close();
-                    throw "the given MatrixMarket file must have the word \"real\" in the header";
+                    throw "read_matrix: the given MatrixMarket file must have the word \"real\" in the header";
                 }
                 if (info[4] != "general" && info[4] != "symmetric" && info[4] != "unsymmetric")
                 {
                     myfile.close();
-                    throw "this function only works with \"general\", \"symmetric\" and \"unsymmetric\" MatrixMarket files";
+                    throw "read_matrix: only works with \"general\", \"symmetric\" and \"unsymmetric\" MatrixMarket files";
                 }
                 if (info[4] == "symmetric")
                 {
@@ -73,17 +75,24 @@ ReadMatrixResults read_matrix(string filename, bool mirrorIfSym)
             if (r.size() != 3)
             {
                 myfile.close();
-                throw "the number of columns in the line with dimensions must be 3 (m,n,nnz)";
+                throw "read_matrix: the number of columns in the line with dimensions must be 3 (m,n,nnz)";
             }
 
-            size_t m = stoi(r[0]);
-            size_t n = stoi(r[1]);
-            size_t nnz = stoi(r[2]);
+            try
+            {
+                m = stoi(r[0]);
+                n = stoi(r[1]);
+                nnz = stoi(r[2]);
+            }
+            catch (...)
+            {
+                throw "read_matrix: cannot parse m, n, or nnz values";
+            }
 
             start = (id * nnz) / sz;
             endp1 = ((id + 1) * nnz) / sz;
 
-            if (results.symmetric)
+            if (results.symmetric && mirrorIfSym)
             {
                 results.T = triplet_new(m, n, (endp1 - start) * 2); // assuming that the diagonal is all-zeros (for safety)
             }
@@ -108,12 +117,19 @@ ReadMatrixResults read_matrix(string filename, bool mirrorIfSym)
             if (r.size() != 3)
             {
                 myfile.close();
-                throw "the number of columns in the data lines must be 3 (i,j,x)";
+                throw "read_matrix: the number of columns in the data lines must be 3 (i,j,x)";
             }
 
-            size_t i = stoi(r[0]);
-            size_t j = stoi(r[1]);
-            size_t x = stoi(r[2]);
+            try
+            {
+                i = stoi(r[0]);
+                j = stoi(r[1]);
+                x = stod(r[2]);
+            }
+            catch (...)
+            {
+                throw "read_matrix: cannot parse i, j or x values";
+            }
 
             if (indexNnz >= start && indexNnz < endp1)
             {
