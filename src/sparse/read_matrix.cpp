@@ -35,7 +35,7 @@ ReadMatrixResults read_matrix(string filename, bool mirrorIfSym)
                 if (info.size() != 5)
                 {
                     myfile.close();
-                    throw "read_matrix: info header starting with %%MatrixMarket is incorrect";
+                    throw "read_matrix: header starting with %%MatrixMarket is incorrect";
                 }
                 if (info[1] != "matrix")
                 {
@@ -145,6 +145,11 @@ ReadMatrixResults read_matrix(string filename, bool mirrorIfSym)
     }
 
     myfile.close();
+
+    if (!initialized)
+    {
+        throw "read_matrix: file header is invalid";
+    }
 
     return results;
 }
