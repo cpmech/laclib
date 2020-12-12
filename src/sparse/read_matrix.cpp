@@ -27,6 +27,10 @@ ReadMatrixResults read_matrix(string filename, bool mirrorIfSym)
         if (string_has_prefix(line, "%%MatrixMarket"))
         {
             auto info = string_fields(line);
+            if (info.size() != 5)
+            {
+                throw "info header starting with %%MatrixMarket is incorrect";
+            }
             if (info[1] != "matrix")
             {
                 throw "can only read \"matrix\" MatrixMarket at the moment";
