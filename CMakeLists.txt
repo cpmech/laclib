@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.16)
 project(Project)
 enable_testing()
 set(CMAKE_CXX_STANDARD 17)
-add_subdirectory(src)
 
 # options ####################################################################################
 
@@ -44,3 +43,7 @@ set(LIBS ${LIBS} ${MPI_CXX_LIBRARIES})
 include(FindMUMPS.cmake)
 include_directories(${MUMPS_INCLUDE_DIRS})
 set(LIBS ${LIBS} ${MUMPS_LIBRARIES})
+
+# subdirectories #############################################################################
+
+add_subdirectory(src)
