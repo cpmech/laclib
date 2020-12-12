@@ -1,10 +1,11 @@
 #include <fstream>
 #include "read_matrix.h"
 #include "../util/string_tools.h"
+using namespace std;
 
-ReadMatrixResults read_matrix(std::string filename, bool mirrorIfSym)
+ReadMatrixResults read_matrix(string filename, bool mirrorIfSym)
 {
-    std::ifstream myfile(filename);
+    ifstream myfile(filename);
     if (myfile.fail())
     {
         throw "read_matrix: cannot open file";
@@ -20,7 +21,7 @@ ReadMatrixResults read_matrix(std::string filename, bool mirrorIfSym)
     size_t endp1 = 0;
     size_t indexNnz = 0;
 
-    std::string line;
+    string line;
     while (getline(myfile, line))
     {
         if (string_has_prefix(line, "%%MatrixMarket"))
@@ -63,9 +64,9 @@ ReadMatrixResults read_matrix(std::string filename, bool mirrorIfSym)
             {
                 throw "the number of columns in the line with dimensions must be 3 (m,n,nnz)";
             }
-            size_t m = std::stoi(r[0]);
-            size_t n = std::stoi(r[1]);
-            size_t nnz = std::stoi(r[2]);
+            size_t m = stoi(r[0]);
+            size_t n = stoi(r[1]);
+            size_t nnz = stoi(r[2]);
             start = (id * nnz) / sz;
             endp1 = ((id + 1) * nnz) / sz;
             if (results.symmetric)
@@ -84,9 +85,9 @@ ReadMatrixResults read_matrix(std::string filename, bool mirrorIfSym)
             {
                 throw "the number of columns in the data lines must be 3 (i,j,x)";
             }
-            size_t i = std::stoi(r[0]);
-            size_t j = std::stoi(r[1]);
-            size_t x = std::stoi(r[2]);
+            size_t i = stoi(r[0]);
+            size_t j = stoi(r[1]);
+            size_t x = stoi(r[2]);
             if (indexNnz >= start && indexNnz < endp1)
             {
                 triplet_put(results.T.get(), i - deltaIndex, j - deltaIndex, x);
