@@ -146,10 +146,5 @@ ReadMatrixResults read_matrix(string filename, bool mirrorIfSym)
 
     myfile.close();
 
-    if (!initialized)
-    {
-        throw "read_matrix: file header is invalid";
-    }
-
     return results;
 }
