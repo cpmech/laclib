@@ -8,12 +8,12 @@
 //
 //   Example:
 //
-//     auto handler = [](size_t index, string line) -> bool {
+//     auto handler = [](size_t index, const string &line) -> bool {
 //         cout << line << endl;
 //         return false; // continue
 //     };
 //
-using handlerType = std::function<bool(size_t, std::string)>;
+using handlerType = std::function<bool(size_t, const std::string &)>;
 
 // read_lines opens a file for reading and loops over each line
 //
@@ -47,25 +47,49 @@ void read_lines(std::string filename, handlerType handler)
             bool stop = handler(index, line);
             if (stop)
             {
-                myfile.close();
+                try
+                {
+                    myfile.close();
+                }
+                catch (...)
+                {
+                }
                 break;
             }
         }
         catch (const char *m)
         {
-            myfile.close();
+            try
+            {
+                myfile.close();
+            }
+            catch (...)
+            {
+            }
             std::cout << m << std::endl;
             throw;
         }
         catch (std::exception &e)
         {
-            myfile.close();
+            try
+            {
+                myfile.close();
+            }
+            catch (...)
+            {
+            }
             std::cout << e.what() << std::endl;
             throw;
         }
         catch (...)
         {
-            myfile.close();
+            try
+            {
+                myfile.close();
+            }
+            catch (...)
+            {
+            }
             throw "read_lines: some error happened";
         }
         index++;
