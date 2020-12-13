@@ -16,5 +16,3 @@ struct Triplet
 };
 
 std::unique_ptr<Triplet> triplet_new(size_t m, size_t n, size_t max);
-
-void triplet_put(Triplet *const T, size_t i, size_t j, double x);

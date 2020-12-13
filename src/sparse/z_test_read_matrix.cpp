@@ -24,9 +24,9 @@ TEST_CASE("testing the return value from read_matrix")
         auto mirrorIfSym = false;
         auto res = read_matrix(mtx_path, mirrorIfSym);
 
-        CHECK(equal_vectors(res.T.get()->I, Icorrect) == true);
-        CHECK(equal_vectors(res.T.get()->J, Jcorrect) == true);
-        CHECK(equal_vectors_tol(res.T.get()->X, Xcorrect, 1e-15) == true);
+        CHECK(equal_vectors(res.trip.get()->I, Icorrect) == true);
+        CHECK(equal_vectors(res.trip.get()->J, Jcorrect) == true);
+        CHECK(equal_vectors_tol(res.trip.get()->X, Xcorrect, 1e-15) == true);
     }
 
     SUBCASE("read sparse-matrix bad")

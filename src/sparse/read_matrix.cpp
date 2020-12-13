@@ -93,11 +93,11 @@ ReadMatrixResults read_matrix(std::string filename, bool mirrorIfSym)
 
             if (results.symmetric && mirrorIfSym)
             {
-                results.T = triplet_new(m, n, (endp1 - start) * 2); // assuming that the diagonal is all-zeros (for safety)
+                results.trip = triplet_new(m, n, (endp1 - start) * 2); // assuming that the diagonal is all-zeros (for safety)
             }
             else
             {
-                results.T = triplet_new(m, n, endp1 - start);
+                results.trip = triplet_new(m, n, endp1 - start);
             }
 
             initialized = true;
@@ -132,10 +132,10 @@ ReadMatrixResults read_matrix(std::string filename, bool mirrorIfSym)
 
             if (indexNnz >= start && indexNnz < endp1)
             {
-                results.T->put(i - deltaIndex, j - deltaIndex, x);
+                results.trip->put(i - deltaIndex, j - deltaIndex, x);
                 if (results.symmetric && mirrorIfSym && i != j)
                 {
-                    results.T->put(j - deltaIndex, i - deltaIndex, x);
+                    results.trip->put(j - deltaIndex, i - deltaIndex, x);
                 }
             }
 

@@ -17,6 +17,6 @@ std::unique_ptr<SolverMumps> solver_mumps_new()
         }};
 }
 
-void solver_mumps_init(SolverMumps *const self, const Triplet *const T)
+void solver_mumps_init(SolverMumps *const self, const Triplet *const trip)
 {
 }

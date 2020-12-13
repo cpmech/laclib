@@ -5,7 +5,7 @@
 
 struct ReadMatrixResults
 {
-    std::unique_ptr<Triplet> T;
+    std::unique_ptr<Triplet> trip;
     bool symmetric;
 };
 
