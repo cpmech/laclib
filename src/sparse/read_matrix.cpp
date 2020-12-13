@@ -133,6 +133,7 @@ ReadMatrixResults read_matrix(std::string filename, bool mirrorIfSym)
             if (indexNnz >= start && indexNnz < endp1)
             {
                 results.trip->put(i - deltaIndex, j - deltaIndex, x);
+
                 if (results.symmetric && mirrorIfSym && i != j)
                 {
                     results.trip->put(j - deltaIndex, i - deltaIndex, x);
