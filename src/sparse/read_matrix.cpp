@@ -1,11 +1,10 @@
 #include <fstream>
 #include "read_matrix.h"
 #include "../util/string_tools.h"
-using namespace std;
 
-ReadMatrixResults read_matrix(string filename, bool mirrorIfSym)
+ReadMatrixResults read_matrix(std::string filename, bool mirrorIfSym)
 {
-    ifstream myfile(filename);
+    std::ifstream myfile(filename);
     if (myfile.fail())
     {
         throw "read_matrix: cannot open file";
@@ -22,9 +21,9 @@ ReadMatrixResults read_matrix(string filename, bool mirrorIfSym)
     size_t indexNnz = 0;
     size_t m, n, nnz, i, j;
     double x;
-    string line;
+    std::string line;
 
-    while (getline(myfile, line))
+    while (std::getline(myfile, line))
     {
         // read header
         if (!initialized)
@@ -80,9 +79,9 @@ ReadMatrixResults read_matrix(string filename, bool mirrorIfSym)
 
             try
             {
-                m = stoi(r[0]);
-                n = stoi(r[1]);
-                nnz = stoi(r[2]);
+                m = std::stoi(r[0]);
+                n = std::stoi(r[1]);
+                nnz = std::stoi(r[2]);
             }
             catch (...)
             {
@@ -122,9 +121,9 @@ ReadMatrixResults read_matrix(string filename, bool mirrorIfSym)
 
             try
             {
-                i = stoi(r[0]);
-                j = stoi(r[1]);
-                x = stod(r[2]);
+                i = std::stoi(r[0]);
+                j = std::stoi(r[1]);
+                x = std::stod(r[2]);
             }
             catch (...)
             {
