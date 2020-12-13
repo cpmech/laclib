@@ -49,7 +49,9 @@ TEST_CASE("testing Triplet")
 
     SUBCASE("put: exception")
     {
+        CHECK_THROWS_WITH(T->put(-1, 0, 0.0), "triplet_put: index of row is outside range");
         CHECK_THROWS_WITH(T->put(3, 0, 0.0), "triplet_put: index of row is outside range");
+        CHECK_THROWS_WITH(T->put(0, -1, 0.0), "triplet_put: index of column is outside range");
         CHECK_THROWS_WITH(T->put(0, 3, 0.0), "triplet_put: index of column is outside range");
 
         T->put(0, 0, 0.0);
