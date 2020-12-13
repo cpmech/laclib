@@ -1,5 +1,6 @@
 add_library(laclib SHARED 
     read_matrix.cpp
+    read_matrix_for_mumps.cpp
     solver_mumps.cpp
     triplet.cpp
     triplet_for_mumps.cpp
@@ -7,6 +8,7 @@ add_library(laclib SHARED
 
 set(TESTS
     z_test_read_matrix
+    z_test_read_matrix_for_mumps
     z_test_solver_mumps
     z_test_triplet
     z_test_triplet_for_mumps
