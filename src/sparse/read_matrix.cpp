@@ -133,10 +133,10 @@ ReadMatrixResults read_matrix(string filename, bool mirrorIfSym)
 
             if (indexNnz >= start && indexNnz < endp1)
             {
-                triplet_put(results.T.get(), i - deltaIndex, j - deltaIndex, x);
+                results.T->put(i - deltaIndex, j - deltaIndex, x);
                 if (results.symmetric && mirrorIfSym && i != j)
                 {
-                    triplet_put(results.T.get(), j - deltaIndex, i - deltaIndex, x);
+                    results.T->put(j - deltaIndex, i - deltaIndex, x);
                 }
             }
 

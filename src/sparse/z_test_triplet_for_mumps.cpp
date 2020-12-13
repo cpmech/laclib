@@ -58,6 +58,7 @@ TEST_CASE("testing TripletForMumps (put_zero_based)")
         T->put_zero_based(0, 0, 2);
         T->put_zero_based(0, 0, 3);
         T->put_zero_based(0, 0, 4);
+
         CHECK_THROWS_WITH(T->put_zero_based(0, 0, 4.0), "TripletForMumps::put_zero_based: max number of items has been exceeded");
     }
 }
@@ -115,6 +116,7 @@ TEST_CASE("testing TripletForMumps (put_one_based)")
         T->put_one_based(1, 1, 2);
         T->put_one_based(1, 1, 3);
         T->put_one_based(1, 1, 4);
+
         CHECK_THROWS_WITH(T->put_one_based(1, 1, 4.0), "TripletForMumps::put_one_based: max number of items has been exceeded");
     }
 }

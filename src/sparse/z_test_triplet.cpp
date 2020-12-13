@@ -14,8 +14,6 @@ TEST_CASE("testing Triplet")
 
     SUBCASE("triplet_new")
     {
-        triplet_print(T.get());
-
         vector<size_t> Icorrect{0, 0, 0, 0};
         vector<size_t> Jcorrect{0, 0, 0, 0};
         vector<double> Xcorrect{0.0, 0.0, 0.0, 0.0};
@@ -32,16 +30,16 @@ TEST_CASE("testing Triplet")
         CHECK(equal_vectors_tol(T->X, Xcorrect, 1e-15));
     }
 
-    SUBCASE("triplet_put")
+    SUBCASE("put")
     {
         vector<size_t> Icorrect{0, 1, 2, 0};
         vector<size_t> Jcorrect{0, 1, 2, 1};
         vector<double> Xcorrect{10.0, 11.0, 12.0, 4.0};
 
-        triplet_put(T.get(), 0, 0, 10.0);
-        triplet_put(T.get(), 1, 1, 11.0);
-        triplet_put(T.get(), 2, 2, 12.0);
-        triplet_put(T.get(), 0, 1, 4.0);
+        T->put(0, 0, 10.0);
+        T->put(1, 1, 11.0);
+        T->put(2, 2, 12.0);
+        T->put(0, 1, 4.0);
 
         CHECK(T->pos == 4);
         CHECK(equal_vectors(T->I, Icorrect));
@@ -49,16 +47,16 @@ TEST_CASE("testing Triplet")
         CHECK(equal_vectors_tol(T->X, Xcorrect, 1e-15));
     }
 
-    SUBCASE("triplet_put with exception")
+    SUBCASE("put: exception")
     {
-        CHECK_THROWS_WITH(triplet_put(T.get(), 3, 0, 0.0), "triplet_put: index of row is outside range");
-        CHECK_THROWS_WITH(triplet_put(T.get(), 0, 3, 0.0), "triplet_put: index of column is outside range");
+        CHECK_THROWS_WITH(T->put(3, 0, 0.0), "triplet_put: index of row is outside range");
+        CHECK_THROWS_WITH(T->put(0, 3, 0.0), "triplet_put: index of column is outside range");
 
-        triplet_put(T.get(), 0, 0, 0.0);
-        triplet_put(T.get(), 0, 0, 0.0);
-        triplet_put(T.get(), 0, 0, 0.0);
-        triplet_put(T.get(), 0, 0, 0.0);
+        T->put(0, 0, 0.0);
+        T->put(0, 0, 0.0);
+        T->put(0, 0, 0.0);
+        T->put(0, 0, 0.0);
 
-        CHECK_THROWS_WITH(triplet_put(T.get(), 0, 0, 0.0), "triplet_put: max number of items has been exceeded");
+        CHECK_THROWS_WITH(T->put(0, 0, 0.0), "triplet_put: max number of items has been exceeded");
     }
 }

@@ -9,8 +9,8 @@ struct TripletForMumps
     size_t n;
     size_t pos; // nnz in the end
     size_t max;
-    std::vector<MUMPS_INT> I;
-    std::vector<MUMPS_INT> J;
+    std::vector<MUMPS_INT> I; // one-based indices stored here, regardless the input
+    std::vector<MUMPS_INT> J; // one-based indices stored here, regardless the input
     std::vector<double> X;
 
     void put_zero_based(size_t i_zero_based, size_t j_zero_based, double x);
