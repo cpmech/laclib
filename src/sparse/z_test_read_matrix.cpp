@@ -6,7 +6,7 @@
 #include <vector>
 using namespace std;
 
-TEST_CASE("testing the return value from read_matrix")
+TEST_CASE("read_matrix")
 {
     SUBCASE("cannot open file")
     {
