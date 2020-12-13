@@ -1,6 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "../util/doctest.h"
-#include "triplet.h"
+#include "triplet_for_mumps.h"
 #include "solver_mumps.h"
 #include <vector>
 using namespace std;
