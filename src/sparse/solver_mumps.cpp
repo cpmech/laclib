@@ -2,20 +2,29 @@
 #include "dmumps_c.h"
 #include "solver_mumps.h"
 
-std::unique_ptr<SolverMumps> solver_mumps_new()
+#define ICNTL(I) icntl[(I)-1] // macro s.t. indices match documentation
+
+void MumpsSolver::init(TripletForMumps &trip, MumpsOptions &options)
 {
-    MUMPS_INT USE_COMM_WORLD = -987654;
-
-    DMUMPS_STRUC_C data;
-
-    data.comm_fortran = USE_COMM_WORLD;
-
-    return std::unique_ptr<SolverMumps>{
-        new SolverMumps{
-            data,
-        }};
+    // initialize a MUMPS instance
+    this->data.par = 1; // host also works
+    this->data.sym = options.symmetry;
+    this->data.job = MUMPS_JOB_INIT;
+    dmumps_c(&this->data);
 }
 
-void SolverMumps::init(const TripletForMumps &trip)
-{
+/*
+    // define the problem on the host
+    if (mpi_rank == 0)
+    {
+        this->data.n = make_mumps_int(trip.m);
+        this->data.nnz = make_mumps_int8(trip.pos);
+        this->data.irn = trip.I.data();
+        this->data.jcn = trip.J.data();
+        this->data.a = trip.X.data();
+        // this->data.rhs = rhs;
+    }
 }
+*/
+
+#undef ICNTL

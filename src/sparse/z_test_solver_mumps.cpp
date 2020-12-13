@@ -9,14 +9,14 @@ TEST_CASE("testing sparse solver MUMPS")
 {
     SUBCASE("MUMPS allocs properly")
     {
-        auto solver = solver_mumps_new();
+        auto solver = MumpsSolver::make_new();
 
         CHECK(solver.get()->data.comm_fortran == -987654);
     }
 
+    /*
     SUBCASE("solve system")
     {
-        /*
         auto trip = triplet_new(5, 5, 13);
         triplet_put(trip.get(), 0, 0, +1.0); // << duplicated
         triplet_put(trip.get(), 0, 0, +1.0); // << duplicated
@@ -33,6 +33,6 @@ TEST_CASE("testing sparse solver MUMPS")
         triplet_put(trip.get(), 4, 4, +1.0);
 
         auto b = vector<double>{8.0, 45.0, -3.0, 3.0, 19.0};
-        */
     }
+    */
 }

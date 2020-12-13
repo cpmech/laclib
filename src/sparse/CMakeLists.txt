@@ -6,6 +6,8 @@ add_library(laclib SHARED
     triplet_for_mumps.cpp
 )
 
+target_link_libraries(laclib PUBLIC ${LIBS})
+
 set(TESTS
     z_test_read_matrix
     z_test_read_matrix_for_mumps
