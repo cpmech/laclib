@@ -4,7 +4,7 @@
 #include <sstream>
 #include <iterator>
 
-bool string_has_prefix(std::string line, std::string search_criterion)
+inline bool string_has_prefix(std::string line, std::string search_criterion)
 {
     if (line.rfind(search_criterion, 0) == 0)
     {
@@ -13,7 +13,7 @@ bool string_has_prefix(std::string line, std::string search_criterion)
     return false;
 }
 
-std::vector<std::string> string_fields(std::string line)
+inline std::vector<std::string> string_fields(std::string line)
 {
     std::istringstream iss(line);
     std::vector<std::string> res(std::istream_iterator<std::string>{iss},

@@ -1,8 +1,9 @@
+#pragma once
 #include <cmath>
 #include <vector>
 
 template <class T>
-bool equal_vectors(const std::vector<T> &a, const std::vector<T> &b)
+inline bool equal_vectors(const std::vector<T> &a, const std::vector<T> &b)
 {
     if (a.size() != b.size())
     {
@@ -19,7 +20,7 @@ bool equal_vectors(const std::vector<T> &a, const std::vector<T> &b)
 }
 
 template <class T>
-bool equal_vectors_tol(const std::vector<T> &a, const std::vector<T> &b, T tolerance)
+inline bool equal_vectors_tol(const std::vector<T> &a, const std::vector<T> &b, T tolerance)
 {
     if (a.size() != b.size())
     {

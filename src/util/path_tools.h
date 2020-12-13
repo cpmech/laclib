@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <limits.h>
 
-std::string path_get_self_exe()
+inline std::string path_get_self_exe()
 {
     char buff[PATH_MAX];
     ssize_t len = ::readlink("/proc/self/exe", buff, sizeof(buff) - 1);
@@ -16,7 +16,7 @@ std::string path_get_self_exe()
     throw "cannot read self/exe path";
 }
 
-std::string path_get_current()
+inline std::string path_get_current()
 {
     return std::filesystem::current_path();
 }
