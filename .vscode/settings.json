@@ -2,5 +2,17 @@
   "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
   "files.exclude": {
     "**/build/": true
+  },
+  "files.associations": {
+    "*.C": "cpp",
+    "optional": "cpp",
+    "random": "cpp",
+    "limits": "cpp",
+    "new": "cpp",
+    "*.tcc": "cpp",
+    "cmath": "cpp",
+    "utility": "cpp",
+    "memory": "cpp",
+    "numeric": "cpp"
   }
 }
