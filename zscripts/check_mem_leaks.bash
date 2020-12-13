@@ -1,3 +1,5 @@
 #!/bin/bash
 
-cd build && ctest -T memcheck
+cd build
+make
+ctest -T memcheck
