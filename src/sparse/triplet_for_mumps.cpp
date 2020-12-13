@@ -7,9 +7,9 @@
 
 std::unique_ptr<TripletForMumps> triplet_for_mumps_new(size_t m, size_t n, size_t max)
 {
-    make_mumps_int(m + 1);   // check if size_t fits MUMPS_INT
-    make_mumps_int(n + 1);   // check if size_t fits MUMPS_INT
-    make_mumps_int(max + 1); // check if size_t fits MUMPS_INT
+    make_mumps_int(m);   // check if size_t fits MUMPS_INT
+    make_mumps_int(n);   // check if size_t fits MUMPS_INT
+    make_mumps_int(max); // check if size_t fits MUMPS_INT
 
     return std::unique_ptr<TripletForMumps>{new TripletForMumps{
         m,
