@@ -11,6 +11,7 @@ ReadMatrixResults read_matrix(std::string filename, bool mirrorIfSym)
     }
 
     ReadMatrixResults results;
+    results.symmetric = false;
 
     bool initialized = false;
     size_t deltaIndex = 0;
