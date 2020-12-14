@@ -21,21 +21,36 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
     trip->put_zero_based(1, 4, +6.0);
     trip->put_zero_based(4, 4, +1.0);
 
-    SUBCASE("MUMPS allocs properly")
+    SUBCASE("make_new")
     {
         auto solver = MumpsSolver::make_new();
 
-        CHECK(solver.get()->data.comm_fortran == -987654);
+        CHECK(solver.get()->called_initialize == false);
+        CHECK(solver.get()->called_analize_and_factorize == false);
     }
 
-    SUBCASE("MUMPS init is OK")
+    SUBCASE("init")
     {
         auto options = MumpsOptions::make_new();
-        options.verbose = true;
-
         auto solver = MumpsSolver::make_new();
-        solver->init(options);
+        solver->initialize(options);
 
+        CHECK(solver.get()->data.comm_fortran == -987654);
+        CHECK(solver.get()->called_initialize == true);
+        CHECK(solver.get()->called_analize_and_factorize == false);
+
+        solver->terminate();
+    }
+
+    SUBCASE("analize_and_factorize")
+    {
+        auto options = MumpsOptions::make_new();
+        auto solver = MumpsSolver::make_new();
+        solver->initialize(options);
+
+        CHECK(solver.get()->called_initialize == true);
+
+        solver->analize_and_factorize(trip.get());
         solver->terminate();
     }
 

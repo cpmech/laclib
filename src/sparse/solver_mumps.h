@@ -71,19 +71,22 @@ struct MumpsSolver
 {
     DMUMPS_STRUC_C data;
     MumpsOptions options;
+    bool called_initialize;
+    bool called_analize_and_factorize;
 
     inline static std::unique_ptr<MumpsSolver> make_new()
     {
         DMUMPS_STRUC_C data;
-        data.comm_fortran = MUMPS_USE_COMM_WORLD;
         return std::unique_ptr<MumpsSolver>{
             new MumpsSolver{
                 data,
                 MumpsOptions::make_new(),
+                false,
+                false,
             }};
     };
 
-    void init(MumpsOptions options);
+    void initialize(MumpsOptions options);
     void analize_and_factorize(TripletForMumps *trip);
     void solve();
     void terminate();
