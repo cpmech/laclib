@@ -2,16 +2,35 @@
 #include "dmumps_c.h"
 #include "solver_mumps.h"
 
-#define ICNTL(I) icntl[(I)-1] // macro s.t. indices match documentation
+#define ICNTL(I) icntl[(I)-1] // macro to make indices match documentation
+
+void icntl_set_verbose(DMUMPS_STRUC_C &data, bool verbose)
+{
+    if (verbose)
+    {
+        data.ICNTL(1) = 6; // standard output stream
+        data.ICNTL(2) = 0; // output stream
+        data.ICNTL(3) = 6; // standard output stream
+        data.ICNTL(4) = 2; // errors, warnings, and main statistics printed
+    }
+    else
+    {
+        data.ICNTL(1) = -1; // no output messages
+        data.ICNTL(2) = -1; // no warnings
+        data.ICNTL(3) = -1; // no global information
+        data.ICNTL(4) = -1; // message level
+    }
+}
 
 void MumpsSolver::initialize(MumpsOptions options)
 {
-    this->data.comm_fortran = MUMPS_USE_COMM_WORLD;
     this->options = options;
+    this->data.comm_fortran = MUMPS_USE_COMM_WORLD;
     this->data.par = 1; // host also works
     this->data.sym = options.symmetry;
     this->data.job = MUMPS_JOB_INIT;
     dmumps_c(&this->data);
+    icntl_set_verbose(this->data, options.verbose);
     this->called_initialize = true;
 }
 

@@ -4,6 +4,8 @@
 #include <vector>
 using namespace std;
 
+#define ICNTL(I) icntl[(I)-1] // macro such that indices match documentation
+
 MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
 {
     auto trip = triplet_for_mumps_new(5, 5, 13);
@@ -25,6 +27,10 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
     {
         auto solver = MumpsSolver::make_new();
 
+        CHECK(solver.get()->options.verbose == false);
+        CHECK(solver.get()->options.symmetry == SYMMETRY_NONE);
+        CHECK(solver.get()->options.ordering == ORDERING_AUTO);
+        CHECK(solver.get()->options.scaling == SCALING_AUTO);
         CHECK(solver.get()->called_initialize == false);
         CHECK(solver.get()->called_analize_and_factorize == false);
     }
@@ -36,6 +42,10 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
         solver->initialize(options);
 
         CHECK(solver.get()->data.comm_fortran == -987654);
+        CHECK(solver.get()->data.ICNTL(1) == -1);
+        CHECK(solver.get()->data.ICNTL(2) == -1);
+        CHECK(solver.get()->data.ICNTL(3) == -1);
+        CHECK(solver.get()->data.ICNTL(4) == -1);
         CHECK(solver.get()->called_initialize == true);
         CHECK(solver.get()->called_analize_and_factorize == false);
 
