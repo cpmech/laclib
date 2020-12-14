@@ -4,9 +4,9 @@
 
 #define ICNTL(I) icntl[(I)-1] // macro s.t. indices match documentation
 
-void MumpsSolver::init(TripletForMumps &trip, MumpsOptions &options)
+void MumpsSolver::init(MumpsOptions options)
 {
-    // initialize a MUMPS instance
+    this->options = options;
     this->data.par = 1; // host also works
     this->data.sym = options.symmetry;
     this->data.job = MUMPS_JOB_INIT;
@@ -26,5 +26,11 @@ void MumpsSolver::init(TripletForMumps &trip, MumpsOptions &options)
     }
 }
 */
+
+void MumpsSolver::terminate()
+{
+    this->data.job = MUMPS_JOB_END;
+    dmumps_c(&this->data);
+}
 
 #undef ICNTL

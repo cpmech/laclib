@@ -5,6 +5,8 @@
 
 const MUMPS_INT MUMPS_USE_COMM_WORLD = -987654;
 const MUMPS_INT MUMPS_JOB_INIT = -1;
+const MUMPS_INT MUMPS_JOB_END = -2;
+const MUMPS_INT MUMPS_JOB_ANA_FACT_SOLVE = 6;
 
 enum MumpsSymmetry
 {
@@ -35,6 +37,18 @@ enum MumpsScaling
     SCALING_AUTO = 77,
 };
 
+enum MumpsJobs
+{
+    JOB_INITIALIZE = -1,
+    JOB_TERMINATE = -2,
+    JOB_ANALIZE = 1,
+    JOB_FACTORIZE = 2,
+    JOB_SOLVE = 3,
+    JOB_ANALIZE_AND_FACTORIZE = 4,
+    JOB_FACTORIZE_AND_SOLVE = 5,
+    JOB_ANALIZE_FACTORIZE_AND_SOLVE = 6,
+};
+
 struct MumpsOptions
 {
     bool verbose;
@@ -56,18 +70,21 @@ struct MumpsOptions
 struct MumpsSolver
 {
     DMUMPS_STRUC_C data;
+    MumpsOptions options;
 
     inline static std::unique_ptr<MumpsSolver> make_new()
     {
         DMUMPS_STRUC_C data;
-
         data.comm_fortran = MUMPS_USE_COMM_WORLD;
-
         return std::unique_ptr<MumpsSolver>{
             new MumpsSolver{
                 data,
+                MumpsOptions::make_new(),
             }};
     };
 
-    void init(TripletForMumps &trip, MumpsOptions &options);
+    void init(MumpsOptions options);
+    void analize_and_factorize(TripletForMumps *trip);
+    void solve();
+    void terminate();
 };
