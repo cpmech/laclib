@@ -1,4 +1,5 @@
 #include <memory>
+#include <vector>
 #include "dmumps_c.h"
 #include "solver_mumps.h"
 
@@ -56,14 +57,21 @@ void MumpsSolver::analize_and_factorize(TripletForMumps *trip)
     this->called_analize_and_factorize = true;
 }
 
-/*
-    // define the problem on the host
-    if (mpi_rank == 0)
+void MumpsSolver::solve(std::vector<double> &input_rhs_output_x, bool iam_root_proc)
+{
+    if (!this->called_analize_and_factorize)
     {
-        // this->data.rhs = rhs;
+        throw "MumpsSolver::solve: must call analize_and_factorize first";
     }
+
+    if (iam_root_proc)
+    {
+        this->data.rhs = &input_rhs_output_x[0];
+    }
+
+    this->data.job = MUMPS_JOB_SOLVE;
+    dmumps_c(&this->data);
 }
-*/
 
 void MumpsSolver::terminate()
 {

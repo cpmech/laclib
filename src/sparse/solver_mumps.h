@@ -7,6 +7,7 @@ const MUMPS_INT MUMPS_USE_COMM_WORLD = -987654;
 const MUMPS_INT MUMPS_JOB_INITIALIZE = -1;
 const MUMPS_INT MUMPS_JOB_TERMINATE = -2;
 const MUMPS_INT MUMPS_JOB_ANALIZE_AND_FACTORIZE = 4;
+const MUMPS_INT MUMPS_JOB_SOLVE = 3;
 
 enum MumpsSymmetry
 {
@@ -76,6 +77,7 @@ struct MumpsSolver
 
     void initialize(MumpsOptions options);
     void analize_and_factorize(TripletForMumps *trip);
-    void solve();
+    // void solve(double *x, double *rhs, bool rhs_is_distributed);
+    void solve(std::vector<double> &input_rhs_output_x, bool iam_root_proc);
     void terminate();
 };
