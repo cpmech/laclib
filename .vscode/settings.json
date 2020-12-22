@@ -1,5 +1,16 @@
 {
-  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+  "C_Cpp.default.includePath": ["/usr/local/include/mumps"],
+  "cmake.configureOnOpen": false,
+  "cmake.debugConfig": {
+    "stopAtEntry": false,
+    "MIMode": "gdb",
+    "miDebuggerPath": "/usr/bin/gdb",
+    "logging": {
+      "trace": true,
+      "engineLogging": true,
+      "traceResponse": true
+    }
+  },
   "files.exclude": {
     "**/build/": true
   },

@@ -1,3 +1,6 @@
+set(CMAKE_C_COMPILER "mpiicc")
+set(CMAKE_CXX_COMPILER "mpiicpc")
+
 cmake_minimum_required(VERSION 3.16)
 project(Project)
 include(CTest)
@@ -36,10 +39,6 @@ endif(A_MAKE_OPTIMIZED)
 
 set(LIBS)
 set(LFLAGS)
-
-find_package(MPI)
-include_directories(${MPI_CXX_INCLUDE_PATH})
-set(LIBS ${LIBS} ${MPI_CXX_LIBRARIES})
 
 include(FindMUMPS.cmake)
 include_directories(${MUMPS_INCLUDE_DIRS})
