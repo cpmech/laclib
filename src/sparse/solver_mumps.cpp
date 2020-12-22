@@ -28,10 +28,13 @@ void MumpsSolver::initialize(MumpsOptions options)
     this->data.comm_fortran = MUMPS_USE_COMM_WORLD;
     this->data.par = 1; // host also works
     this->data.sym = options.symmetry;
-    this->data.job = MUMPS_JOB_INIT;
+
+    this->data.job = MUMPS_JOB_INITIALIZE;
     dmumps_c(&this->data);
+
     icntl_set_verbose(this->data, options.verbose);
     this->called_initialize = true;
+    this->called_analize_and_factorize = false;
 }
 
 void MumpsSolver::analize_and_factorize(TripletForMumps *trip)
@@ -46,6 +49,11 @@ void MumpsSolver::analize_and_factorize(TripletForMumps *trip)
     this->data.irn = trip->I.data();
     this->data.jcn = trip->J.data();
     this->data.a = trip->X.data();
+
+    this->data.job = MUMPS_JOB_ANALIZE_AND_FACTORIZE;
+    dmumps_c(&this->data);
+
+    this->called_analize_and_factorize = true;
 }
 
 /*
@@ -64,8 +72,11 @@ void MumpsSolver::terminate()
         throw "MumpsSolver::terminate: must call initialize first";
     }
 
-    this->data.job = MUMPS_JOB_END;
+    this->data.job = MUMPS_JOB_TERMINATE;
     dmumps_c(&this->data);
+
+    this->called_initialize = false;
+    this->called_analize_and_factorize = false;
 }
 
 #undef ICNTL

@@ -35,7 +35,7 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
         CHECK(solver.get()->called_analize_and_factorize == false);
     }
 
-    SUBCASE("init")
+    SUBCASE("initialize")
     {
         auto options = MumpsOptions::make_new();
         auto solver = MumpsSolver::make_new();
@@ -50,6 +50,9 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
         CHECK(solver.get()->called_analize_and_factorize == false);
 
         solver->terminate();
+
+        CHECK(solver.get()->called_initialize == false);
+        CHECK(solver.get()->called_analize_and_factorize == false);
     }
 
     SUBCASE("analize_and_factorize")
@@ -61,7 +64,14 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
         CHECK(solver.get()->called_initialize == true);
 
         solver->analize_and_factorize(trip.get());
+
+        CHECK(solver.get()->called_initialize == true);
+        CHECK(solver.get()->called_analize_and_factorize == true);
+
         solver->terminate();
+
+        CHECK(solver.get()->called_initialize == false);
+        CHECK(solver.get()->called_analize_and_factorize == false);
     }
 
     /*

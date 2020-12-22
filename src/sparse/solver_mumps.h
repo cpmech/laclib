@@ -4,9 +4,9 @@
 #include "triplet_for_mumps.h"
 
 const MUMPS_INT MUMPS_USE_COMM_WORLD = -987654;
-const MUMPS_INT MUMPS_JOB_INIT = -1;
-const MUMPS_INT MUMPS_JOB_END = -2;
-const MUMPS_INT MUMPS_JOB_ANA_FACT_SOLVE = 6;
+const MUMPS_INT MUMPS_JOB_INITIALIZE = -1;
+const MUMPS_INT MUMPS_JOB_TERMINATE = -2;
+const MUMPS_INT MUMPS_JOB_ANALIZE_AND_FACTORIZE = 4;
 
 enum MumpsSymmetry
 {
@@ -35,18 +35,6 @@ enum MumpsScaling
     SCALING_RC_ITERATIVE = 7,
     SCALING_RC_RIGOROUS = 8,
     SCALING_AUTO = 77,
-};
-
-enum MumpsJobs
-{
-    JOB_INITIALIZE = -1,
-    JOB_TERMINATE = -2,
-    JOB_ANALIZE = 1,
-    JOB_FACTORIZE = 2,
-    JOB_SOLVE = 3,
-    JOB_ANALIZE_AND_FACTORIZE = 4,
-    JOB_FACTORIZE_AND_SOLVE = 5,
-    JOB_ANALIZE_FACTORIZE_AND_SOLVE = 6,
 };
 
 struct MumpsOptions
