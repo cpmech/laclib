@@ -30,7 +30,7 @@ endforeach(var)
 
 foreach(var ${TESTS_MPI_NP1})
     add_executable(${var} "${var}.cpp" z_test_mpi_main.cpp)
-    add_test(NAME ${var} COMMAND mpirun -np 1 ${var})
+    add_test(NAME ${var} COMMAND mpirun -np 1 $<TARGET_FILE:${var}>)
     target_link_libraries(${var} PUBLIC laclib ${LIBS})
     # disable warning due to doctest.h functions:
     # warning #2196: routine is both "inline" and "noinline"
