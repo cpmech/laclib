@@ -25,17 +25,25 @@ int MumpsSolver::analize_and_factorize(TripletForMumps *trip, const MumpsOptions
     return status;
 }
 
-int MumpsSolver::solve(std::vector<double> &input_rhs_output_x, bool iam_root_proc, bool verbose)
+int MumpsSolver::solve(std::vector<double> &x, const std::vector<double> &rhs, bool verbose)
 {
     if (!this->factorized)
     {
         throw "MumpsSolver::solve: factorization must be completed first";
     }
 
-    if (iam_root_proc)
+    if (x.size() != rhs.size())
     {
-        this->data.rhs = input_rhs_output_x.data();
+        throw "MumpsSolver::solve: x and rhs vectors must have the same size";
     }
+
+    x = rhs;
+
+    // if (iam_root_proc)
+    // {
+    // this->data.rhs = input_rhs_output_x.data();
+    // }
+    this->data.rhs = x.data();
 
     auto status = call_dmumps(&this->data, MUMPS_JOB_SOLVE, verbose);
 
