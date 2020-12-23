@@ -39,6 +39,6 @@ struct MumpsSolver
     };
 
     int analize_and_factorize(TripletForMumps *trip, const MumpsOptions &options, bool verbose);
-    int solve(std::vector<double> &x, const std::vector<double> &rhs, bool verbose);
+    int solve(std::vector<double> &x, const std::vector<double> &rhs, bool rhs_is_distributed, bool verbose);
     void terminate();
 };

@@ -1,10 +1,16 @@
 #include <memory>
 #include <vector>
+#include <algorithm>
 #include "dmumps_c.h"
 #include "solver_mumps.h"
 
 int MumpsSolver::analize_and_factorize(TripletForMumps *trip, const MumpsOptions &options, bool verbose)
 {
+    if (!mpi.belong())
+    {
+        throw "MumpsSolver::analize_and_factorize: must only be called by processors in the group";
+    }
+
     handle_options_and_set_distributed(&this->data, options);
 
     this->data.n = make_mumps_int(trip->m);
@@ -25,8 +31,13 @@ int MumpsSolver::analize_and_factorize(TripletForMumps *trip, const MumpsOptions
     return status;
 }
 
-int MumpsSolver::solve(std::vector<double> &x, const std::vector<double> &rhs, bool verbose)
+int MumpsSolver::solve(std::vector<double> &x, const std::vector<double> &rhs, bool rhs_is_distributed, bool verbose)
 {
+    if (!mpi.belong())
+    {
+        throw "MumpsSolver::analize_and_factorize: must only be called by processors in the group";
+    }
+
     if (!this->factorized)
     {
         throw "MumpsSolver::solve: factorization must be completed first";
@@ -37,13 +48,23 @@ int MumpsSolver::solve(std::vector<double> &x, const std::vector<double> &rhs, b
         throw "MumpsSolver::solve: x and rhs vectors must have the same size";
     }
 
-    x = rhs;
+    if (rhs_is_distributed)
+    {
+        std::fill(x.begin(), x.end(), 0.0);
+        this->mpi.reduce_sum(x, rhs);
+    }
+    else
+    {
+        if (this->mpi.rank() == 0)
+        {
+            x = rhs;
+        }
+    }
 
-    // if (iam_root_proc)
-    // {
-    // this->data.rhs = input_rhs_output_x.data();
-    // }
-    this->data.rhs = x.data();
+    if (this->mpi.rank() == 0)
+    {
+        this->data.rhs = x.data();
+    }
 
     auto status = call_dmumps(&this->data, MUMPS_JOB_SOLVE, verbose);
 

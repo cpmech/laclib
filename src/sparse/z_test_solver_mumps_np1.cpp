@@ -66,6 +66,7 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
     {
         auto solver = MumpsSolver::make_new(mpi, MUMPS_SYMMETRY_NONE);
         auto options = MumpsOptions::make_new();
+        auto rhs_is_distributed = false;
         auto verbose = false;
 
         auto status = solver->analize_and_factorize(trip.get(), options, verbose);
@@ -76,7 +77,7 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
         auto x = vector<double>{0, 0, 0, 0, 0};
         auto x_correct = vector<double>{1, 2, 3, 4, 5};
 
-        status = solver->solve(x, rhs, verbose);
+        status = solver->solve(x, rhs, rhs_is_distributed, verbose);
         CHECK(status == 0);
         CHECK(equal_vectors_tol(x, x_correct, 1e-14) == true);
 
