@@ -26,12 +26,15 @@ inline void handle_verbose(DMUMPS_STRUC_C *data, bool verbose)
     }
 }
 
-inline void handle_options(DMUMPS_STRUC_C *data, const MumpsOptions &options)
+inline void handle_options_and_set_distributed(DMUMPS_STRUC_C *data, const MumpsOptions &options)
 {
     data->ICNTL(7) = options.ordering;
     data->ICNTL(8) = options.scaling;
     data->ICNTL(14) = options.pct_inc_workspace;
     data->ICNTL(23) = options.max_work_memory;
+
+    data->ICNTL(18) = MUMPS_USE_DISTRIBUTED_MATRIX;
+    data->ICNTL(6) = MUMPS_NO_COL_PERM_FOR_DISTR_MATRIX; // set this to remove warning
 }
 
 inline std::string handle_infog(DMUMPS_STRUC_C *data)

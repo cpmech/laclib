@@ -3,14 +3,9 @@
 #include "dmumps_c.h"
 #include "solver_mumps.h"
 
-#define ICNTL(I) icntl[(I)-1] // macro to make indices match documentation
-
 int MumpsSolver::analize_and_factorize(TripletForMumps *trip, const MumpsOptions &options, bool verbose)
 {
-    handle_options(&this->data, options);
-
-    this->data.ICNTL(6) = MUMPS_NO_COL_PERM_FOR_DISTR_MATRIX;
-    this->data.ICNTL(18) = MUMPS_DISTRIBUTED_MATRIX;
+    handle_options_and_set_distributed(&this->data, options);
 
     this->data.n = make_mumps_int(trip->m);
     this->data.nz_loc = make_mumps_int8(trip->pos);
@@ -58,5 +53,3 @@ void MumpsSolver::terminate()
 
     this->factorized = false;
 }
-
-#undef ICNTL
