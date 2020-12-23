@@ -24,6 +24,18 @@
     "cmath": "cpp",
     "utility": "cpp",
     "memory": "cpp",
-    "numeric": "cpp"
+    "numeric": "cpp",
+    "array": "cpp",
+    "bitset": "cpp",
+    "string": "cpp",
+    "vector": "cpp",
+    "string_view": "cpp",
+    "functional": "cpp",
+    "iomanip": "cpp",
+    "istream": "cpp",
+    "ostream": "cpp",
+    "ratio": "cpp",
+    "sstream": "cpp",
+    "streambuf": "cpp"
   }
 }
