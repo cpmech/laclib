@@ -1,0 +1,48 @@
+#pragma once
+#include "dmumps_c.h"
+
+const MUMPS_INT MUMPS_USE_COMM_WORLD = -987654;
+
+enum MumpsSymmetry
+{
+    MUMPS_SYMMETRY_NONE = 0,
+    MUMPS_SYMMETRY_POS_DEF = 1,
+    MUMPS_SYMMETRY_GENERAL = 2,
+};
+
+enum MumpsOrdering
+{
+    MUMPS_ORDERING_AMD = 0,
+    MUMPS_ORDERING_AMF = 2,
+    MUMPS_ORDERING_SCOTCH = 3,
+    MUMPS_ORDERING_PORD = 4,
+    MUMPS_ORDERING_METIS = 5,
+    MUMPS_ORDERING_QAMD = 6,
+    MUMPS_ORDERING_AUTO = 7,
+};
+
+enum MumpsScaling
+{
+    MUMPS_SCALING_NONE = 0,
+    MUMPS_SCALING_DIAGONAL = 1,
+    MUMPS_SCALING_COLUMN = 3,
+    MUMPS_SCALING_ROWCOL = 4,
+    MUMPS_SCALING_RC_ITERATIVE = 7,
+    MUMPS_SCALING_RC_RIGOROUS = 8,
+    MUMPS_SCALING_AUTO = 77,
+};
+
+enum MumpsJob
+{
+    MUMPS_JOB_INITIALIZE = -1,
+    MUMPS_JOB_TERMINATE = -2,
+    MUMPS_JOB_ANALIZE_AND_FACTORIZE = 4,
+    MUMPS_JOB_SOLVE = 3,
+};
+
+enum MumpsStatus
+{
+    MUMPS_OK = 0,
+    MUMPS_FAIL = -1,
+    MUMPS_WARNING = +1,
+};

@@ -2,82 +2,34 @@
 #include <memory>
 #include "dmumps_c.h"
 #include "triplet_for_mumps.h"
-
-const MUMPS_INT MUMPS_USE_COMM_WORLD = -987654;
-const MUMPS_INT MUMPS_JOB_INITIALIZE = -1;
-const MUMPS_INT MUMPS_JOB_TERMINATE = -2;
-const MUMPS_INT MUMPS_JOB_ANALIZE_AND_FACTORIZE = 4;
-const MUMPS_INT MUMPS_JOB_SOLVE = 3;
-
-enum MumpsSymmetry
-{
-    SYMMETRY_NONE = 0,
-    SYMMETRY_POS_DEF = 1,
-    SYMMETRY_GENERAL = 2,
-};
-
-enum MumpsOrdering
-{
-    ORDERING_AMD = 0,
-    ORDERING_AMF = 2,
-    ORDERING_SCOTCH = 3,
-    ORDERING_PORD = 4,
-    ORDERING_METIS = 5,
-    ORDERING_QAMD = 6,
-    ORDERING_AUTO = 7,
-};
-
-enum MumpsScaling
-{
-    SCALING_NONE = 0,
-    SCALING_DIAGONAL = 1,
-    SCALING_COLUMN = 3,
-    SCALING_ROWCOL = 4,
-    SCALING_RC_ITERATIVE = 7,
-    SCALING_RC_RIGOROUS = 8,
-    SCALING_AUTO = 77,
-};
-
-struct MumpsOptions
-{
-    bool verbose;
-    MumpsSymmetry symmetry;
-    MumpsOrdering ordering;
-    MumpsScaling scaling;
-
-    inline static MumpsOptions make_new()
-    {
-        return {
-            false,
-            SYMMETRY_NONE,
-            ORDERING_AUTO,
-            SCALING_AUTO,
-        };
-    };
-};
+#include "solver_mumps_constants.h"
+#include "solver_mumps_wrapper.h"
 
 struct MumpsSolver
 {
     DMUMPS_STRUC_C data;
-    MumpsOptions options;
-    bool called_initialize;
-    bool called_analize_and_factorize;
+    bool factorized;
 
-    inline static std::unique_ptr<MumpsSolver> make_new()
+    inline static std::unique_ptr<MumpsSolver> make_new(MumpsSymmetry symmetry)
     {
         DMUMPS_STRUC_C data;
-        return std::unique_ptr<MumpsSolver>{
+        data.comm_fortran = MUMPS_USE_COMM_WORLD;
+        data.par = 1; // host also works
+        data.sym = symmetry;
+
+        call_dmumps(&data, MUMPS_JOB_INITIALIZE, false);
+
+        auto solver = std::unique_ptr<MumpsSolver>{
             new MumpsSolver{
                 data,
-                MumpsOptions::make_new(),
-                false,
                 false,
             }};
+
+        return solver;
     };
 
-    void initialize(MumpsOptions options);
-    void analize_and_factorize(TripletForMumps *trip);
+    int analize_and_factorize(TripletForMumps *trip, MumpsOrdering ordering, MumpsScaling scaling, bool verbose);
     // void solve(double *x, double *rhs, bool rhs_is_distributed);
-    void solve(std::vector<double> &input_rhs_output_x, bool iam_root_proc);
+    int solve(std::vector<double> &input_rhs_output_x, bool iam_root_proc, bool verbose);
     void terminate();
 };
