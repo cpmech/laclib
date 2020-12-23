@@ -2,6 +2,8 @@
 #include "dmumps_c.h"
 
 const MUMPS_INT MUMPS_USE_COMM_WORLD = -987654;
+const MUMPS_INT MUMPS_USE_DISTRIBUTED_MATRIX = 3;
+const MUMPS_INT MUMPS_DEFAULT_PCT_INC_WORKSPACE = 20;
 
 enum MumpsSymmetry
 {
@@ -38,11 +40,4 @@ enum MumpsJob
     MUMPS_JOB_TERMINATE = -2,
     MUMPS_JOB_ANALIZE_AND_FACTORIZE = 4,
     MUMPS_JOB_SOLVE = 3,
-};
-
-enum MumpsStatus
-{
-    MUMPS_OK = 0,
-    MUMPS_FAIL = -1,
-    MUMPS_WARNING = +1,
 };
