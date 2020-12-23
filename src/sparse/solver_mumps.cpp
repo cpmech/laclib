@@ -3,20 +3,20 @@
 #include "dmumps_c.h"
 #include "solver_mumps.h"
 
-int MumpsSolver::analize_and_factorize(TripletForMumps *trip, MumpsOrdering ordering, MumpsScaling scaling, bool verbose)
+#define ICNTL(I) icntl[(I)-1] // macro to make indices match documentation
+
+int MumpsSolver::analize_and_factorize(TripletForMumps *trip, const MumpsOptions &options, bool verbose)
 {
+    handle_options(&this->data, options);
+
+    this->data.ICNTL(6) = MUMPS_NO_COL_PERM_FOR_DISTR_MATRIX;
+    this->data.ICNTL(18) = MUMPS_DISTRIBUTED_MATRIX;
+
     this->data.n = make_mumps_int(trip->m);
-    this->data.nnz = make_mumps_int8(trip->pos);
-    this->data.irn = trip->I.data();
-    this->data.jcn = trip->J.data();
-    this->data.a = trip->X.data();
-
-    handle_ordering_and_scaling(&this->data, ordering, scaling);
-
-    // if (job == MUMPS_JOB_INITIALIZE)
-    // {
-    //     data->INFOG(18) = 3; // distributed matrix
-    // }
+    this->data.nz_loc = make_mumps_int8(trip->pos);
+    this->data.irn_loc = trip->I.data();
+    this->data.jcn_loc = trip->J.data();
+    this->data.a_loc = trip->X.data();
 
     this->factorized = false;
 
@@ -58,3 +58,5 @@ void MumpsSolver::terminate()
 
     this->factorized = false;
 }
+
+#undef ICNTL

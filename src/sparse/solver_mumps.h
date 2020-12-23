@@ -3,6 +3,7 @@
 #include "dmumps_c.h"
 #include "triplet_for_mumps.h"
 #include "solver_mumps_constants.h"
+#include "solver_mumps_options.h"
 #include "solver_mumps_wrapper.h"
 
 struct MumpsSolver
@@ -17,7 +18,12 @@ struct MumpsSolver
         data.par = 1; // host also works
         data.sym = symmetry;
 
-        call_dmumps(&data, MUMPS_JOB_INITIALIZE, false);
+        auto status = call_dmumps(&data, MUMPS_JOB_INITIALIZE, false);
+
+        if (status != 0)
+        {
+            throw "MumpsSolver::make_new: MUMPS initialization failed";
+        }
 
         auto solver = std::unique_ptr<MumpsSolver>{
             new MumpsSolver{
@@ -28,7 +34,7 @@ struct MumpsSolver
         return solver;
     };
 
-    int analize_and_factorize(TripletForMumps *trip, MumpsOrdering ordering, MumpsScaling scaling, bool verbose);
+    int analize_and_factorize(TripletForMumps *trip, const MumpsOptions &options, bool verbose);
     // void solve(double *x, double *rhs, bool rhs_is_distributed);
     int solve(std::vector<double> &input_rhs_output_x, bool iam_root_proc, bool verbose);
     void terminate();

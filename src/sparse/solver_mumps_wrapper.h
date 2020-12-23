@@ -1,6 +1,7 @@
 #pragma once
 #include "dmumps_c.h"
 #include "solver_mumps_constants.h"
+#include "solver_mumps_options.h"
 #include <iostream>
 #include <string>
 
@@ -25,10 +26,12 @@ inline void handle_verbose(DMUMPS_STRUC_C *data, bool verbose)
     }
 }
 
-inline void handle_ordering_and_scaling(DMUMPS_STRUC_C *data, MumpsOrdering ordering, MumpsScaling scaling)
+inline void handle_options(DMUMPS_STRUC_C *data, const MumpsOptions &options)
 {
-    data->ICNTL(7) = ordering;
-    data->ICNTL(8) = scaling;
+    data->ICNTL(7) = options.ordering;
+    data->ICNTL(8) = options.scaling;
+    data->ICNTL(14) = options.pct_inc_workspace;
+    data->ICNTL(23) = options.max_work_memory;
 }
 
 inline std::string handle_infog(DMUMPS_STRUC_C *data)

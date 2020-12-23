@@ -3,7 +3,6 @@
 #include "triplet_for_mumps.h"
 #include "solver_mumps.h"
 #include <vector>
-#include <iostream>
 using namespace std;
 
 #define ICNTL(I) icntl[(I)-1] // macro such that indices match documentation
@@ -46,9 +45,14 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
     SUBCASE("analize_and_factorize")
     {
         auto solver = MumpsSolver::make_new(MUMPS_SYMMETRY_NONE);
+        auto options = MumpsOptions::make_new();
         auto verbose = false;
 
-        auto status = solver->analize_and_factorize(trip.get(), MUMPS_ORDERING_AUTO, MUMPS_SCALING_AUTO, verbose);
+        auto status = solver->analize_and_factorize(trip.get(), options, verbose);
+        CHECK(options.ordering == MUMPS_ORDERING_AUTO);
+        CHECK(options.scaling == MUMPS_SCALING_AUTO);
+        CHECK(options.pct_inc_workspace == MUMPS_DEFAULT_PCT_INC_WORKSPACE);
+        CHECK(options.max_work_memory == 0);
         CHECK(status == 0);
         CHECK(solver.get()->factorized == true);
         CHECK(solver.get()->data.INFOG(7) == MUMPS_ORDERING_AMF);
@@ -60,15 +64,16 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
     SUBCASE("solve system")
     {
         auto solver = MumpsSolver::make_new(MUMPS_SYMMETRY_NONE);
-        auto in_rhs_out_x = vector<double>{8.0, 45.0, -3.0, 3.0, 19.0};
-        auto x_correct = vector<double>{1, 2, 3, 4, 5};
+        auto options = MumpsOptions::make_new();
         auto verbose = false;
 
-        auto status = solver->analize_and_factorize(trip.get(), MUMPS_ORDERING_AUTO, MUMPS_SCALING_AUTO, verbose);
+        auto status = solver->analize_and_factorize(trip.get(), options, verbose);
         CHECK(status == 0);
         CHECK(solver.get()->factorized == true);
 
-        verbose = false;
+        auto in_rhs_out_x = vector<double>{8.0, 45.0, -3.0, 3.0, 19.0};
+        auto x_correct = vector<double>{1, 2, 3, 4, 5};
+
         status = solver->solve(in_rhs_out_x, true, verbose);
         CHECK(status == 0);
         CHECK(equal_vectors_tol(in_rhs_out_x, x_correct, 1e-14) == true);
