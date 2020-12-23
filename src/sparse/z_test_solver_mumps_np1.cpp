@@ -13,7 +13,7 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
 {
     auto trip = triplet_for_mumps_new(5, 5, 13);
     trip->put_zero_based(0, 0, +1.0); // << duplicated
-    trip->put_zero_based(0, 0, +2.0); // << duplicated
+    trip->put_zero_based(0, 0, +1.0); // << duplicated
     trip->put_zero_based(1, 0, +3.0);
     trip->put_zero_based(0, 1, +3.0);
     trip->put_zero_based(2, 1, -1.0);
@@ -68,16 +68,10 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
         CHECK(status == 0);
         CHECK(solver.get()->factorized == true);
 
-        verbose = true;
+        verbose = false;
         status = solver->solve(in_rhs_out_x, true, verbose);
         CHECK(status == 0);
-
-        for (auto v : in_rhs_out_x)
-        {
-            cout << v << endl;
-        }
-
-        CHECK(equal_vectors(in_rhs_out_x, x_correct) == true);
+        CHECK(equal_vectors_tol(in_rhs_out_x, x_correct, 1e-14) == true);
 
         solver->terminate();
         CHECK(solver.get()->factorized == false);

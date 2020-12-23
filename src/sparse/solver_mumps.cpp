@@ -13,6 +13,11 @@ int MumpsSolver::analize_and_factorize(TripletForMumps *trip, MumpsOrdering orde
 
     handle_ordering_and_scaling(&this->data, ordering, scaling);
 
+    // if (job == MUMPS_JOB_INITIALIZE)
+    // {
+    //     data->INFOG(18) = 3; // distributed matrix
+    // }
+
     this->factorized = false;
 
     auto status = call_dmumps(&this->data, MUMPS_JOB_ANALIZE_AND_FACTORIZE, verbose);
@@ -34,7 +39,7 @@ int MumpsSolver::solve(std::vector<double> &input_rhs_output_x, bool iam_root_pr
 
     if (iam_root_proc)
     {
-        this->data.rhs = &input_rhs_output_x[0];
+        this->data.rhs = input_rhs_output_x.data();
     }
 
     auto status = call_dmumps(&this->data, MUMPS_JOB_SOLVE, verbose);
