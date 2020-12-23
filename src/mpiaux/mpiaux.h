@@ -88,8 +88,12 @@ struct MpiAux
         return static_cast<size_t>(size);
     }
 
+    // reduce_sum combines orig from all processors into the processor with rank == 0
+    // This function also sums the values at repeated locations.
+    // NOTE: the smallest size between dest and orig is considered
     inline void reduce_sum(std::vector<double> &dest, const std::vector<double> &orig)
     {
-        MPI_Reduce(orig.data(), dest.data(), dest.size(), MPI_DOUBLE, MPI_SUM, 0, this->comm);
+        size_t n = dest.size() < orig.size() ? dest.size() : orig.size();
+        MPI_Reduce(orig.data(), dest.data(), n, MPI_DOUBLE, MPI_SUM, 0, this->comm);
     }
 };
