@@ -14,6 +14,9 @@ struct MpiAux
     //            if ranks.size == 0, will use the World Communicator
     inline static MpiAux make_new(const std::vector<int> &ranks)
     {
+        // reference:
+        // https://mpitutorial.com/tutorials/introduction-to-groups-and-communicators/
+
         // grab world communicator and its group
         MPI_Comm world_comm = MPI_COMM_WORLD;
         MPI_Group world_group;
@@ -43,15 +46,43 @@ struct MpiAux
         };
     };
 
-    inline size_t rank()
+    // clean-up
+    ~MpiAux()
     {
+        if (this->comm != MPI_COMM_NULL && this->comm != MPI_COMM_WORLD)
+        {
+            MPI_Group_free(&this->group);
+            MPI_Comm_free(&this->comm);
+        }
+    }
+
+    // belong returns whether this processor belongs to group or not
+    inline bool belong()
+    {
+        return this->comm != MPI_COMM_NULL;
+    }
+
+    // returns the rank of this processor or -1 if it's outside the group
+    inline int rank()
+    {
+        if (this->comm == MPI_COMM_NULL)
+        {
+            return -1;
+        }
+
         int rank;
         MPI_Comm_rank(this->comm, &rank);
         return static_cast<size_t>(rank);
     }
 
-    inline size_t size()
+    // returns the size of this group or -1 if it's outside the group
+    inline int size()
     {
+        if (this->comm == MPI_COMM_NULL)
+        {
+            return -1;
+        }
+
         int size;
         MPI_Comm_size(this->comm, &size);
         return static_cast<size_t>(size);
