@@ -57,5 +57,4 @@ add_library(laclib SHARED
     src/sparse/triplet_for_mumps.cpp
 )
 
-target_compile_definitions(laclib PUBLIC "-DMKL_ILP64 -mkl=parallel")
-target_link_libraries(laclib PUBLIC ${MKL_LIBS} ${MUMPS_LIBS})
+target_link_libraries(laclib PUBLIC ${MUMPS_LIBS} ${MKL_LIBS})

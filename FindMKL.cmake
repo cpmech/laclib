@@ -14,7 +14,7 @@ set(IOMP_LIBRARY_SEARCH_PATH
 )
 
 find_path(MKL_INC mkl.h ${MKL_INCLUDE_SEARCH_PATH})
-find_library(MKL_LIB_1 NAMES mkl_intel_ilp64 PATHS ${MKL_LIBRARY_SEARCH_PATH})
+find_library(MKL_LIB_1 NAMES mkl_intel_lp64 PATHS ${MKL_LIBRARY_SEARCH_PATH})
 find_library(MKL_LIB_2 NAMES mkl_intel_thread PATHS ${MKL_LIBRARY_SEARCH_PATH})
 find_library(MKL_LIB_3 NAMES mkl_core PATHS ${MKL_LIBRARY_SEARCH_PATH})
 
