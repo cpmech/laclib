@@ -46,6 +46,7 @@ double ddot(int n,
 // Dscal scales a vector by a constant. Uses unrolled loops for increment equal to 1.
 //
 //  See: http://www.netlib.org/lapack/explore-html/d4/dd0/dscal_8f.html
+//
 void dscal(int n,
            double alpha,
            std::vector<double> &x,
@@ -92,6 +93,7 @@ void daxpy(int n,
 //     trans=false     y := alpha*A*x + beta*y.
 //
 //     trans=true      y := alpha*A**T*x + beta*y.
+//
 void dgemv(bool trans,
            int m,
            int n,
@@ -137,6 +139,7 @@ void dgemv(bool trans,
 //
 //  alpha and beta are scalars, and A, B and C are matrices, with op( A )
 //  an m by k matrix,  op( B )  a  k by n matrix and  C an m by n matrix.
+//
 void dgemm(bool transA,
            bool transB,
            int m,
@@ -189,6 +192,7 @@ void dgemm(bool transA,
 //  system of equations A * X = B.
 //
 //  NOTE: matrix 'a' will be modified
+//
 void dgesv(int n,
            int nrhs,
            std::vector<double> &a,
