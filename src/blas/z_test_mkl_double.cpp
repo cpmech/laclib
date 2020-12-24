@@ -2,6 +2,7 @@
 #include "../util/doctest.h"
 #include "../util/print_vector.h"
 #include "../check/check.h"
+#include "conversions.h"
 #include "mkl_double.h"
 #include <vector>
 #include <iostream>
@@ -45,5 +46,85 @@ TEST_CASE("mkl_double")
         auto y_correct = vector<double>{-5, 0, -9, 666, 666, 666};
         CHECK(equal_vectors_tol(x, x_correct, 1e-15));
         CHECK(equal_vectors_tol(y, y_correct, 1e-15));
+    }
+
+    SUBCASE("dgemv")
+    {
+        auto a = vector<double>{0.1, 1, 2, 3, 0.2, 0.2, 0.2, 0.2, 0.3, 0.3, 0.3, 0.3};
+
+        // perform mv
+        int m = 4;
+        int n = 3;
+        double alpha = 0.5;
+        double beta = 2.0;
+        auto x = vector<double>{20, 10, 30};
+        auto y = vector<double>{3, 1, 2, 4};
+        int lda = m;
+        int incx = 1;
+        int incy = 1;
+        dgemv(false, m, n, alpha, a, lda, x, incx, beta, y, incy);
+        auto y_correct = vector<double>{12.5, 17.5, 29.5, 43.5};
+        CHECK(equal_vectors_tol(y, y_correct, 1e-15));
+
+        // perform mv with transpose
+        dgemv(true, m, n, alpha, a, lda, y, incy, beta, x, incx);
+        auto x_correct = vector<double>{144.125, 30.3, 75.45};
+        CHECK(equal_vectors_tol(x, x_correct, 1e-15));
+
+        // check that a is unmodified
+        auto a_correct = vector<double>{0.1, 1, 2, 3, 0.2, 0.2, 0.2, 0.2, 0.3, 0.3, 0.3, 0.3};
+        CHECK(equal_vectors_tol(a, a_correct, 1e-15));
+    }
+
+    SUBCASE("dgemm")
+    {
+        // allocate matrices
+        auto a = vecvec_to_colmaj(vector<vector<double>>{
+            // 4 x 5
+            {1, 2, +0, 1, -1},
+            {2, 3, -1, 1, +1},
+            {1, 2, +0, 4, -1},
+            {4, 0, +3, 1, +1},
+        });
+        auto b = vecvec_to_colmaj(vector<vector<double>>{
+            // 5 x 3
+            {1, 0, 0},
+            {0, 0, 3},
+            {0, 0, 1},
+            {1, 0, 1},
+            {0, 2, 0},
+        });
+        auto c = vecvec_to_colmaj(vector<vector<double>>{
+            // 4 x 3
+            {+0.50, 0, +0.25},
+            {+0.25, 0, -0.25},
+            {-0.25, 0, +0.00},
+            {-0.25, 0, +0.00},
+        });
+
+        // sizes
+        int m = 4; // m = nrow(a) = a.M = nrow(c)
+        int k = 5; // k = ncol(a) = a.N = nrow(b)
+        int n = 3; // n = ncol(b) = b.N = ncol(c)
+
+        // run dgemm
+        // c = 0.5⋅a⋅b + 2⋅c
+        auto transA = false;
+        auto transB = false;
+        double alpha = 0.5;
+        double beta = 2.0;
+        int lda = 4;
+        int ldb = 5;
+        int ldc = 4;
+        dgemm(transA, transB, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc);
+
+        // check
+        auto c_correct = vecvec_to_colmaj(vector<vector<double>>{
+            {2, -1, 4},
+            {2, +1, 4},
+            {2, -1, 5},
+            {2, +1, 2},
+        });
+        CHECK(equal_vectors_tol(c, c_correct, 1e-15));
     }
 }

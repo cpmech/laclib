@@ -1,4 +1,5 @@
 set(TESTS
+    z_test_conversions
     z_test_mkl_double
 )
 
