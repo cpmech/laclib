@@ -45,3 +45,17 @@ include_directories(${MUMPS_IDIRS})
 # subdirectories #############################################################################
 
 add_subdirectory(src)
+
+# library ####################################################################################
+
+add_library(laclib SHARED 
+    src/blas/mkl_wrapper.cpp
+    src/sparse/read_matrix.cpp
+    src/sparse/read_matrix_for_mumps.cpp
+    src/sparse/solver_mumps.cpp
+    src/sparse/triplet.cpp
+    src/sparse/triplet_for_mumps.cpp
+)
+
+target_compile_definitions(laclib PUBLIC "-DMKL_ILP64 -mkl=parallel")
+target_link_libraries(laclib PUBLIC ${MKL_LIBS} ${MUMPS_LIBS})

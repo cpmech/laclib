@@ -11,20 +11,15 @@
 //
 //  NOTE: the functions here do not check for the limits of indices. Be careful.
 
+#pragma once
 #include "mkl.h"
 #include <vector>
 
 // set_num_threads sets the number of threads
-inline void set_num_threads(int n)
-{
-    mkl_set_num_threads(n);
-}
+void set_num_threads(int n);
 
 // ddot forms the dot product of two vectors. uses unrolled loops for increments equal to one.
 //
 //  See: http://www.netlib.org/lapack/explore-html/d5/df6/ddot_8f.html
 //
-inline double ddot(int n, const std::vector<double> &x, int incx, const std::vector<double> &y, int incy)
-{
-    return cblas_ddot(n, x.data(), incx, y.data(), incy);
-}
+double ddot(int n, const std::vector<double> &x, int incx, const std::vector<double> &y, int incy);

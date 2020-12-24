@@ -1,13 +1,3 @@
-add_library(laclib SHARED 
-    read_matrix.cpp
-    read_matrix_for_mumps.cpp
-    solver_mumps.cpp
-    triplet.cpp
-    triplet_for_mumps.cpp
-)
-
-target_link_libraries(laclib PUBLIC ${MUMPS_LIBS})
-
 set(TESTS
     z_test_read_matrix
     z_test_read_matrix_for_mumps
