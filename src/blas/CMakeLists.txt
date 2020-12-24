@@ -1,5 +1,5 @@
 set(TESTS
-    z_test_mkl_wrapper
+    z_test_mkl_double
 )
 
 foreach(var ${TESTS})

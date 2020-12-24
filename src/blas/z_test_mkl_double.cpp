@@ -1,11 +1,11 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "../util/doctest.h"
 #include "../check/check.h"
-#include "mkl_wrapper.h"
+#include "mkl_double.h"
 #include <vector>
 using namespace std;
 
-TEST_CASE("mkl_wrapper")
+TEST_CASE("mkl_double")
 {
     SUBCASE("ddot")
     {
