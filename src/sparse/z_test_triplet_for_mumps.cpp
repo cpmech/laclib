@@ -1,6 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "../util/doctest.h"
-#include "../check/equal_vectors.h"
+#include "../check/check.h"
 #include "triplet_for_mumps.h"
 #include <vector>
 using namespace std;

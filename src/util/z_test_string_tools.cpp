@@ -1,6 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
-#include "../check/equal_vectors.h"
+#include "../check/check.h"
 #include "string_tools.h"
 #include <vector>
 #include <string>

@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "../util/doctest.h"
 #include "../util/path_tools.h"
-#include "../check/equal_vectors.h"
+#include "../check/check.h"
 #include "read_matrix.h"
 #include <vector>
 using namespace std;

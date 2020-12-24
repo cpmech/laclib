@@ -37,12 +37,10 @@ endif(A_MAKE_OPTIMIZED)
 
 # dependencies ###############################################################################
 
-set(LIBS)
-set(LFLAGS)
-
+include(FindMKL.cmake)
 include(FindMUMPS.cmake)
-include_directories(${MUMPS_INCLUDE_DIRS})
-set(LIBS ${LIBS} ${MUMPS_LIBRARIES})
+include_directories(${MKL_IDIRS})
+include_directories(${MUMPS_IDIRS})
 
 # subdirectories #############################################################################
 

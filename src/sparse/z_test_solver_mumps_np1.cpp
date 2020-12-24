@@ -1,7 +1,7 @@
 #include <vector>
 #include "solver_mumps.h"
 #include "triplet_for_mumps.h"
-#include "../check/equal_vectors.h"
+#include "../check/check.h"
 #include "../mpiaux/mpiaux.h"
 #include "../util/doctest_mpi.h"
 using namespace std;

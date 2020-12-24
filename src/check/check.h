@@ -2,7 +2,7 @@
 #include <cmath>
 #include <vector>
 
-template <class T>
+template <typename T>
 inline bool equal_vectors(const std::vector<T> &a, const std::vector<T> &b)
 {
     if (a.size() != b.size())
@@ -19,7 +19,7 @@ inline bool equal_vectors(const std::vector<T> &a, const std::vector<T> &b)
     return true;
 }
 
-template <class T>
+template <typename T>
 inline bool equal_vectors_tol(const std::vector<T> &a, const std::vector<T> &b, T tolerance)
 {
     if (a.size() != b.size())
@@ -32,6 +32,16 @@ inline bool equal_vectors_tol(const std::vector<T> &a, const std::vector<T> &b, 
         {
             return false;
         }
+    }
+    return true;
+}
+
+template <typename T>
+inline bool equal_scalars_tol(T a, T b, T tolerance)
+{
+    if (fabs(double(a) - double(b)) > tolerance)
+    {
+        return false;
     }
     return true;
 }

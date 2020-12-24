@@ -1,11 +1,12 @@
 set(TESTS
-    z_test_equal_vectors
-    z_test_equal_scalars
+    z_test_mkl_wrapper
 )
 
 foreach(var ${TESTS})
     add_executable(${var} "${var}.cpp")
     add_test(NAME ${var} COMMAND ${var})
+    target_compile_definitions(${var} PUBLIC "-DMKL_ILP64 -mkl=parallel")
+    target_link_libraries(${var} PUBLIC ${MKL_LIBS})
     # disable warning due to doctest.h functions:
     # warning #2196: routine is both "inline" and "noinline"
     set_target_properties(${var} PROPERTIES COMPILE_FLAGS "-diag-disable=2196")
