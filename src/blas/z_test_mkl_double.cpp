@@ -212,4 +212,36 @@ TEST_CASE("mkl_double")
         });
         CHECK(equal_vectors_tol(c_mat, c_correct, 1e-15));
     }
+
+    SUBCASE("dgesv")
+    {
+        // matrix
+        auto a = vecvec_to_colmaj(vector<vector<double>>{
+            {2, +3, +0, 0, 0},
+            {3, +0, +4, 0, 6},
+            {0, -1, -3, 2, 0},
+            {0, +0, +1, 0, 0},
+            {0, +4, +2, 0, 1},
+        });
+
+        // right-hand-side
+        auto b = vector<double>{8, 45, -3, 3, 19};
+
+        // solution
+        auto x_correct = vector<double>{1, 2, 3, 4, 5};
+
+        // run test
+        int n = 5;
+        int nrhs = 1;
+        int lda = n;
+        int ldb = n;
+        auto ipiv = vector<int>(n, 0);
+        dgesv(n, nrhs, a, lda, ipiv, b, ldb);
+
+        // check solution x = A⁻¹ b
+        CHECK(equal_vectors_tol(b, x_correct, 1e-14));
+
+        // check ipiv
+        CHECK(equal_vectors(ipiv, vector<int>{2, 5, 5, 5, 5}));
+    }
 }
