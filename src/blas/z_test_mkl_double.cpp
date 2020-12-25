@@ -10,6 +10,47 @@ using namespace std;
 
 TEST_CASE("mkl_double")
 {
+    // 4 x 5
+    auto a_mat = vecvec_to_colmaj(vector<vector<double>>{
+        {1, 2, +0, 1, -1},
+        {2, 3, -1, 1, +1},
+        {1, 2, +0, 4, -1},
+        {4, 0, +3, 1, +1},
+    });
+
+    // 5 x 4
+    auto at_mat = vecvec_to_colmaj(vector<vector<double>>{
+        {+1, +2, +1, +4},
+        {+2, +3, +2, +0},
+        {+0, -1, +0, +3},
+        {+1, +1, +4, +1},
+        {-1, +1, -1, +1},
+    });
+
+    // 5 x 3
+    auto b_mat = vecvec_to_colmaj(vector<vector<double>>{
+        {1, 0, 0},
+        {0, 0, 3},
+        {0, 0, 1},
+        {1, 0, 1},
+        {0, 2, 0},
+    });
+
+    // 4 x 3
+    auto c_mat = vecvec_to_colmaj(vector<vector<double>>{
+        {+0.50, 0, +0.25},
+        {+0.25, 0, -0.25},
+        {-0.25, 0, +0.00},
+        {-0.25, 0, +0.00},
+    });
+
+    // 3 x 5
+    auto bt_mat = vecvec_to_colmaj(vector<vector<double>>{
+        {1, 0, 0, 1, 0},
+        {0, 0, 0, 0, 2},
+        {0, 3, 1, 1, 0},
+    });
+
     SUBCASE("ddot")
     {
         auto x = vector<double>{20, 10, 30, 123, 123};
@@ -76,39 +117,12 @@ TEST_CASE("mkl_double")
         CHECK(equal_vectors_tol(a, a_correct, 1e-15));
     }
 
-    SUBCASE("dgemm")
+    SUBCASE("dgemm 1: c = 0.5⋅a⋅b + 2⋅c")
     {
-        // allocate matrices
-        auto a = vecvec_to_colmaj(vector<vector<double>>{
-            // 4 x 5
-            {1, 2, +0, 1, -1},
-            {2, 3, -1, 1, +1},
-            {1, 2, +0, 4, -1},
-            {4, 0, +3, 1, +1},
-        });
-        auto b = vecvec_to_colmaj(vector<vector<double>>{
-            // 5 x 3
-            {1, 0, 0},
-            {0, 0, 3},
-            {0, 0, 1},
-            {1, 0, 1},
-            {0, 2, 0},
-        });
-        auto c = vecvec_to_colmaj(vector<vector<double>>{
-            // 4 x 3
-            {+0.50, 0, +0.25},
-            {+0.25, 0, -0.25},
-            {-0.25, 0, +0.00},
-            {-0.25, 0, +0.00},
-        });
-
-        // sizes
         int m = 4; // m = nrow(a) = a.M = nrow(c)
         int k = 5; // k = ncol(a) = a.N = nrow(b)
         int n = 3; // n = ncol(b) = b.N = ncol(c)
 
-        // run dgemm
-        // c = 0.5⋅a⋅b + 2⋅c
         auto transA = false;
         auto transB = false;
         double alpha = 0.5;
@@ -116,15 +130,86 @@ TEST_CASE("mkl_double")
         int lda = 4;
         int ldb = 5;
         int ldc = 4;
-        dgemm(transA, transB, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc);
+        dgemm(transA, transB, m, n, k, alpha, a_mat, lda, b_mat, ldb, beta, c_mat, ldc);
 
-        // check
         auto c_correct = vecvec_to_colmaj(vector<vector<double>>{
             {2, -1, 4},
             {2, +1, 4},
             {2, -1, 5},
             {2, +1, 2},
         });
-        CHECK(equal_vectors_tol(c, c_correct, 1e-15));
+        CHECK(equal_vectors_tol(c_mat, c_correct, 1e-15));
+    }
+
+    SUBCASE("dgemm 2: 0.5⋅a⋅bᵀ + 2⋅c")
+    {
+        int m = 4; // m = nrow(a)        = a.M = nrow(c)
+        int k = 5; // k = ncol(a)        = a.N = nrow(trans(b))
+        int n = 3; // n = ncol(trans(b)) = b.M = ncol(c)
+
+        auto transA = false;
+        auto transB = true;
+        double alpha = 0.5;
+        double beta = 2.0;
+        int lda = 4;
+        int ldb = 3;
+        int ldc = 4;
+        dgemm(transA, transB, m, n, k, alpha, a_mat, lda, bt_mat, ldb, beta, c_mat, ldc);
+
+        auto c_correct = vecvec_to_colmaj(vector<vector<double>>{
+            {2, -1, 4},
+            {2, +1, 4},
+            {2, -1, 5},
+            {2, +1, 2},
+        });
+        CHECK(equal_vectors_tol(c_mat, c_correct, 1e-15));
+    }
+
+    SUBCASE("dgemm 3: 0.5⋅aᵀ⋅b + 2⋅c")
+    {
+        int m = 4; // m = nrow(trans(a)) = a.N = nrow(c)
+        int k = 5; // k = ncol(trans(a)) = a.M = nrow(trans(b))
+        int n = 3; // n = ncol(b)        = b.N = ncol(c)
+
+        auto transA = true;
+        auto transB = false;
+        double alpha = 0.5;
+        double beta = 2.0;
+        int lda = 5;
+        int ldb = 5;
+        int ldc = 4;
+        dgemm(transA, transB, m, n, k, alpha, at_mat, lda, b_mat, ldb, beta, c_mat, ldc);
+
+        auto c_correct = vecvec_to_colmaj(vector<vector<double>>{
+            {2, -1, 4},
+            {2, +1, 4},
+            {2, -1, 5},
+            {2, +1, 2},
+        });
+        CHECK(equal_vectors_tol(c_mat, c_correct, 1e-15));
+    }
+
+    SUBCASE("dgemm: 4: 0.5⋅aᵀ⋅bᵀ + 2⋅c")
+    {
+        int m = 4; // m = nrow(trans(a)) = a.N = nrow(c)
+        int k = 5; // k = ncol(trans(a)) = a.M = nrow(trans(b))
+        int n = 3; // n = ncol(trans(b)) = b.M = ncol(c)
+
+        auto transA = true;
+        auto transB = true;
+        double alpha = 0.5;
+        double beta = 2.0;
+        int lda = 5;
+        int ldb = 3;
+        int ldc = 4;
+        dgemm(transA, transB, m, n, k, alpha, at_mat, lda, bt_mat, ldb, beta, c_mat, ldc);
+
+        auto c_correct = vecvec_to_colmaj(vector<vector<double>>{
+            {2, -1, 4},
+            {2, +1, 4},
+            {2, -1, 5},
+            {2, +1, 2},
+        });
+        CHECK(equal_vectors_tol(c_mat, c_correct, 1e-15));
     }
 }
