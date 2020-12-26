@@ -498,4 +498,31 @@ TEST_CASE("mkl_double")
 
         CHECK(equal_complex_vectors_tol(ww, ww_correct, 1e-15, 1e-15));
     }
+
+    SUBCASE("dger a = 100 + 0.5⋅u⋅vᵀ")
+    {
+        auto a = vecvec_to_colmaj(vector<vector<double>>{
+            {100, 100, 100},
+            {100, 100, 100},
+            {100, 100, 100},
+            {100, 100, 100},
+        });
+        auto u = vector<double>{1, 2, 3, 4};
+        auto v = vector<double>{4, 3, 2};
+
+        int m = 4; // m = nrow(a) = len(u)
+        int n = 3; // n = ncol(a) = len(v)
+
+        double alpha = 0.5;
+        int lda = 4;
+        dger(m, n, alpha, u, 1, v, 1, a, lda);
+
+        auto a_correct = vecvec_to_colmaj(vector<vector<double>>{
+            {102, 101.5, 101},
+            {104, 103.0, 102},
+            {106, 104.5, 103},
+            {108, 106.0, 104},
+        });
+        CHECK(equal_vectors_tol(a, a_correct, 1e-15));
+    }
 }

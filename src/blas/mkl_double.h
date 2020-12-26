@@ -474,3 +474,36 @@ void build_dgeev_complex_output(std::vector<std::complex<double>> &ww,
         }
     }
 }
+
+// dger performs the rank 1 operation
+//
+//  See: http://www.netlib.org/lapack/explore-html/dc/da8/dger_8f.html
+//
+//  See: https://software.intel.com/en-us/mkl-developer-reference-c-cblas-ger
+//
+//    A := alpha*x*y**T + A,
+//
+// where alpha is a scalar, x is an m element vector, y is an n element
+// vector and A is an m by n matrix.
+void dger(int m,
+          int n,
+          double alpha,
+          const std::vector<double> &x,
+          int incx,
+          const std::vector<double> &y,
+          int incy,
+          std::vector<double> &a,
+          int lda)
+{
+    cblas_dger(
+        CblasColMajor,
+        m,
+        n,
+        alpha,
+        x.data(),
+        incx,
+        y.data(),
+        incy,
+        a.data(),
+        lda);
+}
