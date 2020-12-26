@@ -525,4 +525,43 @@ TEST_CASE("mkl_double")
         });
         CHECK(equal_vectors_tol(a, a_correct, 1e-15));
     }
+
+    SUBCASE("dgetrf and dgetri")
+    {
+        auto a = vecvec_to_colmaj(vector<vector<double>>{
+            {1, 2, +0, 1},
+            {2, 3, -1, 1},
+            {1, 2, +0, 4},
+            {4, 0, +3, 1},
+        });
+        int m = 4;
+        int n = 4;
+
+        int lda = m;
+        int min_mn = m < n ? m : n;
+        auto ipiv = vector<int>(min_mn);
+        dgetrf(m, n, a, lda, ipiv);
+
+        auto ipiv_correct = vector<int>{4, 2, 3, 4};
+        auto lu = vecvec_to_colmaj(vector<vector<double>>{
+            {+4.0e+00, +0.000000000000000e+00, +3.000000000000000e+00, +1.000000000000000e+00},
+            {+5.0e-01, +3.000000000000000e+00, -2.500000000000000e+00, +5.000000000000000e-01},
+            {+2.5e-01, +6.666666666666666e-01, +9.166666666666665e-01, +3.416666666666667e+00},
+            {+2.5e-01, +6.666666666666666e-01, +1.000000000000000e+00, -3.000000000000000e+00},
+        });
+
+        CHECK(equal_vectors(ipiv, ipiv_correct));
+        CHECK(equal_vectors_tol(a, lu, 1e-15));
+
+        dgetri(n, a, lda, ipiv);
+
+        auto a_inverse = vecvec_to_colmaj(vector<vector<double>>{
+            {-8.484848484848487e-01, +5.454545454545455e-01, +3.030303030303039e-02, +1.818181818181818e-01},
+            {+1.090909090909091e+00, -2.727272727272728e-01, -1.818181818181817e-01, -9.090909090909091e-02},
+            {+1.242424242424243e+00, -7.272727272727273e-01, -1.515151515151516e-01, +9.090909090909088e-02},
+            {-3.333333333333333e-01, +0.000000000000000e+00, +3.333333333333333e-01, +0.000000000000000e+00},
+        });
+
+        CHECK(equal_vectors_tol(a, a_inverse, 1e-15));
+    }
 }

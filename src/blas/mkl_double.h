@@ -355,17 +355,17 @@ inline void dgesvd(char jobu,
 //    If jobvr = 'N', then right eigenvectors of A are not computed.
 //    If jobvr = 'V', then right eigenvectors of A are computed.
 //
-void dgeev(bool calc_vl,
-           bool calc_vr,
-           int n,
-           std::vector<double> &a,
-           int lda,
-           std::vector<double> &wr,
-           std::vector<double> &wi,
-           std::vector<double> &vl,
-           int ldvl,
-           std::vector<double> &vr,
-           int ldvr)
+inline void dgeev(bool calc_vl,
+                  bool calc_vr,
+                  int n,
+                  std::vector<double> &a,
+                  int lda,
+                  std::vector<double> &wr,
+                  std::vector<double> &wi,
+                  std::vector<double> &vl,
+                  int ldvl,
+                  std::vector<double> &vr,
+                  int ldvr)
 {
     char jobvl = 'N';
     char jobvr = 'N';
@@ -400,7 +400,7 @@ void dgeev(bool calc_vl,
         ldvr_effective);
     if (info != 0)
     {
-        throw "LAPACK failed on dgesvd on dgeev";
+        throw "LAPACK failed on dgeev";
     }
 }
 
@@ -419,13 +419,13 @@ void dgeev(bool calc_vl,
 //   n = wr.size() = wi.size() = vl.size() = vr.size()
 //   n*n = vvl.size() = vvr.size()
 //
-void build_dgeev_complex_output(std::vector<std::complex<double>> &ww,
-                                std::vector<std::complex<double>> &vvl,
-                                std::vector<std::complex<double>> &vvr,
-                                const std::vector<double> &wr,
-                                const std::vector<double> &wi,
-                                const std::vector<double> &vl,
-                                const std::vector<double> &vr)
+inline void build_dgeev_complex_output(std::vector<std::complex<double>> &ww,
+                                       std::vector<std::complex<double>> &vvl,
+                                       std::vector<std::complex<double>> &vvr,
+                                       const std::vector<double> &wr,
+                                       const std::vector<double> &wi,
+                                       const std::vector<double> &vl,
+                                       const std::vector<double> &vr)
 {
     // eigenvalues
     size_t n = wr.size();
@@ -485,15 +485,16 @@ void build_dgeev_complex_output(std::vector<std::complex<double>> &ww,
 //
 // where alpha is a scalar, x is an m element vector, y is an n element
 // vector and A is an m by n matrix.
-void dger(int m,
-          int n,
-          double alpha,
-          const std::vector<double> &x,
-          int incx,
-          const std::vector<double> &y,
-          int incy,
-          std::vector<double> &a,
-          int lda)
+//
+inline void dger(int m,
+                 int n,
+                 double alpha,
+                 const std::vector<double> &x,
+                 int incx,
+                 const std::vector<double> &y,
+                 int incy,
+                 std::vector<double> &a,
+                 int lda)
 {
     cblas_dger(
         CblasColMajor,
@@ -506,4 +507,66 @@ void dger(int m,
         incy,
         a.data(),
         lda);
+}
+
+// dgetrf computes an LU factorization of a general M-by-N matrix A using partial pivoting with row interchanges.
+//
+//  See: http://www.netlib.org/lapack/explore-html/d3/d6a/dgetrf_8f.html
+//
+//  See: https://software.intel.com/en-us/mkl-developer-reference-c-getrf
+//
+//  The factorization has the form
+//     A = P * L * U
+//  where P is a permutation matrix, L is lower triangular with unit
+//  diagonal elements (lower trapezoidal if m > n), and U is upper
+//  triangular (upper trapezoidal if m < n).
+//
+//  This is the right-looking Level 3 BLAS version of the algorithm.
+//
+//  NOTE: (1) matrix 'a' will be modified
+//        (2) ipiv indices are 1-based (i.e. Fortran)
+//
+inline void dgetrf(int m,
+                   int n,
+                   std::vector<double> &a,
+                   int lda,
+                   std::vector<int> &ipiv)
+{
+    int info = LAPACKE_dgetrf(
+        LAPACK_COL_MAJOR,
+        m,
+        n,
+        a.data(),
+        lda,
+        ipiv.data());
+    if (info != 0)
+    {
+        throw "LAPACK failed on dgetrf";
+    }
+}
+
+// dgetri computes the inverse of a matrix using the LU factorization computed by DGETRF.
+//
+//  See: http://www.netlib.org/lapack/explore-html/df/da4/dgetri_8f.html
+//
+//  See: https://software.intel.com/en-us/mkl-developer-reference-c-getri
+//
+//  This method inverts U and then computes inv(A) by solving the system
+//  inv(A)*L = inv(U) for inv(A).
+//
+inline void dgetri(int n,
+                   std::vector<double> &a,
+                   int lda,
+                   const std::vector<int> &ipiv)
+{
+    int info = LAPACKE_dgetri(
+        LAPACK_COL_MAJOR,
+        n,
+        a.data(),
+        lda,
+        ipiv.data());
+    if (info != 0)
+    {
+        throw "LAPACK failed on dgetri";
+    }
 }
