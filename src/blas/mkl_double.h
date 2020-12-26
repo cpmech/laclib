@@ -26,6 +26,23 @@ inline void set_num_threads(int n)
     mkl_set_num_threads(n);
 }
 
+// dcopy copies a vector, x, to a vector, y. uses unrolled loops for increments equal to 1.
+//
+//  See: http://www.netlib.org/lapack/explore-html/da/d6c/dcopy_8f.html
+//
+inline void dcopy(int n,
+                  const std::vector<double> &x,
+                  int incx,
+                  std::vector<double> &y,
+                  int incy)
+{
+    cblas_dcopy(n,
+                x.data(),
+                incx,
+                y.data(),
+                incy);
+}
+
 // ddot forms the dot product of two vectors. uses unrolled loops for increments equal to one.
 //
 //  See: http://www.netlib.org/lapack/explore-html/d5/df6/ddot_8f.html

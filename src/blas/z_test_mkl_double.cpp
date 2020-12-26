@@ -176,6 +176,18 @@ TEST_CASE("mkl_double")
         +7.220870298624550e-01,
     };
 
+    SUBCASE("dcopy")
+    {
+        auto x = vector<double>{20, 10, 30, 123, 123};
+        auto y = vector<double>(x.size(), 0.0);
+        int n = 3;
+        int incx = 1;
+        int incy = 1;
+        dcopy(n, x, incx, y, incy);
+        auto y_correct = vector<double>{20, 10, 30, 0, 0};
+        CHECK(equal_vectors_tol(y, y_correct, 1e-15));
+    }
+
     SUBCASE("ddot")
     {
         auto x = vector<double>{20, 10, 30, 123, 123};
