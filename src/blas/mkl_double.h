@@ -289,3 +289,156 @@ inline void dgesvd(char jobu,
         throw "LAPACK failed on dgesvd";
     }
 }
+
+// dgeev computes for an N-by-N real nonsymmetric matrix A, the
+// eigenvalues and, optionally, the left and/or right eigenvectors.
+//
+//  See: http://www.netlib.org/lapack/explore-html/d9/d28/dgeev_8f.html
+//
+//  See: https://software.intel.com/en-us/mkl-developer-reference-c-geev
+//
+//  See: https://www.nag.co.uk/numeric/fl/nagdoc_fl26/html/f08/f08naf.html
+//
+//  The right eigenvector v(j) of A satisfies
+//
+//                   A * v(j) = lambda(j) * v(j)
+//
+//  where lambda(j) is its eigenvalue.
+//
+//  The left eigenvector u(j) of A satisfies
+//
+//                u(j)**H * A = lambda(j) * u(j)**H
+//
+//  where u(j)**H denotes the conjugate-transpose of u(j).
+//
+//  The computed eigenvectors are normalized to have Euclidean norm
+//  equal to 1 and largest component real.
+//
+//  jobvl
+//    CHARACTER*1. Must be 'N' or 'V'.
+//    If jobvl = 'N', then left eigenvectors of A are not computed.
+//    If jobvl = 'V', then left eigenvectors of A are computed.
+//  jobvr
+//    CHARACTER*1. Must be 'N' or 'V'.
+//    If jobvr = 'N', then right eigenvectors of A are not computed.
+//    If jobvr = 'V', then right eigenvectors of A are computed.
+//
+void dgeev(bool calc_vl,
+           bool calc_vr,
+           int n,
+           std::vector<double> &a,
+           int lda,
+           std::vector<double> &wr,
+           std::vector<double> &wi,
+           std::vector<double> &vl,
+           int ldvl,
+           std::vector<double> &vr,
+           int ldvr)
+{
+    char jobvl = 'N';
+    char jobvr = 'N';
+    double *vl_effective = NULL;
+    double *vr_effective = NULL;
+    int ldvl_effective = 1;
+    int ldvr_effective = 1;
+    if (calc_vl)
+    {
+        jobvl = 'V';
+        vl_effective = vl.data();
+        ldvl_effective = ldvl;
+    }
+    if (calc_vr)
+    {
+        jobvr = 'V';
+        vr_effective = vr.data();
+        ldvr_effective = ldvr;
+    }
+    int info = LAPACKE_dgeev(
+        LAPACK_COL_MAJOR,
+        jobvl,
+        jobvr,
+        n,
+        a.data(),
+        lda,
+        wr.data(),
+        wi.data(),
+        vl_effective,
+        ldvl_effective,
+        vr_effective,
+        ldvr_effective);
+    if (info != 0)
+    {
+        throw "LAPACK failed on dgesvd on dgeev";
+    }
+}
+
+// build_dgeev_complex_output builds the complex left and right
+// eigenvectors resulting from the dgeev function
+//
+//  INPUT:
+//   wr, wi -- real and imag parts of eigenvalues
+//   vl, vr -- left and right eigenvectors from dgeev
+//
+//  OUTPUT:
+//   ww -- complex eigenvalues
+//   vvl, vvr -- complex version of left and right eigenvectors [pre-allocated]
+//
+//  NOTE (no checks made)
+//   n = wr.size() = wi.size() = vl.size() = vr.size()
+//   n*n = vvl.size() = vvr.size()
+//
+void build_dgeev_complex_output(std::vector<std::complex<double>> &ww,
+                                std::vector<std::complex<double>> &vvl,
+                                std::vector<std::complex<double>> &vvr,
+                                const std::vector<double> &wr,
+                                const std::vector<double> &wi,
+                                const std::vector<double> &vl,
+                                const std::vector<double> &vr)
+{
+    // eigenvalues
+    size_t n = wr.size();
+    for (size_t i = 0; i < n; i++)
+    {
+        ww[i] = std::complex<double>(wr[i], wi[i]);
+    }
+
+    // loop over columns == eigenvalues
+    int dj = 1; // increment for next conjugate pair
+    for (size_t j = 0; j < n; j += dj)
+    {
+        // eigenvalue is complex
+        if (fabs(wi[j]) > 0.0)
+        {
+            // check
+            if (j > n - 2)
+            {
+                throw "dgeev_complex_output: last eigenvalue cannot be complex";
+            }
+
+            // loop over rows
+            for (size_t i = 0; i < n; i++)
+            {
+                size_t p = i + j * n;
+                size_t q = i + (j + 1) * n;
+                vvl[p] = std::complex<double>(vl[p], vl[q]);
+                vvr[p] = std::complex<double>(vr[p], vr[q]);
+                vvl[q] = std::complex<double>(vl[p], -vl[q]);
+                vvr[q] = std::complex<double>(vr[p], -vr[q]);
+            }
+            dj = 2;
+        }
+
+        // eigenvalue is real only
+        else
+        {
+            // loop over rows
+            for (size_t i = 0; i < n; i++)
+            {
+                size_t p = i + j * n;
+                vvl[p] = std::complex<double>(vl[p], 0.0);
+                vvr[p] = std::complex<double>(vr[p], 0.0);
+            }
+            dj = 1;
+        }
+    }
+}

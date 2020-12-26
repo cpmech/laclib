@@ -13,7 +13,8 @@
 //
 //   NOTE: make sure to have at least 1x1 item
 //
-inline std::vector<double> vecvec_to_colmaj(const std::vector<std::vector<double>> &a)
+template <typename T>
+inline std::vector<T> vecvec_to_colmaj(const std::vector<std::vector<T>> &a)
 {
     if (a.size() < 1)
     {
@@ -21,7 +22,7 @@ inline std::vector<double> vecvec_to_colmaj(const std::vector<std::vector<double
     }
     auto m = a.size();
     auto n = a[0].size();
-    auto data = std::vector<double>(m * n, 0.0);
+    auto data = std::vector<T>(m * n, 0.0);
     size_t k = 0;
     for (size_t j = 0; j < n; j++)
     {
@@ -36,9 +37,10 @@ inline std::vector<double> vecvec_to_colmaj(const std::vector<std::vector<double
 
 // colmaj_to_vecvec converts col-major matrix to nested vector
 // see vecvec_to_col_major()
-inline std::vector<std::vector<double>> colmaj_to_vecvec(size_t m, size_t n, const std::vector<double> &data)
+template <typename T>
+inline std::vector<std::vector<T>> colmaj_to_vecvec(size_t m, size_t n, const std::vector<T> &data)
 {
-    auto a = std::vector<std::vector<double>>(m, std::vector<double>(n, 0));
+    auto a = std::vector<std::vector<T>>(m, std::vector<T>(n, 0));
     for (size_t i = 0; i < m; i++)
     {
         for (size_t j = 0; j < n; j++)
@@ -50,9 +52,10 @@ inline std::vector<std::vector<double>> colmaj_to_vecvec(size_t m, size_t n, con
 }
 
 // extract_row extracts i row from (m,n) col-major matrix
-inline std::vector<double> colmaj_extract_row(size_t i, size_t m, size_t n, const std::vector<double> &a)
+template <typename T>
+inline std::vector<T> colmaj_extract_row(size_t i, size_t m, size_t n, const std::vector<T> &a)
 {
-    auto rowi = std::vector<double>(n, 0.0);
+    auto rowi = std::vector<T>(n, 0.0);
     for (size_t j = 0; j < n; j++)
     {
         rowi[j] = a[i + j * m];
@@ -61,9 +64,10 @@ inline std::vector<double> colmaj_extract_row(size_t i, size_t m, size_t n, cons
 }
 
 // extract_col extracts j column from (m,n) col-major matrix
-inline std::vector<double> colmaj_extract_col(size_t j, size_t m, size_t n, const std::vector<double> &a)
+template <typename T>
+inline std::vector<T> colmaj_extract_col(size_t j, size_t m, size_t n, const std::vector<T> &a)
 {
-    auto colj = std::vector<double>(m, 0.0);
+    auto colj = std::vector<T>(m, 0.0);
     for (size_t i = 0; i < m; i++)
     {
         colj[i] = a[i + j * m];

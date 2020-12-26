@@ -6,6 +6,7 @@
 #include "conversions.h"
 #include "mkl_double.h"
 #include <cmath>
+#include <complex>
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -66,7 +67,7 @@ void checksvd(
 
 TEST_CASE("mkl_double")
 {
-    // 4 x 5
+    // 4 x 5 matrix
     auto a_mat = vecvec_to_colmaj(vector<vector<double>>{
         {1, 2, +0, 1, -1},
         {2, 3, -1, 1, +1},
@@ -74,7 +75,7 @@ TEST_CASE("mkl_double")
         {4, 0, +3, 1, +1},
     });
 
-    // 5 x 4
+    // 5 x 4 matrix
     auto at_mat = vecvec_to_colmaj(vector<vector<double>>{
         {+1, +2, +1, +4},
         {+2, +3, +2, +0},
@@ -83,7 +84,7 @@ TEST_CASE("mkl_double")
         {-1, +1, -1, +1},
     });
 
-    // 5 x 3
+    // 5 x 3 matrix
     auto b_mat = vecvec_to_colmaj(vector<vector<double>>{
         {1, 0, 0},
         {0, 0, 3},
@@ -92,7 +93,7 @@ TEST_CASE("mkl_double")
         {0, 2, 0},
     });
 
-    // 4 x 3
+    // 4 x 3 matrix
     auto c_mat = vecvec_to_colmaj(vector<vector<double>>{
         {+0.50, 0, +0.25},
         {+0.25, 0, -0.25},
@@ -100,12 +101,80 @@ TEST_CASE("mkl_double")
         {-0.25, 0, +0.00},
     });
 
-    // 3 x 5
+    // 3 x 5 matrix
     auto bt_mat = vecvec_to_colmaj(vector<vector<double>>{
         {1, 0, 0, 1, 0},
         {0, 0, 0, 0, 2},
         {0, 3, 1, 1, 0},
     });
+
+    // matrix for eigenvalues test
+    auto a_ev = vecvec_to_colmaj(vector<vector<double>>{
+        {+0.35, +0.45, -0.14, -0.17},
+        {+0.09, +0.07, -0.54, +0.35},
+        {-0.44, -0.33, -0.03, +0.17},
+        {+0.25, -0.32, -0.13, +0.11},
+    });
+
+    // eigenvalues
+    auto ww_correct = vector<complex<double>>{
+        +7.994821225862098e-01,
+        -9.941245329507467e-02 + 4.007924719897546e-01i,
+        -9.941245329507467e-02 - 4.007924719897546e-01i,
+        -1.006572159960587e-01,
+    };
+
+    // left eigenvectors
+    auto vl0_correct = vector<complex<double>>{
+        -6.244707486379453e-01,
+        -5.994889025288728e-01,
+        +4.999156725721429e-01,
+        -2.708616172576073e-02,
+    };
+    auto vl1_correct = vector<complex<double>>{
+        +5.330229831716200e-01,
+        -2.666163325181558e-01 + 4.041362636762622e-01i,
+        +3.455257668600027e-01 + 3.152853126680209e-01i,
+        -2.540814367391268e-01 - 4.451133008385643e-01i,
+    };
+    auto vl2_correct = vector<complex<double>>{
+        +5.330229831716200e-01,
+        -2.666163325181558e-01 - 4.041362636762622e-01i,
+        +3.455257668600027e-01 - 3.152853126680209e-01i,
+        -2.540814367391268e-01 + 4.451133008385643e-01i,
+    };
+    auto vl3_correct = vector<complex<double>>{
+        +6.641410231734539e-01,
+        -1.068153340034493e-01,
+        +7.293254091191846e-01,
+        +1.248664621625170e-01,
+    };
+
+    // right eigenvectors
+    auto vr0_correct = vector<complex<double>>{
+        -6.550887675124076e-01,
+        -5.236294609021240e-01,
+        +5.362184613722345e-01,
+        -9.560677820122976e-02,
+    };
+    auto vr1_correct = vector<complex<double>>{
+        -1.933015482642217e-01 + 2.546315719275843e-01i,
+        +2.518565317267399e-01 - 5.224047347116287e-01i,
+        +9.718245844328152e-02 - 3.083837558972283e-01i,
+        +6.759540542547480e-01,
+    };
+    auto vr2_correct = vector<complex<double>>{
+        -1.933015482642217e-01 - 2.546315719275843e-01i,
+        +2.518565317267399e-01 + 5.224047347116287e-01i,
+        +9.718245844328152e-02 + 3.083837558972283e-01i,
+        +6.759540542547480e-01,
+    };
+    auto vr3_correct = vector<complex<double>>{
+        +1.253326972309026e-01,
+        +3.320222155717508e-01,
+        +5.938377595573312e-01,
+        +7.220870298624550e-01,
+    };
 
     SUBCASE("ddot")
     {
@@ -340,5 +409,71 @@ TEST_CASE("mkl_double")
         });
         auto s_correct = vector<double>{+2.251695779937001e+02, +1.271865289052834e+02, +1.175789144211322e+01, +1.277237188369868e-14, +6.934703857768031e-15, +5.031833747507930e-15};
         checksvd(8, 6, a, s_correct, 1e-13, 1e-13);
+    }
+
+    SUBCASE("dgeev 1")
+    {
+        int n = 4;
+        int lda = n;
+
+        auto wr = vector<double>(n, 0.0);     // eigen values (real part)
+        auto wi = vector<double>(n, 0.0);     // eigen values (imaginary part)
+        auto vl = vector<double>(n * n, 0.0); // left eigenvectors
+        auto vr = vector<double>(n * n, 0.0); // right eigenvectors
+
+        int ldvl = n;
+        int ldvr = n;
+
+        bool calc_vl = true;
+        bool calc_vr = true;
+
+        dgeev(calc_vl, calc_vr, n, a_ev, lda, wr, wi, vl, ldvl, vr, ldvr);
+
+        auto zero = complex<double>(0, 0);
+        auto ww = vector<complex<double>>(n, zero);
+        auto vvl = vector<complex<double>>(n * n, zero);
+        auto vvr = vector<complex<double>>(n * n, zero);
+        build_dgeev_complex_output(ww, vvl, vvr, wr, wi, vl, vr);
+
+        // check eigenvalues
+        CHECK(equal_complex_vectors_tol(ww, ww_correct, 1e-15, 1e-15));
+
+        // check left eigenvectors
+        CHECK(equal_complex_vectors_tol(colmaj_extract_col(0, n, n, vvl), vl0_correct, 1e-15, 1e-15));
+        CHECK(equal_complex_vectors_tol(colmaj_extract_col(1, n, n, vvl), vl1_correct, 1e-15, 1e-15));
+        CHECK(equal_complex_vectors_tol(colmaj_extract_col(2, n, n, vvl), vl2_correct, 1e-15, 1e-15));
+        CHECK(equal_complex_vectors_tol(colmaj_extract_col(3, n, n, vvl), vl3_correct, 1e-15, 1e-15));
+
+        // check right eigenvectors
+        CHECK(equal_complex_vectors_tol(colmaj_extract_col(0, n, n, vvr), vr0_correct, 1e-15, 1e-15));
+        CHECK(equal_complex_vectors_tol(colmaj_extract_col(1, n, n, vvr), vr1_correct, 1e-15, 1e-15));
+        CHECK(equal_complex_vectors_tol(colmaj_extract_col(2, n, n, vvr), vr2_correct, 1e-15, 1e-15));
+        CHECK(equal_complex_vectors_tol(colmaj_extract_col(3, n, n, vvr), vr3_correct, 1e-15, 1e-15));
+    }
+
+    SUBCASE("dgeev 2 (eigenvalues only)")
+    {
+        int n = 4;
+        int lda = n;
+
+        auto wr = vector<double>(n, 0.0); // eigen values (real part)
+        auto wi = vector<double>(n, 0.0); // eigen values (imaginary part)
+        auto dummy = vector<double>();
+
+        const int DUMMY = 1;
+
+        bool calc_vl = false;
+        bool calc_vr = false;
+
+        dgeev(calc_vl, calc_vr, n, a_ev, lda, wr, wi, dummy, DUMMY, dummy, DUMMY);
+
+        auto zero = complex<double>(0, 0);
+        auto ww = vector<complex<double>>(n, zero);
+        for (size_t i = 0; i < n; i++)
+        {
+            ww[i] = std::complex<double>(wr[i], wi[i]);
+        }
+
+        CHECK(equal_complex_vectors_tol(ww, ww_correct, 1e-15, 1e-15));
     }
 }

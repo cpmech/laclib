@@ -3,6 +3,7 @@
 #include <string>
 #include <cmath>
 #include <cstdio>
+#include <complex>
 
 template <typename T>
 inline void print_colmaj(std::string name,
