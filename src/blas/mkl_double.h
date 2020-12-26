@@ -570,3 +570,39 @@ inline void dgetri(int n,
         throw "LAPACK failed on dgetri";
     }
 }
+
+// dpotrf computes the Cholesky factorization of a real symmetric positive definite matrix A.
+//
+//  See: http://www.netlib.org/lapack/explore-html/d0/d8a/dpotrf_8f.html
+//
+//  See: https://software.intel.com/en-us/mkl-developer-reference-c-potrf
+//
+//  The factorization has the form
+//
+//     A = U**T * U,  if UPLO = 'U'
+//
+//  or
+//
+//     A = L  * L**T,  if UPLO = 'L'
+//
+//  where U is an upper triangular matrix and L is lower triangular.
+//
+//  This is the block version of the algorithm, calling Level 3 BLAS.
+//
+inline void dpotrf(bool up,
+                   int n,
+                   std::vector<double> &a,
+                   int lda)
+{
+    char uplo = up ? 'U' : 'L';
+    int info = LAPACKE_dpotrf(
+        LAPACK_COL_MAJOR,
+        uplo,
+        n,
+        a.data(),
+        lda);
+    if (info != 0)
+    {
+        throw "LAPACK failed on dpotrf";
+    }
+}
