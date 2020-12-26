@@ -43,7 +43,7 @@ inline double ddot(int n,
                       incy);
 }
 
-// Dscal scales a vector by a constant. Uses unrolled loops for increment equal to 1.
+// dscal scales a vector by a constant. Uses unrolled loops for increment equal to 1.
 //
 //  See: http://www.netlib.org/lapack/explore-html/d4/dd0/dscal_8f.html
 //
@@ -58,7 +58,7 @@ inline void dscal(int n,
                 incx);
 }
 
-// Daxpy computes constant times a vector plus a vector.
+// daxpy computes constant times a vector plus a vector.
 //
 //  See: http://www.netlib.org/lapack/explore-html/d9/dcd/daxpy_8f.html
 //
@@ -80,7 +80,7 @@ inline void daxpy(int n,
                 incy);
 }
 
-// Dgemv performs one of the matrix-vector operations
+// dgemv performs one of the matrix-vector operations
 //
 //  See: http://www.netlib.org/lapack/explore-html/dc/da8/dgemv_8f.html
 //
@@ -120,7 +120,7 @@ inline void dgemv(bool trans,
                 incy);
 }
 
-// Dgemm performs one of the matrix-matrix operations
+// dgemm performs one of the matrix-matrix operations
 //
 //  false,false:  C_{m,n} := α ⋅ A_{m,k} ⋅ B_{k,n}  +  β ⋅ C_{m,n}
 //  false,true:   C_{m,n} := α ⋅ A_{m,k} ⋅ B_{n,k}  +  β ⋅ C_{m,n}
@@ -170,7 +170,7 @@ inline void dgemm(bool transA,
                 ldc);
 }
 
-// Dgesv computes the solution to a real system of linear equations.
+// dgesv computes the solution to a real system of linear equations.
 //
 //  See: http://www.netlib.org/lapack/explore-html/d8/d72/dgesv_8f.html
 //
@@ -217,5 +217,75 @@ inline void dgesv(int n,
     if (info != 0)
     {
         throw "LAPACK failed on dgesv";
+    }
+}
+
+// dgesvd computes the singular value decomposition (SVD) of a real M-by-N matrix A, optionally computing the left and/or right singular vectors.
+//
+//  See: http://www.netlib.org/lapack/explore-html/d8/d2d/dgesvd_8f.html
+//
+//  See: https://software.intel.com/en-us/mkl-developer-reference-c-gesvd
+//
+//  The SVD is written
+//
+//       A = U * SIGMA * transpose(V)
+//
+//  where SIGMA is an M-by-N matrix which is zero except for its
+//  min(m,n) diagonal elements, U is an M-by-M orthogonal matrix, and
+//  V is an N-by-N orthogonal matrix.  The diagonal elements of SIGMA
+//  are the singular values of A; they are real and non-negative, and
+//  are returned in descending order.  The first min(m,n) columns of
+//  U and V are the left and right singular vectors of A.
+//
+//  Note that the routine returns V**T, not V.
+//
+//  NOTE: matrix 'a' will be modified
+//
+//  jobu
+//    CHARACTER*1. Must be 'A', 'S', 'O', or 'N'.
+//    Specifies options for computing all or part of the matrix U.
+//    If jobu = 'A', all m columns of U are returned in the array u;
+//    if jobu = 'S', the first min(m, n) columns of U (the left singular vectors) are returned in the array u;
+//    if jobu = 'O', the first min(m, n) columns of U (the left singular vectors) are overwritten on the array a;
+//    if jobu = 'N', no columns of U (no left singular vectors) are computed.
+//  jobvt
+//    CHARACTER*1. Must be 'A', 'S', 'O', or 'N'.
+//    Specifies options for computing all or part of the matrix VT/VH.
+//    If jobvt = 'A', all n rows of VT/VH are returned in the array vt;
+//    if jobvt = 'S', the first min(m,n) rows of VT/VH (the right singular vectors) are returned in the array vt;
+//    if jobvt = 'O', the first min(m,n) rows of VT/VH) (the right singular vectors) are overwritten on the array a;
+//    if jobvt = 'N', no rows of VT/VH (no right singular vectors) are computed.
+//  jobvt and jobu cannot both be 'O'.
+//
+inline void dgesvd(char jobu,
+                   char jobvt,
+                   int m,
+                   int n,
+                   std::vector<double> &a,
+                   int lda,
+                   std::vector<double> &s,
+                   std::vector<double> &u,
+                   int ldu,
+                   std::vector<double> &vt,
+                   int ldvt,
+                   std::vector<double> &superb)
+{
+    int info = LAPACKE_dgesvd(
+        LAPACK_COL_MAJOR,
+        jobu,
+        jobvt,
+        m,
+        n,
+        a.data(),
+        lda,
+        s.data(),
+        u.data(),
+        ldu,
+        vt.data(),
+        ldvt,
+        superb.data());
+    if (info != 0)
+    {
+        throw "LAPACK failed on dgesvd";
     }
 }

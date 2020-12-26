@@ -2,11 +2,67 @@
 #include "../util/doctest.h"
 #include "../util/print_vector.h"
 #include "../check/check.h"
+#include "auxiliary.h"
 #include "conversions.h"
 #include "mkl_double.h"
+#include <cmath>
 #include <vector>
 #include <iostream>
 using namespace std;
+
+#define CMGET(a, num_rows, i, j) a[i + j * num_rows]
+
+void checksvd(
+    int m,
+    int n,
+    std::vector<double> a,
+    std::vector<double> s_correct,
+    double tols,
+    double tolusv,
+    bool verbose = false)
+{
+    // copy matrix a
+    auto a_copy = a;
+
+    // compute dimensions
+    int min_mn = m < n ? m : n;
+    int lda = m;
+    int ldu = m;
+    int ldvt = n;
+
+    // allocate output arrays
+    auto s = std::vector<double>(min_mn, 0.0);
+    auto u = std::vector<double>(m * m, 0.0);
+    auto vt = std::vector<double>(n * n, 0.0);
+    auto superb = std::vector<double>(min_mn, 0.0);
+
+    // perform SVD
+    char jobu = 'A';
+    char jobvt = 'A';
+    dgesvd(jobu, jobvt, m, n, a, lda, s, u, ldu, vt, ldvt, superb);
+
+    // compare results
+    CHECK(equal_vectors_tol(s, s_correct, tols));
+
+    // check SVD
+    auto usv = std::vector<double>(m * n, 0.0);
+    for (size_t i = 0; i < m; i++)
+    {
+        for (size_t j = 0; j < n; j++)
+        {
+            for (size_t k = 0; k < min_mn; k++)
+            {
+                CMGET(usv, m, i, j) += CMGET(u, m, i, k) * s[k] * CMGET(vt, n, k, j);
+            }
+        }
+    }
+    if (verbose)
+    {
+        print_colmaj("usv", "%13g", m, n, usv);
+        print_colmaj("a", "%13g", m, n, a_copy);
+    }
+    CHECK(equal_vectors_tol(usv, a_copy, tolusv));
+}
 
 TEST_CASE("mkl_double")
 {
@@ -243,5 +299,46 @@ TEST_CASE("mkl_double")
 
         // check ipiv
         CHECK(equal_vectors(ipiv, vector<int>{2, 5, 5, 5, 5}));
+    }
+
+    SUBCASE("dgesvd 1")
+    {
+        auto a = vecvec_to_colmaj(vector<vector<double>>{
+            {1, 0, 0, 0, 2},
+            {0, 0, 3, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 2, 0, 0, 0},
+        });
+        auto s_correct = vector<double>{3.0, sqrt(5.0), 2.0, 0.0};
+        checksvd(4, 5, a, s_correct, 1e-15, 1e-15);
+    }
+
+    SUBCASE("dgesvd 2")
+    {
+        double s33 = sqrt(3.0) / 3.0;
+        auto a = vecvec_to_colmaj(vector<vector<double>>{
+            {-s33, -s33, 1},
+            {+s33, -s33, 1},
+            {-s33, +s33, 1},
+            {+s33, +s33, 1},
+        });
+        auto s_correct = vector<double>{2, 2.0 / sqrt(3.0), 2.0 / sqrt(3.0)};
+        checksvd(4, 3, a, s_correct, 1e-15, 1e-15);
+    }
+
+    SUBCASE("dgesvd 3")
+    {
+        auto a = vecvec_to_colmaj(vector<vector<double>>{
+            {64, 2, 3, 61, 60, 6},
+            {9, 55, 54, 12, 13, 51},
+            {17, 47, 46, 20, 21, 43},
+            {40, 26, 27, 37, 36, 30},
+            {32, 34, 35, 29, 28, 38},
+            {41, 23, 22, 44, 45, 19},
+            {49, 15, 14, 52, 53, 11},
+            {8, 58, 59, 5, 4, 62},
+        });
+        auto s_correct = vector<double>{+2.251695779937001e+02, +1.271865289052834e+02, +1.175789144211322e+01, +1.277237188369868e-14, +6.934703857768031e-15, +5.031833747507930e-15};
+        checksvd(8, 6, a, s_correct, 1e-13, 1e-13);
     }
 }

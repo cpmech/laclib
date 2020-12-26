@@ -1,16 +1,34 @@
 #pragma once
 #include <vector>
-#include <iostream>
+#include <string>
+#include <cmath>
+#include <cstdio>
 
 template <typename T>
-inline void vecvec_print(const std::vector<std::vector<T>> &vecvec)
+inline void print_colmaj(std::string name,
+                         std::string fmt,
+                         size_t m,
+                         size_t n,
+                         const std::vector<T> &a,
+                         double tol_zero_ignore = 1e-17)
 {
-    for (std::vector<T> row : vecvec)
+    if (name != "")
     {
-        for (T val : row)
+        printf("%s =\n", name.c_str());
+    }
+    for (size_t i = 0; i < m; i++)
+    {
+        for (size_t j = 0; j < n; j++)
         {
-            std::cout << val << ", ";
+            if (fabs(a[i + j * m]) < tol_zero_ignore)
+            {
+                printf(fmt.c_str(), 0);
+            }
+            else
+            {
+                printf(fmt.c_str(), a[i + j * m]);
+            }
         }
-        std::cout << '\n';
+        printf("\n");
     }
 }
