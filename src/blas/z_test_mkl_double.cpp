@@ -200,6 +200,16 @@ TEST_CASE("mkl_double")
         CHECK(equal_scalars_tol(res, correct, 1e-15));
     }
 
+    SUBCASE("dnrm2")
+    {
+        auto x = vector<double>{1, 2, 3, 4, 123, 123};
+        int n = 4;
+        int incx = 1;
+        auto res = dnrm2(n, x, incx);
+        double correct = sqrt(30.0);
+        CHECK(equal_scalars_tol(res, correct, 1e-15));
+    }
+
     SUBCASE("dscal")
     {
         double alpha = 0.5;

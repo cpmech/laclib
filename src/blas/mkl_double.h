@@ -60,6 +60,21 @@ inline double ddot(int n,
                       incy);
 }
 
+// dnrm2 returns the euclidean norm of a vector via the function name, so that
+//
+//   dnrm2 := sqrt( x'*x )
+//
+//   See http://www.netlib.org/lapack/explore-html/da/d7f/dnrm2_8f.html
+//
+inline double dnrm2(int n,
+                    const std::vector<double> &x,
+                    int incx)
+{
+    return cblas_dnrm2(n,
+                       x.data(),
+                       incx);
+}
+
 // dscal scales a vector by a constant. Uses unrolled loops for increment equal to 1.
 //
 //  See: http://www.netlib.org/lapack/explore-html/d4/dd0/dscal_8f.html
