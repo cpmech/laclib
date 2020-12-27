@@ -4,6 +4,8 @@ set(CMAKE_CXX_COMPILER "mpiicpc")
 cmake_minimum_required(VERSION 3.16)
 project(Project)
 
+# set(MEMORYCHECK_COMMAND_OPTIONS "--leak-check=full --show-leak-kinds=all")
+set(MEMORYCHECK_COMMAND_OPTIONS "--leak-check=full --show-leak-kinds=definite,indirect,possible")
 set(MEMORYCHECK_SUPPRESSIONS_FILE "${PROJECT_SOURCE_DIR}/valgrind.supp" CACHE FILEPATH "" FORCE)
 include(CTest)
 
