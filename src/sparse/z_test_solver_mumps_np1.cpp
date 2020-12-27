@@ -38,9 +38,6 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
         CHECK(solver.get()->data.ICNTL(3) == -1);
         CHECK(solver.get()->data.ICNTL(4) == -1);
         CHECK(solver.get()->factorized == false);
-
-        solver->terminate();
-        CHECK(solver.get()->factorized == false);
     }
 
     SUBCASE("analize_and_factorize")
@@ -57,9 +54,6 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
         CHECK(status == 0);
         CHECK(solver.get()->factorized == true);
         CHECK(solver.get()->data.INFOG(7) == MUMPS_ORDERING_AMF);
-
-        solver->terminate();
-        CHECK(solver.get()->factorized == false);
     }
 
     SUBCASE("solve system")
@@ -80,8 +74,5 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
         status = solver->solve(x, rhs, rhs_is_distributed, verbose);
         CHECK(status == 0);
         CHECK(equal_vectors_tol(x, x_correct, 1e-14) == true);
-
-        solver->terminate();
-        CHECK(solver.get()->factorized == false);
     }
 }

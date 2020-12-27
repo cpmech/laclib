@@ -70,15 +70,3 @@ int MumpsSolver::solve(std::vector<double> &x, const std::vector<double> &rhs, b
 
     return status;
 }
-
-void MumpsSolver::terminate()
-{
-    auto status = call_dmumps(&this->data, MUMPS_JOB_TERMINATE, false);
-
-    if (status != 0)
-    {
-        throw "MumpsSolver::terminate: cannot terminate MUMPS";
-    }
-
-    this->factorized = false;
-}
