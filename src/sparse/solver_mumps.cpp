@@ -48,6 +48,9 @@ int MumpsSolver::solve(std::vector<double> &x, const std::vector<double> &rhs, b
         throw "MumpsSolver::solve: x and rhs vectors must have the same size";
     }
 
+    int mpi_rank = this->mpi.rank();
+    int mpi_size = this->mpi.size();
+
     if (rhs_is_distributed)
     {
         std::fill(x.begin(), x.end(), 0.0);
@@ -61,12 +64,17 @@ int MumpsSolver::solve(std::vector<double> &x, const std::vector<double> &rhs, b
         }
     }
 
-    if (this->mpi.rank() == 0)
+    if (mpi_rank == 0)
     {
         this->data.rhs = x.data();
     }
 
     auto status = call_dmumps(&this->data, MUMPS_JOB_SOLVE, verbose);
+
+    if (status == 0 && mpi_size > 1)
+    {
+        this->mpi.broadcast_from_root(x);
+    }
 
     return status;
 }
