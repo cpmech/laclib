@@ -96,4 +96,10 @@ struct MpiAux
         size_t n = dest.size() < orig.size() ? dest.size() : orig.size();
         MPI_Reduce(orig.data(), dest.data(), n, MPI_DOUBLE, MPI_SUM, 0, this->comm);
     }
+
+    // broadcast_from_root broadcasts vector from root (Rank == 0) to all other processors
+    inline void broadcast_from_root(std::vector<double> &x)
+    {
+        MPI_Bcast(x.data(), x.size(), MPI_DOUBLE, 0, this->comm);
+    }
 };

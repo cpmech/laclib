@@ -37,6 +37,22 @@ MPI_TEST_CASE("mpiaux (world)", 4)
             CHECK(equal_vectors_tol(dest, dest_correct_others, 1e-15) == true);
         }
     }
+
+    SUBCASE("broadcast_from_root")
+    {
+        vector<double> x;
+        if (mpi.rank() == 0)
+        {
+            x = vector<double>{1111, 2222, 3333};
+        }
+        else
+        {
+            x = vector<double>{0, 0, 0};
+        }
+        mpi.broadcast_from_root(x);
+        auto x_correct = vector<double>{1111, 2222, 3333};
+        CHECK(equal_vectors_tol(x, x_correct, 1e-15));
+    }
 }
 
 MPI_TEST_CASE("mpiaux (subgroup)", 4)
@@ -81,6 +97,25 @@ MPI_TEST_CASE("mpiaux (subgroup)", 4)
             {
                 CHECK(equal_vectors_tol(dest, dest_correct_others, 1e-15) == true);
             }
+        }
+    }
+
+    SUBCASE("broadcast_from_root")
+    {
+        if (mpi.belong())
+        {
+            vector<double> x;
+            if (mpi.rank() == 0)
+            {
+                x = vector<double>{1111, 2222, 3333};
+            }
+            else
+            {
+                x = vector<double>{0, 0, 0};
+            }
+            mpi.broadcast_from_root(x);
+            auto x_correct = vector<double>{1111, 2222, 3333};
+            CHECK(equal_vectors_tol(x, x_correct, 1e-15));
         }
     }
 }
