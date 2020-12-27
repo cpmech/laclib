@@ -7,6 +7,7 @@ set(TESTS
 
 set(TESTS_MPI_NP1
     z_test_solver_mumps_np1
+    z_integ_mumps_bfwb62_np1
 )
 
 set(TESTS_MPI_NP2

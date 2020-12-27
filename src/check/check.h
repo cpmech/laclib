@@ -2,6 +2,7 @@
 #include <cmath>
 #include <vector>
 #include <complex>
+#include <iostream>
 
 template <typename T>
 inline bool equal_vectors(const std::vector<T> &a, const std::vector<T> &b)
@@ -21,16 +22,25 @@ inline bool equal_vectors(const std::vector<T> &a, const std::vector<T> &b)
 }
 
 template <typename T>
-inline bool equal_vectors_tol(const std::vector<T> &a, const std::vector<T> &b, T tolerance)
+inline bool equal_vectors_tol(const std::vector<T> &a, const std::vector<T> &b, T tolerance, bool verbose = false)
 {
     if (a.size() != b.size())
     {
+        if (verbose)
+        {
+            std::cout << "a.size() != b.size()" << std::endl;
+        }
         return false;
     }
     for (size_t i = 0; i < a.size(); i++)
     {
         if (fabs(double(a[i]) - double(b[i])) > tolerance)
         {
+            if (verbose)
+            {
+                double diff = fabs(double(a[i]) - double(b[i]));
+                std::cout << a[i] << " != " << b[i] << " diff = " << diff << std::endl;
+            }
             return false;
         }
     }
