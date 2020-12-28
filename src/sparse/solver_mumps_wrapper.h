@@ -69,25 +69,19 @@ inline std::string handle_infog(DMUMPS_STRUC_C *data)
     return ""; // OK
 }
 
-// returns:
-//    0   -- success
-//    < 0 -- error
-//    > 0 -- warning
-inline int call_dmumps(DMUMPS_STRUC_C *data, MumpsJob job, bool verbose)
+inline void call_dmumps(DMUMPS_STRUC_C *data, MumpsJob job, bool verbose)
 {
     handle_verbose(data, verbose);
 
     data->job = job;
     dmumps_c(data);
 
-    if (data->INFOG(1) != 0 && verbose)
+    if (data->INFOG(1) != 0)
     {
-        std::cout << handle_infog(data) << std::endl;
+        throw handle_infog(data);
     }
 
     handle_verbose(data, false);
-
-    return data->INFOG(1);
 }
 
 #undef INFOG

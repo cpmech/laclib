@@ -4,7 +4,7 @@
 #include "dmumps_c.h"
 #include "solver_mumps.h"
 
-int MumpsSolver::analize_and_factorize(TripletForMumps *trip, const MumpsOptions &options, bool verbose)
+void MumpsSolver::analize_and_factorize(TripletForMumps *trip, const MumpsOptions &options, bool verbose)
 {
     if (!mpi.belong())
     {
@@ -21,17 +21,12 @@ int MumpsSolver::analize_and_factorize(TripletForMumps *trip, const MumpsOptions
 
     this->factorized = false;
 
-    auto status = call_dmumps(&this->data, MUMPS_JOB_ANALIZE_AND_FACTORIZE, verbose);
+    call_dmumps(&this->data, MUMPS_JOB_ANALIZE_AND_FACTORIZE, verbose);
 
-    if (status == 0)
-    {
-        this->factorized = true;
-    }
-
-    return status;
+    this->factorized = true;
 }
 
-int MumpsSolver::solve(std::vector<double> &x, const std::vector<double> &rhs, bool rhs_is_distributed, bool verbose)
+void MumpsSolver::solve(std::vector<double> &x, const std::vector<double> &rhs, bool rhs_is_distributed, bool verbose)
 {
     if (!mpi.belong())
     {
@@ -69,12 +64,10 @@ int MumpsSolver::solve(std::vector<double> &x, const std::vector<double> &rhs, b
         this->data.rhs = x.data();
     }
 
-    auto status = call_dmumps(&this->data, MUMPS_JOB_SOLVE, verbose);
+    call_dmumps(&this->data, MUMPS_JOB_SOLVE, verbose);
 
-    if (status == 0 && mpi_size > 1)
+    if (mpi_size > 1)
     {
         this->mpi.broadcast_from_root(x);
     }
-
-    return status;
 }

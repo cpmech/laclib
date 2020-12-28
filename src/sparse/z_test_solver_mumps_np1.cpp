@@ -46,12 +46,11 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
         auto options = MumpsOptions::make_new();
         auto verbose = false;
 
-        auto status = solver->analize_and_factorize(trip.get(), options, verbose);
+        solver->analize_and_factorize(trip.get(), options, verbose);
         CHECK(options.ordering == MUMPS_ORDERING_AUTO);
         CHECK(options.scaling == MUMPS_SCALING_AUTO);
         CHECK(options.pct_inc_workspace == MUMPS_DEFAULT_PCT_INC_WORKSPACE);
         CHECK(options.max_work_memory == 0);
-        CHECK(status == 0);
         CHECK(solver.get()->factorized == true);
         CHECK(solver.get()->data.INFOG(7) == MUMPS_ORDERING_AMF);
     }
@@ -63,16 +62,14 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
         auto rhs_is_distributed = false;
         auto verbose = false;
 
-        auto status = solver->analize_and_factorize(trip.get(), options, verbose);
-        CHECK(status == 0);
+        solver->analize_and_factorize(trip.get(), options, verbose);
         CHECK(solver.get()->factorized == true);
 
         auto rhs = vector<double>{8.0, 45.0, -3.0, 3.0, 19.0};
         auto x = vector<double>{0, 0, 0, 0, 0};
         auto x_correct = vector<double>{1, 2, 3, 4, 5};
 
-        status = solver->solve(x, rhs, rhs_is_distributed, verbose);
-        CHECK(status == 0);
+        solver->solve(x, rhs, rhs_is_distributed, verbose);
         CHECK(equal_vectors_tol(x, x_correct, 1e-14) == true);
     }
 }

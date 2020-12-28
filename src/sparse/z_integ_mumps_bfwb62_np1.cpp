@@ -24,15 +24,14 @@ MPI_TEST_CASE("solve bfwb62 system", 1)
     auto rhs_is_distributed = false;
     auto verbose = true;
 
-    auto status = solver->analize_and_factorize(data.trip.get(), options, verbose);
-    CHECK(status == 0);
+    solver->analize_and_factorize(data.trip.get(), options, verbose);
     CHECK(solver.get()->factorized == true);
 
     size_t n = data.trip->n;
     auto rhs = vector<double>(n, 1.0);
     auto x = vector<double>(n, 0.0);
 
-    status = solver->solve(x, rhs, rhs_is_distributed, verbose);
+    solver->solve(x, rhs, rhs_is_distributed, verbose);
 
     cout << "\n";
     print_vector("x", x);
@@ -40,6 +39,5 @@ MPI_TEST_CASE("solve bfwb62 system", 1)
     print_vector("x_correct", bfwb62_x_correct);
     cout << "\n";
 
-    CHECK(status == 0);
     CHECK(equal_vectors_tol(x, bfwb62_x_correct, 1e-10, true) == true);
 }

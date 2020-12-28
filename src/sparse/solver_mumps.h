@@ -21,12 +21,7 @@ struct MumpsSolver
         data.par = MUMPS_HOST_ALSO_WORKS;
         data.sym = symmetry;
 
-        auto status = call_dmumps(&data, MUMPS_JOB_INITIALIZE, false);
-
-        if (status != 0)
-        {
-            throw "MumpsSolver::make_new: MUMPS initialization failed";
-        }
+        call_dmumps(&data, MUMPS_JOB_INITIALIZE, false);
 
         auto solver = std::unique_ptr<MumpsSolver>{
             new MumpsSolver{
@@ -43,6 +38,6 @@ struct MumpsSolver
         call_dmumps(&this->data, MUMPS_JOB_TERMINATE, false);
     }
 
-    int analize_and_factorize(TripletForMumps *trip, const MumpsOptions &options, bool verbose);
-    int solve(std::vector<double> &x, const std::vector<double> &rhs, bool rhs_is_distributed, bool verbose);
+    void analize_and_factorize(TripletForMumps *trip, const MumpsOptions &options, bool verbose);
+    void solve(std::vector<double> &x, const std::vector<double> &rhs, bool rhs_is_distributed, bool verbose);
 };
