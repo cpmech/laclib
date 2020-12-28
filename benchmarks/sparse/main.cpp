@@ -1,13 +1,7 @@
 #include "mpi.h"
 #include <string>
 #include <iostream>
-#include "../../src/mpiaux/mpiaux.h"
-#include "../../src/check/check.h"
-#include "../../src/util/catch_all.h"
-#include "../../src/util/extract_arguments.h"
-#include "../../src/util/path_tools.h"
-#include "../../src/sparse/read_matrix_for_mumps.h"
-#include "../../src/sparse/solver_mumps.h"
+#include "../../src/laclib.h"
 #include "../../data/sparse-matrix/bfwb62_x_correct.h"
 using namespace std;
 
