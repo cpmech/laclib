@@ -9,3 +9,5 @@ build/
 *.o
 *.a
 *.so
+
+data/sparse-matrix/pre2.mtx
