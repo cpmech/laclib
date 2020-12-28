@@ -26,6 +26,6 @@ endforeach(var)
 
 add_executable(z_test_extract_arguments z_test_extract_arguments.cpp)
 add_test(NAME z_test_extract_arguments COMMAND $<TARGET_FILE:z_test_extract_arguments> first second third)
-# disable warning due to doctest.h functions:
-# warning #2196: routine is both "inline" and "noinline"
-set_target_properties(z_test_extract_arguments PROPERTIES COMPILE_FLAGS "-diag-disable=2196")
+
+add_executable(z_test_extract_first_default z_test_extract_first_default.cpp)
+add_test(NAME z_test_extract_first_default COMMAND z_test_extract_first_default)

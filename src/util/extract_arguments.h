@@ -12,3 +12,13 @@ inline std::vector<std::string> extract_arguments(int argc, char **argv)
     }
     return fields;
 }
+
+inline std::string extract_first_argument(int argc, char **argv, std::string default_arg = "")
+{
+    auto arguments = extract_arguments(argc, argv);
+    if (arguments.size() > 0)
+    {
+        return arguments[0];
+    }
+    return default_arg;
+}

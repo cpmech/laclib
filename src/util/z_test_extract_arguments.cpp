@@ -30,6 +30,14 @@ int main(int argc, char **argv)
         return 1;
     }
 
+    auto first_arg = extract_first_argument(argc, argv);
+
+    if (first_arg != "first")
+    {
+        cout << "ERROR: 1st argument must be \"first\"" << endl;
+        return 1;
+    }
+
     cout << "### OK ###" << endl;
     return 0;
 }
