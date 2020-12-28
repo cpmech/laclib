@@ -5,11 +5,13 @@
 #include "../../data/sparse-matrix/bfwb62_x_correct.h"
 using namespace std;
 
-int main(int argc, char **argv)
-try
-{
-    MPI_Init(&argc, &argv);
+// NOTE: the code must be wrapped within "run"
+//   because the destructor of MumpsSolver relies
+//   on the MPI, so cannot be called before MPI_Finalize
+//   Also, this makes it convenient for try/catch
 
+void run(int argc, char **argv)
+{
     auto name = extract_first_argument(argc, argv, "bfwb62");
     auto path = path_get_current() + "/../../../data/sparse-matrix/";
     auto data = read_matrix_for_mumps(path + name + ".mtx");
@@ -45,8 +47,18 @@ try
             cout << "\nERROR\n\n";
         }
     }
+}
+
+int main(int argc, char **argv)
+{
+    MPI_Init(&argc, &argv);
+
+    try
+    {
+        run(argc, argv);
+    }
+    CATCH_ALL
 
     MPI_Finalize();
     return 0;
 }
-CATCH_ALL
