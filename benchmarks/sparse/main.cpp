@@ -21,6 +21,10 @@ try
     auto options = MumpsOptions::make_new();
     auto verbose = true;
 
+    options.ordering = MUMPS_ORDERING_AMF;
+    options.pct_inc_workspace = 100;
+    options.max_work_memory = 30000;
+
     solver->analize_and_factorize(data.trip.get(), options, verbose);
 
     auto n = data.trip->n;

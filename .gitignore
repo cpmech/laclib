@@ -11,3 +11,4 @@ build/
 *.so
 
 data/sparse-matrix/pre2.mtx
+data/sparse-matrix/inline_1.mtx
