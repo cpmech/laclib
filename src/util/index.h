@@ -2,4 +2,6 @@
 #include "extract_arguments.h"
 #include "path_tools.h"
 #include "print_vector.h"
+#include "sleep.h"
+#include "stopwatch.h"
 #include "string_tools.h"
