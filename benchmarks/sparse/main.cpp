@@ -16,10 +16,8 @@ int main(int argc, char **argv)
     auto mtx_path = data_path + "/sparse-matrix/bfwb62.mtx";
     auto data = read_matrix_for_mumps(mtx_path);
 
-    MumpsSymmetry sym = data.symmetric ? MUMPS_SYMMETRY_GENERAL : MUMPS_SYMMETRY_NONE;
-
     auto mpi = MpiAux::make_new();
-    auto solver = MumpsSolver::make_new(mpi, sym);
+    auto solver = MumpsSolver::make_new(mpi, data.symmetric);
     auto options = MumpsOptions::make_new();
     auto rhs_is_distributed = false;
     auto verbose = true;

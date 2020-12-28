@@ -33,11 +33,29 @@ struct MumpsSolver
         return solver;
     };
 
+    inline static std::unique_ptr<MumpsSolver> make_new(MpiAux mpi, bool general_symmetry)
+    {
+        MumpsSymmetry sym = general_symmetry ? MUMPS_SYMMETRY_GENERAL : MUMPS_SYMMETRY_NONE;
+        return MumpsSolver::make_new(mpi, sym);
+    }
+
     ~MumpsSolver()
     {
         call_dmumps(&this->data, MUMPS_JOB_TERMINATE, false);
     }
 
-    void analize_and_factorize(TripletForMumps *trip, const MumpsOptions &options, bool verbose);
-    void solve(std::vector<double> &x, const std::vector<double> &rhs, bool rhs_is_distributed, bool verbose);
+    void analize_and_factorize(TripletForMumps *trip,
+                               const MumpsOptions &options,
+                               bool verbose = false);
+
+    inline void analize_and_factorize(TripletForMumps *trip)
+    {
+        auto options = MumpsOptions::make_new();
+        this->analize_and_factorize(trip, options);
+    }
+
+    void solve(std::vector<double> &x,
+               const std::vector<double> &rhs,
+               bool rhs_is_distributed = false,
+               bool verbose = false);
 };
