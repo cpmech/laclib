@@ -46,6 +46,12 @@ struct MpiAux
         };
     };
 
+    // alternative constructor (use WORLD COMMUNICATOR)
+    inline static MpiAux make_new()
+    {
+        return MpiAux::make_new(std::vector<int>{});
+    }
+
     // clean-up
     ~MpiAux()
     {

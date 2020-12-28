@@ -11,7 +11,7 @@ using namespace std;
 
 MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
 {
-    auto mpi = MpiAux::make_new(std::vector<int>{});
+    auto mpi = MpiAux::make_new();
     auto trip = triplet_for_mumps_new(5, 5, 13);
     trip->put_zero_based(0, 0, +1.0); // << duplicated
     trip->put_zero_based(0, 0, +1.0); // << duplicated

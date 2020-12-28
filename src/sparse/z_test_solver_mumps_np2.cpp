@@ -11,7 +11,7 @@ using namespace std;
 
 MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
 {
-    auto mpi = MpiAux::make_new(std::vector<int>{});
+    auto mpi = MpiAux::make_new();
 
     std::unique_ptr<TripletForMumps> trip;
 

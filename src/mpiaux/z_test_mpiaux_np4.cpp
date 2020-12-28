@@ -8,8 +8,7 @@ using namespace std;
 
 MPI_TEST_CASE("mpiaux (world)", 4)
 {
-    auto ranks = vector<int>{};
-    auto mpi = MpiAux::make_new(ranks);
+    auto mpi = MpiAux::make_new();
 
     SUBCASE("make_new")
     {

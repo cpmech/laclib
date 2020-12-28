@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 
     MumpsSymmetry sym = data.symmetric ? MUMPS_SYMMETRY_GENERAL : MUMPS_SYMMETRY_NONE;
 
-    auto mpi = MpiAux::make_new(std::vector<int>{});
+    auto mpi = MpiAux::make_new();
     auto solver = MumpsSolver::make_new(mpi, sym);
     auto options = MumpsOptions::make_new();
     auto rhs_is_distributed = false;
