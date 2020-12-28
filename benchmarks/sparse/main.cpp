@@ -12,16 +12,24 @@ using namespace std;
 
 void run(int argc, char **argv)
 {
+    auto sw = Stopwatch::make_new();
+
     auto name = extract_first_argument(argc, argv, "bfwb62");
     auto path = path_get_current() + "/../../../data/sparse-matrix/";
+
+    cout << "##### matrix name = " << name << endl;
+
     auto data = read_matrix_for_mumps(path + name + ".mtx");
 
-    cout << "matrix name = " << name << endl;
+    sw.stop("##### read matrix # ");
+    sw.reset();
 
     auto mpi = MpiAux::make_new();
     auto solver = MumpsSolver::make_new(mpi, data.symmetric);
     auto options = MumpsOptions::make_new();
-    auto verbose = true;
+    auto sw_afs = Stopwatch::make_new();
+
+    auto verbose = false;
 
     options.ordering = MUMPS_ORDERING_AMF;
     options.pct_inc_workspace = 100;
@@ -29,12 +37,18 @@ void run(int argc, char **argv)
 
     solver->analize_and_factorize(data.trip.get(), options, verbose);
 
+    sw.stop("##### analize and fact # ");
+    sw.reset();
+
     auto n = data.trip->n;
     auto rhs = vector<double>(n, 1.0);
     auto x = vector<double>(n, 0.0);
     auto rhs_is_distributed = false;
 
     solver->solve(x, rhs, rhs_is_distributed, verbose);
+
+    sw.stop("##### solve # ");
+    sw_afs.stop("##### ana, fact, and solve # ");
 
     if (name == "bfwb62")
     {
