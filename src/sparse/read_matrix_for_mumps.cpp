@@ -11,6 +11,7 @@ ReadMatrixForMumpsResults read_matrix_for_mumps(std::string filename)
     }
 
     ReadMatrixForMumpsResults results;
+    results.symmetric = false;
 
     bool initialized = false;
     size_t deltaIndex = 0;

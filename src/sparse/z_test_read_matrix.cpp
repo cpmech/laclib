@@ -8,6 +8,12 @@ using namespace std;
 
 TEST_CASE("read_matrix")
 {
+    vector<size_t> Icorrect = {0, 1, 0, 2, 4, 1, 2, 3, 4, 2, 1, 4};
+    vector<size_t> Jcorrect = {0, 0, 1, 1, 1, 2, 2, 2, 2, 3, 4, 4};
+    vector<double> Xcorrect = {2, 3, 3, -1, 4, 4, -3, 1, 2, 2, 6, 1};
+
+    auto data_path = path_get_current() + "/../../../data";
+
     SUBCASE("cannot open file")
     {
         CHECK_THROWS_WITH(read_matrix("invalid.mtx", true), "read_matrix: cannot open file");
@@ -15,15 +21,23 @@ TEST_CASE("read_matrix")
 
     SUBCASE("read sparse-matrix ok1")
     {
-        vector<size_t> Icorrect = {0, 1, 0, 2, 4, 1, 2, 3, 4, 2, 1, 4};
-        vector<size_t> Jcorrect = {0, 0, 1, 1, 1, 2, 2, 2, 2, 3, 4, 4};
-        vector<double> Xcorrect = {2, 3, 3, -1, 4, 4, -3, 1, 2, 2, 6, 1};
-
-        auto data_path = path_get_current() + "/../../../data";
-        auto mtx_path = data_path + "/sparse-matrix/ok1.mtx";
+        auto mtx = data_path + "/sparse-matrix/ok1.mtx";
         auto mirrorIfSym = false;
-        auto res = read_matrix(mtx_path, mirrorIfSym);
+        auto res = read_matrix(mtx, mirrorIfSym);
 
+        CHECK(res.symmetric == false);
+        CHECK(equal_vectors(res.trip.get()->I, Icorrect) == true);
+        CHECK(equal_vectors(res.trip.get()->J, Jcorrect) == true);
+        CHECK(equal_vectors_tol(res.trip.get()->X, Xcorrect, 1e-15) == true);
+    }
+
+    SUBCASE("read sparse-matrix ok2")
+    {
+        auto mtx = data_path + "/sparse-matrix/ok2.mtx";
+        auto mirrorIfSym = false;
+        auto res = read_matrix(mtx, mirrorIfSym);
+
+        CHECK(res.symmetric == false);
         CHECK(equal_vectors(res.trip.get()->I, Icorrect) == true);
         CHECK(equal_vectors(res.trip.get()->J, Jcorrect) == true);
         CHECK(equal_vectors_tol(res.trip.get()->X, Xcorrect, 1e-15) == true);

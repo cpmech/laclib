@@ -8,6 +8,12 @@ using namespace std;
 
 TEST_CASE("read_matrix_for_mumps")
 {
+    vector<MUMPS_INT> Icorrect = {1, 2, 1, 3, 5, 2, 3, 4, 5, 3, 2, 5};
+    vector<MUMPS_INT> Jcorrect = {1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 5, 5};
+    vector<double> Xcorrect = {2, 3, 3, -1, 4, 4, -3, 1, 2, 2, 6, 1};
+
+    auto data_path = path_get_current() + "/../../../data";
+
     SUBCASE("cannot open file")
     {
         CHECK_THROWS_WITH(read_matrix_for_mumps("invalid.mtx"), "read_matrix_for_mumps: cannot open file");
@@ -15,14 +21,21 @@ TEST_CASE("read_matrix_for_mumps")
 
     SUBCASE("read sparse-matrix ok1")
     {
-        vector<MUMPS_INT> Icorrect = {1, 2, 1, 3, 5, 2, 3, 4, 5, 3, 2, 5};
-        vector<MUMPS_INT> Jcorrect = {1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 5, 5};
-        vector<double> Xcorrect = {2, 3, 3, -1, 4, 4, -3, 1, 2, 2, 6, 1};
+        auto mtx = data_path + "/sparse-matrix/ok1.mtx";
+        auto res = read_matrix_for_mumps(mtx);
 
-        auto data_path = path_get_current() + "/../../../data";
-        auto mtx_path = data_path + "/sparse-matrix/ok1.mtx";
-        auto res = read_matrix_for_mumps(mtx_path);
+        CHECK(res.symmetric == false);
+        CHECK(equal_vectors(res.trip.get()->I, Icorrect) == true);
+        CHECK(equal_vectors(res.trip.get()->J, Jcorrect) == true);
+        CHECK(equal_vectors_tol(res.trip.get()->X, Xcorrect, 1e-15) == true);
+    }
 
+    SUBCASE("read sparse-matrix ok2")
+    {
+        auto mtx = data_path + "/sparse-matrix/ok2.mtx";
+        auto res = read_matrix_for_mumps(mtx);
+
+        CHECK(res.symmetric == false);
         CHECK(equal_vectors(res.trip.get()->I, Icorrect) == true);
         CHECK(equal_vectors(res.trip.get()->J, Jcorrect) == true);
         CHECK(equal_vectors_tol(res.trip.get()->X, Xcorrect, 1e-15) == true);
@@ -30,7 +43,6 @@ TEST_CASE("read_matrix_for_mumps")
 
     SUBCASE("read sparse-matrix bad")
     {
-        auto data_path = path_get_current() + "/../../../data";
         auto s = data_path + "/sparse-matrix/bad";
         CHECK_THROWS_WITH(read_matrix_for_mumps(s + "1.mtx"), "read_matrix_for_mumps: header starting with %%MatrixMarket is incorrect");
         CHECK_THROWS_WITH(read_matrix_for_mumps(s + "2.mtx"), "read_matrix_for_mumps: can only read \"matrix\" MatrixMarket at the moment");
