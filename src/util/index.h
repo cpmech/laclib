@@ -1,6 +1,5 @@
 #include "catch_all.h"
 #include "extract_arguments.h"
-#include "memory_usage.h"
 #include "path_tools.h"
 #include "print_vector.h"
 #include "sleep.h"
