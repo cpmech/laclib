@@ -46,18 +46,18 @@ inline std::string handle_infog(DMUMPS_STRUC_C *data)
         switch (data->INFOG(1))
         {
         case -6:
-            return "ERROR: Matrix is singular in structure. The structural rank is equal to " + infog2;
+            return "ERROR: (-6) Matrix is singular in structure. The structural rank is equal to " + infog2;
         case -9:
-            return "ERROR: The main internal real/complex workarray S is too small. INFOG(2) = " + infog2;
+            return "ERROR: (-9) The main internal real/complex workarray S is too small. INFOG(2) = " + infog2;
         case -10:
-            return "ERROR: Numerically singular matrix. The number of eliminated pivots is equal to " + infog2;
+            return "ERROR: (-10) Numerically singular matrix. The number of eliminated pivots is equal to " + infog2;
         case -13:
-            return "ERROR: Problem of workspace allocation of size " + infog2 + " during the factorization or solve step";
+            return "ERROR: (-13) Problem of workspace allocation of size " + infog2 + " during the factorization or solve step";
         case -19:
             auto infog23 = std::to_string(data->INFOG(23));
-            return "ERROR: The maximum allowed size of working memory " + infog23 + " is too small to run the factorization phase";
+            return "ERROR: (-19) The maximum allowed size of working memory " + infog23 + " is too small to run the factorization phase";
         }
-        return "ERROR: Some error occurred. INFOG(1) = " + infog1 + " and INFOG(2) = " + infog2;
+        return "ERROR: (" + infog1 + ") Some error occurred. INFOG(2) = " + infog2;
     }
 
     if (data->INFOG(1) > 0)
