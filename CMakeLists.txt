@@ -1,10 +1,6 @@
-set(CMAKE_C_COMPILER "mpiicc")
-set(CMAKE_CXX_COMPILER "mpiicpc")
-
 cmake_minimum_required(VERSION 3.16)
 project(Project)
 
-# set(MEMORYCHECK_COMMAND_OPTIONS "--leak-check=full --show-leak-kinds=all")
 set(MEMORYCHECK_COMMAND_OPTIONS "--leak-check=full --show-leak-kinds=definite,indirect,possible")
 set(MEMORYCHECK_SUPPRESSIONS_FILE "${PROJECT_SOURCE_DIR}/valgrind.supp" CACHE FILEPATH "" FORCE)
 include(CTest)
@@ -13,37 +9,32 @@ set(CMAKE_CXX_STANDARD 17)
 
 # options ####################################################################################
 
-option(A_MAKE_VERBOSE "Show additional messages during compilation/link?" OFF)
-option(A_MAKE_ALL_WARNINGS "Make with all warnings (-Wall)" ON)
-option(A_MAKE_DEBUG_SYMBOLS "Make with debug symbols (-g)" ON)
-option(A_MAKE_OPTIMIZED "Make optimized (-O2)" OFF)
-option(A_MAKE_PROFILING "Make with profiling information (-pg)" OFF)
+option(A1_USE_INTEL "use Intel MKL and MPI" OFF)
+option(A2_OPTIMIZED "Make optimized (-O2)" OFF)
+option(A3_VERBOSE "Show additional messages during compilation/link?" OFF)
 
-if(A_MAKE_VERBOSE)
-    set(CMAKE_VERBOSE_MAKEFILE TRUE)
-endif(A_MAKE_VERBOSE)
+if(A1_USE_INTEL)
+    add_definitions(-DUSE_INTEL -diag-disable=2196) # disable warning due to doctest.h functions: warning #2196: routine is both "inline" and "noinline"
+endif()
 
-if(A_MAKE_ALL_WARNINGS)
-    add_definitions(-Wall)
-endif(A_MAKE_ALL_WARNINGS)
-
-if(A_MAKE_DEBUG_SYMBOLS)
-    add_definitions(-g)
-endif(A_MAKE_DEBUG_SYMBOLS)
-
-if(A_MAKE_PROFILING)
-    set(CMAKE_CXX_FLAGS -pg)
-endif(A_MAKE_PROFILING)
-
-if(A_MAKE_OPTIMIZED)
+if(A2_OPTIMIZED)
     add_definitions(-O2)
-endif(A_MAKE_OPTIMIZED)
+else()
+    add_definitions(-g -Wall)
+endif()
+
+if(A3_VERBOSE)
+    set(CMAKE_VERBOSE_MAKEFILE TRUE)
+endif()
 
 # dependencies ###############################################################################
 
-include(FindMKL.cmake)
+if(A1_USE_INTEL)
+    include(FindMKL.cmake)
+    include_directories(${MKL_IDIRS})
+endif()
+
 include(FindMUMPS.cmake)
-include_directories(${MKL_IDIRS})
 include_directories(${MUMPS_IDIRS})
 
 # subdirectories #############################################################################
@@ -61,4 +52,8 @@ add_library(laclib SHARED
     src/sparse/triplet_for_mumps.cpp
 )
 
-target_link_libraries(laclib PUBLIC ${MUMPS_LIBS} ${MKL_LIBS})
+if(A1_USE_INTEL)
+    target_link_libraries(laclib PUBLIC ${MUMPS_LIBS} ${MKL_LIBS})
+else()
+    target_link_libraries(laclib PUBLIC ${MUMPS_LIBS})
+endif()

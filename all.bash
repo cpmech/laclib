@@ -1,6 +1,5 @@
 #!/bin/bash
 
+bash zscripts/do_cmake.bash
 cd build
-cmake ../src
-make
-make test
+make && make test
