@@ -16,7 +16,7 @@ struct Stopwatch
     };
 
     // returns the elased time as string
-    inline std::string stop(const std::string &prefix)
+    inline std::string stop(const std::string &prefix, bool do_reset = false)
     {
         auto end = std::chrono::steady_clock::now();
         std::chrono::duration<double> elapsed_seconds = end - this->initial_time;
@@ -25,6 +25,10 @@ struct Stopwatch
         if (prefix != "")
         {
             std::cout << prefix << "elapsed time = " << oss.str() << std::endl;
+        }
+        if (do_reset)
+        {
+            this->reset();
         }
         return oss.str();
     }
