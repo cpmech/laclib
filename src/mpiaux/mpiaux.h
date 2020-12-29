@@ -1,6 +1,8 @@
 #pragma once
 #include "mpi.h"
 #include <vector>
+#include <cstdio>
+#include <cstdarg>
 
 struct MpiAux
 {
@@ -92,6 +94,17 @@ struct MpiAux
         int size;
         MPI_Comm_size(this->comm, &size);
         return static_cast<size_t>(size);
+    }
+
+    // pf wraps printf and only works if rank()==0
+    inline void pf(const char *fmt, ...)
+    {
+        if (this->rank() == 0)
+        {
+            va_list args;
+            va_start(args, fmt);
+            vprintf(fmt, args);
+        }
     }
 
     // reduce_sum combines orig from all processors into the processor with rank == 0
