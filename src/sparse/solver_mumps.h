@@ -12,6 +12,7 @@ struct MumpsSolver
 {
     MpiAux mpi;
     DMUMPS_STRUC_C data;
+    bool analyzed;
     bool factorized;
 
     inline static std::unique_ptr<MumpsSolver> make_new(MpiAux mpi, MumpsSymmetry symmetry)
@@ -27,6 +28,7 @@ struct MumpsSolver
             new MumpsSolver{
                 mpi,
                 data,
+                false,
                 false,
             }};
 
@@ -44,14 +46,20 @@ struct MumpsSolver
         call_dmumps(&this->data, MUMPS_JOB_TERMINATE, false);
     }
 
-    void analize_and_factorize(TripletForMumps *trip,
+    void analyze(TripletForMumps *trip,
+                 const MumpsOptions &options,
+                 bool verbose = false);
+
+    void factorize(bool verbose = false);
+
+    void analyze_and_factorize(TripletForMumps *trip,
                                const MumpsOptions &options,
                                bool verbose = false);
 
-    inline void analize_and_factorize(TripletForMumps *trip)
+    inline void analyze_and_factorize(TripletForMumps *trip)
     {
         auto options = MumpsOptions::make_new();
-        this->analize_and_factorize(trip, options);
+        this->analyze_and_factorize(trip, options);
     }
 
     void solve(std::vector<double> &x,

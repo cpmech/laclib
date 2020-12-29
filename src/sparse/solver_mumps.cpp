@@ -4,7 +4,49 @@
 #include "dmumps_c.h"
 #include "solver_mumps.h"
 
-void MumpsSolver::analize_and_factorize(TripletForMumps *trip, const MumpsOptions &options, bool verbose)
+void MumpsSolver::analyze(TripletForMumps *trip, const MumpsOptions &options, bool verbose)
+{
+    if (!mpi.belong())
+    {
+        throw "MumpsSolver::analyze: must only be called by processors in the group";
+    }
+
+    handle_options_and_set_distributed(&this->data, options);
+
+    this->data.n = make_mumps_int(trip->m);
+    this->data.nz_loc = make_mumps_int8(trip->pos);
+    this->data.irn_loc = trip->I.data();
+    this->data.jcn_loc = trip->J.data();
+    this->data.a_loc = trip->X.data();
+
+    this->analyzed = false;
+    this->factorized = false;
+
+    call_dmumps(&this->data, MUMPS_JOB_ANALIZE, verbose);
+
+    this->analyzed = true;
+}
+
+void MumpsSolver::factorize(bool verbose)
+{
+    if (!mpi.belong())
+    {
+        throw "MumpsSolver::factorize: must only be called by processors in the group";
+    }
+
+    if (!this->analyzed)
+    {
+        throw "MumpsSolver::factorize: analysis must be completed first";
+    }
+
+    this->factorized = false;
+
+    call_dmumps(&this->data, MUMPS_JOB_FACTORIZE, verbose);
+
+    this->factorized = true;
+}
+
+void MumpsSolver::analyze_and_factorize(TripletForMumps *trip, const MumpsOptions &options, bool verbose)
 {
     if (!mpi.belong())
     {

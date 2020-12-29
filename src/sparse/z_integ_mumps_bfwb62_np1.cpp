@@ -19,7 +19,7 @@ MPI_TEST_CASE("solve bfwb62 system", 1)
     auto mpi = MpiAux::make_new();
     auto solver = MumpsSolver::make_new(mpi, data.symmetric);
 
-    solver->analize_and_factorize(data.trip.get());
+    solver->analyze_and_factorize(data.trip.get());
     CHECK(solver.get()->factorized == true);
 
     size_t n = data.trip->n;
