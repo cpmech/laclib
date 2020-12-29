@@ -17,7 +17,7 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
 
     if (mpi.rank() == 0)
     {
-        trip = triplet_for_mumps_new(5, 5, 6);
+        trip = TripletForMumps::make_new(5, 5, 6);
         trip->put_zero_based(0, 0, +1.0); // << duplicated
         trip->put_zero_based(0, 0, +1.0); // << duplicated
         trip->put_zero_based(1, 0, +3.0);
@@ -27,7 +27,7 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
     }
     else
     {
-        trip = triplet_for_mumps_new(5, 5, 7);
+        trip = TripletForMumps::make_new(5, 5, 7);
         trip->put_zero_based(1, 2, +4.0);
         trip->put_zero_based(2, 2, -3.0);
         trip->put_zero_based(3, 2, +1.0);

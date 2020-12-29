@@ -92,7 +92,7 @@ ReadMatrixForMumpsResults read_matrix_for_mumps(std::string filename)
             start = (id * nnz) / sz;
             endp1 = ((id + 1) * nnz) / sz;
 
-            results.trip = triplet_for_mumps_new(m, n, endp1 - start);
+            results.trip = TripletForMumps::make_new(m, n, endp1 - start);
 
             initialized = true;
         }

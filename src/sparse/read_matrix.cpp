@@ -94,11 +94,11 @@ ReadMatrixResults read_matrix(std::string filename, bool mirrorIfSym)
 
             if (results.symmetric && mirrorIfSym)
             {
-                results.trip = triplet_new(m, n, (endp1 - start) * 2); // assuming that the diagonal is all-zeros (for safety)
+                results.trip = Triplet::make_new(m, n, (endp1 - start) * 2); // assuming that the diagonal is all-zeros (for safety)
             }
             else
             {
-                results.trip = triplet_new(m, n, endp1 - start);
+                results.trip = Triplet::make_new(m, n, endp1 - start);
             }
 
             initialized = true;

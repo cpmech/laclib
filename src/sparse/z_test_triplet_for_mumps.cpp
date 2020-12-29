@@ -7,7 +7,7 @@ using namespace std;
 
 TEST_CASE("testing TripletForMumps (put_zero_based)")
 {
-    auto trip = triplet_for_mumps_new(3, 3, 4);
+    auto trip = TripletForMumps::make_new(3, 3, 4);
 
     REQUIRE(trip->pos == 0);
     REQUIRE(trip->max == 4);
@@ -65,7 +65,7 @@ TEST_CASE("testing TripletForMumps (put_zero_based)")
 
 TEST_CASE("testing TripletForMumps (put_one_based)")
 {
-    auto trip = triplet_for_mumps_new(3, 3, 4);
+    auto trip = TripletForMumps::make_new(3, 3, 4);
 
     REQUIRE(trip->pos == 0);
     REQUIRE(trip->max == 4);
