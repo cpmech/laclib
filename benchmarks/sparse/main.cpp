@@ -1,6 +1,5 @@
 #include "mpi.h"
 #include <string>
-#include <iostream>
 #include "../../src/laclib.h"
 #include "../../data/sparse-matrix/bfwb62_x_correct.h"
 using namespace std;
@@ -12,33 +11,41 @@ using namespace std;
 
 void run(int argc, char **argv)
 {
+    auto mpi = MpiAux::make_new();
     auto sw = Stopwatch::make_new();
-
     auto name = extract_first_argument(argc, argv, "bfwb62");
+
+    mpi.pf("reading matrix (%s)\n", name.c_str());
+
     auto path = path_get_current() + "/../../../data/sparse-matrix/";
-
-    cout << "##### matrix name = " << name << endl;
-
     auto data = read_matrix_for_mumps(path + name + ".mtx");
 
-    sw.stop("##### read matrix # ");
-    sw.reset();
+    mpi.pf("... symmetric = %s\n", data.symmetric ? "true" : "false");
+    mpi.pf("... number of rows (equal to columns) = %zd\n", data.trip->m);
+    mpi.pf("... number of non-zeros (pattern entries) = %zd\n", data.trip->pos);
+    sw.stop("... ", true);
+    mpi.pf("... memory usage = %d kb\n", memory_usage());
+    mpi.pf("initializing (mumps)\n");
 
-    auto mpi = MpiAux::make_new();
     auto solver = MumpsSolver::make_new(mpi, data.symmetric);
     auto options = MumpsOptions::make_new();
-    auto sw_afs = Stopwatch::make_new();
-
-    auto verbose = false;
+    auto verbose = true;
 
     options.ordering = MUMPS_ORDERING_AMF;
     options.pct_inc_workspace = 100;
     options.max_work_memory = 30000;
 
-    solver->analize_and_factorize(data.trip.get(), options, verbose);
+    solver->analyze(data.trip.get(), options, verbose);
 
-    sw.stop("##### analize and fact # ");
-    sw.reset();
+    sw.stop("... ", true);
+    mpi.pf("... memory usage = %d kb\n", memory_usage());
+    mpi.pf("factorizing (mumps)\n");
+
+    solver->factorize(verbose);
+
+    sw.stop("... ", true);
+    mpi.pf("... memory usage = %d kb\n", memory_usage());
+    mpi.pf("solving (mumps)\n");
 
     auto n = data.trip->n;
     auto rhs = vector<double>(n, 1.0);
@@ -47,18 +54,18 @@ void run(int argc, char **argv)
 
     solver->solve(x, rhs, rhs_is_distributed, verbose);
 
-    sw.stop("##### solve # ");
-    sw_afs.stop("##### ana, fact, and solve # ");
+    sw.stop("... ", true);
+    mpi.pf("... memory usage = %d kb\n", memory_usage());
 
     if (name == "bfwb62")
     {
         if (equal_vectors_tol(x, bfwb62_x_correct, 1e-10, true))
         {
-            cout << "\n### OK ###\n\n";
+            mpi.pf("\n### OK ###\n\n");
         }
         else
         {
-            cout << "\nERROR\n\n";
+            mpi.pf("\nERROR\n\n");
         }
     }
 }
