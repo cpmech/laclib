@@ -1,4 +1,5 @@
 set(TESTS
+    z_test_nanoseconds_to_string
     z_test_path_tools
     z_test_stopwatch
     z_test_string_tools
