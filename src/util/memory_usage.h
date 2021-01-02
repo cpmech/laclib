@@ -1,15 +1,25 @@
 #pragma once
-#include <sys/time.h>
-#include <sys/resource.h>
+#include <iostream>
+#include <fstream>
+#include <unistd.h>
 
-// memory_usage returns the maximum resident set size used (in kilobytes)
-long memory_usage()
+// memory_usage reads /proc/self/stat and returns the memory used by this process
+inline uint64_t memory_usage()
 {
-    struct rusage usage;
-    auto status = getrusage(RUSAGE_SELF, &usage);
-    if (status != 0)
-    {
-        throw "memory_usage: getrusage failed";
-    }
-    return usage.ru_maxrss;
+    // from `man proc`
+    //
+    //   /proc/[pid]/stat
+    //     Status information about the process. This is used by ps(1). It is defined in
+    //     the kernel source file fs/proc/array.c.
+    //
+    //   (23) vsize  %lu
+    //        Virtual memory size in bytes.
+
+    uint64_t vsize = 0;
+    std::string _;
+    std::ifstream ifs("/proc/self/stat", std::ios_base::in);
+    //     1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19   20   21   22     23
+    ifs >> _ >> _ >> _ >> _ >> _ >> _ >> _ >> _ >> _ >> _ >> _ >> _ >> _ >> _ >> _ >> _ >> _ >> _ >> _ >> _ >> _ >> _ >> vsize;
+    ifs.close();
+    return vsize;
 }

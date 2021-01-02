@@ -2,7 +2,7 @@
 #include <chrono>
 #include <string>
 #include <iostream>
-#include "nanoseconds_to_string.h"
+#include "formaters.h"
 
 struct Stopwatch
 {
@@ -24,7 +24,7 @@ struct Stopwatch
         auto end = std::chrono::high_resolution_clock::now();
         auto delta = std::chrono::duration_cast<std::chrono::nanoseconds>(end - this->initial_time);
         int64_t nanoseconds = std::chrono::duration<int64_t, std::nano>(delta).count();
-        auto str = nanoseconds_to_string(nanoseconds);
+        auto str = format_nanoseconds(nanoseconds);
         if (prefix != "")
         {
             std::cout << prefix << "elapsed time = " << str << std::endl;
