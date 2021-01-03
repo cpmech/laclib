@@ -3,7 +3,7 @@
 #include <fstream>
 #include <unistd.h>
 
-// memory_usage reads /proc/self/stat and returns the memory used by this process
+// memory_usage reads /proc/self/stat and returns the memory used (bytes) by this process
 inline uint64_t memory_usage()
 {
     // from `man proc`

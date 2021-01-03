@@ -15,25 +15,25 @@ struct Stopwatch
         };
     };
 
-    // returns the elased time as string
+    // returns the elased time in nanoseconds
     // INPUT:
     //   prefix != "" => will print to the terminal too
     //   do_reset => will reset initial time to the current time
-    inline std::string stop(const std::string &prefix, bool do_reset = false)
+    inline uint64_t stop(const std::string &prefix, bool do_reset = false)
     {
         auto end = std::chrono::high_resolution_clock::now();
         auto delta = std::chrono::duration_cast<std::chrono::nanoseconds>(end - this->initial_time);
-        int64_t nanoseconds = std::chrono::duration<int64_t, std::nano>(delta).count();
-        auto str = format_nanoseconds(nanoseconds);
+        uint64_t nanoseconds = std::chrono::duration<uint64_t, std::nano>(delta).count();
         if (prefix != "")
         {
+            auto str = format_nanoseconds(nanoseconds);
             std::cout << prefix << "elapsed time = " << str << std::endl;
         }
         if (do_reset)
         {
             this->reset();
         }
-        return str;
+        return nanoseconds;
     }
 
     inline void reset()
