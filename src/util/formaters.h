@@ -40,21 +40,6 @@ inline uint64_t bytes_to_GiB(uint64_t b)
     return b / 1024 / 1024 / 1024;
 }
 
-inline uint64_t kilobytes_to_KiB(uint64_t kb)
-{
-    return 1000 * kb / 1024;
-}
-
-inline uint64_t kilobytes_to_MiB(uint64_t kb)
-{
-    return 1000 * kb / 1024 / 1024;
-}
-
-inline uint64_t kilobytes_to_GiB(uint64_t kb)
-{
-    return 1000 * kb / 1024 / 1024 / 1024;
-}
-
 inline std::string format_nanoseconds(uint64_t nanoseconds)
 {
     if (nanoseconds == 0)

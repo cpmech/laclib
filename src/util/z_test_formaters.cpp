@@ -2,6 +2,21 @@
 #include "doctest.h"
 #include "formaters.h"
 
+TEST_CASE("format_large_number")
+{
+    CHECK(format_large_number(12345678) == "12,345,678");
+}
+
+TEST_CASE("bytes conversion")
+{
+    CHECK(bytes_to_KiB(BYTES_PER_KIB) == 1);
+    CHECK(bytes_to_MiB(BYTES_PER_MIB) == 1);
+    CHECK(bytes_to_GiB(BYTES_PER_GIB) == 1);
+    CHECK(bytes_to_GiB(BYTES_PER_TIB) == 1024);
+    CHECK(bytes_to_GiB(BYTES_PER_PIB) == 1024 * 1024);
+    CHECK(bytes_to_GiB(BYTES_PER_EIB) == 1024 * 1024 * 1024);
+}
+
 TEST_CASE("format_nanoseconds")
 {
     SUBCASE("250 => 250ns")
