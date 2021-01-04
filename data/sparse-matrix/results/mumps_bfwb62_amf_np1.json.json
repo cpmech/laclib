@@ -1,4 +1,5 @@
 {
+  "Platform": "laclib",
   "SolverKind": "mumps",
   "MatrixName": "bfwb62",
   "Ordering": "amf",
@@ -8,29 +9,29 @@
   "NumberOfCols": 62,
   "NumberOfNonZeros": 202,
   "StepReadMatrix": {
-    "ElapsedTimeNanoseconds": 1506289,
-    "ElapsedTimeString": "1.50629ms",
-    "MemoryBytes": 672456704,
-    "MemoryMiB": 641
+    "ElapsedTimeNanoseconds": 1592433,
+    "ElapsedTimeString": "1.59243ms",
+    "MemoryBytes": 672194560,
+    "MemoryMiB": "641"
   },
   "StepAnalyze": {
-    "ElapsedTimeNanoseconds": 1581060,
-    "ElapsedTimeString": "1.58106ms",
-    "MemoryBytes": 672591872,
-    "MemoryMiB": 641
+    "ElapsedTimeNanoseconds": 1824078,
+    "ElapsedTimeString": "1.82408ms",
+    "MemoryBytes": 672329728,
+    "MemoryMiB": "641"
   },
   "StepFactorize": {
-    "ElapsedTimeNanoseconds": 6361431,
-    "ElapsedTimeString": "6.36143ms",
-    "MemoryBytes": 15747833856,
-    "MemoryMiB": 15018
+    "ElapsedTimeNanoseconds": 1565747,
+    "ElapsedTimeString": "1.56575ms",
+    "MemoryBytes": 15672037376,
+    "MemoryMiB": "14,946"
   },
   "StepSolve": {
-    "ElapsedTimeNanoseconds": 7701809,
-    "ElapsedTimeString": "7.70181ms",
-    "MemoryBytes": 15747969024,
-    "MemoryMiB": 15018
+    "ElapsedTimeNanoseconds": 1076922,
+    "ElapsedTimeString": "1.07692ms",
+    "MemoryBytes": 15672037376,
+    "MemoryMiB": "14,946"
   },
-  "TimeSolverNanoseconds": 15414353,
-  "TimeSolverString": "15.4144ms"
+  "TimeSolverNanoseconds": 3948514,
+  "TimeSolverString": "3.94851ms"
 }

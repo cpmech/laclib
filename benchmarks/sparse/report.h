@@ -6,7 +6,7 @@
 #include "../../src/laclib.h"
 
 #define SNSEC(ns) format_nanoseconds(ns).c_str()
-#define SMIB(bytes) bytes_to_MiB(bytes)
+#define SMIB(bytes) format_large_number(bytes_to_MiB(bytes)).c_str()
 
 enum StepName
 {
@@ -119,6 +119,7 @@ struct Report
 
         std::ofstream ofs(filename, std::ofstream::out);
         ofs << "{\n";
+        ofs << "  \"Platform\": \"laclib\",\n";
         ofs << "  \"SolverKind\": \"" << solver_kind << "\",\n";
         ofs << "  \"MatrixName\": \"" << matrix_name << "\",\n";
         ofs << "  \"Ordering\": \"" << ordering << "\",\n";
@@ -131,25 +132,25 @@ struct Report
         ofs << "    \"ElapsedTimeNanoseconds\": " << this->step_read_matrix.nanoseconds << ",\n";
         ofs << "    \"ElapsedTimeString\": \"" << SNSEC(this->step_read_matrix.nanoseconds) << "\",\n";
         ofs << "    \"MemoryBytes\": " << this->step_read_matrix.bytes << ",\n";
-        ofs << "    \"MemoryMiB\": " << SMIB(this->step_read_matrix.bytes) << "\n";
+        ofs << "    \"MemoryMiB\": \"" << SMIB(this->step_read_matrix.bytes) << "\"\n";
         ofs << "  },\n";
         ofs << "  \"StepAnalyze\": {\n";
         ofs << "    \"ElapsedTimeNanoseconds\": " << this->step_analyze.nanoseconds << ",\n";
         ofs << "    \"ElapsedTimeString\": \"" << SNSEC(this->step_analyze.nanoseconds) << "\",\n";
         ofs << "    \"MemoryBytes\": " << this->step_analyze.bytes << ",\n";
-        ofs << "    \"MemoryMiB\": " << SMIB(this->step_analyze.bytes) << "\n";
+        ofs << "    \"MemoryMiB\": \"" << SMIB(this->step_analyze.bytes) << "\"\n";
         ofs << "  },\n";
         ofs << "  \"StepFactorize\": {\n";
         ofs << "    \"ElapsedTimeNanoseconds\": " << this->step_factorize.nanoseconds << ",\n";
         ofs << "    \"ElapsedTimeString\": \"" << SNSEC(this->step_factorize.nanoseconds) << "\",\n";
         ofs << "    \"MemoryBytes\": " << this->step_factorize.bytes << ",\n";
-        ofs << "    \"MemoryMiB\": " << SMIB(this->step_factorize.bytes) << "\n";
+        ofs << "    \"MemoryMiB\": \"" << SMIB(this->step_factorize.bytes) << "\"\n";
         ofs << "  },\n";
         ofs << "  \"StepSolve\": {\n";
         ofs << "    \"ElapsedTimeNanoseconds\": " << this->step_solve.nanoseconds << ",\n";
         ofs << "    \"ElapsedTimeString\": \"" << SNSEC(this->step_solve.nanoseconds) << "\",\n";
         ofs << "    \"MemoryBytes\": " << this->step_solve.bytes << ",\n";
-        ofs << "    \"MemoryMiB\": " << SMIB(this->step_solve.bytes) << "\n";
+        ofs << "    \"MemoryMiB\": \"" << SMIB(this->step_solve.bytes) << "\"\n";
         ofs << "  },\n";
         ofs << "  \"TimeSolverNanoseconds\": " << this->solver_nanoseconds << ",\n";
         ofs << "  \"TimeSolverString\": \"" << SNSEC(this->solver_nanoseconds) << "\"\n";
