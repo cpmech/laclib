@@ -1,73 +1,53 @@
 #include "mpi.h"
-#include <string>
+#include "report.h"
 #include "../../src/laclib.h"
-#include "../../data/sparse-matrix/bfwb62_x_correct.h"
 using namespace std;
 
-// NOTE: the code must be wrapped within "run"
-//   because the destructor of MumpsSolver relies
-//   on the MPI, so cannot be called before MPI_Finalize
-//   Also, this makes it convenient for try/catch
+// NOTE: the code must be wrapped within "run"  because the destructor of MumpsSolver relies
+// on the MPI, so cannot be called before MPI_Finalize. Also, this makes it convenient for try/catch
 
 void run(int argc, char **argv)
 {
     auto mpi = MpiAux::make_new();
-    auto sw = Stopwatch::make_new();
+    auto report = Report::make_new(mpi);
     auto name = extract_first_argument(argc, argv, "bfwb62");
-
-    mpi.pf("reading matrix (%s)\n", name.c_str());
-
     auto path = path_get_current() + "/../../../data/sparse-matrix/";
+
+    report.print("reading matrix ", name);
     auto data = read_matrix_for_mumps(path + name + ".mtx");
+    report.print("... symmetric = ", data.symmetric ? "true" : "false");
+    report.print("... number of rows (equal to columns) = ", data.trip->m);
+    report.print("... number of non-zeros (pattern entries) = ", data.trip->pos);
+    report.measure_step(STEP_READ_MATRIX);
 
-    mpi.pf("... symmetric = %s\n", data.symmetric ? "true" : "false");
-    mpi.pf("... number of rows (equal to columns) = %zd\n", data.trip->m);
-    mpi.pf("... number of non-zeros (pattern entries) = %zd\n", data.trip->pos);
-    sw.stop("... ", true);
-    mpi.pf("... memory usage = %d kb\n", memory_usage());
-    mpi.pf("initializing (mumps)\n");
-
+    report.print("initializing ", "mumps");
     auto solver = MumpsSolver::make_new(mpi, data.symmetric);
     auto options = MumpsOptions::make_new();
-    auto verbose = true;
-
+    auto verbose = mpi.rank() == 0;
     options.ordering = MUMPS_ORDERING_AMF;
     options.pct_inc_workspace = 100;
     options.max_work_memory = 30000;
+    report.measure_step(STEP_INITIALIZE);
 
+    report.print("analysing", "");
     solver->analyze(data.trip.get(), options, verbose);
+    report.measure_step(STEP_ANALYZE);
 
-    sw.stop("... ", true);
-    mpi.pf("... memory usage = %d kb\n", memory_usage());
-    mpi.pf("factorizing (mumps)\n");
-
+    report.print("factorizing", "");
     solver->factorize(verbose);
+    report.measure_step(STEP_FACTORIZE);
 
-    sw.stop("... ", true);
-    mpi.pf("... memory usage = %d kb\n", memory_usage());
-    mpi.pf("solving (mumps)\n");
-
+    report.print("solving", "");
     auto n = data.trip->n;
     auto rhs = vector<double>(n, 1.0);
     auto x = vector<double>(n, 0.0);
     auto rhs_is_distributed = false;
-
     solver->solve(x, rhs, rhs_is_distributed, verbose);
+    report.measure_step(STEP_SOLVE);
 
-    sw.stop("... ", true);
-    mpi.pf("... memory usage = %d kb\n", memory_usage());
-
-    if (name == "bfwb62")
-    {
-        if (equal_vectors_tol(x, bfwb62_x_correct, 1e-10, true))
-        {
-            mpi.pf("\n### OK ###\n\n");
-        }
-        else
-        {
-            mpi.pf("\nERROR\n\n");
-        }
-    }
+    report.matrix_name = name;
+    report.solver_kind = "mumps";
+    report.ordering = mumps_ordering_to_string(options.ordering);
 }
 
 int main(int argc, char **argv)

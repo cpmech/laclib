@@ -1,5 +1,6 @@
 #pragma once
 #include "dmumps_c.h"
+#include <string>
 
 const MUMPS_INT MUMPS_USE_COMM_WORLD = -987654;
 const MUMPS_INT MUMPS_HOST_ALSO_WORKS = 1;
@@ -45,3 +46,33 @@ enum MumpsJob
     MUMPS_JOB_SOLVE = 3,
     MUMPS_JOB_ANALIZE_AND_FACTORIZE = 4,
 };
+
+inline std::string mumps_ordering_to_string(MumpsOrdering ordering)
+{
+    switch (ordering)
+    {
+    case MUMPS_ORDERING_AMD:
+        return "amd";
+
+    case MUMPS_ORDERING_AMF:
+        return "amf";
+
+    case MUMPS_ORDERING_SCOTCH:
+        return "scotch";
+
+    case MUMPS_ORDERING_PORD:
+        return "pord";
+
+    case MUMPS_ORDERING_METIS:
+        return "metis";
+
+    case MUMPS_ORDERING_QAMD:
+        return "qamd";
+
+    case MUMPS_ORDERING_AUTO:
+        return "auto";
+
+    default:
+        throw "ordering_string: ordering is invalid";
+    }
+}
