@@ -1,0 +1,36 @@
+{
+  "SolverKind": "mumps",
+  "MatrixName": "bfwb62",
+  "Ordering": "amf",
+  "MpiSize": 1,
+  "Symmetric": true,
+  "NumberOfRows": 62,
+  "NumberOfCols": 62,
+  "NumberOfNonZeros": 202,
+  "StepReadMatrix": {
+    "ElapsedTimeNanoseconds": 1506289,
+    "ElapsedTimeString": "1.50629ms",
+    "MemoryBytes": 672456704,
+    "MemoryMiB": 641
+  },
+  "StepAnalyze": {
+    "ElapsedTimeNanoseconds": 1581060,
+    "ElapsedTimeString": "1.58106ms",
+    "MemoryBytes": 672591872,
+    "MemoryMiB": 641
+  },
+  "StepFactorize": {
+    "ElapsedTimeNanoseconds": 6361431,
+    "ElapsedTimeString": "6.36143ms",
+    "MemoryBytes": 15747833856,
+    "MemoryMiB": 15018
+  },
+  "StepSolve": {
+    "ElapsedTimeNanoseconds": 7701809,
+    "ElapsedTimeString": "7.70181ms",
+    "MemoryBytes": 15747969024,
+    "MemoryMiB": 15018
+  },
+  "TimeSolverNanoseconds": 15414353,
+  "TimeSolverString": "15.4144ms"
+}

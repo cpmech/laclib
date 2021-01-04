@@ -1,18 +1,26 @@
 #pragma once
 #include "../../src/laclib.h"
 #include "../../data/sparse-matrix/bfwb62_x_correct.h"
+#include <iostream>
 
-void check(const std::string &name, const std::vector<double> &x, )
+void check_x(
+    MpiAux &mpi,
+    const std::string &matrix_name,
+    const std::vector<double> &x)
 {
-    if (name == "bfwb62")
+    if (matrix_name == "bfwb62")
     {
+        if (mpi.rank() != 0)
+        {
+            return;
+        }
         if (equal_vectors_tol(x, bfwb62_x_correct, 1e-10, true))
         {
-            mpi.pf("\n### OK ###\n\n");
+            std::cout << "\n### OK ###\n\n";
         }
         else
         {
-            mpi.pf("\nERROR\n\n");
+            std::cout << "\nERROR\n\n";
         }
     }
 }

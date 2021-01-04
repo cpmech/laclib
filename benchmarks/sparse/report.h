@@ -2,14 +2,15 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include "../../src/laclib.h"
 
 #define SNSEC(ns) format_nanoseconds(ns).c_str()
+#define SMIB(bytes) bytes_to_MiB(bytes)
 
 enum StepName
 {
     STEP_READ_MATRIX,
-    STEP_INITIALIZE,
     STEP_ANALYZE,
     STEP_FACTORIZE,
     STEP_SOLVE,
@@ -23,42 +24,21 @@ struct TimeAndMemory
 
 struct Report
 {
-    // auxiliary
-    const MpiAux &mpi;
+    MpiAux &mpi;
     Stopwatch sw_step;
     Stopwatch sw_solver;
-
-    // output data
-    std::string matrix_name;
-    std::string solver_kind;
-    std::string ordering;
-    size_t mpi_size;
-    bool symmetric;
-    size_t number_of_rows;
-    size_t number_of_columns;
-    size_t number_of_nonzeros;
     TimeAndMemory step_read_matrix;
-    TimeAndMemory step_initialize;
     TimeAndMemory step_analyze;
     TimeAndMemory step_factorize;
     TimeAndMemory step_solve;
     uint64_t solver_nanoseconds;
 
-    inline static Report make_new(const MpiAux &mpi)
+    inline static Report make_new(MpiAux &mpi)
     {
         return {
             mpi,
             Stopwatch::make_new(),
             Stopwatch::make_new(),
-            "",
-            "",
-            "",
-            0,
-            false,
-            0,
-            0,
-            0,
-            {0, 0},
             {0, 0},
             {0, 0},
             {0, 0},
@@ -68,11 +48,12 @@ struct Report
     }
 
     template <typename T>
-    inline void print(const std::string &fmt, T value)
+    inline void print(const std::string &prefix, const T &value)
     {
-        // if (this->mpi.rank() == 0)
+        bool verbose = this->mpi.rank() == 0;
+        if (verbose)
         {
-            std::cout << fmt << value << std::endl;
+            std::cout << prefix << value << std::endl;
         }
     }
 
@@ -88,20 +69,16 @@ struct Report
 
     inline void measure_step(StepName step)
     {
-        // bool verbose = this->mpi.rank() == 0;
-        bool verbose = true;
+        bool verbose = this->mpi.rank() == 0;
+        std::string prefix = verbose ? "... " : "";
         bool reset_stopwatch = true;
-        auto nanoseconds = this->sw_step.stop(verbose ? "... " : "", reset_stopwatch);
+        auto nanoseconds = this->sw_step.stop(prefix, reset_stopwatch);
         auto bytes = memory_usage();
 
         switch (step)
         {
         case STEP_READ_MATRIX:
             this->step_read_matrix = TimeAndMemory{nanoseconds, bytes};
-            break;
-
-        case STEP_INITIALIZE:
-            this->step_initialize = TimeAndMemory{nanoseconds, bytes};
             break;
 
         case STEP_ANALYZE:
@@ -121,46 +98,64 @@ struct Report
         }
     }
 
-    inline void write_json(std::string fnkey)
+    inline void write_json(const std::string &solver_kind,
+                           const std::string &matrix_name,
+                           const ReadMatrixForMumpsResults &data,
+                           const MumpsOptions &options)
     {
-        auto str_symmetric = this->symmetric ? "true" : "false";
-        std::ofstream ofs(fnkey + ".json", std::ofstream::out);
+        auto path = path_get_current() + "/../../../data/sparse-matrix/results/";
+        auto ordering = mumps_ordering_to_string(options.ordering);
+        auto mpi_size = this->mpi.size();
+
+        std::stringstream fnkey;
+        fnkey << solver_kind
+              << "_" << matrix_name
+              << "_" << ordering
+              << "_np" << mpi_size << ".json";
+
+        std::string filename = path + fnkey.str() + ".json";
+
+        std::string str_symmetric = data.symmetric ? "true" : "false";
+
+        std::ofstream ofs(filename, std::ofstream::out);
         ofs << "{\n";
-        ofs << "  \"MatrixName\": \"%s\"," << this->matrix_name.c_str() << "\n";
-        ofs << "  \"SolverKind\": \"%s\"," << this->solver_kind.c_str() << "\n";
-        ofs << "  \"Ordering\": \"%s\"," << this->ordering.c_str() << "\n";
-        ofs << "  \"MpiSize\": %zd," << this->mpi_size << "\n";
-        ofs << "  \"Symmetric\": %s," << str_symmetric << "\n";
-        ofs << "  \"NumberOfRows\": %z," << this->number_of_rows << "\n";
-        ofs << "  \"NumberOfCols\": %z," << this->number_of_columns << "\n";
-        ofs << "  \"NumberOfNonZeros\": %z," << this->number_of_nonzeros << "\n";
+        ofs << "  \"SolverKind\": \"" << solver_kind << "\",\n";
+        ofs << "  \"MatrixName\": \"" << matrix_name << "\",\n";
+        ofs << "  \"Ordering\": \"" << ordering << "\",\n";
+        ofs << "  \"MpiSize\": " << mpi_size << ",\n";
+        ofs << "  \"Symmetric\": " << str_symmetric << ",\n";
+        ofs << "  \"NumberOfRows\": " << data.trip->m << ",\n";
+        ofs << "  \"NumberOfCols\": " << data.trip->n << ",\n";
+        ofs << "  \"NumberOfNonZeros\": " << data.trip->pos << ",\n";
         ofs << "  \"StepReadMatrix\": {\n";
-        ofs << "    \"ElapsedTimeNanoseconds\": %z," << this->step_read_matrix.nanoseconds << "\n";
-        ofs << "    \"ElapsedTimeString\": \"%s\"," << SNSEC(this->step_read_matrix.nanoseconds) << "\n";
-        ofs << "    \"MemoryBytes\": %z," << this->step_read_matrix.bytes << "\n";
-        ofs << "    \"MemoryMiB\": %z" << bytes_to_MiB(this->step_read_matrix.bytes) << "\n";
+        ofs << "    \"ElapsedTimeNanoseconds\": " << this->step_read_matrix.nanoseconds << ",\n";
+        ofs << "    \"ElapsedTimeString\": \"" << SNSEC(this->step_read_matrix.nanoseconds) << "\",\n";
+        ofs << "    \"MemoryBytes\": " << this->step_read_matrix.bytes << ",\n";
+        ofs << "    \"MemoryMiB\": " << SMIB(this->step_read_matrix.bytes) << "\n";
         ofs << "  },\n";
-        ofs << "  \"StepInitialize\": {\n";
-        ofs << "    \"ElapsedTimeNanoseconds\": %z," << this->step_initialize.nanoseconds << "\n";
-        ofs << "    \"ElapsedTimeString\": \"%s\"," << SNSEC(this->step_initialize.nanoseconds) << "\n";
-        ofs << "    \"MemoryBytes\": %z," << this->step_initialize.bytes << "\n";
-        ofs << "    \"MemoryMiB\": %z" << bytes_to_MiB(this->step_initialize.bytes) << "\n";
+        ofs << "  \"StepAnalyze\": {\n";
+        ofs << "    \"ElapsedTimeNanoseconds\": " << this->step_analyze.nanoseconds << ",\n";
+        ofs << "    \"ElapsedTimeString\": \"" << SNSEC(this->step_analyze.nanoseconds) << "\",\n";
+        ofs << "    \"MemoryBytes\": " << this->step_analyze.bytes << ",\n";
+        ofs << "    \"MemoryMiB\": " << SMIB(this->step_analyze.bytes) << "\n";
         ofs << "  },\n";
         ofs << "  \"StepFactorize\": {\n";
-        ofs << "    \"ElapsedTimeNanoseconds\": %z," << this->step_factorize.nanoseconds << "\n";
-        ofs << "    \"ElapsedTimeString\": \"%s\"," << SNSEC(this->step_factorize.nanoseconds) << "\n";
-        ofs << "    \"MemoryBytes\": %z," << this->step_factorize.bytes << "\n";
-        ofs << "    \"MemoryMiB\": %z" << bytes_to_MiB(this->step_factorize.bytes) << "\n";
+        ofs << "    \"ElapsedTimeNanoseconds\": " << this->step_factorize.nanoseconds << ",\n";
+        ofs << "    \"ElapsedTimeString\": \"" << SNSEC(this->step_factorize.nanoseconds) << "\",\n";
+        ofs << "    \"MemoryBytes\": " << this->step_factorize.bytes << ",\n";
+        ofs << "    \"MemoryMiB\": " << SMIB(this->step_factorize.bytes) << "\n";
         ofs << "  },\n";
         ofs << "  \"StepSolve\": {\n";
-        ofs << "    \"ElapsedTimeNanoseconds\": %z," << this->step_solve.nanoseconds << "\n";
-        ofs << "    \"ElapsedTimeString\": \"%s\"," << SNSEC(this->step_solve.nanoseconds) << "\n";
-        ofs << "    \"MemoryBytes\": %z," << this->step_solve.bytes << "\n";
-        ofs << "    \"MemoryMiB\": %z" << bytes_to_MiB(this->step_solve.bytes) << "\n";
+        ofs << "    \"ElapsedTimeNanoseconds\": " << this->step_solve.nanoseconds << ",\n";
+        ofs << "    \"ElapsedTimeString\": \"" << SNSEC(this->step_solve.nanoseconds) << "\",\n";
+        ofs << "    \"MemoryBytes\": " << this->step_solve.bytes << ",\n";
+        ofs << "    \"MemoryMiB\": " << SMIB(this->step_solve.bytes) << "\n";
         ofs << "  },\n";
-        ofs << "  \"TimeSolverNanoseconds\": %z," << this->solver_nanoseconds << "\n";
-        ofs << "  \"TimeSolverString\": \"%s\"" << SNSEC(this->solver_nanoseconds) << "\n";
+        ofs << "  \"TimeSolverNanoseconds\": " << this->solver_nanoseconds << ",\n";
+        ofs << "  \"TimeSolverString\": \"" << SNSEC(this->solver_nanoseconds) << "\"\n";
         ofs << "}\n";
         ofs.close();
+
+        std::cout << "file <" << filename << "> written" << std::endl;
     }
 };
