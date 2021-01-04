@@ -111,7 +111,7 @@ struct Report
         fnkey << solver_kind
               << "_" << matrix_name
               << "_" << ordering
-              << "_np" << mpi_size << ".json";
+              << "_np" << mpi_size;
 
         std::string filename = path + fnkey.str() + ".json";
 
