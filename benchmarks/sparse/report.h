@@ -100,7 +100,7 @@ struct Report
 
     inline void write_json(const std::string &solver_kind,
                            const std::string &matrix_name,
-                           const ReadMatrixForMumpsResults &data,
+                           const std::unique_ptr<TripletForMumps> &trip,
                            const MumpsOptions &options)
     {
         auto path = path_get_current() + "/../../../data/sparse-matrix/results/";
@@ -115,7 +115,7 @@ struct Report
 
         std::string filename = path + fnkey.str() + ".json";
 
-        std::string str_symmetric = data.symmetric ? "true" : "false";
+        std::string str_symmetric = trip->symmetric ? "true" : "false";
 
         std::ofstream ofs(filename, std::ofstream::out);
         ofs << "{\n";
@@ -125,9 +125,9 @@ struct Report
         ofs << "  \"Ordering\": \"" << ordering << "\",\n";
         ofs << "  \"MpiSize\": " << mpi_size << ",\n";
         ofs << "  \"Symmetric\": " << str_symmetric << ",\n";
-        ofs << "  \"NumberOfRows\": " << data.trip->m << ",\n";
-        ofs << "  \"NumberOfCols\": " << data.trip->n << ",\n";
-        ofs << "  \"NumberOfNonZeros\": " << data.trip->pos << ",\n";
+        ofs << "  \"NumberOfRows\": " << trip->m << ",\n";
+        ofs << "  \"NumberOfCols\": " << trip->n << ",\n";
+        ofs << "  \"NumberOfNonZeros\": " << trip->pos << ",\n";
         ofs << "  \"StepReadMatrix\": {\n";
         ofs << "    \"ElapsedTimeNanoseconds\": " << this->step_read_matrix.nanoseconds << ",\n";
         ofs << "    \"ElapsedTimeString\": \"" << SNSEC(this->step_read_matrix.nanoseconds) << "\",\n";

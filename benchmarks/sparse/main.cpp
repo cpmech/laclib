@@ -19,14 +19,14 @@ void run(int argc, char **argv)
 
     // read matrix
     report.print("reading matrix ", name);
-    auto data = read_matrix_for_mumps(path + name + ".mtx");
-    report.print("... symmetric = ", data.symmetric ? "true" : "false");
-    report.print("... number of rows (equal to columns) = ", data.trip->m);
-    report.print("... number of non-zeros (pattern entries) = ", data.trip->pos);
+    auto trip = read_matrix_for_mumps(path + name + ".mtx");
+    report.print("... symmetric = ", trip->symmetric ? "true" : "false");
+    report.print("... number of rows (equal to columns) = ", trip->m);
+    report.print("... number of non-zeros (pattern entries) = ", trip->pos);
     report.measure_step(STEP_READ_MATRIX);
 
     // allocate solver and options
-    auto solver = MumpsSolver::make_new(mpi, data.symmetric);
+    auto solver = MumpsSolver::make_new(mpi, trip->symmetric);
     auto options = MumpsOptions::make_new();
     auto verbose = mpi.rank() == 0;
 
@@ -39,16 +39,15 @@ void run(int argc, char **argv)
     report.solver_start_stopwatch();
 
     report.print("analyzing", "");
-    solver->analyze(data.trip.get(), options, verbose);
+    solver->analyze(trip, options, verbose);
     report.measure_step(STEP_ANALYZE);
 
     report.print("factorizing", "");
     solver->factorize(verbose);
     report.measure_step(STEP_FACTORIZE);
 
-    auto n = data.trip->n;
-    auto rhs = vector<double>(n, 1.0);
-    auto x = vector<double>(n, 0.0);
+    auto rhs = vector<double>(trip->n, 1.0);
+    auto x = vector<double>(trip->n, 0.0);
     auto rhs_is_distributed = false;
 
     report.print("solving", "");
@@ -59,7 +58,7 @@ void run(int argc, char **argv)
     report.solver_stop_stopwatch();
 
     // write report
-    report.write_json("mumps", name, data, options);
+    report.write_json("mumps", name, trip, options);
 
     // check results
     check_x(mpi, name, x);
