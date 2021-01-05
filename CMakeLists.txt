@@ -53,7 +53,7 @@ add_library(laclib SHARED
 )
 
 if(A1_USE_INTEL)
-    target_link_libraries(laclib PUBLIC nist-mmio ${MUMPS_LIBS} ${MKL_LIBS})
+    target_link_libraries(laclib PUBLIC ${MUMPS_LIBS} ${MKL_LIBS})
 else()
-    target_link_libraries(laclib PUBLIC nist-mmio ${MUMPS_LIBS})
+    target_link_libraries(laclib PUBLIC ${MUMPS_LIBS})
 endif()

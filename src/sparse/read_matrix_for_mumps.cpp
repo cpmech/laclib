@@ -2,7 +2,6 @@
 #include <cstring>
 #include "read_matrix_for_mumps.h"
 #include "../util/string_tools.h"
-#include "../nist-mmio/index.h"
 
 std::unique_ptr<TripletForMumps> read_matrix_for_mumps(const std::string &filename)
 {
