@@ -1,46 +1,69 @@
-#include <fstream>
+#include <cstdio>
+#include <cstring>
 #include "read_matrix_for_mumps.h"
 #include "../util/string_tools.h"
 #include "../nist-mmio/index.h"
 
-static inline std::unique_ptr<TripletForMumps> _do_read(std::string filename)
+std::unique_ptr<TripletForMumps> read_matrix_for_mumps(const std::string &filename)
 {
-    std::unique_ptr<TripletForMumps> trip;
-
-    auto allocator = [&](int m, int n, int nnz) {
-        trip = TripletForMumps::make_new(m, n, nnz);
-        trip->I.resize(nnz);
-        trip->J.resize(nnz);
-        trip->X.resize(nnz);
-    };
-
-    auto setter = [&](int k, int ik_onebased, int jk_onebased, double xk) {
-        trip->put_zero_based(ik_onebased - 1, jk_onebased - 1, xk);
-    };
-
-    trip->symmetric = read_mtx(filename, allocator, setter);
-
-    return trip;
-}
-
-std::unique_ptr<TripletForMumps> read_matrix_for_mumps(const std::string &filename, bool use_nist_mmio)
-{
-    if (use_nist_mmio)
-    {
-        return _do_read(filename);
-    }
-
-    std::ifstream myfile(filename);
-    if (myfile.fail())
+    FILE *f = fopen(filename.c_str(), "r");
+    if (f == NULL)
     {
         throw "read_matrix_for_mumps: cannot open file";
     }
 
+    // header
+    // 12345678901234 123456 1234567890 1234567 123456789
+    // %%MatrixMarket matrix coordinate complex symmetric
+    // %%MatrixMarket matrix coordinate real    general
+    // 12345678901234 123456 1234567890 1234    1234567
+
+    const int LINE_MAX = 2048;
+    char line[LINE_MAX];
+
+    if (fgets(line, LINE_MAX, f) == NULL)
+    {
+        fclose(f);
+        throw "read_matrix_for_mumps: cannot read any line in the file";
+    }
+
+    char mm[24], opt[24], fmt[24], kind[24], sym[24];
+    int nread = sscanf(line, "%24s %24s %24s %24s %24s", mm, opt, fmt, kind, sym);
+    if (nread != 5)
+    {
+        fclose(f);
+        throw "read_matrix_for_mumps: number of tokens in the header is incorrect";
+    }
+    if (strncmp(mm, "%%MatrixMarket", 14) != 0)
+    {
+        fclose(f);
+        throw "read_matrix_for_mumps: header must start with %%MatrixMarket";
+    }
+    if (strncmp(opt, "matrix", 6) != 0)
+    {
+        fclose(f);
+        throw "read_matrix_for_mumps: option must be \"matrix\"";
+    }
+    if (strncmp(fmt, "coordinate", 10) != 0)
+    {
+        fclose(f);
+        throw "read_matrix_for_mumps: type must be \"coordinate\"";
+    }
+    if (strncmp(kind, "real", 4) != 0)
+    {
+        fclose(f);
+        throw "read_matrix_for_mumps: number kind must be \"real\"";
+    }
+    if (strncmp(sym, "general", 7) != 0 && strncmp(sym, "symmetric", 9) != 0)
+    {
+        fclose(f);
+        throw "read_matrix_for_mumps: matrix must be \"general\" or \"symmetric\"";
+    }
+
     std::unique_ptr<TripletForMumps> trip;
-    bool symmetric = false;
+    bool symmetric = strncmp(sym, "symmetric", 9) == 0;
 
     bool initialized = false;
-    size_t deltaIndex = 0;
     size_t id = 0;
     size_t sz = 1;
     size_t start = 0;
@@ -48,120 +71,50 @@ std::unique_ptr<TripletForMumps> read_matrix_for_mumps(const std::string &filena
     size_t indexNnz = 0;
     size_t m, n, nnz, i, j;
     double x;
-    std::string line;
 
-    while (std::getline(myfile, line))
+    while (fgets(line, LINE_MAX, f) != NULL)
     {
-        // read header
+        // dimensions
         if (!initialized)
         {
-            if (string_has_prefix(line, "%%MatrixMarket"))
-            {
-                auto info = string_fields(line);
-                if (info.size() != 5)
-                {
-                    myfile.close();
-                    throw "read_matrix_for_mumps: header starting with %%MatrixMarket is incorrect";
-                }
-                if (info[1] != "matrix")
-                {
-                    myfile.close();
-                    throw "read_matrix_for_mumps: can only read \"matrix\" MatrixMarket at the moment";
-                }
-                if (info[2] != "coordinate")
-                {
-                    myfile.close();
-                    throw "read_matrix_for_mumps: can only read \"coordinate\" MatrixMarket at the moment";
-                }
-                if (info[3] != "real")
-                {
-                    myfile.close();
-                    throw "read_matrix_for_mumps: the given MatrixMarket file must have the word \"real\" in the header";
-                }
-                if (info[4] != "general" && info[4] != "symmetric")
-                {
-                    myfile.close();
-                    throw "read_matrix_for_mumps: only works with \"general\" or \"symmetric\" MatrixMarket files";
-                }
-                if (info[4] == "symmetric")
-                {
-                    symmetric = true;
-                }
-                deltaIndex = 1;
-                continue;
-            }
-
-            if (string_has_prefix(line, "%"))
+            if (line[0] == '%')
             {
                 continue;
             }
 
-            auto r = string_fields(line);
-
-            if (r.size() != 3)
+            nread = sscanf(line, "%zu %zu %zu", &m, &n, &nnz);
+            if (nread != 3)
             {
-                myfile.close();
-                throw "read_matrix_for_mumps: the number of columns in the line with dimensions must be 3 (m,n,nnz)";
-            }
-
-            try
-            {
-                m = std::stoi(r[0]);
-                n = std::stoi(r[1]);
-                nnz = std::stoi(r[2]);
-            }
-            catch (...)
-            {
-                throw "read_matrix_for_mumps: cannot parse m, n, or nnz values";
+                fclose(f);
+                throw "read_matrix_for_mumps: cannot parse the dimensions (m,n,nnz)";
             }
 
             start = (id * nnz) / sz;
             endp1 = ((id + 1) * nnz) / sz;
-
             trip = TripletForMumps::make_new(m, n, endp1 - start);
-
             initialized = true;
         }
 
-        // read values
+        // values
         else
         {
-            if (string_has_prefix(line, "%"))
+            nread = sscanf(line, "%zu %zu %lg", &i, &j, &x);
+            if (nread != 3)
             {
-                continue;
-            }
-
-            auto r = string_fields(line);
-
-            if (r.size() != 3)
-            {
-                myfile.close();
-                throw "read_matrix_for_mumps: the number of columns in the data lines must be 3 (i,j,x)";
-            }
-
-            try
-            {
-                i = std::stoi(r[0]);
-                j = std::stoi(r[1]);
-                x = std::stod(r[2]);
-            }
-            catch (...)
-            {
-                throw "read_matrix_for_mumps: cannot parse i, j or x values";
+                fclose(f);
+                throw "read_matrix_for_mumps: cannot parse the values (i,j,x)";
             }
 
             if (indexNnz >= start && indexNnz < endp1)
             {
-                trip->put_zero_based(i - deltaIndex, j - deltaIndex, x);
+                trip->put_zero_based(i - 1, j - 1, x);
             }
 
             indexNnz++;
         }
     }
 
-    myfile.close();
-
+    fclose(f);
     trip->symmetric = symmetric;
-
     return trip;
 }

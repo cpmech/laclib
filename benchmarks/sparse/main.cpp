@@ -19,7 +19,7 @@ void run(int argc, char **argv)
 
     // read matrix
     report.print("reading matrix ", name);
-    auto trip = read_matrix_for_mumps(path + name + ".mtx", true);
+    auto trip = read_matrix_for_mumps(path + name + ".mtx");
     report.print("... symmetric = ", trip->symmetric ? "true" : "false");
     report.print("... number of rows (equal to columns) = ", trip->m);
     report.print("... number of non-zeros (pattern entries) = ", trip->pos);
