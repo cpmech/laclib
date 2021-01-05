@@ -9,9 +9,7 @@ extern "C"
 #include "mmio.h"
 }
 
-using namespace std;
-
-static inline std::string _error(const std::string &prefix, int status)
+static inline void _throw_status_error(FILE *f, const std::string &prefix, int status)
 {
     std::stringstream ss;
 
@@ -49,27 +47,70 @@ static inline std::string _error(const std::string &prefix, int status)
         ss << "ERROR (" << status << "): unknown error code\n";
     }
 
-    return ss.str();
+    fclose(f);
+    throw ss.str().c_str();
 }
 
-void hello(const std::string &filename)
+static inline void _throw_typecode_error(FILE *f, char *matcode)
 {
-    FILE *f = fopen(filename.c_str(), "r");
+    std::stringstream ss;
+    ss << "Market Market type = " << mm_typecode_to_str(matcode) << " is not supported";
+    fclose(f);
+    throw ss.str().c_str();
+}
 
+bool read_mtx(const std::string &filename,
+              std::function<void(int m, int n, int nnz)> allocator,
+              std::function<void(int k, int ik_onebased, int jk_onebased, double xk)> setter)
+{
+    // open file
+    FILE *f = fopen(filename.c_str(), "r");
     if (f == NULL)
     {
         throw "could not open file";
     }
 
+    // read banner
     MM_typecode matcode;
-
     int status = mm_read_banner(f, &matcode);
-
     if (status != 0)
     {
-        fclose(f);
-        throw _error("read_banner", status);
+        _throw_status_error(f, "mm_read_banner", status);
     }
 
+    // check types
+    if (!(mm_is_real(matcode) && mm_is_matrix(matcode) && mm_is_sparse(matcode)))
+    {
+        _throw_typecode_error(f, matcode);
+    }
+
+    // read sizes
+    int m, n, nnz;
+    status = mm_read_mtx_crd_size(f, &m, &n, &nnz);
+    if (status != 0)
+    {
+        _throw_status_error(f, "mm_read_mtx_crd_size", status);
+    }
+
+    // call allocator
+    allocator(m, n, nnz);
+
+    /* NOTE: when reading in doubles, ANSI C requires the use of the "l"  */
+    /*   specifier as in "%lg", "%lf", "%le", otherwise errors will occur */
+    /*  (ANSI C X3.159-1989, Sec. 4.9.6.2, p. 136 lines 13-15)            */
+
+    // read data
+    int ik, jk;
+    double xk;
+    for (int k = 0; k < nnz; k++)
+    {
+        fscanf(f, "%d %d %lg\n", &ik, &jk, &xk);
+        setter(k, ik, jk, xk);
+    }
+
+    // close file
     fclose(f);
+
+    // results
+    return mm_is_symmetric(matcode);
 }
