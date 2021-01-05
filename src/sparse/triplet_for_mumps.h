@@ -27,13 +27,14 @@ inline MUMPS_INT8 make_mumps_int8(size_t a)
 
 struct TripletForMumps
 {
-    size_t m;
-    size_t n;
-    size_t pos; // nnz in the end
-    size_t max;
+    size_t m;                 // number of rows
+    size_t n;                 // number of columns
+    size_t pos;               // current index => nnz in the end
+    size_t max;               // max allowed number of entries
+    bool symmetric;           // symmetric matrix?, but WITHOUT both sides of the diagonal
     std::vector<MUMPS_INT> I; // one-based indices stored here, regardless the input
     std::vector<MUMPS_INT> J; // one-based indices stored here, regardless the input
-    std::vector<double> X;
+    std::vector<double> X;    // all the values
 
     inline static std::unique_ptr<TripletForMumps> make_new(size_t m, size_t n, size_t max)
     {
@@ -46,6 +47,7 @@ struct TripletForMumps
             n,
             0,
             max,
+            false,
             std::vector<MUMPS_INT>(max, 0),
             std::vector<MUMPS_INT>(max, 0),
             std::vector<double>(max, 0.0),

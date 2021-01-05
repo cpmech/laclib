@@ -22,6 +22,7 @@ TEST_CASE("testing TripletForMumps (put_zero_based)")
         CHECK(trip->n == 3);
         CHECK(trip->pos == 0);
         CHECK(trip->max == 4);
+        CHECK(trip->symmetric == false);
         CHECK(trip->I.size() == 4);
         CHECK(trip->J.size() == 4);
         CHECK(trip->X.size() == 4);
@@ -80,6 +81,7 @@ TEST_CASE("testing TripletForMumps (put_one_based)")
         CHECK(trip->n == 3);
         CHECK(trip->pos == 0);
         CHECK(trip->max == 4);
+        CHECK(trip->symmetric == false);
         CHECK(trip->I.size() == 4);
         CHECK(trip->J.size() == 4);
         CHECK(trip->X.size() == 4);

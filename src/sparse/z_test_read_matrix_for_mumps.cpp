@@ -22,12 +22,12 @@ TEST_CASE("read_matrix_for_mumps")
     SUBCASE("read sparse-matrix ok1")
     {
         auto mtx = data_path + "/sparse-matrix/ok1.mtx";
-        auto res = read_matrix_for_mumps(mtx);
+        auto trip = read_matrix_for_mumps(mtx);
 
-        CHECK(res.symmetric == false);
-        CHECK(equal_vectors(res.trip.get()->I, Icorrect) == true);
-        CHECK(equal_vectors(res.trip.get()->J, Jcorrect) == true);
-        CHECK(equal_vectors_tol(res.trip.get()->X, Xcorrect, 1e-15) == true);
+        CHECK(trip->symmetric == false);
+        CHECK(equal_vectors(trip->I, Icorrect) == true);
+        CHECK(equal_vectors(trip->J, Jcorrect) == true);
+        CHECK(equal_vectors_tol(trip->X, Xcorrect, 1e-15) == true);
     }
 
     SUBCASE("read sparse-matrix bad")
@@ -47,11 +47,11 @@ TEST_CASE("read_matrix_for_mumps")
     SUBCASE("read sparse-matrix ok1 using NIST reader")
     {
         auto mtx = data_path + "/sparse-matrix/ok1.mtx";
-        auto res = read_matrix_for_mumps(mtx, true);
+        auto trip = read_matrix_for_mumps(mtx, true);
 
-        CHECK(res.symmetric == false);
-        CHECK(equal_vectors(res.trip.get()->I, Icorrect) == true);
-        CHECK(equal_vectors(res.trip.get()->J, Jcorrect) == true);
-        CHECK(equal_vectors_tol(res.trip.get()->X, Xcorrect, 1e-15) == true);
+        CHECK(trip->symmetric == false);
+        CHECK(equal_vectors(trip->I, Icorrect) == true);
+        CHECK(equal_vectors(trip->J, Jcorrect) == true);
+        CHECK(equal_vectors_tol(trip->X, Xcorrect, 1e-15) == true);
     }
 }

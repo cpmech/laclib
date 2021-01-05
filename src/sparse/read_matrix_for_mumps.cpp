@@ -3,27 +3,27 @@
 #include "../util/string_tools.h"
 #include "../nist-mmio/index.h"
 
-static inline ReadMatrixForMumpsResults _do_read(std::string filename)
+static inline std::unique_ptr<TripletForMumps> _do_read(std::string filename)
 {
-    ReadMatrixForMumpsResults results;
+    std::unique_ptr<TripletForMumps> trip;
 
     auto allocator = [&](int m, int n, int nnz) {
-        results.trip = TripletForMumps::make_new(m, n, nnz);
-        results.trip->I.resize(nnz);
-        results.trip->J.resize(nnz);
-        results.trip->X.resize(nnz);
+        trip = TripletForMumps::make_new(m, n, nnz);
+        trip->I.resize(nnz);
+        trip->J.resize(nnz);
+        trip->X.resize(nnz);
     };
 
     auto setter = [&](int k, int ik_onebased, int jk_onebased, double xk) {
-        results.trip->put_zero_based(ik_onebased - 1, jk_onebased - 1, xk);
+        trip->put_zero_based(ik_onebased - 1, jk_onebased - 1, xk);
     };
 
-    results.symmetric = read_mtx(filename, allocator, setter);
+    trip->symmetric = read_mtx(filename, allocator, setter);
 
-    return results;
+    return trip;
 }
 
-ReadMatrixForMumpsResults read_matrix_for_mumps(const std::string &filename, bool use_nist_mmio)
+std::unique_ptr<TripletForMumps> read_matrix_for_mumps(const std::string &filename, bool use_nist_mmio)
 {
     if (use_nist_mmio)
     {
@@ -36,8 +36,8 @@ ReadMatrixForMumpsResults read_matrix_for_mumps(const std::string &filename, boo
         throw "read_matrix_for_mumps: cannot open file";
     }
 
-    ReadMatrixForMumpsResults results;
-    results.symmetric = false;
+    std::unique_ptr<TripletForMumps> trip;
+    bool symmetric = false;
 
     bool initialized = false;
     size_t deltaIndex = 0;
@@ -85,7 +85,7 @@ ReadMatrixForMumpsResults read_matrix_for_mumps(const std::string &filename, boo
                 }
                 if (info[4] == "symmetric")
                 {
-                    results.symmetric = true;
+                    symmetric = true;
                 }
                 deltaIndex = 1;
                 continue;
@@ -118,7 +118,7 @@ ReadMatrixForMumpsResults read_matrix_for_mumps(const std::string &filename, boo
             start = (id * nnz) / sz;
             endp1 = ((id + 1) * nnz) / sz;
 
-            results.trip = TripletForMumps::make_new(m, n, endp1 - start);
+            trip = TripletForMumps::make_new(m, n, endp1 - start);
 
             initialized = true;
         }
@@ -152,7 +152,7 @@ ReadMatrixForMumpsResults read_matrix_for_mumps(const std::string &filename, boo
 
             if (indexNnz >= start && indexNnz < endp1)
             {
-                results.trip->put_zero_based(i - deltaIndex, j - deltaIndex, x);
+                trip->put_zero_based(i - deltaIndex, j - deltaIndex, x);
             }
 
             indexNnz++;
@@ -161,5 +161,7 @@ ReadMatrixForMumpsResults read_matrix_for_mumps(const std::string &filename, boo
 
     myfile.close();
 
-    return results;
+    trip->symmetric = symmetric;
+
+    return trip;
 }

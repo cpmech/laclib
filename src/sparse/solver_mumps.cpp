@@ -4,9 +4,11 @@
 #include "dmumps_c.h"
 #include "solver_mumps.h"
 
-void MumpsSolver::analyze(TripletForMumps *trip, const MumpsOptions &options, bool verbose)
+void MumpsSolver::analyze(const std::unique_ptr<TripletForMumps> &trip,
+                          const MumpsOptions &options,
+                          bool verbose)
 {
-    if (!mpi.belong())
+    if (!this->mpi.belong())
     {
         throw "MumpsSolver::analyze: must only be called by processors in the group";
     }
@@ -46,9 +48,11 @@ void MumpsSolver::factorize(bool verbose)
     this->factorized = true;
 }
 
-void MumpsSolver::analyze_and_factorize(TripletForMumps *trip, const MumpsOptions &options, bool verbose)
+void MumpsSolver::analyze_and_factorize(const std::unique_ptr<TripletForMumps> &trip,
+                                        const MumpsOptions &options,
+                                        bool verbose)
 {
-    if (!mpi.belong())
+    if (!this->mpi.belong())
     {
         throw "MumpsSolver::analize_and_factorize: must only be called by processors in the group";
     }
@@ -68,9 +72,12 @@ void MumpsSolver::analyze_and_factorize(TripletForMumps *trip, const MumpsOption
     this->factorized = true;
 }
 
-void MumpsSolver::solve(std::vector<double> &x, const std::vector<double> &rhs, bool rhs_is_distributed, bool verbose)
+void MumpsSolver::solve(std::vector<double> &x,
+                        const std::vector<double> &rhs,
+                        bool rhs_is_distributed,
+                        bool verbose)
 {
-    if (!mpi.belong())
+    if (!this->mpi.belong())
     {
         throw "MumpsSolver::analize_and_factorize: must only be called by processors in the group";
     }

@@ -46,17 +46,17 @@ struct MumpsSolver
         call_dmumps(&this->data, MUMPS_JOB_TERMINATE, false);
     }
 
-    void analyze(TripletForMumps *trip,
+    void analyze(const std::unique_ptr<TripletForMumps> &trip,
                  const MumpsOptions &options,
                  bool verbose = false);
 
     void factorize(bool verbose = false);
 
-    void analyze_and_factorize(TripletForMumps *trip,
+    void analyze_and_factorize(const std::unique_ptr<TripletForMumps> &trip,
                                const MumpsOptions &options,
                                bool verbose = false);
 
-    inline void analyze_and_factorize(TripletForMumps *trip)
+    inline void analyze_and_factorize(const std::unique_ptr<TripletForMumps> &trip)
     {
         auto options = MumpsOptions::make_new();
         this->analyze_and_factorize(trip, options);

@@ -14,17 +14,16 @@ MPI_TEST_CASE("solve bfwb62 system", 1)
 {
     auto data_path = path_get_current() + "/../../../data";
     auto mtx_path = data_path + "/sparse-matrix/bfwb62.mtx";
-    auto data = read_matrix_for_mumps(mtx_path);
+    auto trip = read_matrix_for_mumps(mtx_path);
 
     auto mpi = MpiAux::make_new();
-    auto solver = MumpsSolver::make_new(mpi, data.symmetric);
+    auto solver = MumpsSolver::make_new(mpi, trip->symmetric);
 
-    solver->analyze_and_factorize(data.trip.get());
+    solver->analyze_and_factorize(trip);
     CHECK(solver.get()->factorized == true);
 
-    size_t n = data.trip->n;
-    auto rhs = vector<double>(n, 1.0);
-    auto x = vector<double>(n, 0.0);
+    auto rhs = vector<double>(trip->n, 1.0);
+    auto x = vector<double>(trip->n, 0.0);
 
     solver->solve(x, rhs);
 
