@@ -1,9 +1,35 @@
 #include <fstream>
 #include "read_matrix_for_mumps.h"
 #include "../util/string_tools.h"
+#include "../nist-mmio/index.h"
 
-ReadMatrixForMumpsResults read_matrix_for_mumps(std::string filename)
+static inline ReadMatrixForMumpsResults _do_read(std::string filename)
 {
+    ReadMatrixForMumpsResults results;
+
+    auto allocator = [&](int m, int n, int nnz) {
+        results.trip = TripletForMumps::make_new(m, n, nnz);
+        results.trip->I.resize(nnz);
+        results.trip->J.resize(nnz);
+        results.trip->X.resize(nnz);
+    };
+
+    auto setter = [&](int k, int ik_onebased, int jk_onebased, double xk) {
+        results.trip->put_zero_based(ik_onebased - 1, jk_onebased - 1, xk);
+    };
+
+    results.symmetric = read_mtx(filename, allocator, setter);
+
+    return results;
+}
+
+ReadMatrixForMumpsResults read_matrix_for_mumps(const std::string &filename, bool use_nist_mmio)
+{
+    if (use_nist_mmio)
+    {
+        return _do_read(filename);
+    }
+
     std::ifstream myfile(filename);
     if (myfile.fail())
     {

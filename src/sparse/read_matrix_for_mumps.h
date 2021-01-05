@@ -9,4 +9,4 @@ struct ReadMatrixForMumpsResults
     bool symmetric;
 };
 
-ReadMatrixForMumpsResults read_matrix_for_mumps(std::string filename);
+ReadMatrixForMumpsResults read_matrix_for_mumps(const std::string &filename, bool use_nist_mmio = false);
