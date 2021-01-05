@@ -52,10 +52,10 @@ ReadMatrixForMumpsResults read_matrix_for_mumps(std::string filename)
                     myfile.close();
                     throw "read_matrix_for_mumps: the given MatrixMarket file must have the word \"real\" in the header";
                 }
-                if (info[4] != "general" && info[4] != "symmetric" && info[4] != "unsymmetric")
+                if (info[4] != "general" && info[4] != "symmetric")
                 {
                     myfile.close();
-                    throw "read_matrix_for_mumps: only works with \"general\", \"symmetric\" and \"unsymmetric\" MatrixMarket files";
+                    throw "read_matrix_for_mumps: only works with \"general\" or \"symmetric\" MatrixMarket files";
                 }
                 if (info[4] == "symmetric")
                 {

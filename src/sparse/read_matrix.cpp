@@ -52,10 +52,10 @@ ReadMatrixResults read_matrix(std::string filename, bool mirrorIfSym)
                     myfile.close();
                     throw "read_matrix: the given MatrixMarket file must have the word \"real\" in the header";
                 }
-                if (info[4] != "general" && info[4] != "symmetric" && info[4] != "unsymmetric")
+                if (info[4] != "general" && info[4] != "symmetric")
                 {
                     myfile.close();
-                    throw "read_matrix: only works with \"general\", \"symmetric\" and \"unsymmetric\" MatrixMarket files";
+                    throw "read_matrix: only works with \"general\" or \"symmetric\" MatrixMarket files";
                 }
                 if (info[4] == "symmetric")
                 {
