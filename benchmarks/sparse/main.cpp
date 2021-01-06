@@ -13,9 +13,12 @@ void run(int argc, char **argv)
     auto mpi = MpiAux::make_new();
     auto report = Report::make_new(mpi);
 
-    // get matrix name from command line
-    auto name = extract_first_argument(argc, argv, "bfwb62");
+    // get arguments from command line
+    vector<string> defaults{"bfwb62", "amf"};
+    auto args = extract_arguments_or_use_defaults(argc, argv, defaults);
     auto path = path_get_current() + "/../../../data/sparse-matrix/";
+    auto name = args[0];
+    auto ordering = mumps_string_to_ordering(args[1]);
 
     // read matrix
     report.print("reading matrix ", name);
@@ -31,7 +34,7 @@ void run(int argc, char **argv)
     auto verbose = mpi.rank() == 0;
 
     // set options
-    options.ordering = MUMPS_ORDERING_AMF;
+    options.ordering = ordering;
     options.pct_inc_workspace = 100;
     options.max_work_memory = 30000;
 
