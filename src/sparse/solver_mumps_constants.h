@@ -73,6 +73,46 @@ inline std::string mumps_ordering_to_string(MumpsOrdering ordering)
         return "auto";
 
     default:
-        throw "ordering_string: ordering is invalid";
+        throw "mumps_ordering_to_string: ordering is invalid";
     }
+}
+
+inline MumpsOrdering mumps_string_to_ordering(const std::string &ordering)
+{
+    if (ordering == "amd")
+    {
+        return MUMPS_ORDERING_AMD;
+    }
+
+    if (ordering == "amf")
+    {
+        return MUMPS_ORDERING_AMF;
+    }
+
+    if (ordering == "scotch")
+    {
+        return MUMPS_ORDERING_SCOTCH;
+    }
+
+    if (ordering == "pord")
+    {
+        return MUMPS_ORDERING_PORD;
+    }
+
+    if (ordering == "metis")
+    {
+        return MUMPS_ORDERING_METIS;
+    }
+
+    if (ordering == "qamd")
+    {
+        return MUMPS_ORDERING_QAMD;
+    }
+
+    if (ordering == "auto")
+    {
+        return MUMPS_ORDERING_AUTO;
+    }
+
+    throw "mumps_string_to_ordering: ordering is invalid";
 }
