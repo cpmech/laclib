@@ -7,7 +7,12 @@ set(MUMPS_LIBRARY_SEARCH_PATH
 )
 
 find_path(MUMPS_INC dmumps_c.h ${MUMPS_INCLUDE_SEARCH_PATH})
-find_library(MUMPS_LIB NAMES dmumps PATHS ${MUMPS_LIBRARY_SEARCH_PATH})
+
+if(A1_USE_INTEL)
+  find_library(MUMPS_LIB NAMES dmumps_intel PATHS ${MUMPS_LIBRARY_SEARCH_PATH})
+else()
+  find_library(MUMPS_LIB NAMES dmumps PATHS ${MUMPS_LIBRARY_SEARCH_PATH})
+endif()
 
 set(MUMPS_FOUND 1)
 foreach(var MUMPS_INC MUMPS_LIB)
