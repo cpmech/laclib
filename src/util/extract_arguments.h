@@ -22,3 +22,21 @@ inline std::string extract_first_argument(int argc, char **argv, std::string def
     }
     return default_arg;
 }
+
+inline std::vector<std::string> extract_arguments_or_use_defaults(int argc, char **argv, const std::vector<std::string> &defaults)
+{
+    auto arguments = extract_arguments(argc, argv);
+    std::vector<std::string> results(defaults.size(), "");
+    for (size_t i = 0; i < defaults.size(); i++)
+    {
+        if (arguments.size() > i)
+        {
+            results[i] = arguments[i];
+        }
+        else
+        {
+            results[i] = defaults[i];
+        }
+    }
+    return results;
+}

@@ -1,5 +1,7 @@
 #include "extract_arguments.h"
 #include <iostream>
+#include <vector>
+#include <string>
 using namespace std;
 
 int main(int argc, char **argv)
@@ -36,6 +38,33 @@ int main(int argc, char **argv)
     {
         cout << "ERROR: 1st argument must be \"first\"" << endl;
         return 1;
+    }
+
+    vector<string> defaults{"1", "2", "3", "4"};
+    auto res = extract_arguments_or_use_defaults(argc, argv, defaults);
+    if (res.size() != 4)
+    {
+        cout << "ERROR: size of res is incorrect\n";
+    }
+    if (res[0] != "first")
+    {
+
+        cout << "ERROR: first res must be \"first\"" << endl;
+    }
+    if (res[1] != "second")
+    {
+
+        cout << "ERROR: second res must be \"second\"" << endl;
+    }
+    if (res[2] != "third")
+    {
+
+        cout << "ERROR: third res must be \"third\"" << endl;
+    }
+    if (res[3] != "4")
+    {
+
+        cout << "ERROR: fourth res must be \"4\"" << endl;
     }
 
     cout << "### OK ###" << endl;
