@@ -14,7 +14,7 @@ void run(int argc, char **argv)
     auto report = Report::make_new(mpi);
 
     // get arguments from command line
-    vector<string> defaults{"bfwb62", "amf"};
+    vector<string> defaults{"bfwb62", "metis"};
     auto args = extract_arguments_or_use_defaults(argc, argv, defaults);
     auto path = path_get_current() + "/../../../data/sparse-matrix/";
     auto name = args[0];
