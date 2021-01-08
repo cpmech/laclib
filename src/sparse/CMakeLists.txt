@@ -12,6 +12,7 @@ set(TESTS_MPI_NP1
 
 set(TESTS_MPI_NP2
     z_test_solver_mumps_np2
+    z_test_read_matrix_for_mumps_np2
 )
 
 foreach(var ${TESTS})

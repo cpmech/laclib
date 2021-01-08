@@ -3,7 +3,9 @@
 #include "read_matrix_for_mumps.h"
 #include "../util/string_tools.h"
 
-std::unique_ptr<TripletForMumps> read_matrix_for_mumps(const std::string &filename)
+std::unique_ptr<TripletForMumps> read_matrix_for_mumps(const std::string &filename,
+                                                       int mpi_rank,
+                                                       int mpi_size)
 {
     FILE *f = fopen(filename.c_str(), "r");
     if (f == NULL)
@@ -63,8 +65,8 @@ std::unique_ptr<TripletForMumps> read_matrix_for_mumps(const std::string &filena
     bool symmetric = strncmp(sym, "symmetric", 9) == 0;
 
     bool initialized = false;
-    size_t id = 0;
-    size_t sz = 1;
+    size_t id = mpi_rank;
+    size_t sz = mpi_size;
     size_t start = 0;
     size_t endp1 = 0;
     size_t indexNnz = 0;
