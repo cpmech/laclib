@@ -103,9 +103,15 @@ struct Report
                            const std::unique_ptr<TripletForMumps> &trip,
                            const MumpsOptions &options)
     {
+        auto mpi_rank = this->mpi.rank();
+        auto mpi_size = this->mpi.size();
+        if (mpi_rank != 0)
+        {
+            return;
+        }
+
         auto path = path_get_current() + "/../../../data/sparse-matrix/results/";
         auto ordering = mumps_ordering_to_string(options.ordering);
-        auto mpi_size = this->mpi.size();
 
         std::stringstream fnkey;
         fnkey << solver_kind

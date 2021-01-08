@@ -8,12 +8,12 @@ void check_x(
     const std::string &matrix_name,
     const std::vector<double> &x)
 {
+    if (mpi.rank() != 0)
+    {
+        return;
+    }
     if (matrix_name == "bfwb62")
     {
-        if (mpi.rank() != 0)
-        {
-            return;
-        }
         if (equal_vectors_tol(x, bfwb62_x_correct, 1e-10, true))
         {
             std::cout << "\n### OK ###\n\n";
