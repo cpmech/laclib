@@ -615,3 +615,17 @@ inline void dpotrf(bool up,
         throw "LAPACK failed on dpotrf";
     }
 }
+
+// idamax finds the index of the first element having maximum absolute value.
+//
+// See: https://www.netlib.org/lapack/explore-html/dd/de0/idamax_8f.html
+//
+inline int idamax(int n,
+                  const std::vector<double> &x,
+                  int incx)
+{
+    return cblas_idamax(
+        n,
+        x.data(),
+        incx);
+}

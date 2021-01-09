@@ -607,4 +607,11 @@ TEST_CASE("double")
 
         CHECK(equal_vectors_tol(a_lo, a_lo_correct, 1e-15));
     }
+
+    SUBCASE("idamax")
+    {
+        vector<double> x{1, 2, 0, 4, -10, 8};
+        auto idx = idamax(x.size(), x, 1);
+        CHECK(idx == 4);
+    }
 }
