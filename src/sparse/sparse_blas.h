@@ -5,8 +5,10 @@
 
 // sp_matvecmul returns the (sparse) matrix-vector multiplication (scaled):
 //  v := alpha * a * u  =>  vi = alpha * aij * uj
-//  NOTE: the dense vector v will be first initialised with zeros
+//  NOTE: the dense vector v will be first initialised with zeros if fill_zeros == true
 void sp_matvecmul(std::vector<double> &v,
                   double alpha,
                   const std::unique_ptr<TripletForMumps> &a,
-                  const std::vector<double> &u);
+                  const std::vector<double> &u,
+                  bool check_sizes = true,
+                  bool fill_zeros = true);

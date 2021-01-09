@@ -5,13 +5,25 @@
 void sp_matvecmul(std::vector<double> &v,
                   double alpha,
                   const std::unique_ptr<TripletForMumps> &a,
-                  const std::vector<double> &u)
+                  const std::vector<double> &u,
+                  bool check_sizes,
+                  bool fill_zeros)
 {
-    if (v.size() != a->m)
+    if (check_sizes)
     {
-        throw "v.size must be equal to a.m";
+        if (v.size() != a->m)
+        {
+            throw "size of v must be equal to the number of rows of a";
+        }
+        if (u.size() != a->n)
+        {
+            throw "size of u must be equal to the number of columns of a";
+        }
     }
-    std::fill(v.begin(), v.end(), 0.0);
+    if (fill_zeros)
+    {
+        std::fill(v.begin(), v.end(), 0.0);
+    }
     for (size_t k = 0; k < a->pos; k++)
     {
         auto i = a->I[k] - 1;
