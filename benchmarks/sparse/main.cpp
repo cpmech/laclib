@@ -36,7 +36,7 @@ void run(int argc, char **argv)
     // set options
     options.ordering = ordering;
     options.pct_inc_workspace = 100;
-    options.max_work_memory = 30000;
+    options.max_work_memory = 30000 / mpi.size();
 
     // start linear solver execution /////////////////////////////////////////////////////////////////
     report.solver_start_stopwatch();
