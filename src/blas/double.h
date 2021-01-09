@@ -105,7 +105,7 @@ inline void dscal(int n,
 //
 //  See: https://software.intel.com/en-us/mkl-developer-reference-c-cblas-axpy
 //
-//  y += alpha*x + y
+//  y := alpha*x + y
 //
 inline void daxpy(int n,
                   double alpha,
