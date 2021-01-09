@@ -29,11 +29,17 @@ void check_x(MpiAux &mpi,
 
 // check that a*x = rhs
 void check_ax(MpiAux &mpi,
+              const std::string &matrix_name,
               const std::unique_ptr<TripletForMumps> &a,
               const std::vector<double> &x,
               const std::vector<double> &rhs,
-              double tolerance = 1e-14)
+              double tolerance = 1e-6)
 {
+    if (matrix_name == "bfwb62")
+    {
+        tolerance = 1e-14;
+    }
+
     auto m = a->m;
     std::vector<double> b(m, 0.0); // b := a*x
 
@@ -54,11 +60,14 @@ void check_ax(MpiAux &mpi,
     }
 
     daxpy(m, -1.0, rhs, 1, b, 1); // b := -rhs + b
-    auto norm = dnrm2(m, b, 1);
+    auto idx = idamax(m, b, 1);
+    auto linf_norm = fabs(b[idx]);
 
-    if (norm > tolerance)
+    std::cout << "\nlinf_norm(a*x-rhs) = " << linf_norm << "\n";
+
+    if (linf_norm > tolerance)
     {
-        std::cout << "\nERROR: a*x; norm(a*x-rhs) = " << norm << "\n";
+        std::cout << "\nERROR: a*x\n";
     }
     else
     {
