@@ -8,7 +8,7 @@
       "name": "(gdb) Launch",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/src/sparse/z_test_read_matrix_for_mumps",
+      "program": "${workspaceFolder}/build/src/sparse/z_test_sparse_blas",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/build/src/sparse",

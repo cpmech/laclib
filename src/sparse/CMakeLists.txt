@@ -1,6 +1,7 @@
 set(TESTS
     z_test_read_matrix
     z_test_read_matrix_for_mumps
+    z_test_sparse_blas
     z_test_triplet
     z_test_triplet_for_mumps
 )
