@@ -65,6 +65,7 @@ void run(int argc, char **argv)
 
     // check results
     check_x(mpi, name, x);
+    check_ax(mpi, trip, x, rhs);
 }
 
 int main(int argc, char **argv)
