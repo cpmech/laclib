@@ -4,7 +4,7 @@
 #include "../check/check.h"
 #include "auxiliary.h"
 #include "conversions.h"
-#include "mkl_double.h"
+#include "double.h"
 #include <cmath>
 #include <complex>
 #include <vector>
@@ -47,11 +47,11 @@ void checksvd(
 
     // check SVD
     auto usv = std::vector<double>(m * n, 0.0);
-    for (size_t i = 0; i < m; i++)
+    for (int i = 0; i < m; i++)
     {
-        for (size_t j = 0; j < n; j++)
+        for (int j = 0; j < n; j++)
         {
-            for (size_t k = 0; k < min_mn; k++)
+            for (int k = 0; k < min_mn; k++)
             {
                 CMGET(usv, m, i, j) += CMGET(u, m, i, k) * s[k] * CMGET(vt, n, k, j);
             }
@@ -65,7 +65,7 @@ void checksvd(
     CHECK(equal_vectors_tol(usv, a_copy, tolusv));
 }
 
-TEST_CASE("mkl_double")
+TEST_CASE("double")
 {
     // 4 x 5 matrix
     auto a_mat = vecvec_to_colmaj(vector<vector<double>>{
@@ -491,7 +491,7 @@ TEST_CASE("mkl_double")
 
         auto zero = complex<double>(0, 0);
         auto ww = vector<complex<double>>(n, zero);
-        for (size_t i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)
         {
             ww[i] = std::complex<double>(wr[i], wi[i]);
         }

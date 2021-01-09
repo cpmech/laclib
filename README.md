@@ -13,3 +13,16 @@ NOTE: we cannot call _cmake_ directly because the compilers must be set via CLI 
 ```bash
 ./all.bash
 ```
+
+## Dependencies
+
+```bash
+sudo apt-get update -y \
+&& sudo apt-get install -y --no-install-recommends \
+  gcc \
+  gfortran \
+  libopenmpi-dev \
+  liblapacke-dev \
+  libopenblas-dev \
+  libsuitesparse-dev
+```

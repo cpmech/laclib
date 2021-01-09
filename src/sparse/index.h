@@ -4,5 +4,6 @@
 #include "solver_mumps.h"
 #include "solver_mumps_options.h"
 #include "solver_mumps_wrapper.h"
+#include "sparse_blas.h"
 #include "triplet_for_mumps.h"
 #include "triplet.h"

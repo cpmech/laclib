@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include "dmumps_c.h"
+#undef I // some crazy defined this somewhere else
 
 inline MUMPS_INT make_mumps_int(size_t a)
 {

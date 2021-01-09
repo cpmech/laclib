@@ -32,6 +32,11 @@ endif()
 if(A1_USE_INTEL)
     include(FindMKL.cmake)
     include_directories(${MKL_IDIRS})
+    set(LA_LIBS ${MKL_LIBS})
+else()
+    include(FindOBLAS.cmake)
+    include_directories(${OBLAS_IDIRS})
+    set(LA_LIBS ${OBLAS_LIBS})
 endif()
 
 include(FindMUMPS.cmake)
@@ -53,8 +58,4 @@ add_library(laclib SHARED
     src/sparse/triplet_for_mumps.cpp
 )
 
-if(A1_USE_INTEL)
-    target_link_libraries(laclib PUBLIC ${MUMPS_LIBS} ${MKL_LIBS})
-else()
-    target_link_libraries(laclib PUBLIC ${MUMPS_LIBS})
-endif()
+target_link_libraries(laclib PUBLIC ${MUMPS_LIBS} ${LA_LIBS})
