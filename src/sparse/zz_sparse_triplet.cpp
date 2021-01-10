@@ -1,13 +1,13 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "../util/doctest.h"
 #include "../check/check.h"
-#include "triplet_for_mumps.h"
+#include "sparse_triplet.h"
 #include <vector>
 using namespace std;
 
-TEST_CASE("testing TripletForMumps (put_zero_based)")
+TEST_CASE("testing SparseTriplet (put_zero_based)")
 {
-    auto trip = TripletForMumps::make_new(3, 3, 4);
+    auto trip = SparseTriplet::make_new(3, 3, 4);
 
     REQUIRE(trip->pos == 0);
     REQUIRE(trip->max == 4);
@@ -50,23 +50,23 @@ TEST_CASE("testing TripletForMumps (put_zero_based)")
 
     SUBCASE("put_zero_based: exceptions")
     {
-        CHECK_THROWS_WITH(trip->put_zero_based(-1, 0, 10.0), "TripletForMumps::put_zero_based: index of row is outside range");
-        CHECK_THROWS_WITH(trip->put_zero_based(3, 0, 10.0), "TripletForMumps::put_zero_based: index of row is outside range");
-        CHECK_THROWS_WITH(trip->put_zero_based(0, -1, 11.0), "TripletForMumps::put_zero_based: index of column is outside range");
-        CHECK_THROWS_WITH(trip->put_zero_based(0, 3, 11.0), "TripletForMumps::put_zero_based: index of column is outside range");
+        CHECK_THROWS_WITH(trip->put_zero_based(-1, 0, 10.0), "SparseTriplet::put_zero_based: index of row is outside range");
+        CHECK_THROWS_WITH(trip->put_zero_based(3, 0, 10.0), "SparseTriplet::put_zero_based: index of row is outside range");
+        CHECK_THROWS_WITH(trip->put_zero_based(0, -1, 11.0), "SparseTriplet::put_zero_based: index of column is outside range");
+        CHECK_THROWS_WITH(trip->put_zero_based(0, 3, 11.0), "SparseTriplet::put_zero_based: index of column is outside range");
 
         trip->put_zero_based(0, 0, 1);
         trip->put_zero_based(0, 0, 2);
         trip->put_zero_based(0, 0, 3);
         trip->put_zero_based(0, 0, 4);
 
-        CHECK_THROWS_WITH(trip->put_zero_based(0, 0, 4.0), "TripletForMumps::put_zero_based: max number of items has been exceeded");
+        CHECK_THROWS_WITH(trip->put_zero_based(0, 0, 4.0), "SparseTriplet::put_zero_based: max number of items has been exceeded");
     }
 }
 
-TEST_CASE("testing TripletForMumps (put_one_based)")
+TEST_CASE("testing SparseTriplet (put_one_based)")
 {
-    auto trip = TripletForMumps::make_new(3, 3, 4);
+    auto trip = SparseTriplet::make_new(3, 3, 4);
 
     REQUIRE(trip->pos == 0);
     REQUIRE(trip->max == 4);
@@ -109,16 +109,16 @@ TEST_CASE("testing TripletForMumps (put_one_based)")
 
     SUBCASE("put_one_based: exceptions")
     {
-        CHECK_THROWS_WITH(trip->put_one_based(0, 1, 10.0), "TripletForMumps::put_one_based: index of row is outside range");
-        CHECK_THROWS_WITH(trip->put_one_based(4, 1, 10.0), "TripletForMumps::put_one_based: index of row is outside range");
-        CHECK_THROWS_WITH(trip->put_one_based(1, 0, 11.0), "TripletForMumps::put_one_based: index of column is outside range");
-        CHECK_THROWS_WITH(trip->put_one_based(1, 4, 11.0), "TripletForMumps::put_one_based: index of column is outside range");
+        CHECK_THROWS_WITH(trip->put_one_based(0, 1, 10.0), "SparseTriplet::put_one_based: index of row is outside range");
+        CHECK_THROWS_WITH(trip->put_one_based(4, 1, 10.0), "SparseTriplet::put_one_based: index of row is outside range");
+        CHECK_THROWS_WITH(trip->put_one_based(1, 0, 11.0), "SparseTriplet::put_one_based: index of column is outside range");
+        CHECK_THROWS_WITH(trip->put_one_based(1, 4, 11.0), "SparseTriplet::put_one_based: index of column is outside range");
 
         trip->put_one_based(1, 1, 1);
         trip->put_one_based(1, 1, 2);
         trip->put_one_based(1, 1, 3);
         trip->put_one_based(1, 1, 4);
 
-        CHECK_THROWS_WITH(trip->put_one_based(1, 1, 4.0), "TripletForMumps::put_one_based: max number of items has been exceeded");
+        CHECK_THROWS_WITH(trip->put_one_based(1, 1, 4.0), "SparseTriplet::put_one_based: max number of items has been exceeded");
     }
 }

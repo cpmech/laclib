@@ -8,9 +8,9 @@ using namespace std;
 
 TEST_CASE("sparse_blas")
 {
-    SUBCASE("sp_matvecmul with TripletForMumps")
+    SUBCASE("sp_matvecmul with SparseTriplet")
     {
-        auto trip = TripletForMumps::make_new(3, 5, 15);
+        auto trip = SparseTriplet::make_new(3, 5, 15);
         trip->put_zero_based(0, 0, 1);
         trip->put_zero_based(0, 1, 2);
         trip->put_zero_based(0, 2, 3);
@@ -37,7 +37,7 @@ TEST_CASE("sparse_blas")
 
     SUBCASE("sp_matvecmul check_sizes")
     {
-        auto trip = TripletForMumps::make_new(3, 5, 15);
+        auto trip = SparseTriplet::make_new(3, 5, 15);
         vector<double> u = {0.1, 0.2, 0.3, 0.4, 0.5};
         vector<double> v(10);
         vector<double> vv(3);
@@ -54,7 +54,7 @@ TEST_CASE("sparse_blas")
 		{2.0, 0.2, 0.3},
 		{3.0, 0.2, 0.3},
         */
-        auto trip = TripletForMumps::make_new(4, 3, 12);
+        auto trip = SparseTriplet::make_new(4, 3, 12);
         trip->put_one_based(1, 1, 0.1);
         trip->put_one_based(1, 2, 0.2);
         trip->put_one_based(1, 3, 0.3);
@@ -84,7 +84,7 @@ TEST_CASE("sparse_blas")
 		{3, 1, 1, 7, 1},
 		{2, 1, 5, 1, 8},
         */
-        auto trip = TripletForMumps::make_new(5, 5, 15);
+        auto trip = SparseTriplet::make_new(5, 5, 15);
         trip->symmetric = true;
 
         trip->put_zero_based(0, 0, 2.0);

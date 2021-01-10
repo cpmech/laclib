@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <vector>
-#include "triplet_for_mumps.h"
+#include "sparse_triplet.h"
 
 // sp_matvecmul returns the (sparse) matrix-vector multiplication (scaled):
 //  v := alpha * a * u  =>  vi = alpha * aij * uj
@@ -14,7 +14,7 @@
 //   fill_zeros -- fill the dense vector v with zeros
 void sp_matvecmul(std::vector<double> &v,
                   double alpha,
-                  const std::unique_ptr<TripletForMumps> &a,
+                  const std::unique_ptr<SparseTriplet> &a,
                   const std::vector<double> &u,
                   bool check_sizes = true,
                   bool fill_zeros = true);

@@ -1,16 +1,16 @@
 #include <cstdio>
 #include <cstring>
-#include "read_matrix_for_mumps.h"
+#include "read_matrix_market.h"
 #include "../util/string_tools.h"
 
-std::unique_ptr<TripletForMumps> read_matrix_for_mumps(const std::string &filename,
-                                                       int mpi_rank,
-                                                       int mpi_size)
+std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
+                                                  int mpi_rank,
+                                                  int mpi_size)
 {
     FILE *f = fopen(filename.c_str(), "r");
     if (f == NULL)
     {
-        throw "read_matrix_for_mumps: cannot open file";
+        throw "read_matrix_market: cannot open file";
     }
 
     // header
@@ -25,7 +25,7 @@ std::unique_ptr<TripletForMumps> read_matrix_for_mumps(const std::string &filena
     if (fgets(line, LINE_MAX, f) == NULL)
     {
         fclose(f);
-        throw "read_matrix_for_mumps: cannot read any line in the file";
+        throw "read_matrix_market: cannot read any line in the file";
     }
 
     char mm[24], opt[24], fmt[24], kind[24], sym[24];
@@ -33,35 +33,35 @@ std::unique_ptr<TripletForMumps> read_matrix_for_mumps(const std::string &filena
     if (nread != 5)
     {
         fclose(f);
-        throw "read_matrix_for_mumps: number of tokens in the header is incorrect";
+        throw "read_matrix_market: number of tokens in the header is incorrect";
     }
     if (strncmp(mm, "%%MatrixMarket", 14) != 0)
     {
         fclose(f);
-        throw "read_matrix_for_mumps: header must start with %%MatrixMarket";
+        throw "read_matrix_market: header must start with %%MatrixMarket";
     }
     if (strncmp(opt, "matrix", 6) != 0)
     {
         fclose(f);
-        throw "read_matrix_for_mumps: option must be \"matrix\"";
+        throw "read_matrix_market: option must be \"matrix\"";
     }
     if (strncmp(fmt, "coordinate", 10) != 0)
     {
         fclose(f);
-        throw "read_matrix_for_mumps: type must be \"coordinate\"";
+        throw "read_matrix_market: type must be \"coordinate\"";
     }
     if (strncmp(kind, "real", 4) != 0)
     {
         fclose(f);
-        throw "read_matrix_for_mumps: number kind must be \"real\"";
+        throw "read_matrix_market: number kind must be \"real\"";
     }
     if (strncmp(sym, "general", 7) != 0 && strncmp(sym, "symmetric", 9) != 0)
     {
         fclose(f);
-        throw "read_matrix_for_mumps: matrix must be \"general\" or \"symmetric\"";
+        throw "read_matrix_market: matrix must be \"general\" or \"symmetric\"";
     }
 
-    std::unique_ptr<TripletForMumps> trip;
+    std::unique_ptr<SparseTriplet> trip;
     bool symmetric = strncmp(sym, "symmetric", 9) == 0;
 
     bool initialized = false;
@@ -87,12 +87,12 @@ std::unique_ptr<TripletForMumps> read_matrix_for_mumps(const std::string &filena
             if (nread != 3)
             {
                 fclose(f);
-                throw "read_matrix_for_mumps: cannot parse the dimensions (m,n,nnz)";
+                throw "read_matrix_market: cannot parse the dimensions (m,n,nnz)";
             }
 
             start = (id * nnz) / sz;
             endp1 = ((id + 1) * nnz) / sz;
-            trip = TripletForMumps::make_new(m, n, endp1 - start);
+            trip = SparseTriplet::make_new(m, n, endp1 - start);
             initialized = true;
         }
 
@@ -103,7 +103,7 @@ std::unique_ptr<TripletForMumps> read_matrix_for_mumps(const std::string &filena
             if (nread != 3)
             {
                 fclose(f);
-                throw "read_matrix_for_mumps: cannot parse the values (i,j,x)";
+                throw "read_matrix_market: cannot parse the values (i,j,x)";
             }
 
             if (indexNnz >= start && indexNnz < endp1)

@@ -3,16 +3,16 @@
 #include "../mpiaux/mpiaux.h"
 #include "../util/doctest_mpi.h"
 #include "../util/path_tools.h"
-#include "read_matrix_for_mumps.h"
+#include "read_matrix_market.h"
 using namespace std;
 
-MPI_TEST_CASE("read_matrix_for_mumps (NP2)", 2)
+MPI_TEST_CASE("read_matrix_market (NP2)", 2)
 {
     auto data_path = path_get_current() + "/../../../data/sparse-matrix/";
     auto mtx = data_path + "ok1.mtx";
 
     auto mpi = MpiAux::make_new();
-    auto trip = read_matrix_for_mumps(mtx, mpi.rank(), mpi.size());
+    auto trip = read_matrix_market(mtx, mpi.rank(), mpi.size());
 
     if (mpi.rank() == 0)
     {

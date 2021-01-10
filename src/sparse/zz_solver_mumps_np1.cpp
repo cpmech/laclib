@@ -1,6 +1,6 @@
 #include <vector>
 #include "solver_mumps.h"
-#include "triplet_for_mumps.h"
+#include "sparse_triplet.h"
 #include "../check/check.h"
 #include "../mpiaux/mpiaux.h"
 #include "../util/doctest_mpi.h"
@@ -9,33 +9,23 @@ using namespace std;
 #define ICNTL(I) icntl[(I)-1] // macro such that indices match documentation
 #define INFOG(I) infog[(I)-1] // macro to make indices match documentation
 
-MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
+MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
 {
     auto mpi = MpiAux::make_new();
-
-    std::unique_ptr<TripletForMumps> trip;
-
-    if (mpi.rank() == 0)
-    {
-        trip = TripletForMumps::make_new(5, 5, 6);
-        trip->put_zero_based(0, 0, +1.0); // << duplicated
-        trip->put_zero_based(0, 0, +1.0); // << duplicated
-        trip->put_zero_based(1, 0, +3.0);
-        trip->put_zero_based(0, 1, +3.0);
-        trip->put_zero_based(2, 1, -1.0);
-        trip->put_zero_based(4, 1, +4.0);
-    }
-    else
-    {
-        trip = TripletForMumps::make_new(5, 5, 7);
-        trip->put_zero_based(1, 2, +4.0);
-        trip->put_zero_based(2, 2, -3.0);
-        trip->put_zero_based(3, 2, +1.0);
-        trip->put_zero_based(4, 2, +2.0);
-        trip->put_zero_based(2, 3, +2.0);
-        trip->put_zero_based(1, 4, +6.0);
-        trip->put_zero_based(4, 4, +1.0);
-    }
+    auto trip = SparseTriplet::make_new(5, 5, 13);
+    trip->put_zero_based(0, 0, +1.0); // << duplicated
+    trip->put_zero_based(0, 0, +1.0); // << duplicated
+    trip->put_zero_based(1, 0, +3.0);
+    trip->put_zero_based(0, 1, +3.0);
+    trip->put_zero_based(2, 1, -1.0);
+    trip->put_zero_based(4, 1, +4.0);
+    trip->put_zero_based(1, 2, +4.0);
+    trip->put_zero_based(2, 2, -3.0);
+    trip->put_zero_based(3, 2, +1.0);
+    trip->put_zero_based(4, 2, +2.0);
+    trip->put_zero_based(2, 3, +2.0);
+    trip->put_zero_based(1, 4, +6.0);
+    trip->put_zero_based(4, 4, +1.0);
 
     SUBCASE("make_new")
     {
@@ -61,6 +51,7 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
         CHECK(options.pct_inc_workspace == MUMPS_DEFAULT_PCT_INC_WORKSPACE);
         CHECK(options.max_work_memory == 0);
         CHECK(solver.get()->factorized == true);
+        CHECK(solver.get()->data.INFOG(7) == MUMPS_ORDERING_AMF);
     }
 
     SUBCASE("solve system")

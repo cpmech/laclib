@@ -7,19 +7,19 @@ using namespace std;
 
 MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
 {
-    SUBCASE("sp_matvecmul with TripletForMumps")
+    SUBCASE("sp_matvecmul with SparseTriplet")
     {
         auto mpi = MpiAux::make_new();
 
         size_t m = 3;
         size_t n = 5;
 
-        std::unique_ptr<TripletForMumps> trip;
+        std::unique_ptr<SparseTriplet> trip;
         std::vector<double> v_correct(m, 0.0);
 
         if (mpi.rank() == 0)
         {
-            trip = TripletForMumps::make_new(m, n, 10);
+            trip = SparseTriplet::make_new(m, n, 10);
             trip->put_zero_based(0, 0, 1);
             trip->put_zero_based(0, 1, 2);
             trip->put_zero_based(0, 2, 3);
@@ -35,7 +35,7 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
         }
         else
         {
-            trip = TripletForMumps::make_new(3, 5, 5);
+            trip = SparseTriplet::make_new(3, 5, 5);
             trip->put_zero_based(1, 0, 0.1);
             trip->put_zero_based(1, 1, 0.2);
             trip->put_zero_based(1, 2, 0.3);

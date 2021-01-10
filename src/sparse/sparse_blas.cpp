@@ -1,10 +1,10 @@
 #include <memory>
 #include <vector>
-#include "triplet_for_mumps.h"
+#include "sparse_triplet.h"
 
 void sp_matvecmul(std::vector<double> &v,
                   double alpha,
-                  const std::unique_ptr<TripletForMumps> &a,
+                  const std::unique_ptr<SparseTriplet> &a,
                   const std::vector<double> &u,
                   bool check_sizes,
                   bool fill_zeros)

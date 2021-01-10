@@ -26,7 +26,7 @@ inline MUMPS_INT8 make_mumps_int8(size_t a)
     return n;
 }
 
-struct TripletForMumps
+struct SparseTriplet
 {
     size_t m;                 // number of rows
     size_t n;                 // number of columns
@@ -37,13 +37,13 @@ struct TripletForMumps
     std::vector<MUMPS_INT> J; // one-based indices stored here, regardless the input
     std::vector<double> X;    // all the values
 
-    inline static std::unique_ptr<TripletForMumps> make_new(size_t m, size_t n, size_t max)
+    inline static std::unique_ptr<SparseTriplet> make_new(size_t m, size_t n, size_t max)
     {
         make_mumps_int(m);   // check if size_t fits MUMPS_INT
         make_mumps_int(n);   // check if size_t fits MUMPS_INT
         make_mumps_int(max); // check if size_t fits MUMPS_INT
 
-        return std::unique_ptr<TripletForMumps>{new TripletForMumps{
+        return std::unique_ptr<SparseTriplet>{new SparseTriplet{
             m,
             n,
             0,

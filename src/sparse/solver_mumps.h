@@ -2,7 +2,7 @@
 #include <memory>
 #include "mpi.h"
 #include "dmumps_c.h"
-#include "triplet_for_mumps.h"
+#include "sparse_triplet.h"
 #include "solver_mumps_constants.h"
 #include "solver_mumps_options.h"
 #include "solver_mumps_wrapper.h"
@@ -46,17 +46,17 @@ struct SolverMumps
         _call_dmumps(&this->data, MUMPS_JOB_TERMINATE, false);
     }
 
-    void analyze(const std::unique_ptr<TripletForMumps> &trip,
+    void analyze(const std::unique_ptr<SparseTriplet> &trip,
                  const MumpsOptions &options,
                  bool verbose = false);
 
     void factorize(bool verbose = false);
 
-    void analyze_and_factorize(const std::unique_ptr<TripletForMumps> &trip,
+    void analyze_and_factorize(const std::unique_ptr<SparseTriplet> &trip,
                                const MumpsOptions &options,
                                bool verbose = false);
 
-    inline void analyze_and_factorize(const std::unique_ptr<TripletForMumps> &trip)
+    inline void analyze_and_factorize(const std::unique_ptr<SparseTriplet> &trip)
     {
         auto options = MumpsOptions::make_new();
         this->analyze_and_factorize(trip, options);

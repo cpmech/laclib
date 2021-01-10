@@ -10,7 +10,7 @@
 
 static inline void _set_data(DMUMPS_STRUC_C *data,
                              const MumpsOptions &options,
-                             const std::unique_ptr<TripletForMumps> &trip,
+                             const std::unique_ptr<SparseTriplet> &trip,
                              int mpi_size)
 {
     data->ICNTL(5) = 0; // assembled matrix (not elemental)
@@ -49,7 +49,7 @@ static inline void _set_data(DMUMPS_STRUC_C *data,
     }
 }
 
-void SolverMumps::analyze(const std::unique_ptr<TripletForMumps> &trip,
+void SolverMumps::analyze(const std::unique_ptr<SparseTriplet> &trip,
                           const MumpsOptions &options,
                           bool verbose)
 {
@@ -87,7 +87,7 @@ void SolverMumps::factorize(bool verbose)
     this->factorized = true;
 }
 
-void SolverMumps::analyze_and_factorize(const std::unique_ptr<TripletForMumps> &trip,
+void SolverMumps::analyze_and_factorize(const std::unique_ptr<SparseTriplet> &trip,
                                         const MumpsOptions &options,
                                         bool verbose)
 {

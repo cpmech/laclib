@@ -50,12 +50,10 @@ add_subdirectory(benchmarks)
 # library ####################################################################################
 
 add_library(laclib SHARED 
-    src/sparse/read_matrix.cpp
-    src/sparse/read_matrix_for_mumps.cpp
+    src/sparse/read_matrix_market.cpp
     src/sparse/solver_mumps.cpp
     src/sparse/sparse_blas.cpp
-    src/sparse/triplet.cpp
-    src/sparse/triplet_for_mumps.cpp
+    src/sparse/sparse_triplet.cpp
 )
 
 target_link_libraries(laclib PUBLIC ${MUMPS_LIBS} ${LA_LIBS})

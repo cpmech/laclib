@@ -30,7 +30,7 @@ void check_x(MpiAux &mpi,
 // check that a*x = rhs
 void check_ax(MpiAux &mpi,
               const std::string &matrix_name,
-              const std::unique_ptr<TripletForMumps> &a,
+              const std::unique_ptr<SparseTriplet> &a,
               const std::vector<double> &x,
               const std::vector<double> &rhs,
               double tolerance = 1e-6)

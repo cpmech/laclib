@@ -100,7 +100,7 @@ struct Report
 
     inline void write_json(const std::string &solver_kind,
                            const std::string &matrix_name,
-                           const std::unique_ptr<TripletForMumps> &trip,
+                           const std::unique_ptr<SparseTriplet> &trip,
                            const MumpsOptions &options)
     {
         auto mpi_rank = this->mpi.rank();
