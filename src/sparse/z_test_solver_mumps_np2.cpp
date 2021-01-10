@@ -61,7 +61,6 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
         CHECK(options.pct_inc_workspace == MUMPS_DEFAULT_PCT_INC_WORKSPACE);
         CHECK(options.max_work_memory == 0);
         CHECK(solver.get()->factorized == true);
-        CHECK(solver.get()->data.INFOG(7) == MUMPS_ORDERING_AMF);
     }
 
     SUBCASE("solve system")
