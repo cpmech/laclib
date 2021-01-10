@@ -4,9 +4,7 @@
 #include "../util/string_tools.h"
 
 std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
-                                                  bool onebased,
-                                                  int mpi_rank,
-                                                  int mpi_size)
+                                                  bool onebased)
 {
     FILE *f = fopen(filename.c_str(), "r");
     if (f == NULL)
@@ -66,11 +64,6 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
     bool symmetric = strncmp(sym, "symmetric", 9) == 0;
 
     bool initialized = false;
-    size_t id = mpi_rank;
-    size_t sz = mpi_size;
-    size_t start = 0;
-    size_t endp1 = 0;
-    size_t indexNnz = 0;
     size_t m, n, nnz, i, j;
     double x;
 
@@ -91,9 +84,7 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
                 throw "read_matrix_market: cannot parse the dimensions (m,n,nnz)";
             }
 
-            start = (id * nnz) / sz;
-            endp1 = ((id + 1) * nnz) / sz;
-            trip = SparseTriplet::make_new(m, n, endp1 - start, onebased, symmetric);
+            trip = SparseTriplet::make_new(m, n, nnz, onebased, symmetric);
             initialized = true;
         }
 
@@ -107,12 +98,7 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
                 throw "read_matrix_market: cannot parse the values (i,j,x)";
             }
 
-            if (indexNnz >= start && indexNnz < endp1)
-            {
-                trip->put(i - 1, j - 1, x);
-            }
-
-            indexNnz++;
+            trip->put(i - 1, j - 1, x);
         }
     }
 

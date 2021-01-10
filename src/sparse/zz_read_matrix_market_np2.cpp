@@ -12,14 +12,13 @@ MPI_TEST_CASE("read_matrix_market (NP2)", 2)
     auto mtx = data_path + "ok1.mtx";
 
     auto mpi = MpiAux::make_new();
-    bool onebased = true;
-    auto trip = read_matrix_market(mtx, onebased, mpi.rank(), mpi.size());
+    auto trip = read_matrix_market(mtx);
 
     if (mpi.rank() == 0)
     {
-        vector<MUMPS_INT> Icorrect = {1, 2, 1, 3, 5, 2};
-        vector<MUMPS_INT> Jcorrect = {1, 1, 2, 2, 2, 3};
-        vector<double> Xcorrect = {2, 3, 3, -1, 4, 4};
+        vector<MUMPS_INT> Icorrect = {0, 1, 0, 2, 4, 1, 2, 3, 4, 2, 1, 4};
+        vector<MUMPS_INT> Jcorrect = {0, 0, 1, 1, 1, 2, 2, 2, 2, 3, 4, 4};
+        vector<double> Xcorrect = {2, 3, 3, -1, 4, 4, -3, 1, 2, 2, 6, 1};
 
         CHECK(trip->symmetric == false);
         CHECK(equal_vectors(trip->I, Icorrect) == true);
@@ -28,9 +27,9 @@ MPI_TEST_CASE("read_matrix_market (NP2)", 2)
     }
     else
     {
-        vector<MUMPS_INT> Icorrect = {3, 4, 5, 3, 2, 5};
-        vector<MUMPS_INT> Jcorrect = {3, 3, 3, 4, 5, 5};
-        vector<double> Xcorrect = {-3, 1, 2, 2, 6, 1};
+        vector<MUMPS_INT> Icorrect = {0, 1, 0, 2, 4, 1, 2, 3, 4, 2, 1, 4};
+        vector<MUMPS_INT> Jcorrect = {0, 0, 1, 1, 1, 2, 2, 2, 2, 3, 4, 4};
+        vector<double> Xcorrect = {2, 3, 3, -1, 4, 4, -3, 1, 2, 2, 6, 1};
 
         CHECK(trip->symmetric == false);
         CHECK(equal_vectors(trip->I, Icorrect) == true);
