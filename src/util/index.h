@@ -1,4 +1,5 @@
 #include "catch_all.h"
+#include "constants.h"
 #include "extract_arguments.h"
 #include "formaters.h"
 #include "memory_usage.h"
