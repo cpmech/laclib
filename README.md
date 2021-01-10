@@ -1,8 +1,8 @@
 # laclib - Linear Algebra C++ Library
 
-This project implements some structures and functions to assist the development of code involving (large) linear algebra problems.
+This project implements some structures and functions to assist in the development of code dealing with linear algebra algorithms. For instance, this project wraps some solvers for larse linear systems and several BLAS routines.
 
-**NOTE**: The files starting with `zz_...` are _unit_ tests whereas the files starting with `zzi_...` are _integration_ tests.
+**NOTE**: The files starting with `zz_...` are **unit tests** whereas the files starting with `zzi_...` are **integration tests** (those involving more than one single structure or function).
 
 ## Installation
 
@@ -24,13 +24,17 @@ sudo apt-get update -y \
 
 Follow the procedures in https://github.com/cpmech/script-install-mumps
 
+**NOTE**: we cannot use the default Debian package named libmumps-dev because it's missing some additional (and efficient) ordering tools.
+
 ### Compilation
 
-NOTE: we cannot call _cmake_ directly because the compilers must be set via CLI arguments, so use the following script:
+Execute:
 
 ```bash
 ./all.bash
 ```
+
+**NOTE**: we cannot call _cmake_ directly because the compilers must be set via CLI arguments.
 
 ## Examples
 
