@@ -1,14 +1,11 @@
 #pragma once
-#include "dmumps_c.h"
-#include "solver_mumps_constants.h"
-#include "solver_mumps_options.h"
-#include <iostream>
 #include <string>
+#include "dmumps_c.h"
 
 #define ICNTL(I) icntl[(I)-1] // macro to make indices match documentation
 #define INFOG(I) infog[(I)-1] // macro to make indices match documentation
 
-inline void handle_verbose(DMUMPS_STRUC_C *data, bool verbose)
+static inline void _handle_verbose(DMUMPS_STRUC_C *data, bool verbose)
 {
     if (verbose)
     {
@@ -26,18 +23,7 @@ inline void handle_verbose(DMUMPS_STRUC_C *data, bool verbose)
     }
 }
 
-inline void handle_options_and_set_distributed(DMUMPS_STRUC_C *data, const MumpsOptions &options)
-{
-    data->ICNTL(7) = options.ordering;
-    data->ICNTL(8) = options.scaling;
-    data->ICNTL(14) = options.pct_inc_workspace;
-    data->ICNTL(23) = options.max_work_memory;
-
-    data->ICNTL(18) = MUMPS_USE_DISTRIBUTED_MATRIX;
-    data->ICNTL(6) = MUMPS_NO_COL_PERM_FOR_DISTR_MATRIX; // set this to remove warning
-}
-
-inline std::string handle_infog(DMUMPS_STRUC_C *data)
+static inline std::string _handle_infog(DMUMPS_STRUC_C *data)
 {
     if (data->INFOG(1) < 0)
     {
@@ -69,19 +55,19 @@ inline std::string handle_infog(DMUMPS_STRUC_C *data)
     return ""; // OK
 }
 
-inline void call_dmumps(DMUMPS_STRUC_C *data, MumpsJob job, bool verbose)
+static inline void _call_dmumps(DMUMPS_STRUC_C *data, MumpsJob job, bool verbose)
 {
-    handle_verbose(data, verbose);
+    _handle_verbose(data, verbose);
 
     data->job = job;
     dmumps_c(data);
 
     if (data->INFOG(1) != 0)
     {
-        throw handle_infog(data);
+        throw _handle_infog(data);
     }
 
-    handle_verbose(data, false);
+    _handle_verbose(data, false);
 }
 
 #undef INFOG

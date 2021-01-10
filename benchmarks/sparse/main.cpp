@@ -4,7 +4,7 @@
 #include "../../src/laclib.h"
 using namespace std;
 
-// NOTE: the code must be wrapped within "run"  because the destructor of MumpsSolver relies
+// NOTE: the code must be wrapped within "run"  because the destructor of SolverMumps relies
 // on the MPI, so cannot be called before MPI_Finalize. Also, this makes it convenient for try/catch
 
 void run(int argc, char **argv)
@@ -29,7 +29,7 @@ void run(int argc, char **argv)
     report.measure_step(STEP_READ_MATRIX);
 
     // allocate solver and options
-    auto solver = MumpsSolver::make_new(mpi, trip->symmetric);
+    auto solver = SolverMumps::make_new(mpi, trip->symmetric);
     auto options = MumpsOptions::make_new();
     auto verbose = mpi.rank() == 0;
 

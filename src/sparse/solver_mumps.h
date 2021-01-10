@@ -8,24 +8,24 @@
 #include "solver_mumps_wrapper.h"
 #include "../mpiaux/mpiaux.h"
 
-struct MumpsSolver
+struct SolverMumps
 {
     MpiAux mpi;
     DMUMPS_STRUC_C data;
     bool analyzed;
     bool factorized;
 
-    inline static std::unique_ptr<MumpsSolver> make_new(MpiAux mpi, MumpsSymmetry symmetry)
+    inline static std::unique_ptr<SolverMumps> make_new(MpiAux mpi, MumpsSymmetry symmetry)
     {
         DMUMPS_STRUC_C data;
         data.comm_fortran = (MUMPS_INT)MPI_Comm_c2f(mpi.comm);
         data.par = MUMPS_HOST_ALSO_WORKS;
         data.sym = symmetry;
 
-        call_dmumps(&data, MUMPS_JOB_INITIALIZE, false);
+        _call_dmumps(&data, MUMPS_JOB_INITIALIZE, false);
 
-        auto solver = std::unique_ptr<MumpsSolver>{
-            new MumpsSolver{
+        auto solver = std::unique_ptr<SolverMumps>{
+            new SolverMumps{
                 mpi,
                 data,
                 false,
@@ -35,15 +35,15 @@ struct MumpsSolver
         return solver;
     };
 
-    inline static std::unique_ptr<MumpsSolver> make_new(MpiAux mpi, bool general_symmetry)
+    inline static std::unique_ptr<SolverMumps> make_new(MpiAux mpi, bool general_symmetry)
     {
         MumpsSymmetry sym = general_symmetry ? MUMPS_SYMMETRY_GENERAL : MUMPS_SYMMETRY_NONE;
-        return MumpsSolver::make_new(mpi, sym);
+        return SolverMumps::make_new(mpi, sym);
     }
 
-    ~MumpsSolver()
+    ~SolverMumps()
     {
-        call_dmumps(&this->data, MUMPS_JOB_TERMINATE, false);
+        _call_dmumps(&this->data, MUMPS_JOB_TERMINATE, false);
     }
 
     void analyze(const std::unique_ptr<TripletForMumps> &trip,

@@ -39,7 +39,7 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
 
     SUBCASE("make_new")
     {
-        auto solver = MumpsSolver::make_new(mpi, MUMPS_SYMMETRY_NONE);
+        auto solver = SolverMumps::make_new(mpi, MUMPS_SYMMETRY_NONE);
 
         CHECK(solver.get()->data.par == MUMPS_HOST_ALSO_WORKS);
         CHECK(solver.get()->data.sym == MUMPS_SYMMETRY_NONE);
@@ -52,7 +52,7 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
 
     SUBCASE("analize_and_factorize")
     {
-        auto solver = MumpsSolver::make_new(mpi, MUMPS_SYMMETRY_NONE);
+        auto solver = SolverMumps::make_new(mpi, MUMPS_SYMMETRY_NONE);
         auto options = MumpsOptions::make_new();
 
         solver->analyze_and_factorize(trip, options);
@@ -66,7 +66,7 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
 
     SUBCASE("solve system")
     {
-        auto solver = MumpsSolver::make_new(mpi, MUMPS_SYMMETRY_NONE);
+        auto solver = SolverMumps::make_new(mpi, MUMPS_SYMMETRY_NONE);
 
         solver->analyze_and_factorize(trip);
         CHECK(solver.get()->factorized == true);
