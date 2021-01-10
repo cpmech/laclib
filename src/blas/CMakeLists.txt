@@ -1,6 +1,6 @@
 set(TESTS
-    z_test_conversions
-    z_test_double
+    zz_conversions
+    zz_double
 )
 
 foreach(var ${TESTS})
