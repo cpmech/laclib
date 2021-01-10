@@ -13,6 +13,7 @@ static inline void _set_data(DMUMPS_STRUC_C *data,
                              const std::unique_ptr<TripletForMumps> &trip,
                              int mpi_size)
 {
+    data->ICNTL(5) = 0; // assembled matrix (not elemental)
     data->ICNTL(7) = options.ordering;
     data->ICNTL(8) = options.scaling;
     data->ICNTL(14) = options.pct_inc_workspace;
@@ -23,7 +24,7 @@ static inline void _set_data(DMUMPS_STRUC_C *data,
         MUMPS_INT ord = options.ordering == MUMPS_ORDERING_SCOTCH ? 1 : 2; // pt-scotch or ParMetis
 
         data->ICNTL(6) = 0;    // no col perm for distr matrix => set this to remove warning
-        data->ICNTL(18) = 3;   // use distributed matrix;
+        data->ICNTL(18) = 3;   // use distributed matrix
         data->ICNTL(28) = 2;   // parallel computation
         data->ICNTL(29) = ord; // parallel ordering tool
 
@@ -37,6 +38,8 @@ static inline void _set_data(DMUMPS_STRUC_C *data,
     {
         data->ICNTL(6) = 7;  // automatic col perm
         data->ICNTL(18) = 0; // matrix is centralized on the host
+        data->ICNTL(28) = 1; // sequential computation
+        data->ICNTL(29) = 0; // auto => ignored
 
         data->n = make_mumps_int(trip->m);
         data->nz = make_mumps_int8(trip->pos);
