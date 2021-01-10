@@ -8,7 +8,7 @@ TEST_CASE("testing path_tools")
     {
         auto self_exe = path_get_self_exe();
         CHECK(self_exe.size() > 17);
-        CHECK(self_exe.substr(self_exe.size() - 17) == "z_test_path_tools");
+        CHECK(self_exe.substr(self_exe.size() - 13) == "zz_path_tools");
     }
 
     SUBCASE("path_get_current")
