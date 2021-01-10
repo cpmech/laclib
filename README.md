@@ -43,3 +43,28 @@ Execute:
 ```c++
 // TODO
 ```
+
+## Code organization
+
+```
+.
+├── benchmarks
+│   ├── blas
+│   └── sparse
+├── data
+│   └── sparse-matrix
+│       └── results
+├── src
+│   ├── blas
+│   ├── check
+│   ├── mpiaux
+│   ├── sparse
+│   └── util
+└── zscripts
+```
+
+The `src` directory contains all the _library_ code that you can use in your project. However the `blas` and `sparse` _libraries_ might be the most useful for you whereas the rest are mostly used internally here.
+
+`check` contains functions to assist in (unit/integration) tests and `util` contains some utility functions.
+
+`mpiaux` is a wrapper to MPI.
