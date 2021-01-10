@@ -32,10 +32,11 @@ void sp_matvecmul(std::vector<double> &v,
     {
         std::fill(v.begin(), v.end(), 0.0);
     }
+    int delta = a->onebased ? 1 : 0;
     for (size_t k = 0; k < a->pos; k++)
     {
-        auto i = a->I[k] - 1;
-        auto j = a->J[k] - 1;
+        auto i = a->I[k] - delta;
+        auto j = a->J[k] - delta;
         auto aij = a->X[k];
         v[i] += alpha * aij * u[j];
         if (do_mirror)

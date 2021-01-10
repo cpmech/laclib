@@ -12,7 +12,8 @@ MPI_TEST_CASE("read_matrix_market (NP2)", 2)
     auto mtx = data_path + "ok1.mtx";
 
     auto mpi = MpiAux::make_new();
-    auto trip = read_matrix_market(mtx, mpi.rank(), mpi.size());
+    bool onebased = true;
+    auto trip = read_matrix_market(mtx, onebased, mpi.rank(), mpi.size());
 
     if (mpi.rank() == 0)
     {

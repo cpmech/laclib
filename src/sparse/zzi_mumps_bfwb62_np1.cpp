@@ -14,7 +14,8 @@ MPI_TEST_CASE("solve bfwb62 system", 1)
 {
     auto data_path = path_get_current() + "/../../../data";
     auto mtx_path = data_path + "/sparse-matrix/bfwb62.mtx";
-    auto trip = read_matrix_market(mtx_path);
+    bool onebased = true;
+    auto trip = read_matrix_market(mtx_path, onebased);
 
     auto mpi = MpiAux::make_new();
     auto solver = SolverMumps::make_new(mpi, trip->symmetric);

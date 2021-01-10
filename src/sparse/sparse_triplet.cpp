@@ -5,46 +5,49 @@
 #include "dmumps_c.h"
 #include "sparse_triplet.h"
 
-void SparseTriplet::put_zero_based(size_t i_zero_based, size_t j_zero_based, double x)
+void SparseTriplet::put(size_t i_zero_based,
+                        size_t j_zero_based,
+                        double x,
+                        bool check_overflow)
 {
     if (i_zero_based < 0 || i_zero_based >= this->m)
     {
-        throw "SparseTriplet::put_zero_based: index of row is outside range";
+        throw "SparseTriplet::put: index of row is outside range";
     }
     if (j_zero_based < 0 || j_zero_based >= this->n)
     {
-        throw "SparseTriplet::put_zero_based: index of column is outside range";
+        throw "SparseTriplet::put: index of column is outside range";
     }
     if (this->pos >= this->max)
     {
-        throw "SparseTriplet::put_zero_based: max number of items has been exceeded";
+        throw "SparseTriplet::put: max number of items has been exceeded";
     }
-    MUMPS_INT i = static_cast<MUMPS_INT>(i_zero_based + 1);
-    MUMPS_INT j = static_cast<MUMPS_INT>(j_zero_based + 1);
-    this->I[this->pos] = i;
-    this->J[this->pos] = j;
-    this->X[this->pos] = x;
-    this->pos++;
-}
-
-void SparseTriplet::put_one_based(size_t i_one_based, size_t j_one_based, double x)
-{
-    if (i_one_based <= 0 || i_one_based > this->m)
+    if (this->onebased)
     {
-        throw "SparseTriplet::put_one_based: index of row is outside range";
+        if (check_overflow)
+        {
+            this->I[this->pos] = make_mumps_int(i_zero_based + 1);
+            this->J[this->pos] = make_mumps_int(j_zero_based + 1);
+        }
+        else
+        {
+            this->I[this->pos] = static_cast<MUMPS_INT>(i_zero_based + 1);
+            this->J[this->pos] = static_cast<MUMPS_INT>(j_zero_based + 1);
+        }
     }
-    if (j_one_based <= 0 || j_one_based > this->n)
+    else
     {
-        throw "SparseTriplet::put_one_based: index of column is outside range";
+        if (check_overflow)
+        {
+            this->I[this->pos] = make_mumps_int(i_zero_based);
+            this->J[this->pos] = make_mumps_int(j_zero_based);
+        }
+        else
+        {
+            this->I[this->pos] = static_cast<MUMPS_INT>(i_zero_based);
+            this->J[this->pos] = static_cast<MUMPS_INT>(j_zero_based);
+        }
     }
-    if (this->pos >= this->max)
-    {
-        throw "SparseTriplet::put_one_based: max number of items has been exceeded";
-    }
-    MUMPS_INT i = static_cast<MUMPS_INT>(i_one_based);
-    MUMPS_INT j = static_cast<MUMPS_INT>(j_one_based);
-    this->I[this->pos] = i;
-    this->J[this->pos] = j;
     this->X[this->pos] = x;
     this->pos++;
 }

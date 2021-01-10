@@ -12,20 +12,21 @@ using namespace std;
 MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
 {
     auto mpi = MpiAux::make_new();
-    auto trip = SparseTriplet::make_new(5, 5, 13);
-    trip->put_zero_based(0, 0, +1.0); // << duplicated
-    trip->put_zero_based(0, 0, +1.0); // << duplicated
-    trip->put_zero_based(1, 0, +3.0);
-    trip->put_zero_based(0, 1, +3.0);
-    trip->put_zero_based(2, 1, -1.0);
-    trip->put_zero_based(4, 1, +4.0);
-    trip->put_zero_based(1, 2, +4.0);
-    trip->put_zero_based(2, 2, -3.0);
-    trip->put_zero_based(3, 2, +1.0);
-    trip->put_zero_based(4, 2, +2.0);
-    trip->put_zero_based(2, 3, +2.0);
-    trip->put_zero_based(1, 4, +6.0);
-    trip->put_zero_based(4, 4, +1.0);
+    bool onebased = true;
+    auto trip = SparseTriplet::make_new(5, 5, 13, onebased);
+    trip->put(0, 0, +1.0); // << duplicated
+    trip->put(0, 0, +1.0); // << duplicated
+    trip->put(1, 0, +3.0);
+    trip->put(0, 1, +3.0);
+    trip->put(2, 1, -1.0);
+    trip->put(4, 1, +4.0);
+    trip->put(1, 2, +4.0);
+    trip->put(2, 2, -3.0);
+    trip->put(3, 2, +1.0);
+    trip->put(4, 2, +2.0);
+    trip->put(2, 3, +2.0);
+    trip->put(1, 4, +6.0);
+    trip->put(4, 4, +1.0);
 
     SUBCASE("make_new")
     {

@@ -4,6 +4,7 @@
 #include "../util/string_tools.h"
 
 std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
+                                                  bool onebased,
                                                   int mpi_rank,
                                                   int mpi_size)
 {
@@ -92,7 +93,7 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
 
             start = (id * nnz) / sz;
             endp1 = ((id + 1) * nnz) / sz;
-            trip = SparseTriplet::make_new(m, n, endp1 - start);
+            trip = SparseTriplet::make_new(m, n, endp1 - start, onebased, symmetric);
             initialized = true;
         }
 
@@ -108,7 +109,7 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
 
             if (indexNnz >= start && indexNnz < endp1)
             {
-                trip->put_zero_based(i - 1, j - 1, x);
+                trip->put(i - 1, j - 1, x);
             }
 
             indexNnz++;
@@ -116,6 +117,5 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
     }
 
     fclose(f);
-    trip->symmetric = symmetric;
     return trip;
 }
