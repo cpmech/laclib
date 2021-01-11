@@ -1,6 +1,7 @@
 set(TESTS
     zz_conversions
     zz_double
+    zz_high_level
 )
 
 foreach(var ${TESTS})
