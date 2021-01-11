@@ -51,3 +51,37 @@ void SparseTriplet::put(size_t i_zero_based,
     this->X[this->pos] = x;
     this->pos++;
 }
+
+std::unique_ptr<SparseTriplet> SparseTriplet::partition_by_nnz(int mpi_rank, int mpi_size)
+{
+    if (mpi_rank < 0)
+    {
+        throw "SparseTriplet::partition_by_nnz: mpi_rank must be greater than or equal to 0";
+    }
+    if (mpi_size < 1)
+    {
+        throw "SparseTriplet::partition_by_nnz: mpi_size must be greater than or equal to 1";
+    }
+    if (mpi_rank >= mpi_size)
+    {
+        throw "SparseTriplet::partition_by_nnz: mpi_rank must be smaller than mpi_size";
+    }
+
+    size_t nnz = this->pos;
+    size_t rank = static_cast<size_t>(mpi_rank);
+    size_t size = static_cast<size_t>(mpi_size);
+    size_t start = (rank * nnz) / size;
+    size_t endp1 = ((rank + 1) * nnz) / size;
+
+    size_t nnz_new = endp1 - start;
+    auto trip_new = SparseTriplet::make_new(this->m, this->n, nnz_new, this->onebased, this->symmetric);
+
+    size_t d = this->onebased ? 1 : 0;
+    bool check_overflow = false;
+    for (size_t k = start; k < endp1; k++)
+    {
+        trip_new->put(this->I[k] - d, this->J[k] - d, this->X[k], check_overflow);
+    }
+
+    return trip_new;
+}
