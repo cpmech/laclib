@@ -27,13 +27,20 @@ void check_x(MpiAux &mpi,
     }
 }
 
+struct ErrorReport
+{
+    double linf_norm_ax;   // inf norm of a*x
+    double linf_norm_diff; // inf norm of a*x - rhs
+    double relative_error; // linf_norm_diff / (linf_norm_ax + 1)
+};
+
 // check that a*x = rhs
-void check_ax(MpiAux &mpi,
-              const std::string &matrix_name,
-              const std::unique_ptr<SparseTriplet> &a,
-              const std::vector<double> &x,
-              const std::vector<double> &rhs,
-              double tolerance = 1e-6)
+ErrorReport check_ax(MpiAux &mpi,
+                     const std::string &matrix_name,
+                     const std::unique_ptr<SparseTriplet> &a,
+                     const std::vector<double> &x,
+                     const std::vector<double> &rhs,
+                     double tolerance = 1e-5)
 {
     if (matrix_name == "bfwb62")
     {
@@ -41,31 +48,39 @@ void check_ax(MpiAux &mpi,
     }
 
     auto m = a->m;
-    std::vector<double> b(m, 0.0); // b := a*x
+    std::vector<double> ax(m, 0.0); // a*x
 
     if (mpi.size() > 1)
     {
-        std::vector<double> b_local(m, 0.0);
-        sp_matvecmul(b_local, 1.0, a, x, true, false);
-        mpi.reduce_sum(b, b_local);
+        std::vector<double> ax_local(m, 0.0);
+        sp_matvecmul(ax_local, 1.0, a, x, true, false);
+        mpi.reduce_sum(ax, ax_local);
     }
     else
     {
-        sp_matvecmul(b, 1.0, a, x, true, false);
+        sp_matvecmul(ax, 1.0, a, x, true, false);
     }
 
     if (mpi.rank() != 0)
     {
-        return;
+        return ErrorReport{0, 0, 0};
     }
 
-    daxpy(m, -1.0, rhs, 1, b, 1); // b := -rhs + b
-    auto idx = idamax(m, b, 1);
-    auto linf_norm = fabs(b[idx]);
+    auto idx_max_ax = idamax(m, ax, 1);
+    auto linf_norm_ax = fabs(ax[idx_max_ax]);
 
-    std::cout << "\nlinf_norm(a*x-rhs) = " << linf_norm << "\n";
+    daxpy(m, -1.0, rhs, 1, ax, 1); // ax := -rhs + ax => diff
 
-    if (linf_norm > tolerance)
+    auto idx_max_diff = idamax(m, ax, 1);
+    auto linf_norm_diff = fabs(ax[idx_max_diff]);
+    auto relative_error = linf_norm_diff / (linf_norm_ax + 1.0);
+
+    std::cout << std::endl;
+    std::cout << "linf_norm(a*x)     = " << linf_norm_ax << "\n";
+    std::cout << "linf_norm(a*x-rhs) = " << linf_norm_diff << "\n";
+    std::cout << "relative_error     = " << relative_error << "\n";
+
+    if (relative_error > tolerance)
     {
         std::cout << "\nERROR: a*x\n";
     }
@@ -73,4 +88,10 @@ void check_ax(MpiAux &mpi,
     {
         std::cout << "\n### OK: a*x ###\n";
     }
+
+    return ErrorReport{
+        linf_norm_ax,
+        linf_norm_diff,
+        relative_error,
+    };
 }

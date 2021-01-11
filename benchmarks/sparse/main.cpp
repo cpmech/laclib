@@ -65,12 +65,12 @@ void run(int argc, char **argv)
     // stop linear solver execution /////////////////////////////////////////////////////////////////
     report.solver_stop_stopwatch();
 
-    // write report
-    report.write_json("mumps", name, trip, options);
-
     // check results
     check_x(mpi, name, x);
-    check_ax(mpi, name, trip, x, rhs);
+    auto error_report = check_ax(mpi, name, trip, x, rhs);
+
+    // write report
+    report.write_json("mumps", name, trip, options, error_report);
 }
 
 int main(int argc, char **argv)

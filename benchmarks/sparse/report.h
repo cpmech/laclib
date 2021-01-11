@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include "../../src/laclib.h"
+#include "check.h"
 
 #define SNSEC(ns) format_nanoseconds(ns).c_str()
 #define SMIB(bytes) format_large_number(bytes_to_MiB(bytes)).c_str()
@@ -101,7 +102,8 @@ struct Report
     inline void write_json(const std::string &solver_kind,
                            const std::string &matrix_name,
                            const std::unique_ptr<SparseTriplet> &trip,
-                           const MumpsOptions &options)
+                           const MumpsOptions &options,
+                           const ErrorReport &error_report)
     {
         auto mpi_rank = this->mpi.rank();
         auto mpi_size = this->mpi.size();
@@ -159,10 +161,15 @@ struct Report
         ofs << "    \"MemoryMiB\": \"" << SMIB(this->step_solve.bytes) << "\"\n";
         ofs << "  },\n";
         ofs << "  \"TimeSolverNanoseconds\": " << this->solver_nanoseconds << ",\n";
-        ofs << "  \"TimeSolverString\": \"" << SNSEC(this->solver_nanoseconds) << "\"\n";
+        ofs << "  \"TimeSolverString\": \"" << SNSEC(this->solver_nanoseconds) << "\",\n";
+        ofs << "  \"ErrorReport\": {\n";
+        ofs << "    \"LinfNormAx\": " << error_report.linf_norm_ax << ",\n";
+        ofs << "    \"LinfNormDiff\": " << error_report.linf_norm_diff << ",\n";
+        ofs << "    \"RelativeError\": " << error_report.relative_error << "\n";
+        ofs << "  }\n";
         ofs << "}\n";
         ofs.close();
 
-        std::cout << "file <" << filename << "> written" << std::endl;
+        std::cout << "\nfile <" << filename << "> written" << std::endl;
     }
 };
