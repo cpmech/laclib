@@ -12,18 +12,21 @@ void run(int argc, char **argv)
     // allocate mpi and report
     auto mpi = MpiAux::make_new();
     auto report = Report::make_new(mpi);
+    auto mpi_rank = mpi.rank();
+    auto mpi_size = mpi.size();
 
     // get arguments from command line
     vector<string> defaults{"bfwb62", "metis"};
     auto args = extract_arguments_or_use_defaults(argc, argv, defaults);
     auto path = path_get_current() + "/../../../data/sparse-matrix/";
     auto name = args[0];
+    auto filename = path + name + ".mtx";
     auto ordering = mumps_string_to_ordering(args[1]);
 
     // read matrix
     report.print("reading matrix ", name);
     auto onebased = true;
-    auto trip = read_matrix_market(path + name + ".mtx", onebased);
+    auto trip = read_matrix_market_part(filename, onebased, mpi_rank, mpi_size);
     report.print("... symmetric = ", trip->symmetric ? "true" : "false");
     report.print("... number of rows (equal to columns) = ", trip->m);
     report.print("... number of non-zeros (pattern entries) = ", trip->pos);
@@ -32,12 +35,12 @@ void run(int argc, char **argv)
     // allocate solver and options
     auto solver = SolverMumps::make_new(mpi, trip->symmetric);
     auto options = MumpsOptions::make_new();
-    auto verbose = mpi.rank() == 0;
+    auto verbose = mpi_rank == 0;
 
     // set options
     options.ordering = ordering;
     options.pct_inc_workspace = 100;
-    options.max_work_memory = 30000 / mpi.size();
+    options.max_work_memory = 30000 / mpi_size;
 
     // start linear solver execution /////////////////////////////////////////////////////////////////
     report.solver_start_stopwatch();
