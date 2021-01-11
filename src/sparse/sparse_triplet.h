@@ -67,4 +67,5 @@ struct SparseTriplet
              bool check_overflow = true);
 
     std::unique_ptr<SparseTriplet> partition_by_nnz(int mpi_rank, int mpi_size);
+    std::unique_ptr<SparseTriplet> partition_by_row(int mpi_rank, int mpi_size);
 };

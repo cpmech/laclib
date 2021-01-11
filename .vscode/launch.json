@@ -8,7 +8,7 @@
       "name": "(gdb) Launch",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/src/sparse/zz_sparse_blas",
+      "program": "${workspaceFolder}/build/src/sparse/zz_sparse_triplet",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/build/src/sparse",
