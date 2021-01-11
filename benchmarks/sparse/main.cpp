@@ -26,7 +26,8 @@ void run(int argc, char **argv)
     // read matrix
     report.print("reading matrix ", name);
     auto onebased = true;
-    auto trip = read_matrix_market_part(filename, onebased, mpi_rank, mpi_size);
+    auto part_option = PARTITION_BY_COL;
+    auto trip = read_matrix_market_part(filename, onebased, mpi_rank, mpi_size, part_option);
     report.print("... symmetric = ", trip->symmetric ? "true" : "false");
     report.print("... number of rows (equal to columns) = ", trip->m);
     report.print("... number of non-zeros (pattern entries) = ", trip->pos);
