@@ -117,11 +117,12 @@ std::unique_ptr<SparseTriplet> SparseTriplet::partition_by_row(int mpi_rank, int
     size_t endp1 = ((rank + 1) * nrow) / size;
 
     // cout the number of nnz in the rows that belong to new triplet
+    size_t i, j;
     size_t d = this->onebased ? 1 : 0;
     size_t nnz_part = 0;
     for (size_t k = 0; k < this->pos; k++)
     {
-        auto i = this->I[k] - d;
+        i = this->I[k] - d;
         if (i >= start && i < endp1)
         {
             nnz_part++;
@@ -132,7 +133,6 @@ std::unique_ptr<SparseTriplet> SparseTriplet::partition_by_row(int mpi_rank, int
     auto trip_part = SparseTriplet::make_new(this->m, this->n, nnz_part, this->onebased, this->symmetric);
 
     // copy values
-    size_t i, j;
     bool check_overflow = false;
     for (size_t k = 0; k < this->pos; k++)
     {
@@ -140,6 +140,60 @@ std::unique_ptr<SparseTriplet> SparseTriplet::partition_by_row(int mpi_rank, int
         if (i >= start && i < endp1)
         {
             j = this->J[k] - d;
+            trip_part->put(i, j, this->X[k], check_overflow);
+        }
+    }
+
+    return trip_part;
+}
+
+std::unique_ptr<SparseTriplet> SparseTriplet::partition_by_col(int mpi_rank, int mpi_size)
+{
+    // check
+    if (mpi_rank < 0)
+    {
+        throw "SparseTriplet::partition_by_col: mpi_rank must be greater than or equal to 0";
+    }
+    if (mpi_size < 1)
+    {
+        throw "SparseTriplet::partition_by_col: mpi_size must be greater than or equal to 1";
+    }
+    if (mpi_rank >= mpi_size)
+    {
+        throw "SparseTriplet::partition_by_col: mpi_rank must be smaller than mpi_size";
+    }
+
+    // constants
+    size_t ncol = this->n;
+    size_t rank = static_cast<size_t>(mpi_rank);
+    size_t size = static_cast<size_t>(mpi_size);
+    size_t start = (rank * ncol) / size;
+    size_t endp1 = ((rank + 1) * ncol) / size;
+
+    // cout the number of nnz in the columns that belong to new triplet
+    size_t i, j;
+    size_t d = this->onebased ? 1 : 0;
+    size_t nnz_part = 0;
+    for (size_t k = 0; k < this->pos; k++)
+    {
+        j = this->J[k] - d;
+        if (j >= start && j < endp1)
+        {
+            nnz_part++;
+        }
+    }
+
+    // allocate partitioned triplet
+    auto trip_part = SparseTriplet::make_new(this->m, this->n, nnz_part, this->onebased, this->symmetric);
+
+    // copy values
+    bool check_overflow = false;
+    for (size_t k = 0; k < this->pos; k++)
+    {
+        j = this->J[k] - d;
+        if (j >= start && j < endp1)
+        {
+            i = this->I[k] - d;
             trip_part->put(i, j, this->X[k], check_overflow);
         }
     }

@@ -92,6 +92,22 @@ TEST_CASE("testing SparseTriplet (put)")
         CHECK_THROWS_WITH(trip->partition_by_nnz(2, 1), "SparseTriplet::partition_by_nnz: mpi_rank must be smaller than mpi_size");
     }
 
+    SUBCASE("partition_by_row: exceptions")
+    {
+        auto trip = SparseTriplet::make_new(3, 3, 4);
+        CHECK_THROWS_WITH(trip->partition_by_row(-1, 1), "SparseTriplet::partition_by_row: mpi_rank must be greater than or equal to 0");
+        CHECK_THROWS_WITH(trip->partition_by_row(0, 0), "SparseTriplet::partition_by_row: mpi_size must be greater than or equal to 1");
+        CHECK_THROWS_WITH(trip->partition_by_row(2, 1), "SparseTriplet::partition_by_row: mpi_rank must be smaller than mpi_size");
+    }
+
+    SUBCASE("partition_by_col: exceptions")
+    {
+        auto trip = SparseTriplet::make_new(3, 3, 4);
+        CHECK_THROWS_WITH(trip->partition_by_col(-1, 1), "SparseTriplet::partition_by_col: mpi_rank must be greater than or equal to 0");
+        CHECK_THROWS_WITH(trip->partition_by_col(0, 0), "SparseTriplet::partition_by_col: mpi_size must be greater than or equal to 1");
+        CHECK_THROWS_WITH(trip->partition_by_col(2, 1), "SparseTriplet::partition_by_col: mpi_rank must be smaller than mpi_size");
+    }
+
     SUBCASE("partition_by_nnz")
     {
         bool onebased = true;
@@ -166,6 +182,47 @@ TEST_CASE("testing SparseTriplet (put)")
         vector<MUMPS_INT> Icorrect_1 = {2, 4, 2, 3, 4, 2, 4};
         vector<MUMPS_INT> Jcorrect_1 = {1, 1, 2, 2, 2, 3, 4};
         vector<double> Xcorrect_1 = {-1, 4, -3, 1, 2, 2, 1};
+
+        CHECK(trip_1->onebased == trip->onebased);
+        CHECK(trip_1->symmetric == trip->symmetric);
+        CHECK(equal_vectors(trip_1->I, Icorrect_1) == true);
+        CHECK(equal_vectors(trip_1->J, Jcorrect_1) == true);
+        CHECK(equal_vectors_tol(trip_1->X, Xcorrect_1, 1e-15) == true);
+    }
+
+    SUBCASE("partition_by_col")
+    {
+        bool onebased = false;
+        auto trip = SparseTriplet::make_new(5, 5, 12, onebased);
+        trip->put(0, 0, +2.0); // rank # 0
+        trip->put(1, 0, +3.0); // rank # 0
+        trip->put(0, 1, +3.0); // rank # 0
+        trip->put(2, 1, -1.0); // rank # 0
+        trip->put(4, 1, +4.0); // rank # 0
+        trip->put(1, 2, +4.0);
+        trip->put(2, 2, -3.0);
+        trip->put(3, 2, +1.0);
+        trip->put(4, 2, +2.0);
+        trip->put(2, 3, +2.0);
+        trip->put(1, 4, +6.0);
+        trip->put(4, 4, +1.0);
+
+        auto trip_0 = trip->partition_by_col(0, 2);
+        auto trip_1 = trip->partition_by_col(1, 2);
+
+        vector<MUMPS_INT> Icorrect_0 = {0, 1, 0, 2, 4};
+        vector<MUMPS_INT> Jcorrect_0 = {0, 0, 1, 1, 1};
+        vector<double> Xcorrect_0 = {2, 3, 3, -1, 4};
+
+        CHECK(trip_0->onebased == trip->onebased);
+        CHECK(trip_0->symmetric == trip->symmetric);
+        CHECK(equal_vectors(trip_0->I, Icorrect_0) == true);
+        CHECK(equal_vectors(trip_0->J, Jcorrect_0) == true);
+        CHECK(equal_vectors_tol(trip_0->X, Xcorrect_0, 1e-15) == true);
+
+        vector<MUMPS_INT> Icorrect_1 = {1, 2, 3, 4, 2, 1, 4};
+        vector<MUMPS_INT> Jcorrect_1 = {2, 2, 2, 2, 3, 4, 4};
+        vector<double> Xcorrect_1 = {4, -3, 1, 2, 2, 6, 1};
 
         CHECK(trip_1->onebased == trip->onebased);
         CHECK(trip_1->symmetric == trip->symmetric);
