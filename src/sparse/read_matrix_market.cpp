@@ -110,7 +110,7 @@ std::unique_ptr<SparseTriplet> read_matrix_market_part(const std::string &filena
                                                        bool onebased,
                                                        int mpi_rank,
                                                        int mpi_size,
-                                                       bool by_nnz)
+                                                       PartitionOption partition_option)
 {
     if (mpi_size == 1)
     {
@@ -119,10 +119,17 @@ std::unique_ptr<SparseTriplet> read_matrix_market_part(const std::string &filena
 
     auto trip_full = read_matrix_market(filename, onebased);
 
-    if (by_nnz)
+    switch (partition_option)
     {
+    case PARTITION_BY_NNZ:
         return trip_full->partition_by_nnz(mpi_rank, mpi_size);
+
+    case PARTITION_BY_ROW:
+        return trip_full->partition_by_row(mpi_rank, mpi_size);
+
+    case PARTITION_BY_COL:
+        return trip_full->partition_by_col(mpi_rank, mpi_size);
     }
 
-    return trip_full->partition_by_row(mpi_rank, mpi_size);
+    throw "read_matrix_market_part: invalid partition_option";
 }

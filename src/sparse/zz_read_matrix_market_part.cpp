@@ -52,8 +52,8 @@ TEST_CASE("read_matrix_market_part")
     SUBCASE("by nnz (and onebased)")
     {
         bool onebased = true;
-        auto trip_0 = read_matrix_market_part(mtx, onebased, 0, 2, true);
-        auto trip_1 = read_matrix_market_part(mtx, onebased, 1, 2, true);
+        auto trip_0 = read_matrix_market_part(mtx, onebased, 0, 2, PARTITION_BY_NNZ);
+        auto trip_1 = read_matrix_market_part(mtx, onebased, 1, 2, PARTITION_BY_NNZ);
 
         vector<MUMPS_INT> Icorrect_0 = {1, 2, 1, 3, 5, 2};
         vector<MUMPS_INT> Jcorrect_0 = {1, 1, 2, 2, 2, 3};
@@ -66,6 +66,29 @@ TEST_CASE("read_matrix_market_part")
         vector<MUMPS_INT> Icorrect_1 = {3, 4, 5, 3, 2, 5};
         vector<MUMPS_INT> Jcorrect_1 = {3, 3, 3, 4, 5, 5};
         vector<double> Xcorrect_1 = {-3, 1, 2, 2, 6, 1};
+
+        CHECK(equal_vectors(trip_1->I, Icorrect_1) == true);
+        CHECK(equal_vectors(trip_1->J, Jcorrect_1) == true);
+        CHECK(equal_vectors_tol(trip_1->X, Xcorrect_1, 1e-15) == true);
+    }
+
+    SUBCASE("by col")
+    {
+        bool onebased = false;
+        auto trip_0 = read_matrix_market_part(mtx, onebased, 0, 2, PARTITION_BY_COL);
+        auto trip_1 = read_matrix_market_part(mtx, onebased, 1, 2, PARTITION_BY_COL);
+
+        vector<MUMPS_INT> Icorrect_0 = {0, 1, 0, 2, 4};
+        vector<MUMPS_INT> Jcorrect_0 = {0, 0, 1, 1, 1};
+        vector<double> Xcorrect_0 = {2, 3, 3, -1, 4};
+
+        CHECK(equal_vectors(trip_0->I, Icorrect_0) == true);
+        CHECK(equal_vectors(trip_0->J, Jcorrect_0) == true);
+        CHECK(equal_vectors_tol(trip_0->X, Xcorrect_0, 1e-15) == true);
+
+        vector<MUMPS_INT> Icorrect_1 = {1, 2, 3, 4, 2, 1, 4};
+        vector<MUMPS_INT> Jcorrect_1 = {2, 2, 2, 2, 3, 4, 4};
+        vector<double> Xcorrect_1 = {4, -3, 1, 2, 2, 6, 1};
 
         CHECK(equal_vectors(trip_1->I, Icorrect_1) == true);
         CHECK(equal_vectors(trip_1->J, Jcorrect_1) == true);
