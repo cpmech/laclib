@@ -1,6 +1,7 @@
 #include "mpi.h"
 #include "check.h"
 #include "report.h"
+#include "stats.h"
 #include "../../src/laclib.h"
 using namespace std;
 
@@ -24,14 +25,14 @@ void run(int argc, char **argv)
     auto ordering = mumps_string_to_ordering(args[1]);
 
     // read matrix
-    report.print("reading matrix ", name);
+    report->print("reading matrix ", name);
     auto onebased = true;
-    auto part_option = PARTITION_BY_COL;
+    auto part_option = PARTITION_BY_ROW;
     auto trip = read_matrix_market_part(filename, onebased, mpi_rank, mpi_size, part_option);
-    report.print("... symmetric = ", trip->symmetric ? "true" : "false");
-    report.print("... number of rows (equal to columns) = ", trip->m);
-    report.print("... number of non-zeros (pattern entries) = ", trip->pos);
-    report.measure_step(STEP_READ_MATRIX);
+    report->print("... symmetric = ", trip->symmetric ? "true" : "false");
+    report->print("... number of rows (equal to columns) = ", trip->m);
+    report->print("... number of non-zeros (pattern entries) = ", trip->pos);
+    report->measure_step(STEP_READ_MATRIX);
 
     // allocate solver and options
     auto solver = SolverMumps::make_new(mpi, trip->symmetric);
@@ -44,33 +45,33 @@ void run(int argc, char **argv)
     options.max_work_memory = 30000 / mpi_size;
 
     // start linear solver execution /////////////////////////////////////////////////////////////////
-    report.solver_start_stopwatch();
+    report->solver_start_stopwatch();
 
-    report.print("analyzing", "");
+    report->print("analyzing", "");
     solver->analyze(trip, options, verbose);
-    report.measure_step(STEP_ANALYZE);
+    report->measure_step(STEP_ANALYZE);
 
-    report.print("factorizing", "");
+    report->print("factorizing", "");
     solver->factorize(verbose);
-    report.measure_step(STEP_FACTORIZE);
+    report->measure_step(STEP_FACTORIZE);
 
     auto rhs = vector<double>(trip->n, 1.0);
     auto x = vector<double>(trip->n, 0.0);
     auto rhs_is_distributed = false;
 
-    report.print("solving", "");
+    report->print("solving", "");
     solver->solve(x, rhs, rhs_is_distributed, verbose);
-    report.measure_step(STEP_SOLVE);
+    report->measure_step(STEP_SOLVE);
 
     // stop linear solver execution /////////////////////////////////////////////////////////////////
-    report.solver_stop_stopwatch();
+    report->solver_stop_stopwatch();
 
     // check results
     check_x(mpi, name, x);
-    auto error_report = check_ax(mpi, name, trip, x, rhs);
 
     // write report
-    report.write_json("mumps", name, trip, options, error_report);
+    auto stats = Stats::make_new(mpi, trip, x, rhs);
+    report->write_json("mumps", name, options, trip, stats);
 }
 
 int main(int argc, char **argv)

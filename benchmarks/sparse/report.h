@@ -1,10 +1,11 @@
 #pragma once
-#include <string>
 #include <fstream>
 #include <iostream>
+#include <memory>
 #include <sstream>
+#include <string>
 #include "../../src/laclib.h"
-#include "check.h"
+#include "stats.h"
 
 #define SNSEC(ns) format_nanoseconds(ns).c_str()
 #define SMIB(bytes) format_large_number(bytes_to_MiB(bytes)).c_str()
@@ -34,9 +35,9 @@ struct Report
     TimeAndMemory step_solve;
     uint64_t solver_nanoseconds;
 
-    inline static Report make_new(MpiAux &mpi)
+    inline static std::unique_ptr<Report> make_new(MpiAux &mpi)
     {
-        return {
+        return std::unique_ptr<Report>{new Report{
             mpi,
             Stopwatch::make_new(),
             Stopwatch::make_new(),
@@ -45,7 +46,7 @@ struct Report
             {0, 0},
             {0, 0},
             0,
-        };
+        }};
     }
 
     template <typename T>
@@ -101,9 +102,9 @@ struct Report
 
     inline void write_json(const std::string &solver_kind,
                            const std::string &matrix_name,
-                           const std::unique_ptr<SparseTriplet> &trip,
                            const MumpsOptions &options,
-                           const ErrorReport &error_report)
+                           const std::unique_ptr<SparseTriplet> &trip,
+                           const std::unique_ptr<Stats> &stats)
     {
         auto mpi_rank = this->mpi.rank();
         auto mpi_size = this->mpi.size();
@@ -162,11 +163,7 @@ struct Report
         ofs << "  },\n";
         ofs << "  \"TimeSolverNanoseconds\": " << this->solver_nanoseconds << ",\n";
         ofs << "  \"TimeSolverString\": \"" << SNSEC(this->solver_nanoseconds) << "\",\n";
-        ofs << "  \"ErrorReport\": {\n";
-        ofs << "    \"LinfNormAx\": " << error_report.linf_norm_ax << ",\n";
-        ofs << "    \"LinfNormDiff\": " << error_report.linf_norm_diff << ",\n";
-        ofs << "    \"RelativeError\": " << error_report.relative_error << "\n";
-        ofs << "  }\n";
+        ofs << "  \"Stats\": " << stats->json("  ");
         ofs << "}\n";
         ofs.close();
 
