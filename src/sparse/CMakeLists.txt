@@ -13,6 +13,7 @@ set(TESTS_MPI_NP2
     zz_read_matrix_market_np2
     zz_solver_mumps_np2
     zz_sparse_blas_np2
+    zzi_mumps_bfwb62_np2
 )
 
 foreach(var ${TESTS})
