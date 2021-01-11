@@ -170,3 +170,6 @@ struct Report
         std::cout << "\nfile <" << filename << "> written" << std::endl;
     }
 };
+
+#undef SNSEC
+#undef SMIB
