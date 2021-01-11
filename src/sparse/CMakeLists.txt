@@ -1,4 +1,5 @@
 set(TESTS
+    zz_read_matrix_market_part
     zz_read_matrix_market
     zz_sparse_blas
     zz_sparse_triplet
@@ -10,7 +11,6 @@ set(TESTS_MPI_NP1
 )
 
 set(TESTS_MPI_NP2
-    zz_read_matrix_market_np2
     zz_solver_mumps_np2
     zz_sparse_blas_np2
     zzi_mumps_bfwb62_np2

@@ -7,3 +7,9 @@
 //       because MUMPS uses arrays (I; J) with one-based indices
 std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
                                                   bool onebased = false);
+
+std::unique_ptr<SparseTriplet> read_matrix_market_part(const std::string &filename,
+                                                       bool onebased = false,
+                                                       int mpi_rank = 0,
+                                                       int mpi_size = 1,
+                                                       bool by_nnz = false);

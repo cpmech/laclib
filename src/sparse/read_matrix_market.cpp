@@ -105,3 +105,24 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
     fclose(f);
     return trip;
 }
+
+std::unique_ptr<SparseTriplet> read_matrix_market_part(const std::string &filename,
+                                                       bool onebased,
+                                                       int mpi_rank,
+                                                       int mpi_size,
+                                                       bool by_nnz)
+{
+    if (mpi_size == 1)
+    {
+        return read_matrix_market(filename, onebased);
+    }
+
+    auto trip_full = read_matrix_market(filename, onebased);
+
+    if (by_nnz)
+    {
+        return trip_full->partition_by_nnz(mpi_rank, mpi_size);
+    }
+
+    return trip_full->partition_by_row(mpi_rank, mpi_size);
+}
