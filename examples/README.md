@@ -1,8 +1,8 @@
 # Examples using laclib
 
-### Solving a linear system with a sparse matrix
+## Solving a linear system with a sparse matrix
 
-`ex_solver_mumps.cpp` solves the following small linear system using MUMPS:
+The file [ex_solver_mumps.cpp](https://github.com/cpmech/laclib/blob/main/examples/ex_solver_mumps.cpp) shows how to solve the following small linear system using MUMPS:
 
 ```
            A              x         b
