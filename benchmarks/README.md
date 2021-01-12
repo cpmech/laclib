@@ -1,6 +1,6 @@
 # Benchmarks using laclib
 
-This directory contains some benchmarks using laclib.
+This directory contains some benchmark tests using the _laclib_ library.
 
 ```
 ├── benchmarks
@@ -27,18 +27,15 @@ or
 ./all.bash OFF ON
 ```
 
-Then, we can run the benchmarks as follows:
+Then, to test the performance with the _pre2_ matrix,
+ we can run the benchmark as follows:
 
 ```bash
 cd build/benchmarks/sparse
 mpirun -np 2 ./benchmark_sparse pre2
 ```
 
-to run the test with the "pre2" matrix.
-
-The results will be stored in the `benchmarks/sparse/results` directory.
-
-For instance:
+The results will be saved in the [benchmarks/sparse/results](https://github.com/cpmech/laclib/tree/main/benchmarks/sparse/results) directory. For instance:
 
 ```json
 {
@@ -88,16 +85,16 @@ For instance:
 }
 ```
 
-indicates that the problem involving the **pre2** matrix took aobut 5.41s to analyze and 4.8s to factorize. The total time analyze+factorize+solve was 10.9s. In this problem, the maximum absolute value of the sparse matrix is 1.47772e+10 and the relative error was about 8e-16. The error calculation took 35ms to compute.
+Above, the **pre2** matrix problem took about 5.41s to analyze and 4.8s to factorize. The total time analyze+factorize+solve was 10.9s. In this problem, the sparse matrix's maximum absolute value is 1.47772e+10, and the relative error was about 8e-16. The error calculation took 35ms to compute.
 
-## System details
+## Current details of my system used for benchmarks
 
-Output of `free -m`
+Output of `free -h`
 
 ```
-              total        used        free      shared  buff/cache   available
-Mem:          47903        3329       31419         193       13154       43903
-Swap:         15257           0       15257
+       total   used  free  shared  buff/cache   available
+Mem:    46Gi  3.1Gi  30Gi   183Mi        13Gi        43Gi
+Swap:   14Gi     0B  14Gi
 ```
 
 Output of `cat /proc/cpuinfo`
