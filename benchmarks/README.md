@@ -31,7 +31,7 @@ Then, we can run the benchmarks as follows:
 
 ```bash
 cd build/benchmarks/sparse
-./benchmark_sparse pre2
+mpirun -np 2 ./benchmark_sparse pre2
 ```
 
 to run the test with the "pre2" matrix.
