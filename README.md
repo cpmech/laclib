@@ -1,8 +1,8 @@
 # laclib - Linear Algebra C++ Library
 
-This project implements some structures and functions to assist in the development of code dealing with linear algebra algorithms. For instance, this project wraps some solvers for larse linear systems and several BLAS routines.
+This project implements some structures and functions to assist in developing code for linear algebra computations. For instance, this project wraps some BLAS routines and solvers for sparse linear systems.
 
-**NOTE**: The files starting with `zz_...` are **unit tests** whereas the files starting with `zzi_...` are **integration tests** (those involving more than one single structure or function).
+In this repository, the files starting with `zz_...` are **unit tests** whereas the files such as `zzi_...` are **integration tests** (those involving more than one single structure or function).
 
 ## Installation
 
@@ -24,7 +24,7 @@ sudo apt-get update -y \
 
 Follow the procedures in https://github.com/cpmech/script-install-mumps
 
-**NOTE**: we cannot use the default Debian package named libmumps-dev because it's missing some additional (and efficient) ordering tools.
+**NOTE**: we prefer to compile MUMPS ourselves instead of using the default Debian package named _libmumps-dev_ because the Debian package doesn't include some additional, and efficient, ordering tools.
 
 ### Compilation
 
@@ -34,11 +34,11 @@ Execute:
 ./all.bash
 ```
 
-**NOTE**: we cannot call _cmake_ directly because the compilers must be set via CLI arguments.
+We could call _cmake_ directly as long as we'd set the CC and CXX environmental flags first (see the file `all.bash`).
 
 ## Examples
 
-See the `examples` directory.
+See the [examples](https://github.com/cpmech/laclib/tree/main/examples) directory.
 
 ### Solving a linear system with a sparse matrix
 
@@ -47,8 +47,10 @@ See the `examples` directory.
 #include "../src/laclib.h"
 using namespace std;
 
-// NOTE: The code must be inside the "run" function because
-//       the destructor of SolverMumps calls dmumps finalize.
+// NOTE: The code must be inside a sub-scope such as the "run"
+//       function because the destructor of SolverMumps will call
+//       dmumps to clean up memory. Also, the "run" function
+//       assists in catching exceptions.
 
 void run(int argc, char **argv)
 {
@@ -135,20 +137,16 @@ int main(int argc, char **argv)
 ## Code organization
 
 ```
-├── benchmarks
-├── data
-├── examples
-├── src
-│   ├── blas
-│   ├── check
-│   ├── mpiaux
-│   ├── sparse
-│   └── util
-└── zscripts
+├── benchmarks  # tests for computational performance
+├── data        # auxiliary data for unit tests
+├── examples    # examples of usage
+├── src         # this is the "main library"
+│   ├── blas    # basic linear algebra tools
+│   ├── check   # functions for unit/integration tests
+│   ├── mpiaux  # convenient wrapper to MPI functions
+│   ├── sparse  # sparse matrix and solvers tools
+│   └── util    # some utilities for file/string manipulations
+└── zscripts    # auxiliary "internal" bash scripts
 ```
 
-The `src` directory contains all the _library_ code that you can use in your project. However the `blas` and `sparse` _libraries_ might be the most useful for you whereas the rest are mostly used internally here.
-
-`check` contains functions to assist in (unit/integration) tests and `util` contains some utility functions.
-
-`mpiaux` is a wrapper to MPI.
+The `src` directory contains all the _library_ code that you can use in your project. The `blas` and `sparse` _libraries_ may be the most useful for your project. The other directories mostly contain functions used here internally. For instance, the `check` directory contains functions to assist in the unit (and integration) tests and `util` includes some utility functions.  The `mpiaux` directory contains a convenient wrapper to MPI.

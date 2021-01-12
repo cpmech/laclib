@@ -2,8 +2,10 @@
 #include "../src/laclib.h"
 using namespace std;
 
-// NOTE: The code must be inside the "run" function because
-//       the destructor of SolverMumps calls dmumps finalize.
+// NOTE: The code must be inside a sub-scope such as the "run"
+//       function because the destructor of SolverMumps will call
+//       dmumps to clean up memory. Also, the "run" function
+//       assists in catching exceptions.
 
 void run(int argc, char **argv)
 {
