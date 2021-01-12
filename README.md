@@ -40,7 +40,7 @@ We could call _cmake_ directly as long as we'd set the CC and CXX environmental 
 
 ## Examples
 
-The following code shows how to solving a linear system with a (large) sparse matrix:
+The following code shows how to solve a linear system with a (large) sparse matrix:
 
 ```c++
 auto onebased = true;
