@@ -1,6 +1,6 @@
 # Benchmarks using the code for sparse matrices
 
-This directory tests the perfomance of the MUMPS Sparse Solver.
+The code here tests the perfomance of the MUMPS Sparse Solver.
 
 ## pre2 matrix with 1 proc
 
