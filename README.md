@@ -36,7 +36,7 @@ Execute:
 ./all.bash
 ```
 
-We could call _cmake_ directly as long as we'd set the CC and CXX environmental flags first (see the file `all.bash`).
+We could call _cmake_ directly as long as we'd set the CC and CXX environmental flags first; see the file [all.bash](https://github.com/cpmech/laclib/blob/main/all.bash).
 
 ## Examples
 
