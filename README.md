@@ -6,7 +6,9 @@ In this repository, the files starting with `zz_...` are **unit tests** whereas 
 
 ## Installation
 
-### Install some dependencies
+### Ubuntu/Linux 20.10
+
+#### Install some dependencies
 
 Execute:
 
@@ -20,13 +22,13 @@ sudo apt-get update -y \
   libopenblas-dev \
   libsuitesparse-dev
 ```
-### Install the MUMPS Sparse Solver
-
-Follow the procedures in https://github.com/cpmech/script-install-mumps
+#### Install the MUMPS Sparse Solver
 
 **NOTE**: we prefer to compile MUMPS ourselves instead of using the default Debian package named _libmumps-dev_ because the Debian package doesn't include some additional, and efficient, ordering tools.
 
-### Compilation
+Follow the procedures in https://github.com/cpmech/script-install-mumps
+
+#### Compilation
 
 Execute:
 
