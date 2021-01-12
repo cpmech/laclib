@@ -46,6 +46,7 @@ include_directories(${MUMPS_IDIRS})
 
 add_subdirectory(src)
 add_subdirectory(benchmarks)
+add_subdirectory(examples)
 
 # library ####################################################################################
 

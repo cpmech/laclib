@@ -1,4 +1,3 @@
-#include "mpi.h"
 #include "check.h"
 #include "report.h"
 #include "stats.h"
