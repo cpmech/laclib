@@ -135,7 +135,6 @@ int main(int argc, char **argv)
 ## Code organization
 
 ```
-.
 ├── benchmarks
 ├── data
 ├── examples

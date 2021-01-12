@@ -1,3 +1,46 @@
+# Benchmarks using laclib
+
+This directory contains some benchmarks using laclib.
+
+```
+├── benchmarks
+    ├── blas    # tests the performance of some blas code
+    └── sparse  # tests the performance of sparse solvers
+``
+
+First, we need to download some (large) test matrices in the data subdirectory:
+
+```bash
+cd benchmarks/sparse/data
+./download.bash
+```
+
+Second, we need to compile the benchmark code:
+
+```bash
+./all-bench.bash
+```
+
+or
+
+```bash
+./all.bash OFF ON
+```
+
+Then, we can run the benchmarks as follows:
+
+```bash
+cd build/benchmarks/sparse
+./benchmark_sparse pre2
+```
+
+to run the test with the "pre2" matrix.
+
+The results will be stored in the `benchmarks/sparse/results` directory.
+
+For instance:
+
+```json
 {
   "Platform": "laclib",
   "SolverKind": "mumps",
@@ -43,3 +86,6 @@
     "ElapsedTimeString": "35.1168ms"
   }
 }
+```
+
+indicates that the problem involving the **pre2** matrix took aobut 5.41s to analyze and 4.8s to factorize. The total time analyze+factorize+solve was 10.9s. In this problem, the maximum absolute value of the sparse matrix is 1.47772e+10 and the relative error was about 8e-16. The error calculation took 35ms to compute.
