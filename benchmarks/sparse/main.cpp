@@ -9,8 +9,8 @@ void run(int argc, char **argv)
     // allocate mpi and report
     auto mpi = MpiAux::make_new();
     auto report = Report::make_new(mpi);
-    auto mpi_rank = mpi.rank();
-    auto mpi_size = mpi.size();
+    auto mpi_rank = mpi->rank();
+    auto mpi_size = mpi->size();
 
     // get arguments from command line
     vector<string> defaults{"bfwb62", "metis"};

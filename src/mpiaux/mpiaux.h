@@ -1,5 +1,6 @@
 #pragma once
 #include "mpi.h"
+#include <memory>
 #include <vector>
 
 struct MpiAux
@@ -12,7 +13,7 @@ struct MpiAux
     // Input:
     //   ranks -- is a list of processors to make a subcommunicator
     //            if ranks.size == 0, will use the World Communicator
-    inline static MpiAux make_new(const std::vector<int> &ranks)
+    inline static std::unique_ptr<MpiAux> make_new(const std::vector<int> &ranks)
     {
         // reference:
         // https://mpitutorial.com/tutorials/introduction-to-groups-and-communicators/
@@ -25,10 +26,10 @@ struct MpiAux
         // return world communicator
         if (ranks.size() == 0)
         {
-            return {
+            return std::unique_ptr<MpiAux>{new MpiAux{
                 world_comm,
                 world_group,
-            };
+            }};
         }
 
         // create subgroup
@@ -40,14 +41,14 @@ struct MpiAux
         MPI_Comm_create(world_comm, group, &comm);
 
         // results
-        return {
+        return std::unique_ptr<MpiAux>{new MpiAux{
             comm,
             group,
-        };
+        }};
     };
 
     // alternative constructor (use WORLD COMMUNICATOR)
-    inline static MpiAux make_new()
+    inline static std::unique_ptr<MpiAux> make_new()
     {
         return MpiAux::make_new(std::vector<int>{});
     }

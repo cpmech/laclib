@@ -18,7 +18,7 @@ MPI_TEST_CASE("solve bfwb62 system", 2)
     auto trip_full = read_matrix_market(mtx_path, onebased);
 
     auto mpi = MpiAux::make_new();
-    auto trip = trip_full->partition_by_row(mpi.rank(), mpi.size());
+    auto trip = trip_full->partition_by_row(mpi->rank(), mpi->size());
     auto solver = SolverMumps::make_new(mpi, trip->symmetric);
 
     solver->analyze_and_factorize(trip);

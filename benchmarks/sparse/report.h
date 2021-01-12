@@ -26,7 +26,7 @@ struct TimeAndMemory
 
 struct Report
 {
-    MpiAux &mpi;
+    const std::unique_ptr<MpiAux> &mpi;
     Stopwatch sw_step;
     Stopwatch sw_solver;
     TimeAndMemory step_read_matrix;
@@ -35,7 +35,7 @@ struct Report
     TimeAndMemory step_solve;
     uint64_t solver_nanoseconds;
 
-    inline static std::unique_ptr<Report> make_new(MpiAux &mpi)
+    inline static std::unique_ptr<Report> make_new(const std::unique_ptr<MpiAux> &mpi)
     {
         return std::unique_ptr<Report>{new Report{
             mpi,
@@ -94,8 +94,8 @@ struct Report
                            const std::unique_ptr<SparseTriplet> &trip,
                            const std::unique_ptr<Stats> &stats)
     {
-        auto mpi_rank = this->mpi.rank();
-        auto mpi_size = this->mpi.size();
+        auto mpi_rank = this->mpi->rank();
+        auto mpi_size = this->mpi->size();
         if (mpi_rank != 0)
         {
             return;

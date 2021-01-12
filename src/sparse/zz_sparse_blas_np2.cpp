@@ -17,7 +17,7 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
         std::unique_ptr<SparseTriplet> trip;
         std::vector<double> v_correct(m, 0.0);
 
-        if (mpi.rank() == 0)
+        if (mpi->rank() == 0)
         {
             trip = SparseTriplet::make_new(m, n, 10);
             trip->put(0, 0, 1);

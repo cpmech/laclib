@@ -15,14 +15,14 @@ struct Stats
     double relative_error; // norm_inf_diff / (norm_inf_a + 1)
     uint64_t nanoseconds;  // time spent here
 
-    inline static std::unique_ptr<Stats> make_new(MpiAux &mpi,
+    inline static std::unique_ptr<Stats> make_new(const std::unique_ptr<MpiAux> &mpi,
                                                   const std::unique_ptr<SparseTriplet> &a,
                                                   const std::vector<double> &x,
                                                   const std::vector<double> &rhs)
     {
         auto sw = Stopwatch::make_new();
-        auto mpi_rank = mpi.rank();
-        auto mpi_size = mpi.size();
+        auto mpi_rank = mpi->rank();
+        auto mpi_size = mpi->size();
 
         bool check_sizes = true;
         bool fill_zeros = false;
@@ -36,12 +36,12 @@ struct Stats
             std::vector<double> norms_a_loc(mpi_size, 0.0);
             std::vector<double> norms_a_all(mpi_size, 0.0);
             norms_a_loc[mpi_rank] = norm_inf(a->X);
-            mpi.reduce_sum(norms_a_all, norms_a_loc);
+            mpi->reduce_sum(norms_a_all, norms_a_loc);
             norm_inf_a = norm_inf(norms_a_all);
 
             std::vector<double> ax_loc(m, 0.0);
             sp_matvecmul(ax_loc, 1.0, a, x, check_sizes, fill_zeros);
-            mpi.reduce_sum(ax, ax_loc);
+            mpi->reduce_sum(ax, ax_loc);
         }
         else
         {

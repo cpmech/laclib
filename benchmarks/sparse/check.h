@@ -1,14 +1,15 @@
 #pragma once
 #include "../../src/laclib.h"
 #include "../../data/sparse-matrix/bfwb62_x_correct.h"
+#include <memory>
 #include <vector>
 #include <iostream>
 
-void check_x(MpiAux &mpi,
+void check_x(const std::unique_ptr<MpiAux> &mpi,
              const std::string &matrix_name,
              const std::vector<double> &x)
 {
-    if (mpi.rank() != 0)
+    if (mpi->rank() != 0)
     {
         return;
     }

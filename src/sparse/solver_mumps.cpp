@@ -53,12 +53,12 @@ void SolverMumps::analyze(const std::unique_ptr<SparseTriplet> &trip,
                           const MumpsOptions &options,
                           bool verbose)
 {
-    if (!this->mpi.belong())
+    if (!this->mpi->belong())
     {
         throw "SolverMumps::analyze: must only be called by processors in the group";
     }
 
-    _set_data(&this->data, options, trip, this->mpi.size());
+    _set_data(&this->data, options, trip, this->mpi->size());
 
     this->analyzed = false;
     this->factorized = false;
@@ -70,7 +70,7 @@ void SolverMumps::analyze(const std::unique_ptr<SparseTriplet> &trip,
 
 void SolverMumps::factorize(bool verbose)
 {
-    if (!mpi.belong())
+    if (!mpi->belong())
     {
         throw "SolverMumps::factorize: must only be called by processors in the group";
     }
@@ -91,12 +91,12 @@ void SolverMumps::analyze_and_factorize(const std::unique_ptr<SparseTriplet> &tr
                                         const MumpsOptions &options,
                                         bool verbose)
 {
-    if (!this->mpi.belong())
+    if (!this->mpi->belong())
     {
         throw "SolverMumps::analize_and_factorize: must only be called by processors in the group";
     }
 
-    _set_data(&this->data, options, trip, this->mpi.size());
+    _set_data(&this->data, options, trip, this->mpi->size());
 
     this->factorized = false;
 
@@ -110,7 +110,7 @@ void SolverMumps::solve(std::vector<double> &x,
                         bool rhs_is_distributed,
                         bool verbose)
 {
-    if (!this->mpi.belong())
+    if (!this->mpi->belong())
     {
         throw "SolverMumps::analize_and_factorize: must only be called by processors in the group";
     }
@@ -125,17 +125,17 @@ void SolverMumps::solve(std::vector<double> &x,
         throw "SolverMumps::solve: x and rhs vectors must have the same size";
     }
 
-    int mpi_rank = this->mpi.rank();
-    int mpi_size = this->mpi.size();
+    int mpi_rank = this->mpi->rank();
+    int mpi_size = this->mpi->size();
 
     if (rhs_is_distributed)
     {
         std::fill(x.begin(), x.end(), 0.0);
-        this->mpi.reduce_sum(x, rhs);
+        this->mpi->reduce_sum(x, rhs);
     }
     else
     {
-        if (this->mpi.rank() == 0)
+        if (this->mpi->rank() == 0)
         {
             x = rhs;
         }
@@ -150,7 +150,7 @@ void SolverMumps::solve(std::vector<double> &x,
 
     if (mpi_size > 1)
     {
-        this->mpi.broadcast_from_root(x);
+        this->mpi->broadcast_from_root(x);
     }
 }
 

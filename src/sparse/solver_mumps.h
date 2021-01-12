@@ -10,15 +10,16 @@
 
 struct SolverMumps
 {
-    MpiAux mpi;
+    const std::unique_ptr<MpiAux> &mpi;
     DMUMPS_STRUC_C data;
     bool analyzed;
     bool factorized;
 
-    inline static std::unique_ptr<SolverMumps> make_new(MpiAux mpi, MumpsSymmetry symmetry)
+    inline static std::unique_ptr<SolverMumps> make_new(const std::unique_ptr<MpiAux> &mpi,
+                                                        MumpsSymmetry symmetry)
     {
         DMUMPS_STRUC_C data;
-        data.comm_fortran = (MUMPS_INT)MPI_Comm_c2f(mpi.comm);
+        data.comm_fortran = (MUMPS_INT)MPI_Comm_c2f(mpi->comm);
         data.par = 1; // the host is also involved in the parallel steps of the factorization and solve phases
         data.sym = symmetry;
 
@@ -33,7 +34,8 @@ struct SolverMumps
             }};
     };
 
-    inline static std::unique_ptr<SolverMumps> make_new(MpiAux mpi, bool general_symmetry)
+    inline static std::unique_ptr<SolverMumps> make_new(const std::unique_ptr<MpiAux> &mpi,
+                                                        bool general_symmetry)
     {
         MumpsSymmetry sym = general_symmetry ? MUMPS_SYMMETRY_GENERAL : MUMPS_SYMMETRY_NONE;
         return SolverMumps::make_new(mpi, sym);
