@@ -92,6 +92,14 @@ indicates that the problem involving the **pre2** matrix took aobut 5.41s to ana
 
 ## System details
 
+Output of `free -m`
+
+```
+              total        used        free      shared  buff/cache   available
+Mem:          47903        3329       31419         193       13154       43903
+Swap:         15257           0       15257
+```
+
 Output of `cat /proc/cpuinfo`
 
 ```
