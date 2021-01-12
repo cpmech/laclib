@@ -3,7 +3,7 @@
 using namespace std;
 
 // NOTE: The code must be inside the "run" function because
-//       the destructor of SolverMumps calls MPI_Finalize.
+//       the destructor of SolverMumps calls dmumps finalize.
 
 void run(int argc, char **argv)
 {
