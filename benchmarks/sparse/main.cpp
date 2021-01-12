@@ -18,7 +18,7 @@ void run(int argc, char **argv)
     // get arguments from command line
     vector<string> defaults{"bfwb62", "metis"};
     auto args = extract_arguments_or_use_defaults(argc, argv, defaults);
-    auto path = path_get_current() + "/../../../data/sparse-matrix/";
+    auto path = path_get_current() + "/../../../benchmarks/sparse/data/";
     auto name = args[0];
     auto filename = path + name + ".mtx";
     auto ordering = mumps_string_to_ordering(args[1]);

@@ -113,7 +113,7 @@ struct Report
             return;
         }
 
-        auto path = path_get_current() + "/../../../data/sparse-matrix/results/";
+        auto path = path_get_current() + "/../../../benchmarks/sparse/results/";
         auto ordering = mumps_ordering_to_string(options.ordering);
 
         std::stringstream fnkey;

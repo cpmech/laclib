@@ -9,9 +9,6 @@ build/
 *.o
 *.a
 *.so
+*.tar.gz
 
-data/sparse-matrix/pre2.mtx
-data/sparse-matrix/inline_1.mtx
-data/sparse-matrix/tmt_unsym.mtx
-data/sparse-matrix/Flan_1565.mtx
-data/sparse-matrix/twotone.mtx
+benchmarks/sparse/data/*.mtx
