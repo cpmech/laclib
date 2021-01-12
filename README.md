@@ -1,6 +1,6 @@
 # laclib - Linear Algebra C++17 Library
 
-This project implements some structures and functions to assist in developing code for linear algebra computations using **modern C++17**. For instance, this project wraps some BLAS routines and solvers for sparse linear systems.
+This project implements some structures and functions to assist in developing code for linear algebra computations using **modern C++17**. This project wraps some BLAS routines and solvers for sparse linear systems.
 
 In this repository, the files starting with `zz_...` are **unit tests** whereas the files such as `zzi_...` are **integration tests** (those involving more than one single structure or function).
 
