@@ -4,9 +4,6 @@
 #include "../../src/laclib.h"
 using namespace std;
 
-// NOTE: the code must be wrapped within "run"  because the destructor of SolverMumps relies
-// on the MPI, so cannot be called before MPI_Finalize. Also, this makes it convenient for try/catch
-
 void run(int argc, char **argv)
 {
     // allocate mpi and report
@@ -24,19 +21,15 @@ void run(int argc, char **argv)
     auto ordering = mumps_string_to_ordering(args[1]);
 
     // read matrix
-    report->print("reading matrix ", name);
     auto onebased = true;
     auto part_option = PARTITION_BY_ROW;
     auto trip = read_matrix_market_part(filename, onebased, mpi_rank, mpi_size, part_option);
-    report->print("... symmetric = ", trip->symmetric ? "true" : "false");
-    report->print("... number of rows (equal to columns) = ", trip->m);
-    report->print("... number of non-zeros (pattern entries) = ", trip->pos);
     report->measure_step(STEP_READ_MATRIX);
 
     // allocate solver and options
     auto solver = SolverMumps::make_new(mpi, trip->symmetric);
     auto options = MumpsOptions::make_new();
-    auto verbose = mpi_rank == 0;
+    auto verbose = true;
 
     // set options
     options.ordering = ordering;
@@ -46,11 +39,9 @@ void run(int argc, char **argv)
     // start linear solver execution /////////////////////////////////////////////////////////////////
     report->solver_start_stopwatch();
 
-    report->print("analyzing", "");
     solver->analyze(trip, options, verbose);
     report->measure_step(STEP_ANALYZE);
 
-    report->print("factorizing", "");
     solver->factorize(verbose);
     report->measure_step(STEP_FACTORIZE);
 
@@ -58,7 +49,6 @@ void run(int argc, char **argv)
     auto x = vector<double>(trip->n, 0.0);
     auto rhs_is_distributed = false;
 
-    report->print("solving", "");
     solver->solve(x, rhs, rhs_is_distributed, verbose);
     report->measure_step(STEP_SOLVE);
 
@@ -76,13 +66,11 @@ void run(int argc, char **argv)
 int main(int argc, char **argv)
 {
     MPI_Init(&argc, &argv);
-
     try
     {
         run(argc, argv);
     }
     CATCH_ALL
-
     MPI_Finalize();
     return 0;
 }

@@ -49,16 +49,6 @@ struct Report
         }};
     }
 
-    template <typename T>
-    inline void print(const std::string &prefix, const T &value)
-    {
-        bool verbose = this->mpi.rank() == 0;
-        if (verbose)
-        {
-            std::cout << prefix << value << std::endl;
-        }
-    }
-
     inline void solver_start_stopwatch()
     {
         this->sw_solver.reset();
@@ -71,10 +61,8 @@ struct Report
 
     inline void measure_step(StepName step)
     {
-        bool verbose = this->mpi.rank() == 0;
-        std::string prefix = verbose ? "... " : "";
         bool reset_stopwatch = true;
-        auto nanoseconds = this->sw_step.stop(prefix, reset_stopwatch);
+        auto nanoseconds = this->sw_step.stop("", reset_stopwatch);
         auto bytes = memory_usage();
 
         switch (step)
@@ -166,8 +154,6 @@ struct Report
         ofs << "  \"Stats\": " << stats->json("  ");
         ofs << "}\n";
         ofs.close();
-
-        std::cout << "\nfile <" << filename << "> written" << std::endl;
     }
 };
 
