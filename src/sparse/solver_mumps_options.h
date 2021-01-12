@@ -14,8 +14,8 @@ struct MumpsOptions
         return {
             MUMPS_ORDERING_AUTO,
             MUMPS_SCALING_AUTO,
-            MUMPS_DEFAULT_PCT_INC_WORKSPACE,
-            0, // auto
+            100, // pct_inc_workspace
+            0,   // auto
         };
     };
 };

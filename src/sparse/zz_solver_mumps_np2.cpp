@@ -42,7 +42,7 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
     {
         auto solver = SolverMumps::make_new(mpi, MUMPS_SYMMETRY_NONE);
 
-        CHECK(solver.get()->data.par == MUMPS_HOST_ALSO_WORKS);
+        CHECK(solver.get()->data.par == 1);
         CHECK(solver.get()->data.sym == MUMPS_SYMMETRY_NONE);
         CHECK(solver.get()->data.ICNTL(1) == -1);
         CHECK(solver.get()->data.ICNTL(2) == -1);
@@ -59,7 +59,7 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
         solver->analyze_and_factorize(trip, options);
         CHECK(options.ordering == MUMPS_ORDERING_AUTO);
         CHECK(options.scaling == MUMPS_SCALING_AUTO);
-        CHECK(options.pct_inc_workspace == MUMPS_DEFAULT_PCT_INC_WORKSPACE);
+        CHECK(options.pct_inc_workspace == 100);
         CHECK(options.max_work_memory == 0);
         CHECK(solver.get()->factorized == true);
     }

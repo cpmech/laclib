@@ -19,20 +19,18 @@ struct SolverMumps
     {
         DMUMPS_STRUC_C data;
         data.comm_fortran = (MUMPS_INT)MPI_Comm_c2f(mpi.comm);
-        data.par = MUMPS_HOST_ALSO_WORKS;
+        data.par = 1; // the host is also involved in the parallel steps of the factorization and solve phases
         data.sym = symmetry;
 
         _call_dmumps(&data, MUMPS_JOB_INITIALIZE, false);
 
-        auto solver = std::unique_ptr<SolverMumps>{
+        return std::unique_ptr<SolverMumps>{
             new SolverMumps{
                 mpi,
                 data,
                 false,
                 false,
             }};
-
-        return solver;
     };
 
     inline static std::unique_ptr<SolverMumps> make_new(MpiAux mpi, bool general_symmetry)

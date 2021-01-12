@@ -2,10 +2,6 @@
 #include "dmumps_c.h"
 #include <string>
 
-const MUMPS_INT MUMPS_USE_COMM_WORLD = -987654;
-const MUMPS_INT MUMPS_HOST_ALSO_WORKS = 1;
-const MUMPS_INT MUMPS_DEFAULT_PCT_INC_WORKSPACE = 20;
-
 enum MumpsSymmetry
 {
     MUMPS_SYMMETRY_NONE = 0,
