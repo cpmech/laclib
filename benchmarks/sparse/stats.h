@@ -1,4 +1,5 @@
 #pragma once
+#include <iomanip>
 #include <memory>
 #include <string>
 #include <sstream>
@@ -76,6 +77,7 @@ struct Stats
     inline std::string json(const std::string &indent = "")
     {
         std::ostringstream oss;
+        oss << std::setprecision(15);
         oss << "{\n";
         oss << indent << "  \"NormInfA\": " << this->norm_inf_a << ",\n";
         oss << indent << "  \"NormInfAx\": " << this->norm_inf_ax << ",\n";

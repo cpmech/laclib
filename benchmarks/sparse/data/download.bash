@@ -10,9 +10,13 @@ get_matrix() {
   rm $NAME.tar.gz
 }
 
-get_matrix Bai bfwb62
-get_matrix GHS_psdef inline_1
-get_matrix CEMW tmt_unsym
-get_matrix ATandT pre2
-get_matrix ATandT twotone
-get_matrix Janna Flan_1565
+#get_matrix Bai bfwb62
+#get_matrix GHS_psdef inline_1
+#get_matrix CEMW tmt_unsym
+#get_matrix ATandT pre2
+#get_matrix ATandT twotone
+#get_matrix Janna Flan_1565
+
+get_matrix Vavasis av41092
+get_matrix GHS_indef helm2d03
+get_matrix GHS_psdef oilpan
