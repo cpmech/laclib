@@ -104,11 +104,19 @@ struct Report
         auto path = path_get_current() + "/../../../benchmarks/sparse/results/";
         auto ordering = mumps_ordering_to_string(options.ordering);
 
+        std::string omp = "";
+        auto omp_num_threads = get_envar("OMP_NUM_THREADS");
+        if (omp_num_threads != "")
+        {
+            omp = "_omp" + omp_num_threads;
+        }
+
         std::stringstream fnkey;
         fnkey << solver_kind
               << "_" << matrix_name
               << "_" << ordering
-              << "_np" << mpi_size;
+              << "_np" << mpi_size
+              << omp;
 
         std::string filename = path + fnkey.str() + ".json";
 
@@ -121,6 +129,7 @@ struct Report
         ofs << "  \"MatrixName\": \"" << matrix_name << "\",\n";
         ofs << "  \"Ordering\": \"" << ordering << "\",\n";
         ofs << "  \"MpiSize\": " << mpi_size << ",\n";
+        ofs << "  \"OmpNumThreads\": " << omp_num_threads << ",\n";
         ofs << "  \"Symmetric\": " << str_symmetric << ",\n";
         ofs << "  \"NumberOfRows\": " << trip->m << ",\n";
         ofs << "  \"NumberOfCols\": " << trip->n << ",\n";
