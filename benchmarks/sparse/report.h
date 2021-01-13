@@ -129,7 +129,10 @@ struct Report
         ofs << "  \"MatrixName\": \"" << matrix_name << "\",\n";
         ofs << "  \"Ordering\": \"" << ordering << "\",\n";
         ofs << "  \"MpiSize\": " << mpi_size << ",\n";
-        ofs << "  \"OmpNumThreads\": " << omp_num_threads << ",\n";
+        if (omp != "")
+        {
+            ofs << "  \"OmpNumThreads\": " << omp_num_threads << ",\n";
+        }
         ofs << "  \"Symmetric\": " << str_symmetric << ",\n";
         ofs << "  \"NumberOfRows\": " << trip->m << ",\n";
         ofs << "  \"NumberOfCols\": " << trip->n << ",\n";
