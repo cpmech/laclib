@@ -1,0 +1,46 @@
+{
+  "Platform": "laclib",
+  "SolverKind": "mumps",
+  "MatrixName": "oilpan",
+  "Ordering": "metis",
+  "MpiSize": 1,
+  "OmpNumThreads": 2,
+  "Symmetric": true,
+  "NumberOfRows": 73752,
+  "NumberOfCols": 73752,
+  "NumberOfNonZeros": 1835470,
+  "StepReadMatrix": {
+    "ElapsedTimeNanoseconds": 529604421,
+    "ElapsedTimeString": "529.604ms",
+    "MemoryBytes": 390541312,
+    "MemoryMiB": "372"
+  },
+  "StepAnalyze": {
+    "ElapsedTimeNanoseconds": 108435395,
+    "ElapsedTimeString": "108.435ms",
+    "MemoryBytes": 405078016,
+    "MemoryMiB": "386"
+  },
+  "StepFactorize": {
+    "ElapsedTimeNanoseconds": 267727264,
+    "ElapsedTimeString": "267.727ms",
+    "MemoryBytes": 15553277952,
+    "MemoryMiB": "14,832"
+  },
+  "StepSolve": {
+    "ElapsedTimeNanoseconds": 38755010,
+    "ElapsedTimeString": "38.755ms",
+    "MemoryBytes": 15553277952,
+    "MemoryMiB": "14,832"
+  },
+  "TimeSolverNanoseconds": 414670654,
+  "TimeSolverString": "414.671ms",
+  "Stats": {
+    "NormInfA": 12715499.39833,
+    "NormInfAx": 1.00000002004004,
+    "NormInfDiff": 2.00400387395661e-08,
+    "RelativeError": 1.57603225290277e-15,
+    "ElapsedTimeNanoseconds": 4627626,
+    "ElapsedTimeString": "4.62763ms"
+  }
+}
