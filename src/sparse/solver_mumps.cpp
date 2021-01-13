@@ -11,24 +11,20 @@
 static inline void _set_data(DMUMPS_STRUC_C *data,
                              const MumpsOptions &options,
                              const std::unique_ptr<SparseTriplet> &trip,
-                             int mpi_size)
+                             int mpi_size,
+                             bool distributed_matrix)
 {
-    data->ICNTL(5) = 0; // assembled matrix (not elemental)
+    data->ICNTL(5) = MUMPS_ICNTL5_ASSEMBLED_MATRIX;
     data->ICNTL(7) = options.ordering;
     data->ICNTL(8) = options.scaling;
     data->ICNTL(14) = options.pct_inc_workspace;
     data->ICNTL(23) = options.max_work_memory;
+    data->n = make_mumps_int(trip->m);
 
-    if (mpi_size > 1)
+    if (mpi_size > 1 && distributed_matrix)
     {
-        MUMPS_INT ord = options.ordering == MUMPS_ORDERING_SCOTCH ? 1 : 2; // pt-scotch or ParMetis
-
-        data->ICNTL(6) = 0;    // no col perm for distr matrix => set this to remove warning
-        data->ICNTL(18) = 3;   // use distributed matrix
-        data->ICNTL(28) = 2;   // parallel computation
-        data->ICNTL(29) = ord; // parallel ordering tool
-
-        data->n = make_mumps_int(trip->m);
+        data->ICNTL(18) = MUMPS_ICNTL18_DISTRIBUTED;
+        data->ICNTL(6) = MUMPS_ICNTL6_PERMUT_NONE; // set this to remove warning
         data->nz_loc = make_mumps_int8(trip->pos);
         data->irn_loc = trip->I.data();
         data->jcn_loc = trip->J.data();
@@ -36,16 +32,23 @@ static inline void _set_data(DMUMPS_STRUC_C *data,
     }
     else
     {
-        data->ICNTL(6) = 7;  // automatic col perm
-        data->ICNTL(18) = 0; // matrix is centralized on the host
-        data->ICNTL(28) = 1; // sequential computation
-        data->ICNTL(29) = 0; // auto => ignored
-
-        data->n = make_mumps_int(trip->m);
+        data->ICNTL(18) = MUMPS_ICNTL18_CENTRALIZED;
+        data->ICNTL(6) = MUMPS_ICNTL6_PERMUT_AUTO;
         data->nz = make_mumps_int8(trip->pos);
         data->irn = trip->I.data();
         data->jcn = trip->J.data();
         data->a = trip->X.data();
+    }
+
+    if (mpi_size > 1)
+    {
+        data->ICNTL(28) = MUMPS_ICNTL28_PARALLEL;
+        data->ICNTL(29) = mumps_ordering_to_parallel(options.ordering);
+    }
+    else
+    {
+        data->ICNTL(28) = MUMPS_ICNTL28_SEQUENTIAL;
+        data->ICNTL(29) = 0; // ignored
     }
 }
 
@@ -58,7 +61,7 @@ void SolverMumps::analyze(const std::unique_ptr<SparseTriplet> &trip,
         throw "SolverMumps::analyze: must only be called by processors in the group";
     }
 
-    _set_data(&this->data, options, trip, this->mpi->size());
+    _set_data(&this->data, options, trip, this->mpi->size(), this->distributed_matrix);
 
     this->analyzed = false;
     this->factorized = false;
@@ -96,7 +99,7 @@ void SolverMumps::analyze_and_factorize(const std::unique_ptr<SparseTriplet> &tr
         throw "SolverMumps::analize_and_factorize: must only be called by processors in the group";
     }
 
-    _set_data(&this->data, options, trip, this->mpi->size());
+    _set_data(&this->data, options, trip, this->mpi->size(), this->distributed_matrix);
 
     this->factorized = false;
 

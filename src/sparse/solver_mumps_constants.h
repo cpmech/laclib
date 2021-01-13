@@ -2,6 +2,15 @@
 #include "dmumps_c.h"
 #include <string>
 
+const MUMPS_INT MUMPS_PAR_HOST_ALSO_WORKS = 1;     // section 5.1.4, page 26
+const MUMPS_INT MUMPS_ICNTL5_ASSEMBLED_MATRIX = 0; // section 5.2.2, page 27
+const MUMPS_INT MUMPS_ICNTL18_CENTRALIZED = 0;     // section 5.2.2, page 27
+const MUMPS_INT MUMPS_ICNTL18_DISTRIBUTED = 3;     // section 5.2.2, page 28
+const MUMPS_INT MUMPS_ICNTL6_PERMUT_NONE = 0;      // section 5.3, page 31
+const MUMPS_INT MUMPS_ICNTL6_PERMUT_AUTO = 7;      // section 5.3, page 32
+const MUMPS_INT MUMPS_ICNTL28_SEQUENTIAL = 1;      // section 5.4, page 33
+const MUMPS_INT MUMPS_ICNTL28_PARALLEL = 2;        // section 5.4, page 34
+
 enum MumpsSymmetry
 {
     MUMPS_SYMMETRY_NONE = 0,
@@ -18,6 +27,13 @@ enum MumpsOrdering
     MUMPS_ORDERING_METIS = 5,
     MUMPS_ORDERING_QAMD = 6,
     MUMPS_ORDERING_AUTO = 7,
+};
+
+enum MumpsParallelOrdering
+{
+    MUMPS_PARALLEL_ORDERING_AUTO = 0,
+    MUMPS_PARALLEL_ORDERING_PTSCOTCH = 1,
+    MUMPS_PARALLEL_ORDERING_PARMETIS = 2,
 };
 
 enum MumpsScaling
@@ -109,4 +125,17 @@ inline MumpsOrdering mumps_string_to_ordering(const std::string &ordering)
     }
 
     throw "mumps_string_to_ordering: ordering is invalid";
+}
+
+inline MumpsParallelOrdering mumps_ordering_to_parallel(MumpsOrdering ordering)
+{
+    if (ordering == MUMPS_ORDERING_SCOTCH)
+    {
+        return MUMPS_PARALLEL_ORDERING_PTSCOTCH;
+    }
+    if (ordering == MUMPS_ORDERING_AUTO)
+    {
+        return MUMPS_PARALLEL_ORDERING_AUTO;
+    }
+    return MUMPS_PARALLEL_ORDERING_PARMETIS;
 }

@@ -9,7 +9,6 @@ void run(int argc, char **argv)
     // allocate mpi and report
     auto mpi = MpiAux::make_new();
     auto report = Report::make_new(mpi);
-    auto mpi_rank = mpi->rank();
     auto mpi_size = mpi->size();
 
     // get arguments from command line
@@ -22,8 +21,7 @@ void run(int argc, char **argv)
 
     // read matrix
     auto onebased = true;
-    auto part_option = PARTITION_BY_ROW;
-    auto trip = read_matrix_market_part(filename, onebased, mpi_rank, mpi_size, part_option);
+    auto trip = read_matrix_market(filename, onebased);
     report->measure_step(STEP_READ_MATRIX);
 
     // allocate solver and options

@@ -8,7 +8,7 @@
       "name": "(gdb) Launch",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/src/sparse/zz_read_matrix_market_part",
+      "program": "${workspaceFolder}/build/src/sparse/zz_solver_mumps_np1",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/build/src/sparse",

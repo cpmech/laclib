@@ -16,18 +16,33 @@ MPI_TEST_CASE("solve bfwb62 system", 2)
     auto mtx_path = data_path + "/sparse-matrix/bfwb62.mtx";
     bool onebased = true;
     auto trip_full = read_matrix_market(mtx_path, onebased);
-
+    auto symmetric = trip_full->symmetric;
+    auto n = trip_full->n;
+    auto rhs = vector<double>(n, 1.0);
+    auto x = vector<double>(n, 0.0);
     auto mpi = MpiAux::make_new();
-    auto trip = trip_full->partition_by_row(mpi->rank(), mpi->size());
-    auto solver = SolverMumps::make_new(mpi, trip->symmetric);
 
-    solver->analyze_and_factorize(trip);
-    CHECK(solver.get()->factorized == true);
+    SUBCASE("centralized matrix")
+    {
+        auto solver = SolverMumps::make_new(mpi, symmetric);
 
-    auto rhs = vector<double>(trip->n, 1.0);
-    auto x = vector<double>(trip->n, 0.0);
+        solver->analyze_and_factorize(trip_full);
+        CHECK(solver.get()->factorized == true);
 
-    solver->solve(x, rhs);
+        solver->solve(x, rhs);
+        CHECK(equal_vectors_tol(x, bfwb62_x_correct, 1e-10, true) == true);
+    }
 
-    CHECK(equal_vectors_tol(x, bfwb62_x_correct, 1e-10, true) == true);
+    SUBCASE("distributed matrix")
+    {
+        auto trip = trip_full->partition_by_row(mpi->rank(), mpi->size());
+        auto distributed_matrix = true;
+        auto solver = SolverMumps::make_new(mpi, symmetric, distributed_matrix);
+
+        solver->analyze_and_factorize(trip);
+        CHECK(solver.get()->factorized == true);
+
+        solver->solve(x, rhs);
+        CHECK(equal_vectors_tol(x, bfwb62_x_correct, 1e-10, true) == true);
+    }
 }

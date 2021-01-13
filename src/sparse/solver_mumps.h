@@ -10,17 +10,19 @@
 
 struct SolverMumps
 {
-    const std::unique_ptr<MpiAux> &mpi;
-    DMUMPS_STRUC_C data;
-    bool analyzed;
-    bool factorized;
+    const std::unique_ptr<MpiAux> &mpi; // MPI wrapper
+    DMUMPS_STRUC_C data;                // MUMPS data structure for C-code
+    bool distributed_matrix;            // matrix is distributed; not centralized on the host with rank == 0
+    bool analyzed;                      // analyze or analyze_and_factorize has been called
+    bool factorized;                    // analyze_and_factorize or factorize has been called
 
     inline static std::unique_ptr<SolverMumps> make_new(const std::unique_ptr<MpiAux> &mpi,
-                                                        MumpsSymmetry symmetry)
+                                                        MumpsSymmetry symmetry,
+                                                        bool distributed_matrix = false)
     {
         DMUMPS_STRUC_C data;
         data.comm_fortran = (MUMPS_INT)MPI_Comm_c2f(mpi->comm);
-        data.par = 1; // the host is also involved in the parallel steps of the factorization and solve phases
+        data.par = MUMPS_PAR_HOST_ALSO_WORKS;
         data.sym = symmetry;
 
         _call_dmumps(&data, MUMPS_JOB_INITIALIZE, false);
@@ -29,16 +31,18 @@ struct SolverMumps
             new SolverMumps{
                 mpi,
                 data,
+                distributed_matrix,
                 false,
                 false,
             }};
     };
 
     inline static std::unique_ptr<SolverMumps> make_new(const std::unique_ptr<MpiAux> &mpi,
-                                                        bool general_symmetry)
+                                                        bool general_symmetry,
+                                                        bool distributed_matrix = false)
     {
         MumpsSymmetry sym = general_symmetry ? MUMPS_SYMMETRY_GENERAL : MUMPS_SYMMETRY_NONE;
-        return SolverMumps::make_new(mpi, sym);
+        return SolverMumps::make_new(mpi, sym, distributed_matrix);
     }
 
     ~SolverMumps()
@@ -67,3 +71,5 @@ struct SolverMumps
                bool rhs_is_distributed = false,
                bool verbose = false);
 };
+
+// Page 29: Again, out-of-range entries are ignored and duplicate entries are summed.
