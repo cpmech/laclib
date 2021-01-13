@@ -26,3 +26,7 @@ add_test(NAME zz_extract_arguments COMMAND $<TARGET_FILE:zz_extract_arguments> f
 
 add_executable(zz_extract_first_default zz_extract_first_default.cpp)
 add_test(NAME zz_extract_first_default COMMAND zz_extract_first_default)
+
+add_executable(zz_get_envar zz_get_envar.cpp)
+add_test(NAME zz_get_envar COMMAND zz_get_envar -E environment)
+set_property(TEST zz_get_envar APPEND PROPERTY ENVIRONMENT OMP_NUM_THREADS=4)
