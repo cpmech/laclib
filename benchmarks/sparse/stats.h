@@ -18,7 +18,8 @@ struct Stats
     inline static std::unique_ptr<Stats> make_new(const std::unique_ptr<MpiAux> &mpi,
                                                   const std::unique_ptr<SparseTriplet> &a,
                                                   const std::vector<double> &x,
-                                                  const std::vector<double> &rhs)
+                                                  const std::vector<double> &rhs,
+                                                  bool distributed_matrix = false)
     {
         auto sw = Stopwatch::make_new();
         auto mpi_rank = mpi->rank();
@@ -31,7 +32,7 @@ struct Stats
         double norm_inf_a = 0;
         std::vector<double> ax(m, 0.0);
 
-        if (mpi_size > 1)
+        if (mpi_size > 1 && distributed_matrix)
         {
             std::vector<double> norms_a_loc(mpi_size, 0.0);
             std::vector<double> norms_a_all(mpi_size, 0.0);
