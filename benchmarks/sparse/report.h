@@ -104,6 +104,12 @@ struct Report
         auto path = path_get_current() + "/../../../benchmarks/sparse/results/";
         auto ordering = mumps_ordering_to_string(options.ordering);
 
+#ifdef USE_INTEL
+        std::string intel = "intel_";
+#else
+        std::string intel = "";
+#endif
+
         std::string omp = "";
         auto omp_num_threads = get_envar("OMP_NUM_THREADS");
         if (omp_num_threads != "")
@@ -112,7 +118,7 @@ struct Report
         }
 
         std::stringstream fnkey;
-        fnkey << solver_kind
+        fnkey << intel << solver_kind
               << "_" << matrix_name
               << "_" << ordering
               << "_np" << mpi_size
