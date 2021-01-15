@@ -24,15 +24,7 @@ sudo apt-get update -y \
 ```
 #### Install the MUMPS Sparse Solver
 
-#### TODO: Debian libmumps options
-
-TODO:
-
-```bash
-sudo apt-get install libmumps-seq-dev
-```
-
-**NOTE**: we prefer to compile MUMPS ourselves instead of using the default Debian package named _libmumps-dev_ because the Debian package doesn't include some additional, and efficient, ordering tools.
+**NOTE**: we prefer to compile MUMPS ourselves instead of using the default Debian package named _libmumps-dev_ because the Debian package doesn't include some additional, and efficient, ordering tools. Also, the libmumps compiled by Debian doesn't include OpenMPI.
 
 Follow the procedures in https://github.com/cpmech/script-install-mumps
 
