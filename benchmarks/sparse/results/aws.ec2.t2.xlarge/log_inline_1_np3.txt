@@ -1,0 +1,124 @@
+Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   1      503712       18660027
+      executing #MPI =      3, without OMP
+
+ =================================================
+ MUMPS compiled with option -Dmetis
+ MUMPS compiled with option -Dparmetis
+ MUMPS compiled with option -Dptscotch
+ MUMPS compiled with option -Dscotch
+ This MUMPS version includes code for SAVE_RESTORE
+ This MUMPS version includes code for DIST_RHS
+ =================================================
+L D L^T Solver for general symmetric matrices
+Type of parallelism: Working host
+
+ ****** ANALYSIS STEP ********
+
+Using ParMETIS for parallel ordering.
+Structural symmetry is:100%
+ A root of estimated size         2055  has been selected for Scalapack.
+
+Leaving analysis phase with  ...
+ INFOG(1)                                       =               0
+ INFOG(2)                                       =               0
+ -- (20) Number of entries in factors (estim.)  =       179740256
+ --  (3) Real space for factors    (estimated)  =       206049654
+ --  (4) Integer space for factors (estimated)  =         5332776
+ --  (5) Maximum frontal size      (estimated)  =            2949
+ --  (6) Number of nodes in the tree            =           14084
+ -- (32) Type of analysis effectively used      =               2
+ --  (7) Ordering option effectively used       =               2
+ ICNTL(6) Maximum transversal option            =               0
+ ICNTL(7) Pivot order option                    =               5
+ ICNTL(14) Percentage of memory relaxation      =             100
+ Number of level 2 nodes                        =               2
+ Number of split nodes                          =               0
+ RINFOG(1) Operations during elimination (estim)= 1.372D+11
+
+ MEMORY ESTIMATIONS ... 
+ Estimations with standard Full-Rank (FR) factorization:
+    Maximum estim. space in Mbytes, IC facto.    (INFOG(16)):        1555
+    Total space in MBytes, IC factorization      (INFOG(17)):        3853
+    Maximum estim. space in Mbytes, OOC facto.   (INFOG(26)):         349
+    Total space in MBytes,  OOC factorization    (INFOG(27)):         911
+
+ Elapsed time in analysis driver=       8.3557
+
+Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   2      503712       18660027
+      executing #MPI =      3, without OMP
+
+
+
+****** FACTORIZATION STEP ********
+
+ GLOBAL STATISTICS PRIOR NUMERICAL FACTORIZATION ...
+ Number of working processes                =               3
+ ICNTL(22) Out-of-core option               =               0
+ ICNTL(35) BLR activation (eff. choice)     =               0
+ ICNTL(14) Memory relaxation                =             100
+ INFOG(3) Real space for factors (estimated)=       206049654
+ INFOG(4) Integer space for factors (estim.)=         5332776
+ Maximum frontal size (estimated)           =            2949
+ Number of nodes in the tree                =           14084
+ Memory allowed (MB -- 0: N/A )             =            5000
+ Memory provided by user, sum of LWK_USER   =               0
+ Relative threshold for pivoting, CNTL(1)   =      0.1000D-01
+ Max difference from 1 after scaling the entries for ONE-NORM (option 7/8)   = 0.24D+00
+ Average Effective size of S     (based on INFO(39))=            376993107
+
+ Elapsed time to reformat/distribute matrix =      0.7002
+ ** Memory allocated, max in Mbytes             (INFOG(18)):        3278
+
+ ** Memory allocated, total in Mbytes           (INFOG(19)):        9426
+ ** Memory effectively used, max in  Mbytes     (INFOG(21)):         851
+ ** Memory effectively used, total in Mbytes    (INFOG(22)):        2100
+
+ Elapsed time for factorization             =     15.8166
+
+Leaving factorization with ...
+ RINFOG(2)  Operations in node assembly     = 2.874D+08
+ ------(3)  Operations in node elimination  = 1.372D+11
+ ICNTL (8)  Scaling effectively used        =               7
+ INFOG (9)  Real space for factors          =       206050482
+ INFOG(10)  Integer space for factors       =         5331017
+ INFOG(11)  Maximum front size              =            2949
+ INFOG(29)  Number of entries in factors    =       179740256
+ INFOG(12)  Number of negative pivots       =               0
+ INFOG(13)  Number of delayed pivots        =               0
+ Number of 2x2 pivots in type 1 nodes       =               0
+ Number of 2x2 pivots in type 2 nodes       =               0
+ INFOG(14)  Number of memory compress       =               0
+
+ Elapsed time in factorization driver=      16.8872
+
+Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   3      503712       18660027
+      executing #MPI =      3, without OMP
+
+
+
+ ****** SOLVE & CHECK STEP ********
+
+ GLOBAL STATISTICS PRIOR SOLVE PHASE ...........
+ Number of right-hand-sides                    =           1
+ Blocking factor for multiple rhs              =           1
+ ICNTL (9)                                     =           1
+  --- (10)                                     =           0
+  --- (11)                                     =           0
+  --- (20)                                     =           0
+  --- (21)                                     =           0
+  --- (30)                                     =           0
+  --- (35)                                     =           0
+ ** Rank of processor needing largest memory in solve     :         2
+ ** Space in MBYTES used by this processor for solve      :      3214
+ ** Avg. Space in MBYTES per working proc during solve    :      3095
+
+ Leaving solve with ...
+ Time to build/scatter RHS        =       0.006354
+ Time in solution step (fwd/bwd)  =       0.973863
+  .. Time in forward (fwd) step   =          0.378412
+  .. Time in ScaLAPACK root       =          0.041559
+  .. Time in backward (bwd) step  =          0.553878
+ Time to gather solution(cent.sol)=       0.027126
+ Time to copy/scale dist. solution=       0.000000
+
+ Elapsed time in solve driver=       1.0245
