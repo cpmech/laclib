@@ -1,4 +1,3 @@
-➜  sparse git:(main) ✗ mpirun -np 2 ./benchmark_sparse pre2    
 
 Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   1      659033        5959282
       executing #MPI =      2, without OMP
@@ -44,7 +43,7 @@ Leaving analysis phase with  ...
     Maximum estim. space in Mbytes, OOC facto.   (INFOG(26)):         663
     Total space in MBytes,  OOC factorization    (INFOG(27)):        1262
 
- Elapsed time in analysis driver=       5.7032
+ Elapsed time in analysis driver=       5.7552
 
 Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   2      659033        5959282
       executing #MPI =      2, without OMP
@@ -68,14 +67,14 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   2      659033       
  Max difference from 1 after scaling the entries for ONE-NORM (option 7/8)   = 0.12D+01
  Average Effective size of S     (based on INFO(39))=           1086575503
 
- Elapsed time to reformat/distribute matrix =      0.0972
+ Elapsed time to reformat/distribute matrix =      0.1029
  ** Memory allocated, max in Mbytes             (INFOG(18)):        8885
 
  ** Memory allocated, total in Mbytes           (INFOG(19)):       17714
  ** Memory effectively used, max in  Mbytes     (INFOG(21)):        2658
  ** Memory effectively used, total in Mbytes    (INFOG(22)):        5287
 
- Elapsed time for factorization             =     26.4525
+ Elapsed time for factorization             =     26.5254
 
 Leaving factorization with ...
  RINFOG(2)  Operations in node assembly     = 6.956D+08
@@ -89,7 +88,7 @@ Leaving factorization with ...
  INFOG(13)  Number of delayed pivots        =          348700
  INFOG(14)  Number of memory compress       =               0
 
- Elapsed time in factorization driver=      26.6249
+ Elapsed time in factorization driver=      26.7073
 
 Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   3      659033        5959282
       executing #MPI =      2, without OMP
@@ -113,12 +112,12 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   3      659033       
  ** Avg. Space in MBYTES per working proc during solve    :      8842
 
  Leaving solve with ...
- Time to build/scatter RHS        =       0.014882
- Time in solution step (fwd/bwd)  =       0.574977
-  .. Time in forward (fwd) step   =          0.277580
-  .. Time in ScaLAPACK root       =          0.030492
-  .. Time in backward (bwd) step  =          0.266896
- Time to gather solution(cent.sol)=       0.036219
+ Time to build/scatter RHS        =       0.014601
+ Time in solution step (fwd/bwd)  =       0.572872
+  .. Time in forward (fwd) step   =          0.278323
+  .. Time in ScaLAPACK root       =          0.030465
+  .. Time in backward (bwd) step  =          0.264076
+ Time to gather solution(cent.sol)=       0.035775
  Time to copy/scale dist. solution=       0.000000
 
- Elapsed time in solve driver=       0.6418
+ Elapsed time in solve driver=       0.6402

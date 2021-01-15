@@ -12,7 +12,7 @@ MATS="
     twotone \
 "
 
-MATS="bfwb62"
+#MATS="bfwb62"
 
 RESDIR=`pwd`/benchmarks/sparse/results
 
