@@ -1,8 +1,5 @@
 {
   "C_Cpp.default.includePath": ["/usr/local/include/mumps"],
-  "files.exclude": {
-    "**/build/": true
-  },
   "files.associations": {
     "*.C": "cpp",
     "optional": "cpp",
@@ -26,5 +23,26 @@
     "ratio": "cpp",
     "sstream": "cpp",
     "streambuf": "cpp"
+  },
+  "files.exclude": {
+    "**/build/": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/.env.local": true,
+    "**/.env.*.local": true,
+    "**/npm-debug.log*": true,
+    "**/yarn-debug.log*": true,
+    "**/yarn-error.log*": true,
+    "**/.idea": true,
+    "**/.vscode": true,
+    "**/*.suo": true,
+    "**/*.ntvs*": true,
+    "**/*.njsproj": true,
+    "**/*.sln": true,
+    "**/*.sw*": true,
+    "**/coverage": true,
+    "**/dist": true,
+    "**/.rpt2_cache": true,
+    "**/cdk.out": true
   }
 }
