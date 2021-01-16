@@ -278,6 +278,11 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@cpmech/js2ts@^2.20.0":
+  version "2.20.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/js2ts/-/js2ts-2.20.0.tgz#a2b83fad8ecd3d198ed78a0570147169ee497f73"
+  integrity sha512-U1mU7S2Bv/Xe85hkBU+C/tSQ1uPXLRAPRvplCvekM4zsnfh50DsT2J0JyPlF3MRNnHfeH4LEbTQtDauAQG25tw==
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
@@ -3081,9 +3086,9 @@ rollup-pluginutils@^2.8.1:
     estree-walker "^0.6.1"
 
 rollup@^2.36.1:
-  version "2.36.1"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.36.1.tgz#2174f0c25c7b400d57b05628d0e732c7ae8d2178"
-  integrity sha512-eAfqho8dyzuVvrGqpR0ITgEdq0zG2QJeWYh+HeuTbpcaXk8vNFc48B7bJa1xYosTCKx0CuW+447oQOW8HgBIZQ==
+  version "2.36.2"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.36.2.tgz#883fc793c70c8481ad604f1065cd79ab0a4e9c49"
+  integrity sha512-qjjiuJKb+/8n0EZyQYVW+gFU4bNRBcZaXVzUgSVrGw0HlQBlK2aWyaOMMs1Ufic1jV69b9kW3u3i9B+hISDm3A==
   optionalDependencies:
     fsevents "~2.1.2"
 
