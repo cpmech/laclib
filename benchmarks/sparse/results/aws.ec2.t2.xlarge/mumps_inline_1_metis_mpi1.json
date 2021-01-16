@@ -4,6 +4,7 @@
   "MatrixName": "inline_1",
   "Ordering": "metis",
   "MpiSize": 1,
+  "OmpNumThreads": 0,
   "Symmetric": true,
   "NumberOfRows": 503712,
   "NumberOfCols": 503712,

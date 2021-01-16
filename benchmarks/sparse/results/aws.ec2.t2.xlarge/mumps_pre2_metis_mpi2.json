@@ -4,6 +4,7 @@
   "MatrixName": "pre2",
   "Ordering": "metis",
   "MpiSize": 2,
+  "OmpNumThreads": 0,
   "Symmetric": false,
   "NumberOfRows": 659033,
   "NumberOfCols": 659033,
