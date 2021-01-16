@@ -278,10 +278,22 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@cpmech/basic@^4.22.0":
+  version "4.22.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/basic/-/basic-4.22.0.tgz#12713a01d37c2b10775141db0a78c0104001c87e"
+  integrity sha512-nnVayqyyftMt1vGd3up8Eh2OMzTEnaDVJ7UR7i5nfxylTcE4apG7pc0K0DZ9RduNpEBrAvfvkU9qBMsIawUTOg==
+
 "@cpmech/js2ts@^2.20.0":
   version "2.20.0"
   resolved "https://registry.yarnpkg.com/@cpmech/js2ts/-/js2ts-2.20.0.tgz#a2b83fad8ecd3d198ed78a0570147169ee497f73"
   integrity sha512-U1mU7S2Bv/Xe85hkBU+C/tSQ1uPXLRAPRvplCvekM4zsnfh50DsT2J0JyPlF3MRNnHfeH4LEbTQtDauAQG25tw==
+
+"@cpmech/util@^1.25.0":
+  version "1.25.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/util/-/util-1.25.0.tgz#3d93763bea159edf7bedb563a83c216ee40152f2"
+  integrity sha512-kQrbGP0COj5Gj6xlRVUoxwn22Ml54HP72NcytftDpL+KCpnsaN5/PJVjCxhBcY1izzK70Dv2quZMS+nQgM4tNg==
+  dependencies:
+    "@cpmech/basic" "^4.22.0"
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
