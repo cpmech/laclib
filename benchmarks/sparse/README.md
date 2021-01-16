@@ -52,10 +52,10 @@ _MPI results:_
 </table>
 
 
-[MUMPS log / MPI np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1.txt)
-[MUMPS log / MPI np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np2.txt)
-[MUMPS log / MPI np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np3.txt)
-[MUMPS log / MPI np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np4.txt)
+Log files: [MPI-np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1.txt), 
+[MPI-np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np2.txt), 
+[MPI-np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np3.txt), 
+[MPI-np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np4.txt)
 
 _OpenMP results:_
 
@@ -98,10 +98,10 @@ _OpenMP results:_
 </table>
 
 
-[MUMPS log / OMP nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1_omp1.txt)
-[MUMPS log / OMP nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1_omp2.txt)
-[MUMPS log / OMP nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1_omp3.txt)
-[MUMPS log / OMP nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1_omp4.txt)
+Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1_omp1.txt), 
+[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1_omp2.txt), 
+[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1_omp3.txt), 
+[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1_omp4.txt)
 
 
 ## Flan_1565 matrix
@@ -154,10 +154,10 @@ _MPI results:_
 </table>
 
 
-[MUMPS log / MPI np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1.txt)
-[MUMPS log / MPI np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np2.txt)
-[MUMPS log / MPI np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np3.txt)
-[MUMPS log / MPI np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np4.txt)
+Log files: [MPI-np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1.txt), 
+[MPI-np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np2.txt), 
+[MPI-np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np3.txt), 
+[MPI-np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np4.txt)
 
 _OpenMP results:_
 
@@ -200,10 +200,10 @@ _OpenMP results:_
 </table>
 
 
-[MUMPS log / OMP nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1_omp1.txt)
-[MUMPS log / OMP nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1_omp2.txt)
-[MUMPS log / OMP nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1_omp3.txt)
-[MUMPS log / OMP nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1_omp4.txt)
+Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1_omp1.txt), 
+[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1_omp2.txt), 
+[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1_omp3.txt), 
+[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1_omp4.txt)
 
 
 ## pre2 matrix
@@ -256,10 +256,10 @@ _MPI results:_
 </table>
 
 
-[MUMPS log / MPI np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1.txt)
-[MUMPS log / MPI np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np2.txt)
-[MUMPS log / MPI np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np3.txt)
-[MUMPS log / MPI np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np4.txt)
+Log files: [MPI-np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1.txt), 
+[MPI-np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np2.txt), 
+[MPI-np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np3.txt), 
+[MPI-np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np4.txt)
 
 _OpenMP results:_
 
@@ -302,213 +302,9 @@ _OpenMP results:_
 </table>
 
 
-[MUMPS log / OMP nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1_omp1.txt)
-[MUMPS log / OMP nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1_omp2.txt)
-[MUMPS log / OMP nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1_omp3.txt)
-[MUMPS log / OMP nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1_omp4.txt)
-
-
-## tmt_unsym matrix
-
-Reference: https://sparse.tamu.edu/CEMW/tmt_unsym
-
-
-* General matrix (unsymmetric)
-* Dimension = 917,825
-* Number of non-zero values = 4,584,801
-
-_MPI results:_
-
-<table style="border: 1px solid #979797; border-collapse: collapse;">
-  <tr>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">tmt_unsym</td>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">MPI np 1</th>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">MPI np 2</th>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">MPI np 3</th>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">MPI np 4</th>
-  </tr>
-  <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.02098s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.15608s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.20829s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.07969s</td>
-  </tr>
-  <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.11528s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.83104s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.43269s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.22648s</td>
-  </tr>
-  <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">747.478ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">523.983ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">599.682ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">660.369ms</td>
-  </tr>
-  <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.88354s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.51081s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.2022s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.96623s</td>
-  </tr>
-</table>
-
-
-[MUMPS log / MPI np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_tmt_unsym_np1.txt)
-[MUMPS log / MPI np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_tmt_unsym_np2.txt)
-[MUMPS log / MPI np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_tmt_unsym_np3.txt)
-[MUMPS log / MPI np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_tmt_unsym_np4.txt)
-
-_OpenMP results:_
-
-<table style="border: 1px solid #979797; border-collapse: collapse;">
-  <tr>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">tmt_unsym</td>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">OMP nt 1</th>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">OMP nt 2</th>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">OMP nt 3</th>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">OMP nt 4</th>
-  </tr>
-  <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.17553s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.09602s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.22757s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.22117s</td>
-  </tr>
-  <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.81818s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.53009s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.50812s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.58696s</td>
-  </tr>
-  <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.57886s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.6068s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.63536s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.63298s</td>
-  </tr>
-  <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.57233s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.23258s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.3708s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.44086s</td>
-  </tr>
-</table>
-
-
-[MUMPS log / OMP nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_tmt_unsym_np1_omp1.txt)
-[MUMPS log / OMP nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_tmt_unsym_np1_omp2.txt)
-[MUMPS log / OMP nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_tmt_unsym_np1_omp3.txt)
-[MUMPS log / OMP nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_tmt_unsym_np1_omp4.txt)
-
-
-## twotone matrix
-
-Reference: https://sparse.tamu.edu/ATandT/twotone
-
-
-* General matrix (unsymmetric)
-* Dimension = 120,750
-* Number of non-zero values = 1,224,224
-
-_MPI results:_
-
-<table style="border: 1px solid #979797; border-collapse: collapse;">
-  <tr>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">twotone</td>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">MPI np 1</th>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">MPI np 2</th>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">MPI np 3</th>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">MPI np 4</th>
-  </tr>
-  <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.03795s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.06499s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.08967s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">969.054ms</td>
-  </tr>
-  <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.30934s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.79013s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">11.361s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">19.9647s</td>
-  </tr>
-  <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">107.496ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">115.29ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">451.29ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">430.174ms</td>
-  </tr>
-  <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.45457s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.97018s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">12.9017s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">21.3621s</td>
-  </tr>
-</table>
-
-
-[MUMPS log / MPI np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_twotone_np1.txt)
-[MUMPS log / MPI np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_twotone_np2.txt)
-[MUMPS log / MPI np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_twotone_np3.txt)
-[MUMPS log / MPI np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_twotone_np4.txt)
-
-_OpenMP results:_
-
-<table style="border: 1px solid #979797; border-collapse: collapse;">
-  <tr>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">twotone</td>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">OMP nt 1</th>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">OMP nt 2</th>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">OMP nt 3</th>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">OMP nt 4</th>
-  </tr>
-  <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.03317s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.05279s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.02657s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.02791s</td>
-  </tr>
-  <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.10043s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">778.771ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">656.337ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">660.461ms</td>
-  </tr>
-  <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">133.052ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">140.841ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">136.446ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">154.255ms</td>
-  </tr>
-  <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.26644s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.97215s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.81912s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.84238s</td>
-  </tr>
-</table>
-
-
-[MUMPS log / OMP nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_twotone_np1_omp1.txt)
-[MUMPS log / OMP nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_twotone_np1_omp2.txt)
-[MUMPS log / OMP nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_twotone_np1_omp3.txt)
-[MUMPS log / OMP nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_twotone_np1_omp4.txt)
+Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1_omp1.txt), 
+[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1_omp2.txt), 
+[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1_omp3.txt), 
+[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1_omp4.txt)
 
 
