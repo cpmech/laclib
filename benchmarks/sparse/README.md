@@ -98,10 +98,10 @@ _OpenMP results:_
 </table>
 
 
-Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1_omp1.txt), 
-[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1_omp2.txt), 
-[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1_omp3.txt), 
-[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1_omp4.txt)
+Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_omp1.txt), 
+[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_omp2.txt), 
+[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_omp3.txt), 
+[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_omp4.txt)
 
 
 ## Flan_1565 matrix
@@ -200,10 +200,10 @@ _OpenMP results:_
 </table>
 
 
-Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1_omp1.txt), 
-[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1_omp2.txt), 
-[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1_omp3.txt), 
-[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1_omp4.txt)
+Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_omp1.txt), 
+[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_omp2.txt), 
+[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_omp3.txt), 
+[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_omp4.txt)
 
 
 ## pre2 matrix
@@ -302,9 +302,9 @@ _OpenMP results:_
 </table>
 
 
-Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1_omp1.txt), 
-[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1_omp2.txt), 
-[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1_omp3.txt), 
-[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1_omp4.txt)
+Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_omp1.txt), 
+[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_omp2.txt), 
+[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_omp3.txt), 
+[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_omp4.txt)
 
 

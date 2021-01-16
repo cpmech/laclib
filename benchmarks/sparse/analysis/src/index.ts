@@ -61,10 +61,10 @@ _OpenMP results:_
 
 ${ompTable}
 
-Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1_omp1.txt), 
-[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1_omp2.txt), 
-[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1_omp3.txt), 
-[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1_omp4.txt)
+Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_omp1.txt), 
+[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_omp2.txt), 
+[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_omp3.txt), 
+[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_omp4.txt)
 
 `;
     console.log(readme);
