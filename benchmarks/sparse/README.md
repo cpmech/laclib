@@ -4,7 +4,7 @@ The code here tests the perfomance of the MUMPS Sparse Solver.
 
 ## inline_1 matrix
 
-Reference: https://sparse.tamu.edu/Janna/inline_1
+Reference: https://sparse.tamu.edu/GHS_psdef/inline_1
 
 * Symmetric matrix
 * Dimension = 503,712
@@ -186,7 +186,7 @@ _OpenMP results:_
 
 ## pre2 matrix
 
-Reference: https://sparse.tamu.edu/Janna/pre2
+Reference: https://sparse.tamu.edu/ATandT/pre2
 
 * General matrix (unsymmetric)
 * Dimension = 659,033
@@ -277,7 +277,7 @@ _OpenMP results:_
 
 ## av41092 matrix
 
-Reference: https://sparse.tamu.edu/Janna/av41092
+Reference: https://sparse.tamu.edu/Vavasis/av41092
 
 * General matrix (unsymmetric)
 * Dimension = 41,092
@@ -368,7 +368,7 @@ _OpenMP results:_
 
 ## bfwb62 matrix
 
-Reference: https://sparse.tamu.edu/Janna/bfwb62
+Reference: https://sparse.tamu.edu/Bai/bfwb62
 
 * Symmetric matrix
 * Dimension = 62
@@ -459,7 +459,7 @@ _OpenMP results:_
 
 ## helm2d03 matrix
 
-Reference: https://sparse.tamu.edu/Janna/helm2d03
+Reference: https://sparse.tamu.edu/GHS_indef/helm2d03
 
 * Symmetric matrix
 * Dimension = 392,257
@@ -550,7 +550,7 @@ _OpenMP results:_
 
 ## oilpan matrix
 
-Reference: https://sparse.tamu.edu/Janna/oilpan
+Reference: https://sparse.tamu.edu/GHS_psdef/oilpan
 
 * Symmetric matrix
 * Dimension = 73,752
@@ -641,7 +641,7 @@ _OpenMP results:_
 
 ## tmt_unsym matrix
 
-Reference: https://sparse.tamu.edu/Janna/tmt_unsym
+Reference: https://sparse.tamu.edu/CEMW/tmt_unsym
 
 * General matrix (unsymmetric)
 * Dimension = 917,825
@@ -732,7 +732,7 @@ _OpenMP results:_
 
 ## twotone matrix
 
-Reference: https://sparse.tamu.edu/Janna/twotone
+Reference: https://sparse.tamu.edu/ATandT/twotone
 
 * General matrix (unsymmetric)
 * Dimension = 120,750

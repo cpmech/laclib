@@ -4,6 +4,18 @@ import { readReport } from './readReport';
 
 const fmtNum = (n: number): string => formatLongNumber(n.toString());
 
+const mat2group = {
+  bfwb62: 'Bai',
+  inline_1: 'GHS_psdef',
+  tmt_unsym: 'CEMW',
+  pre2: 'ATandT',
+  twotone: 'ATandT',
+  Flan_1565: 'Janna',
+  av41092: 'Vavasis',
+  helm2d03: 'GHS_indef',
+  oilpan: 'GHS_psdef',
+};
+
 async function run() {
   const matrices: string[] = [
     'inline_1',
@@ -26,9 +38,10 @@ async function run() {
     const ompTable = genTable(mat, ompReports, true);
     const r0 = mpiReports[0];
     const strSym = r0.Symmetric ? 'Symmetric matrix' : 'General matrix (unsymmetric)';
+    const group = (mat2group as any)[mat];
     const readme = `## ${mat} matrix
 
-Reference: https://sparse.tamu.edu/Janna/${mat}
+Reference: https://sparse.tamu.edu/${group}/${mat}
 
 * ${strSym}
 * Dimension = ${fmtNum(r0.NumberOfRows)}
