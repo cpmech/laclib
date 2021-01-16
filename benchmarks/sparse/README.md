@@ -6,6 +6,7 @@ The code here tests the perfomance of the MUMPS Sparse Solver.
 
 Reference: https://sparse.tamu.edu/GHS_psdef/inline_1
 
+
 * Symmetric matrix
 * Dimension = 503,712
 * Number of non-zero values = 18,660,027
@@ -51,6 +52,11 @@ _MPI results:_
 </table>
 
 
+[MUMPS log / MPI np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1.txt)
+[MUMPS log / MPI np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np2.txt)
+[MUMPS log / MPI np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np3.txt)
+[MUMPS log / MPI np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np4.txt)
+
 _OpenMP results:_
 
 <table style="border: 1px solid #979797; border-collapse: collapse;">
@@ -92,10 +98,16 @@ _OpenMP results:_
 </table>
 
 
+[MUMPS log / OMP nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1_omp1.txt)
+[MUMPS log / OMP nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1_omp2.txt)
+[MUMPS log / OMP nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1_omp3.txt)
+[MUMPS log / OMP nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_inline_1_np1_omp4.txt)
+
 
 ## Flan_1565 matrix
 
 Reference: https://sparse.tamu.edu/Janna/Flan_1565
+
 
 * Symmetric matrix
 * Dimension = 1,564,794
@@ -142,6 +154,11 @@ _MPI results:_
 </table>
 
 
+[MUMPS log / MPI np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1.txt)
+[MUMPS log / MPI np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np2.txt)
+[MUMPS log / MPI np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np3.txt)
+[MUMPS log / MPI np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np4.txt)
+
 _OpenMP results:_
 
 <table style="border: 1px solid #979797; border-collapse: collapse;">
@@ -183,10 +200,16 @@ _OpenMP results:_
 </table>
 
 
+[MUMPS log / OMP nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1_omp1.txt)
+[MUMPS log / OMP nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1_omp2.txt)
+[MUMPS log / OMP nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1_omp3.txt)
+[MUMPS log / OMP nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_Flan_1565_np1_omp4.txt)
+
 
 ## pre2 matrix
 
 Reference: https://sparse.tamu.edu/ATandT/pre2
+
 
 * General matrix (unsymmetric)
 * Dimension = 659,033
@@ -233,6 +256,11 @@ _MPI results:_
 </table>
 
 
+[MUMPS log / MPI np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1.txt)
+[MUMPS log / MPI np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np2.txt)
+[MUMPS log / MPI np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np3.txt)
+[MUMPS log / MPI np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np4.txt)
+
 _OpenMP results:_
 
 <table style="border: 1px solid #979797; border-collapse: collapse;">
@@ -274,10 +302,16 @@ _OpenMP results:_
 </table>
 
 
+[MUMPS log / OMP nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1_omp1.txt)
+[MUMPS log / OMP nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1_omp2.txt)
+[MUMPS log / OMP nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1_omp3.txt)
+[MUMPS log / OMP nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_pre2_np1_omp4.txt)
+
 
 ## tmt_unsym matrix
 
 Reference: https://sparse.tamu.edu/CEMW/tmt_unsym
+
 
 * General matrix (unsymmetric)
 * Dimension = 917,825
@@ -324,6 +358,11 @@ _MPI results:_
 </table>
 
 
+[MUMPS log / MPI np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_tmt_unsym_np1.txt)
+[MUMPS log / MPI np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_tmt_unsym_np2.txt)
+[MUMPS log / MPI np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_tmt_unsym_np3.txt)
+[MUMPS log / MPI np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_tmt_unsym_np4.txt)
+
 _OpenMP results:_
 
 <table style="border: 1px solid #979797; border-collapse: collapse;">
@@ -365,10 +404,16 @@ _OpenMP results:_
 </table>
 
 
+[MUMPS log / OMP nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_tmt_unsym_np1_omp1.txt)
+[MUMPS log / OMP nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_tmt_unsym_np1_omp2.txt)
+[MUMPS log / OMP nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_tmt_unsym_np1_omp3.txt)
+[MUMPS log / OMP nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_tmt_unsym_np1_omp4.txt)
+
 
 ## twotone matrix
 
 Reference: https://sparse.tamu.edu/ATandT/twotone
+
 
 * General matrix (unsymmetric)
 * Dimension = 120,750
@@ -415,6 +460,11 @@ _MPI results:_
 </table>
 
 
+[MUMPS log / MPI np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_twotone_np1.txt)
+[MUMPS log / MPI np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_twotone_np2.txt)
+[MUMPS log / MPI np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_twotone_np3.txt)
+[MUMPS log / MPI np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_twotone_np4.txt)
+
 _OpenMP results:_
 
 <table style="border: 1px solid #979797; border-collapse: collapse;">
@@ -455,5 +505,10 @@ _OpenMP results:_
   </tr>
 </table>
 
+
+[MUMPS log / OMP nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_twotone_np1_omp1.txt)
+[MUMPS log / OMP nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_twotone_np1_omp2.txt)
+[MUMPS log / OMP nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_twotone_np1_omp3.txt)
+[MUMPS log / OMP nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_twotone_np1_omp4.txt)
 
 

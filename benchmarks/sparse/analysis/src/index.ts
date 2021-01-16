@@ -43,6 +43,7 @@ async function run() {
 
 Reference: https://sparse.tamu.edu/${group}/${mat}
 
+
 * ${strSym}
 * Dimension = ${fmtNum(r0.NumberOfRows)}
 * Number of non-zero values = ${fmtNum(r0.NumberOfNonZeros)}
@@ -51,9 +52,19 @@ _MPI results:_
 
 ${mpiTable}
 
+[MUMPS log / MPI np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1.txt)
+[MUMPS log / MPI np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np2.txt)
+[MUMPS log / MPI np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np3.txt)
+[MUMPS log / MPI np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np4.txt)
+
 _OpenMP results:_
 
 ${ompTable}
+
+[MUMPS log / OMP nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1_omp1.txt)
+[MUMPS log / OMP nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1_omp2.txt)
+[MUMPS log / OMP nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1_omp3.txt)
+[MUMPS log / OMP nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1_omp4.txt)
 
 `;
     console.log(readme);
