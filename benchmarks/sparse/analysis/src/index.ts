@@ -25,8 +25,8 @@ async function run() {
     // 'bfwb62',
     // 'helm2d03',
     // 'oilpan',
-    'tmt_unsym',
-    'twotone',
+    // 'tmt_unsym',
+    // 'twotone',
   ];
 
   const nums: number[] = [1, 2, 3, 4];
@@ -52,19 +52,19 @@ _MPI results:_
 
 ${mpiTable}
 
-[MUMPS log / MPI np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1.txt)
-[MUMPS log / MPI np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np2.txt)
-[MUMPS log / MPI np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np3.txt)
-[MUMPS log / MPI np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np4.txt)
+Log files: [MPI-np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1.txt), 
+[MPI-np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np2.txt), 
+[MPI-np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np3.txt), 
+[MPI-np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np4.txt)
 
 _OpenMP results:_
 
 ${ompTable}
 
-[MUMPS log / OMP nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1_omp1.txt)
-[MUMPS log / OMP nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1_omp2.txt)
-[MUMPS log / OMP nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1_omp3.txt)
-[MUMPS log / OMP nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1_omp4.txt)
+Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1_omp1.txt), 
+[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1_omp2.txt), 
+[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1_omp3.txt), 
+[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1_omp4.txt)
 
 `;
     console.log(readme);
