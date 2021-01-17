@@ -31,6 +31,7 @@ void run(int argc, char **argv)
 
     // set options
     options.ordering = ordering;
+    options.pct_inc_workspace = 120; // increase to 120 because of Intel + pre2
     options.max_work_memory = 30000 / mpi_size;
 
     // start linear solver execution /////////////////////////////////////////////////////////////////
