@@ -66,7 +66,7 @@ for mat in $MATS; do
             fnk=$(fnkey $mat 1 $n $SOLVER_KIND $ORDERING $USE_INTEL)
             echo "... $fnk"
             log="${RESDIR}/${fnk}.txt"
-            OMP_NUM_THREADS=$n ./benchmark_sparse $mat > $log
+            OMP_NUM_THREADS=$n ./bmark_sparse $mat > $log
         else
             fnk=$(fnkey $mat $n 0 $SOLVER_KIND $ORDERING $USE_INTEL)
             echo "... $fnk"
