@@ -47,10 +47,10 @@ export const genTable = (matrixName: string, r: IReport[], omp = false): string 
   </tr>
   <tr>
     <th style="${styLheader}">Rel Error</th>
-    <td style="${styData}">${r[0].Stats.RelativeError}</td>
-    <td style="${styData}">${r[1].Stats.RelativeError}</td>
-    <td style="${styData}">${r[2].Stats.RelativeError}</td>
-    <td style="${styData}">${r[3].Stats.RelativeError}</td>
+    <td style="${styData}">${r[0].Stats.RelativeError.toExponential(2)}</td>
+    <td style="${styData}">${r[1].Stats.RelativeError.toExponential(2)}</td>
+    <td style="${styData}">${r[2].Stats.RelativeError.toExponential(2)}</td>
+    <td style="${styData}">${r[3].Stats.RelativeError.toExponential(2)}</td>
   </tr>
 </table>
 `;

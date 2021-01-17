@@ -51,7 +51,7 @@ Reference: https://sparse.tamu.edu/${group}/${mat}
 * ${strSym}
 * Dimension = ${fmtNum(r0.NumberOfRows)}
 * Number of non-zero values = ${fmtNum(r0.NumberOfNonZeros)}
-* L-infinity norm of the matrix = ${r0.Stats.NormInfA}
+* L-infinity norm of the matrix = ${r0.Stats.NormInfA.toExponential(3)}
 
 _MPI results with "${r0.Ordering}" ordering:_
 
