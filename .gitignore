@@ -21,7 +21,6 @@ coverage
 .rpt2_cache
 cdk.out
 public
-.vscode
 
 # local env files
 .env
