@@ -6,12 +6,12 @@ The code here tests the perfomance of the MUMPS Sparse Solver.
 
 Reference: https://sparse.tamu.edu/GHS_psdef/inline_1
 
-
 * Symmetric matrix
 * Dimension = 503,712
 * Number of non-zero values = 18,660,027
+* L-infinity norm of the matrix = 114603634.398607
 
-_MPI results:_
+_MPI results with "metis" ordering:_
 
 <table style="border: 1px solid #979797; border-collapse: collapse;">
   <tr>
@@ -49,6 +49,13 @@ _MPI results:_
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">18.2952s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">16.5469s</td>
   </tr>
+  <tr>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.73049265830361e-15</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.70566860769776e-15</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.54764716779221e-15</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.14442907665431e-15</td>
+  </tr>
 </table>
 
 
@@ -57,7 +64,7 @@ Log files: [MPI-np1](https://github.com/cpmech/laclib/blob/main/benchmarks/spars
 [MPI-np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_inline_1_metis_mpi3.txt), 
 [MPI-np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_inline_1_metis_mpi4.txt)
 
-_OpenMP results:_
+_OpenMP results with "metis" ordering:_
 
 <table style="border: 1px solid #979797; border-collapse: collapse;">
   <tr>
@@ -95,6 +102,13 @@ _OpenMP results:_
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.86716s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.37555s</td>
   </tr>
+  <tr>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.64088900580227e-15</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.73049265830361e-15</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.02812448452495e-15</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.62517000520804e-15</td>
+  </tr>
 </table>
 
 
@@ -108,12 +122,12 @@ Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/spars
 
 Reference: https://sparse.tamu.edu/Janna/Flan_1565
 
-
 * Symmetric matrix
 * Dimension = 1,564,794
 * Number of non-zero values = 59,485,419
+* L-infinity norm of the matrix = 15292441.38
 
-_MPI results:_
+_MPI results with "metis" ordering:_
 
 <table style="border: 1px solid #979797; border-collapse: collapse;">
   <tr>
@@ -151,6 +165,13 @@ _MPI results:_
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2m7.90819s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2m12.5867s</td>
   </tr>
+  <tr>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.32182773633928e-15</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.45985106036424e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.60933386092231e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.07731577360457e-16</td>
+  </tr>
 </table>
 
 
@@ -159,7 +180,7 @@ Log files: [MPI-np1](https://github.com/cpmech/laclib/blob/main/benchmarks/spars
 [MPI-np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_Flan_1565_metis_mpi3.txt), 
 [MPI-np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_Flan_1565_metis_mpi4.txt)
 
-_OpenMP results:_
+_OpenMP results with "metis" ordering:_
 
 <table style="border: 1px solid #979797; border-collapse: collapse;">
   <tr>
@@ -197,6 +218,13 @@ _OpenMP results:_
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m0.184807s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">58.1379s</td>
   </tr>
+  <tr>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.71256683696755e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.32182773633928e-15</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.10269771476307e-15</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.48329658776785e-16</td>
+  </tr>
 </table>
 
 
@@ -210,12 +238,12 @@ Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/spars
 
 Reference: https://sparse.tamu.edu/ATandT/pre2
 
-
 * General matrix (unsymmetric)
 * Dimension = 659,033
 * Number of non-zero values = 5,959,282
+* L-infinity norm of the matrix = 14777170000
 
-_MPI results:_
+_MPI results with "metis" ordering:_
 
 <table style="border: 1px solid #979797; border-collapse: collapse;">
   <tr>
@@ -253,6 +281,13 @@ _MPI results:_
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m2.42613s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4m4.53436s</td>
   </tr>
+  <tr>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.6805509750011e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.11092816583663e-14</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.48220787627523e-13</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.19134703922624e-10</td>
+  </tr>
 </table>
 
 
@@ -261,7 +296,7 @@ Log files: [MPI-np1](https://github.com/cpmech/laclib/blob/main/benchmarks/spars
 [MPI-np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_pre2_metis_mpi3.txt), 
 [MPI-np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_pre2_metis_mpi4.txt)
 
-_OpenMP results:_
+_OpenMP results with "metis" ordering:_
 
 <table style="border: 1px solid #979797; border-collapse: collapse;">
   <tr>
@@ -299,6 +334,13 @@ _OpenMP results:_
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.22311s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.0769s</td>
   </tr>
+  <tr>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.6805509750011e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.6805509750011e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.01645785237512e-15</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.51920845875108e-16</td>
+  </tr>
 </table>
 
 
@@ -312,12 +354,12 @@ Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/spars
 
 Reference: https://sparse.tamu.edu/Bai/bfwb62
 
-
 * Symmetric matrix
 * Dimension = 62
 * Number of non-zero values = 202
+* L-infinity norm of the matrix = 0.0001
 
-_MPI results:_
+_MPI results with "metis" ordering:_
 
 <table style="border: 1px solid #979797; border-collapse: collapse;">
   <tr>
@@ -355,6 +397,13 @@ _MPI results:_
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.2558ms</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">11.1412ms</td>
   </tr>
+  <tr>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.66067208054288e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.44044805369526e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.44044805369526e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.44044805369526e-16</td>
+  </tr>
 </table>
 
 
@@ -363,7 +412,7 @@ Log files: [MPI-np1](https://github.com/cpmech/laclib/blob/main/benchmarks/spars
 [MPI-np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_bfwb62_metis_mpi3.txt), 
 [MPI-np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_bfwb62_metis_mpi4.txt)
 
-_OpenMP results:_
+_OpenMP results with "metis" ordering:_
 
 <table style="border: 1px solid #979797; border-collapse: collapse;">
   <tr>
@@ -400,6 +449,13 @@ _OpenMP results:_
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.78538ms</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.63669ms</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.42813ms</td>
+  </tr>
+  <tr>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.66067208054288e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.66067208054288e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.66067208054288e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.66067208054288e-16</td>
   </tr>
 </table>
 

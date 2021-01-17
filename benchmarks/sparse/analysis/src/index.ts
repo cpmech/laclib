@@ -48,12 +48,12 @@ async function run() {
 
 Reference: https://sparse.tamu.edu/${group}/${mat}
 
-
 * ${strSym}
 * Dimension = ${fmtNum(r0.NumberOfRows)}
 * Number of non-zero values = ${fmtNum(r0.NumberOfNonZeros)}
+* L-infinity norm of the matrix = ${r0.Stats.NormInfA}
 
-_MPI results:_
+_MPI results with "${r0.Ordering}" ordering:_
 
 ${mpiTable}
 
@@ -62,7 +62,7 @@ Log files: [MPI-np1](https://github.com/cpmech/laclib/blob/main/benchmarks/spars
 [MPI-np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${m2}.txt), 
 [MPI-np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${m3}.txt)
 
-_OpenMP results:_
+_OpenMP results with "${r0.Ordering}" ordering:_
 
 ${ompTable}
 

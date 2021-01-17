@@ -45,6 +45,13 @@ export const genTable = (matrixName: string, r: IReport[], omp = false): string 
     <td style="${styData}">${r[2].TimeSolverString}</td>
     <td style="${styData}">${r[3].TimeSolverString}</td>
   </tr>
+  <tr>
+    <th style="${styLheader}">Rel Error</th>
+    <td style="${styData}">${r[0].Stats.RelativeError}</td>
+    <td style="${styData}">${r[1].Stats.RelativeError}</td>
+    <td style="${styData}">${r[2].Stats.RelativeError}</td>
+    <td style="${styData}">${r[3].Stats.RelativeError}</td>
+  </tr>
 </table>
 `;
 };
