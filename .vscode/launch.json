@@ -5,10 +5,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "zz_solver_mumps_np1",
+      "name": "src/sparse{any}",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/src/sparse/zz_solver_mumps_np1",
+      "program": "${workspaceFolder}/build/src/sparse/${fileBasenameNoExtension}",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/build/src/sparse",
@@ -24,7 +24,7 @@
       ]
     },
     {
-      "name": "bmark_sparse",
+      "name": "benchmarks/sparse",
       "type": "cppdbg",
       "request": "launch",
       "program": "${workspaceFolder}/build/benchmarks/sparse/bmark_sparse",
