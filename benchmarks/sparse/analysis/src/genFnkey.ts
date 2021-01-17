@@ -2,9 +2,9 @@ export const genFnkey = (
   matrixName: string,
   mpiSize: number = 1,
   ompNumThreads: number = 0,
+  intel: boolean = false,
   solverKind: string = 'mumps',
   ordering: string = 'metis',
-  intel: boolean = false,
 ): string => {
   const pfx = intel ? 'intel_' : '';
   const sfx = ompNumThreads > 0 ? `_omp${ompNumThreads}` : `_mpi${mpiSize}`;
