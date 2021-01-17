@@ -1,2 +1,2 @@
-add_executable(benchmark_sparse main.cpp)
-target_link_libraries(benchmark_sparse PUBLIC laclib)
+add_executable(bmark_sparse main.cpp)
+target_link_libraries(bmark_sparse PUBLIC laclib)

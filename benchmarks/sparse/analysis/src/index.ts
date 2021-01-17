@@ -1,4 +1,5 @@
 import { formatLongNumber } from '@cpmech/util';
+import { genFnkey } from './genFnkey';
 import { genTable } from './genTable';
 import { readReport } from './readReport';
 
@@ -21,8 +22,8 @@ async function run() {
     'inline_1',
     'Flan_1565',
     'pre2',
+    'bfwb62',
     // 'av41092',
-    // 'bfwb62',
     // 'helm2d03',
     // 'oilpan',
     // 'tmt_unsym',
@@ -32,13 +33,17 @@ async function run() {
   const nums: number[] = [1, 2, 3, 4];
 
   matrices.forEach((mat) => {
-    const mpiReports = nums.map((n) => readReport(mat, n));
-    const ompReports = nums.map((n) => readReport(mat, 1, n));
+    const mpiFnkeys = nums.map((n) => genFnkey(mat, n));
+    const ompFnkeys = nums.map((n) => genFnkey(mat, 1, n));
+    const mpiReports = mpiFnkeys.map((k) => readReport(k));
+    const ompReports = ompFnkeys.map((k) => readReport(k));
     const mpiTable = genTable(mat, mpiReports);
     const ompTable = genTable(mat, ompReports, true);
     const r0 = mpiReports[0];
     const strSym = r0.Symmetric ? 'Symmetric matrix' : 'General matrix (unsymmetric)';
     const group = (mat2group as any)[mat];
+    const [m0, m1, m2, m3] = mpiFnkeys;
+    const [o0, o1, o2, o3] = ompFnkeys;
     const readme = `## ${mat} matrix
 
 Reference: https://sparse.tamu.edu/${group}/${mat}
@@ -52,19 +57,19 @@ _MPI results:_
 
 ${mpiTable}
 
-Log files: [MPI-np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np1.txt), 
-[MPI-np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np2.txt), 
-[MPI-np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np3.txt), 
-[MPI-np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_np4.txt)
+Log files: [MPI-np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${m0}.txt), 
+[MPI-np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${m1}.txt), 
+[MPI-np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${m2}.txt), 
+[MPI-np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${m3}.txt)
 
 _OpenMP results:_
 
 ${ompTable}
 
-Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_omp1.txt), 
-[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_omp2.txt), 
-[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_omp3.txt), 
-[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/log_${mat}_omp4.txt)
+Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${o0}.txt), 
+[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${o1}.txt), 
+[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${o2}.txt), 
+[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${o3}.txt)
 
 `;
     console.log(readme);

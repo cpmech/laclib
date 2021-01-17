@@ -105,24 +105,28 @@ struct Report
         auto ordering = mumps_ordering_to_string(options.ordering);
 
 #ifdef USE_INTEL
-        std::string intel = "intel_";
+        std::string pfx = "intel_";
 #else
-        std::string intel = "";
+        std::string pfx = "";
 #endif
 
-        std::string omp = "";
+        std::string sfx = "";
         auto omp_num_threads = get_envar("OMP_NUM_THREADS");
         if (omp_num_threads != "")
         {
-            omp = "_omp" + omp_num_threads;
+            sfx = "_omp" + omp_num_threads;
+        }
+        else
+        {
+            sfx = "_mpi" + std::to_string(mpi_size);
+            omp_num_threads = "0";
         }
 
         std::stringstream fnkey;
-        fnkey << intel << solver_kind
+        fnkey << pfx << solver_kind
               << "_" << matrix_name
               << "_" << ordering
-              << "_np" << mpi_size
-              << omp;
+              << sfx;
 
         std::string filename = path + fnkey.str() + ".json";
 
@@ -135,10 +139,7 @@ struct Report
         ofs << "  \"MatrixName\": \"" << matrix_name << "\",\n";
         ofs << "  \"Ordering\": \"" << ordering << "\",\n";
         ofs << "  \"MpiSize\": " << mpi_size << ",\n";
-        if (omp != "")
-        {
-            ofs << "  \"OmpNumThreads\": " << omp_num_threads << ",\n";
-        }
+        ofs << "  \"OmpNumThreads\": " << omp_num_threads << ",\n";
         ofs << "  \"Symmetric\": " << str_symmetric << ",\n";
         ofs << "  \"NumberOfRows\": " << trip->m << ",\n";
         ofs << "  \"NumberOfCols\": " << trip->n << ",\n";

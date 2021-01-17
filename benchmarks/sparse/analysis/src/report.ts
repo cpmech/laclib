@@ -20,7 +20,7 @@ export interface IReport {
   MatrixName: string;
   Ordering: string;
   MpiSize: number;
-  OmpNumThreads?: number;
+  OmpNumThreads: number;
   Symmetric: boolean;
   NumberOfRows: number;
   NumberOfCols: number;
@@ -69,7 +69,3 @@ export const zeroReport = (): IReport => ({
   TimeSolverString: '',
   Stats: zeroStats(),
 });
-
-export const reportOptional = {
-  OmpNumThreads: true,
-};
