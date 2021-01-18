@@ -1,0 +1,18 @@
+FROM mumps_open
+
+# install deps
+ENV DEBIAN_FRONTEND=noninteractive
+SHELL ["/bin/bash", "-c"]
+RUN apt-get update -y && apt-get install -y --no-install-recommends \
+  liblapacke-dev \
+  && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# copy files
+COPY . /tmp/app
+WORKDIR /tmp/app
+
+# compile laclib
+RUN bash all.bash OFF ON ON
+
+# configure image for remote development
+RUN bash zscripts/common-debian.sh
