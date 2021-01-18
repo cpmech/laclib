@@ -6,7 +6,7 @@ This directory contains some benchmark tests using the _laclib_ library.
 ├── benchmarks
     ├── blas    # tests the performance of some blas code
     └── sparse  # tests the performance of sparse solvers
-``
+```
 
 First, we need to download some (large) test matrices in the data subdirectory:
 
@@ -21,73 +21,16 @@ Second, we need to compile the benchmark code:
 ./all-bench.bash
 ```
 
-or
-
-```bash
-./all.bash OFF ON
-```
-
-Then, to test the performance with the _pre2_ matrix,
- we can run the benchmark as follows:
+Then, to test the performance with a matrix named _inline_1_ and two OpenMP threads, we can run:
 
 ```bash
 cd build/benchmarks/sparse
-mpirun -np 2 ./benchmark_sparse pre2
+./bmark_sparse inline_1  2
 ```
 
-The results will be saved in the [benchmarks/sparse/results](https://github.com/cpmech/laclib/tree/main/benchmarks/sparse/results) directory. For instance:
+The results will be saved in the [benchmarks/sparse/results](https://github.com/cpmech/laclib/tree/main/benchmarks/sparse/results) directory.
 
-```json
-{
-  "Platform": "laclib",
-  "SolverKind": "mumps",
-  "MatrixName": "pre2",
-  "Ordering": "metis",
-  "MpiSize": 1,
-  "Symmetric": false,
-  "NumberOfRows": 659033,
-  "NumberOfCols": 659033,
-  "NumberOfNonZeros": 5959282,
-  "StepReadMatrix": {
-    "ElapsedTimeNanoseconds": 1857100987,
-    "ElapsedTimeString": "1.8571s",
-    "MemoryBytes": 808529920,
-    "MemoryMiB": "771"
-  },
-  "StepAnalyze": {
-    "ElapsedTimeNanoseconds": 5408379292,
-    "ElapsedTimeString": "5.40838s",
-    "MemoryBytes": 1017524224,
-    "MemoryMiB": "970"
-  },
-  "StepFactorize": {
-    "ElapsedTimeNanoseconds": 4797668331,
-    "ElapsedTimeString": "4.79767s",
-    "MemoryBytes": 17145073664,
-    "MemoryMiB": "16,350"
-  },
-  "StepSolve": {
-    "ElapsedTimeNanoseconds": 697503634,
-    "ElapsedTimeString": "697.504ms",
-    "MemoryBytes": 17145073664,
-    "MemoryMiB": "16,350"
-  },
-  "TimeSolverNanoseconds": 10903484008,
-  "TimeSolverString": "10.9035s",
-  "Stats": {
-    "NormInfA": 1.47772e+10,
-    "NormInfAx": 1.00001,
-    "NormInfDiff": 1.21593e-05,
-    "RelativeError": 8.22847e-16,
-    "ElapsedTimeNanoseconds": 35116821,
-    "ElapsedTimeString": "35.1168ms"
-  }
-}
-```
-
-Above, the **pre2** matrix problem took about 5.41s to analyze and 4.8s to factorize. The total time analyze+factorize+solve was 10.9s. In this problem, the sparse matrix's maximum absolute value is 1.47772e+10, and the relative error was about 8e-16. The error calculation took 35ms to compute.
-
-## Current details of my system used for benchmarks
+## Details of my system used for benchmarks
 
 Output of `free -h`
 
