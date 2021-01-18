@@ -6,34 +6,6 @@ We use **modern C++17 without the "fancy" stuff**. For example, we keep OOP usag
 
 In this repository, the files starting with `zz_...` are **unit tests** whereas the files such as `zzi_...` are **integration tests** (those involving more than one single structure or function).
 
-## Installation
-
-### Ubuntu/Linux 20.10
-
-#### Install the MUMPS Sparse Solver
-
-**NOTE**: we prefer to compile MUMPS ourselves instead of using the default Debian package named _libmumps-dev_ because the Debian package doesn't include some additional, and efficient, ordering tools. Also, the libmumps compiled by Debian doesn't include OpenMPI.
-
-Follow the procedures in https://github.com/cpmech/script-install-mumps
-
-#### Install some dependencies
-
-After installing MUMPS according to [script-install-mumps](https://github.com/cpmech/script-install-mumps), install:
-
-```bash
-sudo apt-get install liblapacke-dev
-```
-
-#### Compilation
-
-Execute:
-
-```bash
-./all.bash
-```
-
-We could call _cmake_ directly as long as we'd set the CC and CXX environmental flags first; see the file [all.bash](https://github.com/cpmech/laclib/blob/main/all.bash).
-
 ## Examples
 
 The following code shows how to solve a linear system with a (large) sparse matrix:
@@ -53,6 +25,63 @@ solver->solve(x, rhs);
 See [ex_solver_mumps.cpp](https://github.com/cpmech/laclib/blob/main/examples/ex_solver_mumps.cpp) for the complete code.
 
 See the [examples](https://github.com/cpmech/laclib/tree/main/examples) directory for more examples.
+
+## Docker image
+
+The docker image is convenient with Visual Code remote development tools (but containerized; "not really remote").
+
+We consider two sets of tools:
+
+1. `_open`: GCC GFortran + OpenBLAS + OpenMPI; and
+2. `_intel`: Intel compilers + Intel MKL + Intel MPI
+
+We can build the Docker image by running:
+
+```bash
+./build-docker-image-open.bash
+# or
+./build-docker-image-intel.bash
+```
+
+## Ubuntu/Linux 20.10
+
+### MUMPS Sparse Solver
+
+**NOTE**: we prefer to compile MUMPS ourselves instead of using the default Debian package named _libmumps-dev_ because the Debian package doesn't include some additional, and efficient, ordering tools. Also, the libmumps compiled by Debian doesn't use OpenMPI.
+
+Follow the procedures in https://github.com/cpmech/script-install-mumps
+
+### Additional dependencies
+
+After installing MUMPS according to [script-install-mumps](https://github.com/cpmech/script-install-mumps), install:
+
+```bash
+sudo apt-get install liblapacke-dev
+```
+
+### Compilation; e.g. for debugging laclib
+
+Execute:
+
+```bash
+./all.bash {ON,[OFF]} {[ON],OFF} {ON,[OFF]}
+```
+
+where the first three arguments are:
+
+1. USE_INTEL: use the Intel Tools
+2. WITH_OMP: link with the OpenMP enabled libraries
+3. OPTIMIZED: make optimized code (not for debugging)
+
+We could call _cmake_ directly as long as we'd set the CC and CXX environmental flags first; see the file `zscripts/do_cmake.bash`.
+
+### Installation: optmized code for your application
+
+The header file `laclib.h` will be installed in `/usr/local/include` and the library file `laclib.so` will be installed in `/usr/local/lib`. To do so, execute:
+
+```bash
+./install-laclib
+```
 
 ## Code organization
 
