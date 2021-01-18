@@ -23,38 +23,38 @@ _MPI results with "metis" ordering:_
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.32353s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.97966s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.90623s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.92506s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.50411s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.80898s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.94805s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.01541s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.46706s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.88146s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">12.2095s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.6268s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.23634s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.79302s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.96317s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.63959s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">580.473ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">393.598ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">826.162ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">941.092ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">348.762ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">236.451ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">218.565ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">210.435ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">13.3701s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">11.2544s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">17.9404s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">15.4919s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.0869s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.83594s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.12736s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.86273s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.73e-15</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.71e-15</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.59e-15</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.58e-15</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.64e-15</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.78e-15</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.03e-15</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.70e-15</td>
   </tr>
 </table>
 
@@ -139,38 +139,38 @@ _MPI results with "metis" ordering:_
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.2604s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">15.0531s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">15.1058s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">11.2828s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.5583s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">15.5719s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">15.3078s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">11.517s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2m10.1793s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m10.7105s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m47.8073s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m56.9626s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m38.2518s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">54.617s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">41.8401s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">35.1384s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.55013s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.09474s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.97835s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.23209s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.72394s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.64562s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.42002s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.32183s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2m23.9897s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m27.858s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2m6.89115s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2m12.4772s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m51.5276s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m11.3641s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">58.561s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">47.9243s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.32e-15</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.46e-16</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.54e-16</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.08e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.71e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.58e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.92e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.77e-16</td>
   </tr>
 </table>
 
@@ -255,38 +255,38 @@ _MPI results with "metis" ordering:_
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.16113s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.73524s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.77532s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.24709s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.24402s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.73832s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.89681s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.23325s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.34239s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">26.8421s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">56.4204s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3m51.1379s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.93051s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">22.941s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">22.4214s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2m16.8201s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">599.624ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">640.412ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.86862s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.24941s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">303.732ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">393.28ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">357.295ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">429.595ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">12.103s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">33.2175s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m4.06405s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3m59.6263s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.4752s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">29.0695s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">28.6563s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2m21.4713s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.68e-16</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.11e-14</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.03e-13</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.62e-11</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.61e-14</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.83e-14</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.96e-11</td>
   </tr>
 </table>
 
@@ -371,38 +371,38 @@ _MPI results with "metis" ordering:_
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.91082s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.00606s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.03676s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.99243s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.99342s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.05541s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.13472s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.01318s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.11826s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.74073s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.72226s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.10618s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.81139s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.04522s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">828.134ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">721.381ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">732.349ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">530.649ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">534.122ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">636.194ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">439.191ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">317.758ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">284.659ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">301.085ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.76122s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.27715s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.29283s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.7345s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.23992s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.4142s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.21132s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.02941s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.73e-7</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.91e-7</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.21e-7</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.85e-7</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.09e-7</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.91e-7</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.97e-7</td>
   </tr>
 </table>
 
@@ -487,31 +487,31 @@ _MPI results with "metis" ordering:_
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.74588ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.32125ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.77166ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.00618ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.56817ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.05008ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.33282ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.5754ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.29841ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.42466ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.68301ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.02728ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.20087ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">554.366µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">466.698µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.0933ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">824.39µs</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">926.289µs</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.12975ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">661.826µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">694.643µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">286.828µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">299.505µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">699.386µs</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.35807ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.94986ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.6946ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.51129ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.99277ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.02804ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.91178ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.36158ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>

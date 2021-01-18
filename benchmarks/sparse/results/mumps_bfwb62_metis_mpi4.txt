@@ -5,6 +5,8 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   1          62       
  =================================================
  MUMPS compiled with option -Dmetis
  MUMPS compiled with option -Dparmetis
+ MUMPS compiled with option -Dptscotch
+ MUMPS compiled with option -Dscotch
  This MUMPS version includes code for SAVE_RESTORE
  This MUMPS version includes code for DIST_RHS
  =================================================
@@ -41,7 +43,7 @@ Leaving analysis phase with  ...
     Maximum estim. space in Mbytes, OOC facto.   (INFOG(26)):           1
     Total space in MBytes,  OOC factorization    (INFOG(27)):           4
 
- Elapsed time in analysis driver=       0.0054
+ Elapsed time in analysis driver=       0.0052
 
 Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   2          62            202
       executing #MPI =      4, without OMP
@@ -112,13 +114,13 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   3          62       
  ** Avg. Space in MBYTES per working proc during solve    :      3749
 
  Leaving solve with ...
- Time to build/scatter RHS        =       0.000029
- Time in solution step (fwd/bwd)  =       0.000142
-  .. Time in forward (fwd) step   =          0.000076
-  .. Time in backward (bwd) step  =          0.000062
+ Time to build/scatter RHS        =       0.000024
+ Time in solution step (fwd/bwd)  =       0.000133
+  .. Time in forward (fwd) step   =          0.000078
+  .. Time in backward (bwd) step  =          0.000051
  Time to gather solution(cent.sol)=       0.000013
  Time to copy/scale dist. solution=       0.000000
 
- Elapsed time in solve driver=       0.0004
+ Elapsed time in solve driver=       0.0005
 
 ### OK: x ###

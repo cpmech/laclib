@@ -5,6 +5,8 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   1      659033       
  =================================================
  MUMPS compiled with option -Dmetis
  MUMPS compiled with option -Dparmetis
+ MUMPS compiled with option -Dptscotch
+ MUMPS compiled with option -Dscotch
  This MUMPS version includes code for SAVE_RESTORE
  This MUMPS version includes code for DIST_RHS
  =================================================
@@ -41,7 +43,7 @@ Leaving analysis phase with  ...
     Maximum estim. space in Mbytes, OOC facto.   (INFOG(26)):         725
     Total space in MBytes,  OOC factorization    (INFOG(27)):        1379
 
- Elapsed time in analysis driver=       5.7347
+ Elapsed time in analysis driver=       5.7349
 
 Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   2      659033        5959282
       executing #MPI =      2, without OMP
@@ -65,28 +67,28 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   2      659033       
  Max difference from 1 after scaling the entries for ONE-NORM (option 7/8)   = 0.12D+01
  Average Effective size of S     (based on INFO(39))=           1101780794
 
- Elapsed time to reformat/distribute matrix =      0.1003
+ Elapsed time to reformat/distribute matrix =      0.1002
  ** Memory allocated, max in Mbytes             (INFOG(18)):        9021
 
  ** Memory allocated, total in Mbytes           (INFOG(19)):       17981
- ** Memory effectively used, max in  Mbytes     (INFOG(21)):        2670
- ** Memory effectively used, total in Mbytes    (INFOG(22)):        5311
+ ** Memory effectively used, max in  Mbytes     (INFOG(21)):        2638
+ ** Memory effectively used, total in Mbytes    (INFOG(22)):        5269
 
- Elapsed time for factorization             =     26.6660
+ Elapsed time for factorization             =     22.7634
 
 Leaving factorization with ...
- RINFOG(2)  Operations in node assembly     = 6.956D+08
- ------(3)  Operations in node elimination  = 1.195D+12
+ RINFOG(2)  Operations in node assembly     = 6.927D+08
+ ------(3)  Operations in node elimination  = 1.163D+12
  ICNTL (8)  Scaling effectively used        =               7
- INFOG (9)  Real space for factors          =       566081787
- INFOG(10)  Integer space for factors       =        11129371
- INFOG(11)  Maximum front size              =            7307
- INFOG(29)  Number of entries in factors    =       566081787
- INFOG(12)  Number of off diagonal pivots   =          421119
- INFOG(13)  Number of delayed pivots        =          348700
+ INFOG (9)  Real space for factors          =       563129573
+ INFOG(10)  Integer space for factors       =        11128302
+ INFOG(11)  Maximum front size              =            7209
+ INFOG(29)  Number of entries in factors    =       563129573
+ INFOG(12)  Number of off diagonal pivots   =          421464
+ INFOG(13)  Number of delayed pivots        =          348169
  INFOG(14)  Number of memory compress       =               0
 
- Elapsed time in factorization driver=      26.8419
+ Elapsed time in factorization driver=      22.9408
 
 Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   3      659033        5959282
       executing #MPI =      2, without OMP
@@ -110,12 +112,12 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   3      659033       
  ** Avg. Space in MBYTES per working proc during solve    :      8976
 
  Leaving solve with ...
- Time to build/scatter RHS        =       0.014265
- Time in solution step (fwd/bwd)  =       0.569364
-  .. Time in forward (fwd) step   =          0.274913
-  .. Time in ScaLAPACK root       =          0.030587
-  .. Time in backward (bwd) step  =          0.263856
- Time to gather solution(cent.sol)=       0.035855
+ Time to build/scatter RHS        =       0.007842
+ Time in solution step (fwd/bwd)  =       0.359319
+  .. Time in forward (fwd) step   =          0.171795
+  .. Time in ScaLAPACK root       =          0.021774
+  .. Time in backward (bwd) step  =          0.165746
+ Time to gather solution(cent.sol)=       0.014865
  Time to copy/scale dist. solution=       0.000000
 
- Elapsed time in solve driver=       0.6362
+ Elapsed time in solve driver=       0.3912

@@ -5,6 +5,8 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   1      659033       
  =================================================
  MUMPS compiled with option -Dmetis
  MUMPS compiled with option -Dparmetis
+ MUMPS compiled with option -Dptscotch
+ MUMPS compiled with option -Dscotch
  This MUMPS version includes code for SAVE_RESTORE
  This MUMPS version includes code for DIST_RHS
  =================================================
@@ -22,7 +24,7 @@ Compute maximum matching (Maximum Transversal):  5
  ... Structural symmetry (in percent)=   58
  Average density of rows/columns =   12
  Ordering based on METIS
- ELAPSED TIME SPENT IN METIS reordering  =      3.6433
+ ELAPSED TIME SPENT IN METIS reordering  =      3.7811
 
 Leaving analysis phase with  ...
  INFOG(1)                                       =               0
@@ -46,7 +48,7 @@ Leaving analysis phase with  ...
     Total space in MBytes, IC factorization      (INFOG(17)):        2394
     Total space in MBytes,  OOC factorization    (INFOG(27)):         822
 
- Elapsed time in analysis driver=       5.1544
+ Elapsed time in analysis driver=       5.2343
 
 Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   2      659033        5959282
       executing #MPI =      1, without OMP
@@ -69,12 +71,12 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   2      659033       
  Relative threshold for pivoting, CNTL(1)   =      0.1000D-01
  Effective size of S     (based on INFO(39))=           1991096365
 
- Elapsed time to reformat/distribute matrix =      0.0998
+ Elapsed time to reformat/distribute matrix =      0.0974
 
  ** Memory allocated, total in Mbytes           (INFOG(19)):       16197
  ** Memory effectively used, total in Mbytes    (INFOG(22)):        1235
 
- Elapsed time for factorization             =      6.2221
+ Elapsed time for factorization             =      4.8198
 
 Leaving factorization with ...
  RINFOG(2)  Operations in node assembly     = 1.934D+08
@@ -88,7 +90,7 @@ Leaving factorization with ...
  INFOG(13)  Number of delayed pivots        =            1117
  INFOG(14)  Number of memory compress       =               0
 
- Elapsed time in factorization driver=       6.3223
+ Elapsed time in factorization driver=       4.9177
 
 Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   3      659033        5959282
       executing #MPI =      1, without OMP
@@ -110,11 +112,11 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   3      659033       
  ** Space in MBYTES used for solve                        :     16224
 
  Leaving solve with ...
- Time to build/scatter RHS        =       0.013795
- Time in solution step (fwd/bwd)  =       0.563798
-  .. Time in forward (fwd) step   =          0.258456
-  .. Time in backward (bwd) step  =          0.305336
- Time to gather solution(cent.sol)=       0.002584
+ Time to build/scatter RHS        =       0.007261
+ Time in solution step (fwd/bwd)  =       0.285323
+  .. Time in forward (fwd) step   =          0.132058
+  .. Time in backward (bwd) step  =          0.153253
+ Time to gather solution(cent.sol)=       0.001396
  Time to copy/scale dist. solution=       0.000000
 
- Elapsed time in solve driver=       0.5977
+ Elapsed time in solve driver=       0.3029

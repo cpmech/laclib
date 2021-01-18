@@ -5,6 +5,8 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   1      659033       
  =================================================
  MUMPS compiled with option -Dmetis
  MUMPS compiled with option -Dparmetis
+ MUMPS compiled with option -Dptscotch
+ MUMPS compiled with option -Dscotch
  This MUMPS version includes code for SAVE_RESTORE
  This MUMPS version includes code for DIST_RHS
  =================================================
@@ -41,7 +43,7 @@ Leaving analysis phase with  ...
     Maximum estim. space in Mbytes, OOC facto.   (INFOG(26)):         594
     Total space in MBytes,  OOC factorization    (INFOG(27)):        1718
 
- Elapsed time in analysis driver=       5.7748
+ Elapsed time in analysis driver=       5.8773
 
 Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   2      659033        5959282
       executing #MPI =      3, without OMP
@@ -65,28 +67,28 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   2      659033       
  Max difference from 1 after scaling the entries for ONE-NORM (option 7/8)   = 0.12D+01
  Average Effective size of S     (based on INFO(39))=            733432911
 
- Elapsed time to reformat/distribute matrix =      0.1024
+ Elapsed time to reformat/distribute matrix =      0.1036
  ** Memory allocated, max in Mbytes             (INFOG(18)):        6216
 
  ** Memory allocated, total in Mbytes           (INFOG(19)):       18063
- ** Memory effectively used, max in  Mbytes     (INFOG(21)):        2162
- ** Memory effectively used, total in Mbytes    (INFOG(22)):        5527
+ ** Memory effectively used, max in  Mbytes     (INFOG(21)):        2099
+ ** Memory effectively used, total in Mbytes    (INFOG(22)):        5440
 
- Elapsed time for factorization             =     56.2299
+ Elapsed time for factorization             =     22.2405
 
 Leaving factorization with ...
- RINFOG(2)  Operations in node assembly     = 7.065D+08
- ------(3)  Operations in node elimination  = 1.252D+12
+ RINFOG(2)  Operations in node assembly     = 6.989D+08
+ ------(3)  Operations in node elimination  = 1.164D+12
  ICNTL (8)  Scaling effectively used        =               7
- INFOG (9)  Real space for factors          =       571207921
- INFOG(10)  Integer space for factors       =        11138470
- INFOG(11)  Maximum front size              =            7501
- INFOG(29)  Number of entries in factors    =       571207921
- INFOG(12)  Number of off diagonal pivots   =          420858
- INFOG(13)  Number of delayed pivots        =          349379
+ INFOG (9)  Real space for factors          =       563250093
+ INFOG(10)  Integer space for factors       =        11135991
+ INFOG(11)  Maximum front size              =            7209
+ INFOG(29)  Number of entries in factors    =       563250093
+ INFOG(12)  Number of off diagonal pivots   =          421441
+ INFOG(13)  Number of delayed pivots        =          348192
  INFOG(14)  Number of memory compress       =               0
 
- Elapsed time in factorization driver=      56.4201
+ Elapsed time in factorization driver=      22.4212
 
 Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   3      659033        5959282
       executing #MPI =      3, without OMP
@@ -106,16 +108,16 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   3      659033       
   --- (30)                                     =           0
   --- (35)                                     =           0
  ** Rank of processor needing largest memory in solve     :         0
- ** Space in MBYTES used by this processor for solve      :      6196
+ ** Space in MBYTES used by this processor for solve      :      6195
  ** Avg. Space in MBYTES per working proc during solve    :      5989
 
  Leaving solve with ...
- Time to build/scatter RHS        =       0.014513
- Time in solution step (fwd/bwd)  =       1.773069
-  .. Time in forward (fwd) step   =          0.458852
-  .. Time in ScaLAPACK root       =          0.750276
-  .. Time in backward (bwd) step  =          0.563927
- Time to gather solution(cent.sol)=       0.038064
+ Time to build/scatter RHS        =       0.006555
+ Time in solution step (fwd/bwd)  =       0.325783
+  .. Time in forward (fwd) step   =          0.156527
+  .. Time in ScaLAPACK root       =          0.018821
+  .. Time in backward (bwd) step  =          0.150423
+ Time to gather solution(cent.sol)=       0.013710
  Time to copy/scale dist. solution=       0.000000
 
- Elapsed time in solve driver=       1.8477
+ Elapsed time in solve driver=       0.3549
