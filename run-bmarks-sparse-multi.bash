@@ -24,19 +24,19 @@ fnkey() {
 }
 
 MATS="
+    bfwb62 \
     inline_1 \
     Flan_1565 \
     pre2 \
     tmt_unsym \
-    bfwb62 \
 "
 
 # MATS="
+#     bfwb62 \
 #     inline_1 \
 #     Flan_1565 \
 #     pre2 \
 #     tmt_unsym \
-#     bfwb62 \
 #     av41092 \
 #     helm2d03 \
 #     oilpan \
@@ -44,6 +44,7 @@ MATS="
 # "
 
 #MATS="bfwb62"
+# MATS="inline_1"
 
 IGNORE_OMP=0
 RESDIR=`pwd`/benchmarks/sparse/results
