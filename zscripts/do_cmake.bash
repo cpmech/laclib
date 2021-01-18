@@ -8,7 +8,7 @@ VERBOSE=${4:-"OFF"}
 CC=/usr/bin/mpicc
 CXX=/usr/bin/mpicxx
 
-if [ "${A1_USE_INTEL}" = "ON" ]; then
+if [ "${USE_INTEL}" = "ON" ]; then
   CC=/opt/intel/oneapi/mpi/latest/bin/mpiicc
   CXX=/opt/intel/oneapi/mpi/latest/bin/mpiicpc
 fi
