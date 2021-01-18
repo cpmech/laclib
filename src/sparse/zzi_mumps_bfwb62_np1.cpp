@@ -1,23 +1,20 @@
 #include <vector>
 #include <iostream>
-#include "solver_mumps.h"
-#include "read_matrix_market.h"
-#include "../check/check.h"
-#include "../mpiaux/mpiaux.h"
+#include "../laclib.h"
 #include "../util/doctest_mpi.h"
-#include "../util/path_tools.h"
-#include "../util/print_vector.h"
 #include "../../data/sparse-matrix/bfwb62_x_correct.h"
 using namespace std;
 
 MPI_TEST_CASE("solve bfwb62 system", 1)
 {
+    auto mpi = MpiAux::make_new();
+    set_num_threads(1);
+
     auto data_path = path_get_current() + "/../../../data";
     auto mtx_path = data_path + "/sparse-matrix/bfwb62.mtx";
     bool onebased = true;
     auto trip = read_matrix_market(mtx_path, onebased);
 
-    auto mpi = MpiAux::make_new();
     auto options = MumpsOptions::make_new(trip->symmetric);
     auto solver = SolverMumps::make_new(mpi, options);
 

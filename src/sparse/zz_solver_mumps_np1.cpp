@@ -1,6 +1,7 @@
 #include <vector>
 #include "solver_mumps.h"
 #include "sparse_triplet.h"
+#include "../blas/index.h"
 #include "../check/check.h"
 #include "../mpiaux/mpiaux.h"
 #include "../util/doctest_mpi.h"
@@ -12,6 +13,7 @@ using namespace std;
 MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
 {
     auto mpi = MpiAux::make_new();
+    set_num_threads(1);
 
     bool onebased = true;
     auto trip = SparseTriplet::make_new(5, 5, 13, onebased);

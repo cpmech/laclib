@@ -1,6 +1,7 @@
 #include <vector>
 #include "solver_mumps.h"
 #include "sparse_triplet.h"
+#include "../blas/index.h"
 #include "../check/check.h"
 #include "../mpiaux/mpiaux.h"
 #include "../util/doctest_mpi.h"
@@ -12,6 +13,7 @@ using namespace std;
 MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
 {
     auto mpi = MpiAux::make_new();
+    set_num_threads(1);
 
     auto rhs = vector<double>{8.0, 45.0, -3.0, 3.0, 19.0};
     auto x = vector<double>{0, 0, 0, 0, 0};

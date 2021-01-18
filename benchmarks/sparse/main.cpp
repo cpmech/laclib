@@ -29,10 +29,14 @@ void run(int argc, char **argv)
     auto trip = read_matrix_market(filename, onebased);
     report->measure_step(STEP_READ_MATRIX);
 
+    // number of threads
+    auto ignore_omp = omp_num_threads == 0;
+    auto num_threads = ignore_omp ? 1 : omp_num_threads;
+    set_num_threads(num_threads);
+
     // set options
     auto options = MumpsOptions::make_new(trip->symmetric);
-    auto ignore_omp = omp_num_threads == 0;
-    options->omp_num_threads = ignore_omp ? 1 : omp_num_threads;
+    options->omp_num_threads = num_threads;
     options->ordering = ordering;
     options->max_work_memory = 30000 / mpi_size;
 
