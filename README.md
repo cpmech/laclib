@@ -26,6 +26,10 @@ See [ex_solver_mumps.cpp](https://github.com/cpmech/laclib/blob/main/examples/ex
 
 See the [examples](https://github.com/cpmech/laclib/tree/main/examples) directory for more examples.
 
+## Use laclib in your project
+
+After installation (explained below), you may clone https://github.com/cpmech/use-laclib to bootstrap a project using `laclib`.
+
 ## Docker image
 
 The docker image is convenient with Visual Code remote development tools (but containerized; "not really remote").
