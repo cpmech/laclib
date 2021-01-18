@@ -3,35 +3,24 @@
 set -e
 
 USE_INTEL=${1:-"OFF"}
-USE_OMP=${2:-"OFF"}
+WITH_OMP=${2:-"OFF"}
 ORDERING=${3:-"metis"}
 SOLVER_KIND=${4:-"mumps"}
 
-# INPUT:
-#   1 -- matrix name [string]
-#   2 -- mpi size [number]
-#   3 -- omp num threads [number]
-#   4 -- solver kind [string]
-#   5 -- ordering [string]
-#   6 -- intel {ON, OFF}
 fnkey() {
-    local matrixName=$1
-    local mpiSize=$2
-    local ompNumThreads=$3
-    local solverKind=$4
-    local ordering=$5
-    local intel=$6
+    local matrix=$1
+    local np_or_nt=$2
     local pfx=""
     local sfx=""
-    if [ "${intel}" = "ON" ]; then
+    if [ "${USE_INTEL}" = "ON" ]; then
         pfx="intel_"
     fi
-    if [ ${ompNumThreads} -gt 0 ]; then
-        sfx="_omp${ompNumThreads}"
+    if [ "${WITH_OMP}" = "ON" ]; then
+        sfx="_omp${np_or_nt}"
     else
-        sfx="_mpi${mpiSize}"
+        sfx="_mpi${np_or_nt}"
     fi
-    echo "${pfx}${solverKind}_${matrixName}_${ordering}${sfx}"
+    echo "${pfx}${SOLVER_KIND}_${matrix}_${ORDERING}${sfx}"
 }
 
 MATS="
@@ -55,25 +44,25 @@ MATS="
 # "
 
 #MATS="bfwb62"
-# MATS="pre2"
 
+IGNORE_OMP=0
 RESDIR=`pwd`/benchmarks/sparse/results
 
-bash ./all-bench.bash $USE_INTEL
+bash ./all-bench.bash $USE_INTEL $WITH_OMP
 cd build/benchmarks/sparse
 
 for mat in $MATS; do
     for n in 1 2 3 4; do
-        if [ "${USE_OMP}" = "ON" ]; then
-            fnk=$(fnkey $mat 1 $n $SOLVER_KIND $ORDERING $USE_INTEL)
+        if [ "${WITH_OMP}" = "ON" ]; then
+            fnk=$(fnkey $mat $n)
             echo "... $fnk"
             log="${RESDIR}/${fnk}.txt"
-            OMP_NUM_THREADS=$n ./bmark_sparse $mat > $log
+            ./bmark_sparse $mat $n $ORDERING > $log
         else
-            fnk=$(fnkey $mat $n 0 $SOLVER_KIND $ORDERING $USE_INTEL)
+            fnk=$(fnkey $mat $n)
             echo "... $fnk"
             log="${RESDIR}/${fnk}.txt"
-            mpirun -np $n ./bmark_sparse $mat $ORDERING > $log
+            mpirun -np $n ./bmark_sparse $mat $IGNORE_OMP $ORDERING > $log
         fi
     done
 done

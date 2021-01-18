@@ -92,7 +92,8 @@ struct Report
                            const std::string &matrix_name,
                            const std::unique_ptr<MumpsOptions> &options,
                            const std::unique_ptr<SparseTriplet> &trip,
-                           const std::unique_ptr<Stats> &stats)
+                           const std::unique_ptr<Stats> &stats,
+                           bool ignore_omp)
     {
         auto mpi_rank = this->mpi->rank();
         auto mpi_size = this->mpi->size();
@@ -111,13 +112,15 @@ struct Report
 #endif
 
         std::string sfx = "";
-        if (options->omp_num_threads > 1)
+        auto omp_num_threads = options->omp_num_threads;
+        if (ignore_omp)
         {
-            sfx = "_omp" + std::to_string(options->omp_num_threads);
+            omp_num_threads = 0;
+            sfx = "_mpi" + std::to_string(mpi_size);
         }
         else
         {
-            sfx = "_mpi" + std::to_string(mpi_size);
+            sfx = "_omp" + std::to_string(options->omp_num_threads);
         }
 
         std::stringstream fnkey;
@@ -137,7 +140,7 @@ struct Report
         ofs << "  \"MatrixName\": \"" << matrix_name << "\",\n";
         ofs << "  \"Ordering\": \"" << ordering << "\",\n";
         ofs << "  \"MpiSize\": " << mpi_size << ",\n";
-        ofs << "  \"OmpNumThreads\": " << options->omp_num_threads << ",\n";
+        ofs << "  \"OmpNumThreads\": " << omp_num_threads << ",\n";
         ofs << "  \"Symmetric\": " << str_symmetric << ",\n";
         ofs << "  \"NumberOfRows\": " << trip->m << ",\n";
         ofs << "  \"NumberOfCols\": " << trip->n << ",\n";

@@ -1,9 +1,10 @@
 #!/bin/bash
 
-A1_USE_INTEL=${1:-"OFF"}
-A2_OPTIMIZED=${2:-"ON"}
-A3_VERBOSE=${3:-"OFF"}
+USE_INTEL=${1:-"OFF"}
+WITH_OMP=${2:-"ON"}
+OPTIMIZED=${3:-"OFF"}
+VERBOSE=${4:-"OFF"}
 
-bash zscripts/do_cmake.bash ${A1_USE_INTEL} ${A2_OPTIMIZED} ${A3_VERBOSE}
+bash zscripts/do_cmake.bash ${USE_INTEL} ${WITH_OMP} ${OPTIMIZED} ${VERBOSE}
 cd build/benchmarks/sparse
 make

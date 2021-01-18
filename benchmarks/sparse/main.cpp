@@ -14,7 +14,7 @@ void run(int argc, char **argv)
     // get arguments from command line
     vector<string> defaults{
         "bfwb62", // default matrix_name
-        "1",      // default omp_num_threads
+        "0",      // default omp_num_threads: 0 means ignore OMP
         "metis",  // default ordering
     };
     auto args = extract_arguments_or_use_defaults(argc, argv, defaults);
@@ -31,7 +31,8 @@ void run(int argc, char **argv)
 
     // set options
     auto options = MumpsOptions::make_new(trip->symmetric);
-    options->omp_num_threads = omp_num_threads;
+    auto ignore_omp = omp_num_threads == 0;
+    options->omp_num_threads = ignore_omp ? 1 : omp_num_threads;
     options->ordering = ordering;
     options->max_work_memory = 30000 / mpi_size;
 
@@ -63,7 +64,7 @@ void run(int argc, char **argv)
 
     // write report
     auto stats = Stats::make_new(mpi, trip, x, rhs);
-    report->write_json("mumps", matrix_name, options, trip, stats);
+    report->write_json("mumps", matrix_name, options, trip, stats, ignore_omp);
 }
 
 int main(int argc, char **argv)
