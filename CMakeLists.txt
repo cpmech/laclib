@@ -43,19 +43,25 @@ endif()
 include(FindMUMPS.cmake)
 include_directories(${MUMPS_IDIRS})
 
-# subdirectories #############################################################################
-
-add_subdirectory(src)
-add_subdirectory(benchmarks)
-add_subdirectory(examples)
-
 # library ####################################################################################
 
-add_library(laclib SHARED 
+if(A1_USE_INTEL)
+    set(LACLIB_NAME laclib_intel)
+else()
+    set(LACLIB_NAME laclib_open)
+endif()
+
+add_library(${LACLIB_NAME} SHARED
     src/sparse/read_matrix_market.cpp
     src/sparse/solver_mumps.cpp
     src/sparse/sparse_blas.cpp
     src/sparse/sparse_triplet.cpp
 )
 
-target_link_libraries(laclib PUBLIC ${MUMPS_LIBS} ${LA_LIBS})
+target_link_libraries(${LACLIB_NAME} PUBLIC ${MUMPS_LIBS} ${LA_LIBS})
+
+# subdirectories #############################################################################
+
+add_subdirectory(src)
+add_subdirectory(benchmarks)
+add_subdirectory(examples)

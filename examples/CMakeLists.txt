@@ -4,5 +4,5 @@ set(EXAMPLES
 
 foreach(var ${EXAMPLES})
     add_executable(${var} "${var}.cpp")
-    target_link_libraries(${var} PUBLIC laclib)
+    target_link_libraries(${var} PUBLIC ${LACLIB_NAME})
 endforeach(var)
