@@ -14,8 +14,15 @@ option(A2_WITH_OMP "with OpenMP" ON)
 option(A3_OPTIMIZED "Make optimized (-O3)" OFF)
 option(A4_VERBOSE "Show additional messages during compilation/link?" OFF)
 
+set(PLAT "_open")
+
 if(A1_USE_INTEL)
     add_definitions(-DUSE_INTEL -diag-disable=2196) # disable warning due to doctest.h functions: warning #2196: routine is both "inline" and "noinline"
+    set(PLAT "_intel")
+endif()
+
+if(A2_WITH_OMP)
+    set(PLAT "${PLAT}_omp")
 endif()
 
 if(A3_OPTIMIZED)
@@ -45,11 +52,7 @@ include_directories(${MUMPS_IDIRS})
 
 # library ####################################################################################
 
-if(A1_USE_INTEL)
-    set(LACLIB_NAME laclib_intel)
-else()
-    set(LACLIB_NAME laclib_open)
-endif()
+set(LACLIB_NAME "laclib${PLAT}")
 
 add_library(${LACLIB_NAME} SHARED
     src/sparse/read_matrix_market.cpp
