@@ -105,3 +105,7 @@ We could call _cmake_ directly as long as we'd set the CC and CXX environmental 
 The `src` directory contains all the _library_ code that you can use in your project. The `blas` and `sparse` _libraries_ may be the most useful for your project. The other directories mostly contain functions used here internally. For instance, the `check` directory contains functions to assist in the unit (and integration) tests and `util` includes some utility functions. The `mpiaux` directory contains a convenient wrapper to MPI.
 
 We suggest looking at the [sparse](https://github.com/cpmech/laclib/tree/main/src/sparse) directory first.
+
+```
+...this branch uses MPI...
+```
