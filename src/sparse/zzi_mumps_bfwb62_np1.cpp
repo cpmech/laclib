@@ -18,9 +18,11 @@ MPI_TEST_CASE("solve bfwb62 system", 1)
     auto trip = read_matrix_market(mtx_path, onebased);
 
     auto mpi = MpiAux::make_new();
-    auto solver = SolverMumps::make_new(mpi, trip->symmetric);
+    auto options = MumpsOptions::make_new(trip->symmetric);
+    auto solver = SolverMumps::make_new(mpi, options);
 
     solver->analyze_and_factorize(trip);
+    CHECK(solver.get()->analyzed == true);
     CHECK(solver.get()->factorized == true);
 
     auto rhs = vector<double>(trip->n, 1.0);

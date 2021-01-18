@@ -45,11 +45,11 @@ void run(int argc, char **argv)
 
     // allocate MUMPS solver and options
     auto mpi = MpiAux::make_new();
-    auto solver = SolverMumps::make_new(mpi, symmetric);
-    auto options = MumpsOptions::make_new();
+    auto options = MumpsOptions::make_new(symmetric);
+    auto solver = SolverMumps::make_new(mpi, options);
 
     // analyse and factorize the matrix
-    solver->analyze_and_factorize(trip, options);
+    solver->analyze_and_factorize(trip);
 
     // allocate some vectors
     auto b = vector<double>{8.0, 45.0, -3.0, 3.0, 19.0};

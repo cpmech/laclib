@@ -42,7 +42,8 @@ The following code shows how to solve a linear system with a (large) sparse matr
 auto onebased = true;
 auto trip = read_matrix_market("my-matrix.mtx", onebased);
 auto mpi = MpiAux::make_new();
-auto solver = SolverMumps::make_new(mpi, trip->symmetric);
+auto options = MumpsOptions::make_new(trip->symmetric);
+auto solver = SolverMumps::make_new(mpi, options);
 auto rhs = vector<double>(trip->n, 1.0);
 auto x = vector<double>(trip->n, 0.0);
 solver->analyze_and_factorize(trip);
@@ -68,6 +69,6 @@ See the [examples](https://github.com/cpmech/laclib/tree/main/examples) director
 └── zscripts    # auxiliary "internal" bash scripts
 ```
 
-The `src` directory contains all the _library_ code that you can use in your project. The `blas` and `sparse` _libraries_ may be the most useful for your project. The other directories mostly contain functions used here internally. For instance, the `check` directory contains functions to assist in the unit (and integration) tests and `util` includes some utility functions.  The `mpiaux` directory contains a convenient wrapper to MPI.
+The `src` directory contains all the _library_ code that you can use in your project. The `blas` and `sparse` _libraries_ may be the most useful for your project. The other directories mostly contain functions used here internally. For instance, the `check` directory contains functions to assist in the unit (and integration) tests and `util` includes some utility functions. The `mpiaux` directory contains a convenient wrapper to MPI.
 
 We suggest looking at the [sparse](https://github.com/cpmech/laclib/tree/main/src/sparse) directory first.

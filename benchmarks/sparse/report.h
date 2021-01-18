@@ -90,7 +90,7 @@ struct Report
 
     inline void write_json(const std::string &solver_kind,
                            const std::string &matrix_name,
-                           const MumpsOptions &options,
+                           const std::unique_ptr<MumpsOptions> &options,
                            const std::unique_ptr<SparseTriplet> &trip,
                            const std::unique_ptr<Stats> &stats)
     {
@@ -102,7 +102,7 @@ struct Report
         }
 
         auto path = path_get_current() + "/../../../benchmarks/sparse/results/";
-        auto ordering = mumps_ordering_to_string(options.ordering);
+        auto ordering = mumps_ordering_to_string(options->ordering);
 
 #ifdef USE_INTEL
         std::string pfx = "intel_";
@@ -111,15 +111,13 @@ struct Report
 #endif
 
         std::string sfx = "";
-        auto omp_num_threads = get_envar("OMP_NUM_THREADS");
-        if (omp_num_threads != "")
+        if (options->omp_num_threads > 1)
         {
-            sfx = "_omp" + omp_num_threads;
+            sfx = "_omp" + std::to_string(options->omp_num_threads);
         }
         else
         {
             sfx = "_mpi" + std::to_string(mpi_size);
-            omp_num_threads = "0";
         }
 
         std::stringstream fnkey;
@@ -139,7 +137,7 @@ struct Report
         ofs << "  \"MatrixName\": \"" << matrix_name << "\",\n";
         ofs << "  \"Ordering\": \"" << ordering << "\",\n";
         ofs << "  \"MpiSize\": " << mpi_size << ",\n";
-        ofs << "  \"OmpNumThreads\": " << omp_num_threads << ",\n";
+        ofs << "  \"OmpNumThreads\": " << options->omp_num_threads << ",\n";
         ofs << "  \"Symmetric\": " << str_symmetric << ",\n";
         ofs << "  \"NumberOfRows\": " << trip->m << ",\n";
         ofs << "  \"NumberOfCols\": " << trip->n << ",\n";

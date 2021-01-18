@@ -24,9 +24,11 @@ MPI_TEST_CASE("solve bfwb62 system", 2)
 
     SUBCASE("centralized matrix")
     {
-        auto solver = SolverMumps::make_new(mpi, symmetric);
+        auto options = MumpsOptions::make_new(symmetric);
+        auto solver = SolverMumps::make_new(mpi, options);
 
         solver->analyze_and_factorize(trip_full);
+        CHECK(solver.get()->analyzed == true);
         CHECK(solver.get()->factorized == true);
 
         solver->solve(x, rhs);
@@ -36,10 +38,14 @@ MPI_TEST_CASE("solve bfwb62 system", 2)
     SUBCASE("distributed matrix")
     {
         auto trip = trip_full->partition_by_row(mpi->rank(), mpi->size());
-        auto distributed_matrix = true;
-        auto solver = SolverMumps::make_new(mpi, symmetric, distributed_matrix);
+
+        auto options = MumpsOptions::make_new(symmetric);
+        options->distributed_matrix = true;
+
+        auto solver = SolverMumps::make_new(mpi, options);
 
         solver->analyze_and_factorize(trip);
+        CHECK(solver.get()->analyzed == true);
         CHECK(solver.get()->factorized == true);
 
         solver->solve(x, rhs);

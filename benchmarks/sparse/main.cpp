@@ -12,53 +12,58 @@ void run(int argc, char **argv)
     auto mpi_size = mpi->size();
 
     // get arguments from command line
-    vector<string> defaults{"bfwb62", "metis"};
+    vector<string> defaults{
+        "bfwb62", // default matrix_name
+        "1",      // default omp_num_threads
+        "metis",  // default ordering
+    };
     auto args = extract_arguments_or_use_defaults(argc, argv, defaults);
-    auto path = path_get_current() + "/../../../benchmarks/sparse/data/";
-    auto name = args[0];
-    auto filename = path + name + ".mtx";
-    auto ordering = mumps_string_to_ordering(args[1]);
+    auto matrix_name = args[0];
+    auto omp_num_threads = std::atoi(args[1].c_str());
+    auto ordering = mumps_string_to_ordering(args[2]);
 
     // read matrix
+    auto path = path_get_current() + "/../../../benchmarks/sparse/data/";
+    auto filename = path + matrix_name + ".mtx";
     auto onebased = true;
     auto trip = read_matrix_market(filename, onebased);
     report->measure_step(STEP_READ_MATRIX);
 
-    // allocate solver and options
-    auto solver = SolverMumps::make_new(mpi, trip->symmetric);
-    auto options = MumpsOptions::make_new();
+    // set options
+    auto options = MumpsOptions::make_new(trip->symmetric);
+    options->omp_num_threads = omp_num_threads;
+    options->ordering = ordering;
+    options->max_work_memory = 30000 / mpi_size;
+
+    // allocate solver
+    auto solver = SolverMumps::make_new(mpi, options);
     auto verbose = true;
 
-    // set options
-    options.ordering = ordering;
-    options.pct_inc_workspace = 120; // increase to 120 because of Intel + pre2
-    options.max_work_memory = 30000 / mpi_size;
+    // set right-hand-side and solution vector
+    auto rhs = vector<double>(trip->n, 1.0);
+    auto x = vector<double>(trip->n, 0.0);
 
-    // start linear solver execution /////////////////////////////////////////////////////////////////
+    // start linear solver execution /////////////////////////////////////
     report->solver_start_stopwatch();
 
-    solver->analyze(trip, options, verbose);
+    solver->analyze(trip, verbose);
     report->measure_step(STEP_ANALYZE);
 
     solver->factorize(verbose);
     report->measure_step(STEP_FACTORIZE);
 
-    auto rhs = vector<double>(trip->n, 1.0);
-    auto x = vector<double>(trip->n, 0.0);
-    auto rhs_is_distributed = false;
-
-    solver->solve(x, rhs, rhs_is_distributed, verbose);
+    solver->solve(x, rhs, verbose);
     report->measure_step(STEP_SOLVE);
 
-    // stop linear solver execution /////////////////////////////////////////////////////////////////
     report->solver_stop_stopwatch();
+    // stop linear solver execution //////////////////////////////////////
 
     // check results
-    check_x(mpi, name, x);
+    check_x(mpi, matrix_name, x);
 
     // write report
     auto stats = Stats::make_new(mpi, trip, x, rhs);
-    report->write_json("mumps", name, options, trip, stats);
+    report->write_json("mumps", matrix_name, options, trip, stats);
 }
 
 int main(int argc, char **argv)

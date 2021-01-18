@@ -9,19 +9,19 @@
 #define ICNTL(I) icntl[(I)-1] // macro to make indices match documentation
 
 static inline void _set_data(DMUMPS_STRUC_C *data,
-                             const MumpsOptions &options,
+                             const std::unique_ptr<MumpsOptions> &options,
                              const std::unique_ptr<SparseTriplet> &trip,
-                             int mpi_size,
-                             bool distributed_matrix)
+                             int mpi_size)
 {
     data->ICNTL(5) = MUMPS_ICNTL5_ASSEMBLED_MATRIX;
-    data->ICNTL(7) = options.ordering;
-    data->ICNTL(8) = options.scaling;
-    data->ICNTL(14) = options.pct_inc_workspace;
-    data->ICNTL(23) = options.max_work_memory;
+    data->ICNTL(7) = options->ordering;
+    data->ICNTL(8) = options->scaling;
+    data->ICNTL(14) = options->pct_inc_workspace;
+    data->ICNTL(23) = options->max_work_memory;
+    data->ICNTL(16) = options->omp_num_threads;
     data->n = make_mumps_int(trip->m);
 
-    if (mpi_size > 1 && distributed_matrix)
+    if (mpi_size > 1 && options->distributed_matrix)
     {
         data->ICNTL(18) = MUMPS_ICNTL18_DISTRIBUTED;
         data->ICNTL(6) = MUMPS_ICNTL6_PERMUT_NONE; // set this to remove warning
@@ -43,7 +43,7 @@ static inline void _set_data(DMUMPS_STRUC_C *data,
     if (mpi_size > 1)
     {
         data->ICNTL(28) = MUMPS_ICNTL28_PARALLEL;
-        data->ICNTL(29) = mumps_ordering_to_parallel(options.ordering);
+        data->ICNTL(29) = mumps_ordering_to_parallel(options->ordering);
     }
     else
     {
@@ -53,7 +53,6 @@ static inline void _set_data(DMUMPS_STRUC_C *data,
 }
 
 void SolverMumps::analyze(const std::unique_ptr<SparseTriplet> &trip,
-                          const MumpsOptions &options,
                           bool verbose)
 {
     if (!this->mpi->belong())
@@ -61,7 +60,7 @@ void SolverMumps::analyze(const std::unique_ptr<SparseTriplet> &trip,
         throw "SolverMumps::analyze: must only be called by processors in the group";
     }
 
-    _set_data(&this->data, options, trip, this->mpi->size(), this->distributed_matrix);
+    _set_data(&this->data, this->options, trip, this->mpi->size());
 
     this->analyzed = false;
     this->factorized = false;
@@ -91,7 +90,6 @@ void SolverMumps::factorize(bool verbose)
 }
 
 void SolverMumps::analyze_and_factorize(const std::unique_ptr<SparseTriplet> &trip,
-                                        const MumpsOptions &options,
                                         bool verbose)
 {
     if (!this->mpi->belong())
@@ -99,18 +97,19 @@ void SolverMumps::analyze_and_factorize(const std::unique_ptr<SparseTriplet> &tr
         throw "SolverMumps::analize_and_factorize: must only be called by processors in the group";
     }
 
-    _set_data(&this->data, options, trip, this->mpi->size(), this->distributed_matrix);
+    _set_data(&this->data, this->options, trip, this->mpi->size());
 
+    this->analyzed = false;
     this->factorized = false;
 
     _call_dmumps(&this->data, MUMPS_JOB_ANALIZE_AND_FACTORIZE, verbose);
 
+    this->analyzed = true;
     this->factorized = true;
 }
 
 void SolverMumps::solve(std::vector<double> &x,
                         const std::vector<double> &rhs,
-                        bool rhs_is_distributed,
                         bool verbose)
 {
     if (!this->mpi->belong())
@@ -131,14 +130,14 @@ void SolverMumps::solve(std::vector<double> &x,
     int mpi_rank = this->mpi->rank();
     int mpi_size = this->mpi->size();
 
-    if (rhs_is_distributed)
+    if (this->options->rhs_is_distributed)
     {
         std::fill(x.begin(), x.end(), 0.0);
         this->mpi->reduce_sum(x, rhs);
     }
     else
     {
-        if (this->mpi->rank() == 0)
+        if (mpi_rank == 0)
         {
             x = rhs;
         }

@@ -12,42 +12,12 @@ using namespace std;
 MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
 {
     auto mpi = MpiAux::make_new();
+
     auto rhs = vector<double>{8.0, 45.0, -3.0, 3.0, 19.0};
     auto x = vector<double>{0, 0, 0, 0, 0};
     auto x_correct = vector<double>{1, 2, 3, 4, 5};
 
-    SUBCASE("make_new")
-    {
-        auto solver = SolverMumps::make_new(mpi, MUMPS_SYMMETRY_NONE);
-
-        CHECK(solver.get()->data.par == MUMPS_PAR_HOST_ALSO_WORKS);
-        CHECK(solver.get()->data.sym == MUMPS_SYMMETRY_NONE);
-        CHECK(solver.get()->data.ICNTL(1) == -1);
-        CHECK(solver.get()->data.ICNTL(2) == -1);
-        CHECK(solver.get()->data.ICNTL(3) == -1);
-        CHECK(solver.get()->data.ICNTL(4) == -1);
-        CHECK(solver.get()->distributed_matrix == false);
-        CHECK(solver.get()->factorized == false);
-        CHECK(solver.get()->analyzed == false);
-    }
-
-    SUBCASE("make_new: distributed matrix")
-    {
-        auto distributed_matrix = true;
-        auto solver = SolverMumps::make_new(mpi, MUMPS_SYMMETRY_NONE, distributed_matrix);
-
-        CHECK(solver.get()->data.par == MUMPS_PAR_HOST_ALSO_WORKS);
-        CHECK(solver.get()->data.sym == MUMPS_SYMMETRY_NONE);
-        CHECK(solver.get()->data.ICNTL(1) == -1);
-        CHECK(solver.get()->data.ICNTL(2) == -1);
-        CHECK(solver.get()->data.ICNTL(3) == -1);
-        CHECK(solver.get()->data.ICNTL(4) == -1);
-        CHECK(solver.get()->distributed_matrix == true);
-        CHECK(solver.get()->factorized == false);
-        CHECK(solver.get()->analyzed == false);
-    }
-
-    SUBCASE("solve system")
+    SUBCASE("centralized matrix")
     {
         bool onebased = true;
         std::unique_ptr<SparseTriplet> trip;
@@ -66,16 +36,27 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
         trip->put(1, 4, +6.0);
         trip->put(4, 4, +1.0);
 
-        auto solver = SolverMumps::make_new(mpi, MUMPS_SYMMETRY_NONE);
+        auto options = MumpsOptions::make_new();
+        auto solver = SolverMumps::make_new(mpi, options);
+
+        CHECK(solver.get()->data.par == MUMPS_PAR_HOST_ALSO_WORKS);
+        CHECK(solver.get()->data.sym == MUMPS_SYMMETRY_NONE);
+        CHECK(solver.get()->data.ICNTL(1) == -1);
+        CHECK(solver.get()->data.ICNTL(2) == -1);
+        CHECK(solver.get()->data.ICNTL(3) == -1);
+        CHECK(solver.get()->data.ICNTL(4) == -1);
+        CHECK(solver.get()->analyzed == false);
+        CHECK(solver.get()->factorized == false);
 
         solver->analyze_and_factorize(trip);
+        CHECK(solver.get()->analyzed == true);
         CHECK(solver.get()->factorized == true);
 
         solver->solve(x, rhs);
         CHECK(equal_vectors_tol(x, x_correct, 1e-14) == true);
     }
 
-    SUBCASE("solve system: distributed")
+    SUBCASE("distributed matrix")
     {
         bool onebased = true;
         std::unique_ptr<SparseTriplet> trip;
@@ -102,10 +83,22 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP2)", 2)
             trip->put(4, 4, +1.0);
         }
 
-        auto distributed_matrix = true;
-        auto solver = SolverMumps::make_new(mpi, MUMPS_SYMMETRY_NONE, distributed_matrix);
+        auto options = MumpsOptions::make_new();
+        options->distributed_matrix = true;
+
+        auto solver = SolverMumps::make_new(mpi, options);
+
+        CHECK(solver.get()->data.par == MUMPS_PAR_HOST_ALSO_WORKS);
+        CHECK(solver.get()->data.sym == MUMPS_SYMMETRY_NONE);
+        CHECK(solver.get()->data.ICNTL(1) == -1);
+        CHECK(solver.get()->data.ICNTL(2) == -1);
+        CHECK(solver.get()->data.ICNTL(3) == -1);
+        CHECK(solver.get()->data.ICNTL(4) == -1);
+        CHECK(solver.get()->analyzed == false);
+        CHECK(solver.get()->factorized == false);
 
         solver->analyze_and_factorize(trip);
+        CHECK(solver.get()->analyzed == true);
         CHECK(solver.get()->factorized == true);
 
         solver->solve(x, rhs);

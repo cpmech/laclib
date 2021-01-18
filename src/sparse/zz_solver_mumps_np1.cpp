@@ -12,6 +12,7 @@ using namespace std;
 MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
 {
     auto mpi = MpiAux::make_new();
+
     bool onebased = true;
     auto trip = SparseTriplet::make_new(5, 5, 13, onebased);
     trip->put(0, 0, +1.0); // << duplicated
@@ -28,43 +29,41 @@ MPI_TEST_CASE("testing sparse solver MUMPS (NP1)", 1)
     trip->put(1, 4, +6.0);
     trip->put(4, 4, +1.0);
 
-    SUBCASE("make_new")
-    {
-        auto solver = SolverMumps::make_new(mpi, MUMPS_SYMMETRY_NONE);
+    auto rhs = vector<double>{8.0, 45.0, -3.0, 3.0, 19.0};
+    auto x = vector<double>{0, 0, 0, 0, 0};
+    auto x_correct = vector<double>{1, 2, 3, 4, 5};
 
-        CHECK(solver.get()->data.par == 1);
-        CHECK(solver.get()->data.sym == MUMPS_SYMMETRY_NONE);
-        CHECK(solver.get()->data.ICNTL(1) == -1);
-        CHECK(solver.get()->data.ICNTL(2) == -1);
-        CHECK(solver.get()->data.ICNTL(3) == -1);
-        CHECK(solver.get()->data.ICNTL(4) == -1);
+    auto options = MumpsOptions::make_new();
+    auto solver = SolverMumps::make_new(mpi, options);
+
+    REQUIRE(solver.get()->data.par == MUMPS_PAR_HOST_ALSO_WORKS);
+    REQUIRE(solver.get()->data.sym == MUMPS_SYMMETRY_NONE);
+    REQUIRE(solver.get()->data.ICNTL(1) == -1);
+    REQUIRE(solver.get()->data.ICNTL(2) == -1);
+    REQUIRE(solver.get()->data.ICNTL(3) == -1);
+    REQUIRE(solver.get()->data.ICNTL(4) == -1);
+    REQUIRE(solver.get()->analyzed == false);
+    REQUIRE(solver.get()->factorized == false);
+
+    SUBCASE("using analyse, factorize and solve")
+    {
+        solver->analyze(trip);
+        CHECK(solver.get()->analyzed == true);
         CHECK(solver.get()->factorized == false);
-    }
 
-    SUBCASE("analize_and_factorize")
-    {
-        auto solver = SolverMumps::make_new(mpi, MUMPS_SYMMETRY_NONE);
-        auto options = MumpsOptions::make_new();
-
-        solver->analyze_and_factorize(trip, options);
-        CHECK(options.ordering == MUMPS_ORDERING_AUTO);
-        CHECK(options.scaling == MUMPS_SCALING_AUTO);
-        CHECK(options.pct_inc_workspace == 100);
-        CHECK(options.max_work_memory == 0);
+        solver->factorize();
+        CHECK(solver.get()->analyzed == true);
         CHECK(solver.get()->factorized == true);
-        CHECK(solver.get()->data.INFOG(7) == MUMPS_ORDERING_AMF);
+
+        solver->solve(x, rhs);
+        CHECK(equal_vectors_tol(x, x_correct, 1e-14) == true);
     }
 
-    SUBCASE("solve system")
+    SUBCASE("using analyse_and_factorize and solve")
     {
-        auto solver = SolverMumps::make_new(mpi, MUMPS_SYMMETRY_NONE);
-
         solver->analyze_and_factorize(trip);
+        CHECK(solver.get()->analyzed == true);
         CHECK(solver.get()->factorized == true);
-
-        auto rhs = vector<double>{8.0, 45.0, -3.0, 3.0, 19.0};
-        auto x = vector<double>{0, 0, 0, 0, 0};
-        auto x_correct = vector<double>{1, 2, 3, 4, 5};
 
         solver->solve(x, rhs);
         CHECK(equal_vectors_tol(x, x_correct, 1e-14) == true);
