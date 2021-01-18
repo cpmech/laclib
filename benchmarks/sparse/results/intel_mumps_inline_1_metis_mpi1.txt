@@ -16,7 +16,7 @@ Type of parallelism: Working host
 
  Average density of rows/columns =   72
  Ordering based on METIS
- ELAPSED TIME SPENT IN METIS reordering  =      2.9328
+ ELAPSED TIME SPENT IN METIS reordering  =      2.8695
 
 Leaving analysis phase with  ...
  INFOG(1)                                       =               0
@@ -30,17 +30,17 @@ Leaving analysis phase with  ...
  --  (7) Ordering option effectively used       =               5
  ICNTL(6) Maximum transversal option            =               0
  ICNTL(7) Pivot order option                    =               5
- ICNTL(14) Percentage of memory relaxation      =             100
+ ICNTL(14) Percentage of memory relaxation      =             120
  Number of level 2 nodes                        =               0
  Number of split nodes                          =               0
  RINFOG(1) Operations during elimination (estim)= 1.412D+11
 
  MEMORY ESTIMATIONS ... 
  Estimations with standard Full-Rank (FR) factorization:
-    Total space in MBytes, IC factorization      (INFOG(17)):        3715
-    Total space in MBytes,  OOC factorization    (INFOG(27)):         522
+    Total space in MBytes, IC factorization      (INFOG(17)):        4064
+    Total space in MBytes,  OOC factorization    (INFOG(27)):         553
 
- Elapsed time in analysis driver=       3.5756
+ Elapsed time in analysis driver=       3.5236
 
 Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   2      503712       18660027
       executing #MPI =      1, without OMP
@@ -53,7 +53,7 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   2      503712       
  Number of working processes                =               1
  ICNTL(22) Out-of-core option               =               0
  ICNTL(35) BLR activation (eff. choice)     =               0
- ICNTL(14) Memory relaxation                =             100
+ ICNTL(14) Memory relaxation                =             120
  INFOG(3) Real space for factors (estimated)=       210188088
  INFOG(4) Integer space for factors (estim.)=         5310365
  Maximum frontal size (estimated)           =            3114
@@ -62,14 +62,14 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   2      503712       
  Memory provided by user, sum of LWK_USER   =               0
  Relative threshold for pivoting, CNTL(1)   =      0.1000D-01
  Max difference from 1 after scaling the entries for ONE-NORM (option 7/8)   = 0.24D+00
- Effective size of S     (based on INFO(39))=           2069003225
+ Effective size of S     (based on INFO(39))=           2089776495
 
- Elapsed time to reformat/distribute matrix =      0.2914
+ Elapsed time to reformat/distribute matrix =      0.3117
 
- ** Memory allocated, total in Mbytes           (INFOG(19)):       16857
- ** Memory effectively used, total in Mbytes    (INFOG(22)):        2010
+ ** Memory allocated, total in Mbytes           (INFOG(19)):       17032
+ ** Memory effectively used, total in Mbytes    (INFOG(22)):        2019
 
- Elapsed time for factorization             =      5.3054
+ Elapsed time for factorization             =      5.2330
 
 Leaving factorization with ...
  RINFOG(2)  Operations in node assembly     = 2.863D+08
@@ -85,7 +85,7 @@ Leaving factorization with ...
  Number of 2x2 pivots in type 2 nodes       =               0
  INFOG(14)  Number of memory compress       =               0
 
- Elapsed time in factorization driver=       5.7687
+ Elapsed time in factorization driver=       5.7176
 
 Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   3      503712       18660027
       executing #MPI =      1, without OMP
@@ -104,14 +104,14 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   3      503712       
   --- (21)                                     =           0
   --- (30)                                     =           0
   --- (35)                                     =           0
- ** Space in MBYTES used for solve                        :     16749
+ ** Space in MBYTES used for solve                        :     16928
  
  Leaving solve with ...
- Time to build/scatter RHS        =       0.002700
- Time in solution step (fwd/bwd)  =       0.209253
-  .. Time in forward (fwd) step   =          0.088253
-  .. Time in backward (bwd) step  =          0.120992
- Time to gather solution(cent.sol)=       0.000980
+ Time to build/scatter RHS        =       0.002972
+ Time in solution step (fwd/bwd)  =       0.199589
+  .. Time in forward (fwd) step   =          0.086613
+  .. Time in backward (bwd) step  =          0.112969
+ Time to gather solution(cent.sol)=       0.000998
  Time to copy/scale dist. solution=       0.000000
 
- Elapsed time in solve driver=       0.2152
+ Elapsed time in solve driver=       0.2062

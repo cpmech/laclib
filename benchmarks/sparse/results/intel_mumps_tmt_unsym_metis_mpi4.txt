@@ -30,19 +30,19 @@ Leaving analysis phase with  ...
  --  (7) Ordering option effectively used       =               2
  ICNTL(6) Maximum transversal option            =               0
  ICNTL(7) Pivot order option                    =               5
- ICNTL(14) Percentage of memory relaxation      =             100
+ ICNTL(14) Percentage of memory relaxation      =             120
  Number of level 2 nodes                        =               4
  Number of split nodes                          =               0
  RINFOG(1) Operations during elimination (estim)= 2.248D+10
 
  MEMORY ESTIMATIONS ... 
  Estimations with standard Full-Rank (FR) factorization:
-    Maximum estim. space in Mbytes, IC facto.    (INFOG(16)):         431
-    Total space in MBytes, IC factorization      (INFOG(17)):        1714
-    Maximum estim. space in Mbytes, OOC facto.   (INFOG(26)):         258
-    Total space in MBytes,  OOC factorization    (INFOG(27)):        1016
+    Maximum estim. space in Mbytes, IC facto.    (INFOG(16)):         468
+    Total space in MBytes, IC factorization      (INFOG(17)):        1861
+    Maximum estim. space in Mbytes, OOC facto.   (INFOG(26)):         275
+    Total space in MBytes,  OOC factorization    (INFOG(27)):        1085
 
- Elapsed time in analysis driver=       2.1210
+ Elapsed time in analysis driver=       2.1213
 
 Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   2      917825        4584801
       executing #MPI =      4, without OMP
@@ -55,7 +55,7 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   2      917825       
  Number of working processes                =               4
  ICNTL(22) Out-of-core option               =               0
  ICNTL(35) BLR activation (eff. choice)     =               0
- ICNTL(14) Memory relaxation                =             100
+ ICNTL(14) Memory relaxation                =             120
  INFOG(3) Real space for factors (estimated)=        61410621
  INFOG(4) Integer space for factors (estim.)=        20102612
  Maximum frontal size (estimated)           =            1595
@@ -64,16 +64,16 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   2      917825       
  Memory provided by user, sum of LWK_USER   =               0
  Relative threshold for pivoting, CNTL(1)   =      0.1000D-01
  Max difference from 1 after scaling the entries for ONE-NORM (option 7/8)   = 0.89D-01
- Average Effective size of S     (based on INFO(39))=            475142396
+ Average Effective size of S     (based on INFO(39))=            476174198
 
- Elapsed time to reformat/distribute matrix =      0.0777
- ** Memory allocated, max in Mbytes             (INFOG(18)):        3966
+ Elapsed time to reformat/distribute matrix =      0.0786
+ ** Memory allocated, max in Mbytes             (INFOG(18)):        3984
 
- ** Memory allocated, total in Mbytes           (INFOG(19)):       15858
- ** Memory effectively used, max in  Mbytes     (INFOG(21)):         303
- ** Memory effectively used, total in Mbytes    (INFOG(22)):        1188
+ ** Memory allocated, total in Mbytes           (INFOG(19)):       15932
+ ** Memory effectively used, max in  Mbytes     (INFOG(21)):         315
+ ** Memory effectively used, total in Mbytes    (INFOG(22)):        1228
 
- Elapsed time for factorization             =      1.2033
+ Elapsed time for factorization             =      1.1944
 
 Leaving factorization with ...
  RINFOG(2)  Operations in node assembly     = 1.088D+08
@@ -87,7 +87,7 @@ Leaving factorization with ...
  INFOG(13)  Number of delayed pivots        =               0
  INFOG(14)  Number of memory compress       =               0
 
- Elapsed time in factorization driver=       1.3500
+ Elapsed time in factorization driver=       1.3407
 
 Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   3      917825        4584801
       executing #MPI =      4, without OMP
@@ -107,16 +107,16 @@ Entering DMUMPS 5.3.5 from C interface with JOB, N, NNZ =   3      917825       
   --- (30)                                     =           0
   --- (35)                                     =           0
  ** Rank of processor needing largest memory in solve     :         0
- ** Space in MBYTES used by this processor for solve      :      3976
- ** Avg. Space in MBYTES per working proc during solve    :      3962
+ ** Space in MBYTES used by this processor for solve      :      3996
+ ** Avg. Space in MBYTES per working proc during solve    :      3982
  
  Leaving solve with ...
- Time to build/scatter RHS        =       0.012352
- Time in solution step (fwd/bwd)  =       0.801728
-  .. Time in forward (fwd) step   =          0.286537
-  .. Time in ScaLAPACK root       =          0.001179
-  .. Time in backward (bwd) step  =          0.514006
- Time to gather solution(cent.sol)=       0.026829
+ Time to build/scatter RHS        =       0.012370
+ Time in solution step (fwd/bwd)  =       0.795263
+  .. Time in forward (fwd) step   =          0.300360
+  .. Time in ScaLAPACK root       =          0.001187
+  .. Time in backward (bwd) step  =          0.493709
+ Time to gather solution(cent.sol)=       0.026900
  Time to copy/scale dist. solution=       0.000000
 
- Elapsed time in solve driver=       0.8558
+ Elapsed time in solve driver=       0.8484
