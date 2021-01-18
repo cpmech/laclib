@@ -38,10 +38,10 @@ We consider two sets of tools:
 We can build the Docker image by running:
 
 ```bash
-./build-docker-image-open.bash
-# or
-./build-docker-image-intel.bash
+./build-docker-image.bash {ON,[OFF]}
 ```
+
+where {ON,OFF} indicates whether to use the Intel Tools or not.
 
 ## Ubuntu/Linux 20.10
 
@@ -59,6 +59,14 @@ After installing MUMPS according to [script-install-mumps](https://github.com/cp
 sudo apt-get install liblapacke-dev
 ```
 
+### Installation: optmized code for your application
+
+To compile and copy the header files to `/usr/local/include/laclib` and the library files to `/usr/local/lib`, execute:
+
+```bash
+./install.bash
+```
+
 ### Compilation; e.g. for debugging laclib
 
 Execute:
@@ -74,14 +82,6 @@ where the first three arguments are:
 3. OPTIMIZED: make optimized code (not for debugging)
 
 We could call _cmake_ directly as long as we'd set the CC and CXX environmental flags first; see the file `zscripts/do_cmake.bash`.
-
-### Installation: optmized code for your application
-
-The header file `laclib.h` will be installed in `/usr/local/include` and the library file `laclib.so` will be installed in `/usr/local/lib`. To do so, execute:
-
-```bash
-./install-laclib
-```
 
 ## Code organization
 

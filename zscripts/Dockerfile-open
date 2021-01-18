@@ -11,8 +11,8 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 COPY . /tmp/app
 WORKDIR /tmp/app
 
-# compile laclib
-RUN bash all.bash OFF ON ON
+# install laclib
+RUN bash install.bash
 
 # configure image for remote development
 RUN bash zscripts/common-debian.sh

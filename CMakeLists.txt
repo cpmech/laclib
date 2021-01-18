@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 project(Project)
 
 set(MEMORYCHECK_COMMAND_OPTIONS "--leak-check=full --show-leak-kinds=definite,indirect,possible")
-set(MEMORYCHECK_SUPPRESSIONS_FILE "${PROJECT_SOURCE_DIR}/valgrind.supp" CACHE FILEPATH "" FORCE)
+set(MEMORYCHECK_SUPPRESSIONS_FILE "${PROJECT_SOURCE_DIR}/zscripts/valgrind.supp" CACHE FILEPATH "" FORCE)
 include(CTest)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -38,16 +38,16 @@ endif()
 # dependencies ###############################################################################
 
 if(A1_USE_INTEL)
-    include(FindMKL.cmake)
+    include(zscripts/FindMKL.cmake)
     include_directories(${MKL_IDIRS})
     set(LA_LIBS ${MKL_LIBS})
 else()
-    include(FindOBLAS.cmake)
+    include(zscripts/FindOBLAS.cmake)
     include_directories(${OBLAS_IDIRS})
     set(LA_LIBS ${OBLAS_LIBS})
 endif()
 
-include(FindMUMPS.cmake)
+include(zscripts/FindMUMPS.cmake)
 include_directories(${MUMPS_IDIRS})
 
 # library ####################################################################################

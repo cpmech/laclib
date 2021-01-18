@@ -6,7 +6,7 @@ NP=${1:-"1"}
 PROG=${2:-"./z_test_solver_mumps_np1"}
 
 SUPP1=/opt/intel/oneapi/itac/latest/lib/impi.supp
-SUPP2=${ME}/../valgrind.supp
+SUPP2=${ME}/valgrind.supp
 
 LOG=/tmp/laclib.mpirun.vg
 
