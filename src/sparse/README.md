@@ -48,7 +48,8 @@ MUMPS solves the problem by doing three steps: analysis, factorization, and back
 auto onebased = true;
 auto trip = read_matrix_market("my-matrix.mtx", onebased);
 auto mpi = MpiAux::make_new();
-auto solver = SolverMumps::make_new(mpi, trip->symmetric);
+auto options = MumpsOptions::make_new(trip->symmetric);
+auto solver = SolverMumps::make_new(mpi, options);
 auto rhs = vector<double>(trip->n, 1.0);
 auto x = vector<double>(trip->n, 0.0);
 solver->analyze_and_factorize(trip);

@@ -1,4 +1,4 @@
-# laclib - Linear Algebra (simple) C++17 Library
+# Linear Algebra (simple) C++17 Library
 
 This project implements some structures and functions to assist in developing code for linear algebra computations. We wrap some BLAS routines and solvers for sparse linear systems.
 
@@ -22,9 +22,7 @@ solver->analyze_and_factorize(trip);
 solver->solve(x, rhs);
 ```
 
-See [ex_solver_mumps.cpp](https://github.com/cpmech/laclib/blob/main/examples/ex_solver_mumps.cpp) for the complete code.
-
-See the [examples](https://github.com/cpmech/laclib/tree/main/examples) directory for more examples.
+See [ex_solver_mumps.cpp](https://github.com/cpmech/laclib/blob/main/examples/ex_solver_mumps.cpp) for a complete code.
 
 ## Use laclib in your project
 
@@ -39,7 +37,7 @@ We consider two sets of tools:
 1. `_open`: GCC GFortran + OpenBLAS + OpenMPI; and
 2. `_intel`: Intel compilers + Intel MKL + Intel MPI
 
-We can build the Docker image by running:
+After installing the MUMPS docker image according to [script-install-mumps](https://github.com/cpmech/script-install-mumps), we can build the Laclib Docker image by running:
 
 ```bash
 ./build-docker-image.bash {ON,[OFF]}
@@ -63,15 +61,15 @@ After installing MUMPS according to [script-install-mumps](https://github.com/cp
 sudo apt-get install liblapacke-dev
 ```
 
-### Installation: optmized code for your application
+### Installing an optimized code for your application
 
-To compile and copy the header files to `/usr/local/include/laclib` and the library files to `/usr/local/lib`, execute:
+To compile and install the header files in `/usr/local/include/laclib` and the library files in `/usr/local/lib`, execute:
 
 ```bash
 ./install.bash
 ```
 
-### Compilation; e.g. for debugging laclib
+### Developing and debugging Laclib
 
 Execute:
 
