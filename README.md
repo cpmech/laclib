@@ -21,7 +21,7 @@ Follow the procedures in https://github.com/cpmech/script-install-mumps
 After installing MUMPS according to [script-install-mumps](https://github.com/cpmech/script-install-mumps), install:
 
 ```bash
-sudo apt-get install cmake liblapacke-dev
+sudo apt-get install liblapacke-dev
 ```
 
 #### Compilation
