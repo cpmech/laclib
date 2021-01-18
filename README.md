@@ -53,9 +53,9 @@ where {ON,OFF} indicates whether to use the Intel Tools or not.
 
 Follow the procedures in https://github.com/cpmech/script-install-mumps
 
-### Additional dependencies
+### Additional dependencies (open toolset)
 
-After installing MUMPS according to [script-install-mumps](https://github.com/cpmech/script-install-mumps), install:
+If using the `open` toolset, after installing MUMPS according to [script-install-mumps](https://github.com/cpmech/script-install-mumps), install:
 
 ```bash
 sudo apt-get install liblapacke-dev
