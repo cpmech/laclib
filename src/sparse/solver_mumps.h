@@ -21,7 +21,7 @@ struct SolverMumps
                                                         const std::unique_ptr<MumpsOptions> &options)
     {
         DMUMPS_STRUC_C data;
-        data.comm_fortran = (MUMPS_INT)MPI_Comm_c2f(mpi->comm);
+        data.comm_fortran = make_mumps_int(mpi->get_fortran_comm());
         data.par = MUMPS_PAR_HOST_ALSO_WORKS;
         data.sym = options->symmetry;
 
