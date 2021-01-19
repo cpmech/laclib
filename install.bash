@@ -12,7 +12,7 @@ PREFIX="/usr/local"
 INCDIR=$PREFIX/include/laclib
 LIBDIR=$PREFIX/lib/laclib
 
-# lib suffix
+# platform suffix
 PLAT="_open"
 if [ "${INTEL}" = "ON" ]; then
     PLAT="_intel"
