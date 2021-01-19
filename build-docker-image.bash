@@ -19,6 +19,12 @@ else
     NAME="${NAME}_seq"
 fi
 
+# message
+echo
+echo
+echo "... the base image is = ${BASE} ..."
+echo
+
 # build Docker image
 docker build --no-cache -t $NAME . \
     --build-arg BASE_IMAGE=$BASE \
