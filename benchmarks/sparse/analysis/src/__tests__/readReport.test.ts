@@ -10,7 +10,7 @@ describe('readReport', () => {
     expect(() => {
       readReport('mumps_nada_metis_mpi1');
     }).toThrowError(
-      "ENOENT: no such file or directory, open '../results/mumps_nada_metis_mpi1.json'",
+      "ENOENT: no such file or directory, open '../results/open/mumps_nada_metis_mpi1.json'",
     );
   });
 });

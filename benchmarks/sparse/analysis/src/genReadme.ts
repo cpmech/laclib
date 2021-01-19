@@ -1,5 +1,5 @@
 import { formatLongNumber } from '@cpmech/util';
-import { genFnkey } from './genFnkey';
+import { genFnkeysXor } from './genFnkey';
 import { genTable } from './genTable';
 import { readReport } from './readReport';
 
@@ -18,8 +18,6 @@ const mat2group = {
 const fmtNum = (n: number): string => formatLongNumber(n.toString());
 
 export const genReadme = (matrices: string[], intel = false): string => {
-  const nums: number[] = [1, 2, 3, 4];
-
   const strIntel = intel ? ' (Intel)' : '';
   let readme = `# Benchmarks using the code for sparse matrices${strIntel}
 
@@ -27,10 +25,10 @@ The code here tests the perfomance of the MUMPS Sparse Solver.
 `;
 
   matrices.forEach((mat) => {
-    const mpiFnkeys = nums.map((n) => genFnkey(mat, n, 0, intel));
-    const ompFnkeys = nums.map((n) => genFnkey(mat, 1, n, intel));
-    const mpiReports = mpiFnkeys.map((k) => readReport(k));
-    const ompReports = ompFnkeys.map((k) => readReport(k));
+    const mpiFnkeys = genFnkeysXor(mat, false, intel);
+    const ompFnkeys = genFnkeysXor(mat, true, intel);
+    const mpiReports = mpiFnkeys.map((fnk) => readReport(fnk, intel));
+    const ompReports = ompFnkeys.map((fnk) => readReport(fnk, intel));
     const mpiTable = genTable(mat, mpiReports);
     const ompTable = genTable(mat, ompReports, true);
     const r0 = mpiReports[0];
@@ -38,6 +36,8 @@ The code here tests the perfomance of the MUMPS Sparse Solver.
     const group = (mat2group as any)[mat];
     const [m0, m1, m2, m3] = mpiFnkeys;
     const [o0, o1, o2, o3] = ompFnkeys;
+    const addr = 'https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results';
+    const a = intel ? `${addr}/intel` : `${addr}/open`;
     const info = `
 ## ${mat} matrix
 
@@ -52,19 +52,13 @@ _MPI results with "${r0.Ordering}" ordering:_
 
 ${mpiTable}
 
-Log files: [MPI-np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${m0}.txt), 
-[MPI-np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${m1}.txt), 
-[MPI-np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${m2}.txt), 
-[MPI-np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${m3}.txt)
+Log files: [mpi1](${a}/${m0}.txt), [mpi2](${a}/${m1}.txt), [mpi3](${a}/${m2}.txt), [mpi4](${a}/${m3}.txt)
 
 _OpenMP results with "${r0.Ordering}" ordering:_
 
 ${ompTable}
 
-Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${o0}.txt), 
-[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${o1}.txt), 
-[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${o2}.txt), 
-[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/${o3}.txt)
+Log files: [omp1](${a}/${o0}.txt), [omp2](${a}/${o1}.txt), [omp3](${a}/${o2}.txt), [omp4](${a}/${o3}.txt)
 
 `;
 
