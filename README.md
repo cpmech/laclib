@@ -66,7 +66,7 @@ sudo apt-get install liblapacke-dev
 
 ### Installing an optimized code for your application
 
-To compile and install the header files in `/usr/local/include/laclib` and the library files in `/usr/local/lib`, execute:
+To compile and install the header files in `/usr/local/include/laclib` and the library files in `/usr/local/lib/laclib`, execute:
 
 ```bash
 ./install.bash [INTEL] [MPI] [OMP]
