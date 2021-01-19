@@ -1,10 +1,11 @@
 #!/bin/bash
 
-USE_INTEL=${1:-"OFF"}
-WITH_OMP=${2:-"ON"}
-OPTIMIZED=${3:-"OFF"}
-VERBOSE=${4:-"OFF"}
+INTEL=${1:-"OFF"}
+MPI=${2:-"OFF"}
+OMP=${3:-"OFF"}
+OPTIMIZED=${4:-"OFF"}
+VERBOSE=${5:-"OFF"}
 
-bash zscripts/do_cmake.bash ${USE_INTEL} ${WITH_OMP} ${OPTIMIZED} ${VERBOSE}
+bash zscripts/do_cmake.bash ${INTEL} ${MPI} ${OMP} ${OPTIMIZED} ${VERBOSE}
 cd build
 make && make test

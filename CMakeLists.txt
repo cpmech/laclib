@@ -9,35 +9,44 @@ set(CMAKE_CXX_STANDARD 17)
 
 # options ####################################################################################
 
-option(A1_USE_INTEL "use Intel MKL and MPI" OFF)
-option(A2_WITH_OMP "with OpenMP" ON)
-option(A3_OPTIMIZED "Make optimized (-O3)" OFF)
-option(A4_VERBOSE "Show additional messages during compilation/link?" OFF)
+option(A1_INTEL "Use the Intel tools" OFF)
+option(A2_MPI "Use {Intel,Open}MPI" OFF)
+option(A3_OMP "Allow use of OpenMP when posible" ON)
+option(A4_OPTIMIZED "Make optimized (-O3)" OFF)
+option(A5_VERBOSE "Show additional messages during compilation/link?" OFF)
 
 set(PLAT "_open")
 
-if(A1_USE_INTEL)
-    add_definitions(-DUSE_INTEL -diag-disable=2196) # disable warning due to doctest.h functions: warning #2196: routine is both "inline" and "noinline"
+if(A1_INTEL)
     set(PLAT "_intel")
+    add_definitions(-DUSE_INTEL)
+    add_definitions(-diag-disable=2196) # disable warning due to doctest.h functions: warning #2196: routine is both "inline" and "noinline"
 endif()
 
-if(A2_WITH_OMP)
+if(A2_MPI)
+    add_definitions(-DHAS_MPI)
+    set(PLAT "${PLAT}_mpi")
+else()
+    set(PLAT "${PLAT}_seq")
+endif()
+
+if(A3_OMP)
     set(PLAT "${PLAT}_omp")
 endif()
 
-if(A3_OPTIMIZED)
+if(A4_OPTIMIZED)
     add_definitions(-O3)
 else()
     add_definitions(-g -Wall)
 endif()
 
-if(A4_VERBOSE)
+if(A5_VERBOSE)
     set(CMAKE_VERBOSE_MAKEFILE TRUE)
 endif()
 
 # dependencies ###############################################################################
 
-if(A1_USE_INTEL)
+if(A1_INTEL)
     include(zscripts/FindMKL.cmake)
     include_directories(${MKL_IDIRS})
     set(LA_LIBS ${MKL_LIBS})
