@@ -40,10 +40,13 @@ We consider two sets of tools:
 After installing the MUMPS docker image according to [script-install-mumps](https://github.com/cpmech/script-install-mumps), we can build the Laclib Docker image by running:
 
 ```bash
-./build-docker-image.bash {ON,[OFF]}
+./build-docker-image.bash [INTEL] [MPI]
 ```
 
-where {ON,OFF} indicates whether to use the Intel Tools or not.
+where (the default options are all "OFF"):
+
+1. INTEL -- "ON" or "OFF" => use the Intel tools
+2. MPI -- "ON" or "OFF" => use {Intel,Open}MPI
 
 ## Ubuntu/Linux 20.10
 
@@ -66,22 +69,22 @@ sudo apt-get install liblapacke-dev
 To compile and install the header files in `/usr/local/include/laclib` and the library files in `/usr/local/lib`, execute:
 
 ```bash
-./install.bash
+./install.bash [INTEL] [MPI] [OMP]
 ```
+
+where (the default options are all "OFF"):
+
+1. INTEL -- "ON" or "OFF" => use the Intel tools
+2. MPI -- "ON" or "OFF" => use {Intel,Open}MPI
+3. OMP -- "ON" or "OFF" => allow use of OpenMP when posible
 
 ### Developing and debugging Laclib
 
 Execute:
 
 ```bash
-./all.bash {ON,[OFF]} {[ON],OFF} {ON,[OFF]}
+./all.bash [INTEL] [MPI] [OMP]
 ```
-
-where the first three arguments are:
-
-1. USE_INTEL: use the Intel Tools
-2. WITH_OMP: link with the OpenMP enabled libraries
-3. OPTIMIZED: make optimized code (not for debugging)
 
 We could call _cmake_ directly as long as we'd set the CC and CXX environmental flags first; see the file `zscripts/do_cmake.bash`.
 
