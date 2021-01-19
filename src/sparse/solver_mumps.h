@@ -1,6 +1,5 @@
 #pragma once
 #include <memory>
-#include "mpi.h"
 #include "dmumps_c.h"
 #include "sparse_triplet.h"
 #include "solver_mumps_constants.h"
