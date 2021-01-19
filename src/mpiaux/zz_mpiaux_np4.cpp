@@ -1,6 +1,5 @@
 #include "../util/doctest_mpi.h"
 #include "../check/check.h"
-#include "mpi.h"
 #include "mpiaux.h"
 #include <vector>
 #include <iostream>

@@ -1,12 +1,19 @@
 #pragma once
+#ifdef HAS_MPI
 #include "mpi.h"
+#endif
 #include <memory>
 #include <vector>
 
 struct MpiAux
 {
+#ifdef HAS_MPI
     MPI_Comm comm;
     MPI_Group group;
+#else
+    int comm;
+    int group;
+#endif
 
     // make_new creates a new subcommunicator based on the given world ranks
     // or simply returns the World Communicator and its group.
@@ -15,6 +22,7 @@ struct MpiAux
     //            if ranks.size == 0, will use the World Communicator
     inline static std::unique_ptr<MpiAux> make_new(const std::vector<int> &ranks)
     {
+#ifdef HAS_MPI
         // reference:
         // https://mpitutorial.com/tutorials/introduction-to-groups-and-communicators/
 
@@ -45,6 +53,12 @@ struct MpiAux
             comm,
             group,
         }};
+#else
+        return std::unique_ptr<MpiAux>{new MpiAux{
+            0,
+            0,
+        }};
+#endif
     };
 
     // alternative constructor (use WORLD COMMUNICATOR)
@@ -56,22 +70,29 @@ struct MpiAux
     // clean-up
     ~MpiAux()
     {
+#ifdef HAS_MPI
         if (this->comm != MPI_COMM_NULL && this->comm != MPI_COMM_WORLD)
         {
             MPI_Group_free(&this->group);
             MPI_Comm_free(&this->comm);
         }
+#endif
     }
 
     // belong returns whether this processor belongs to group or not
     inline bool belong()
     {
+#ifdef HAS_MPI
         return this->comm != MPI_COMM_NULL;
+#else
+        return true;
+#endif
     }
 
     // returns the rank of this processor or -1 if it's outside the group
     inline int rank()
     {
+#ifdef HAS_MPI
         if (this->comm == MPI_COMM_NULL)
         {
             return -1;
@@ -80,11 +101,15 @@ struct MpiAux
         int rank;
         MPI_Comm_rank(this->comm, &rank);
         return static_cast<size_t>(rank);
+#else
+        return 0;
+#endif
     }
 
     // returns the size of this group or -1 if it's outside the group
     inline int size()
     {
+#ifdef HAS_MPI
         if (this->comm == MPI_COMM_NULL)
         {
             return -1;
@@ -93,6 +118,19 @@ struct MpiAux
         int size;
         MPI_Comm_size(this->comm, &size);
         return static_cast<size_t>(size);
+#else
+        return 1;
+#endif
+    }
+
+    // returns the Fortran communicator
+    inline int get_fortran_comm()
+    {
+#ifdef HAS_MPI
+        return MPI_Comm_c2f(this->comm);
+#else
+        return this->comm;
+#endif
     }
 
     // reduce_sum combines orig from all processors into the processor with rank == 0
@@ -100,13 +138,19 @@ struct MpiAux
     // NOTE: the smallest size between dest and orig is considered
     inline void reduce_sum(std::vector<double> &dest, const std::vector<double> &orig)
     {
+#ifdef HAS_MPI
         size_t n = dest.size() < orig.size() ? dest.size() : orig.size();
         MPI_Reduce(orig.data(), dest.data(), n, MPI_DOUBLE, MPI_SUM, 0, this->comm);
+#else
+        dest = orig;
+#endif
     }
 
     // broadcast_from_root broadcasts vector from root (Rank == 0) to all other processors
     inline void broadcast_from_root(std::vector<double> &x)
     {
+#ifdef HAS_MPI
         MPI_Bcast(x.data(), x.size(), MPI_DOUBLE, 0, this->comm);
+#endif
     }
 };

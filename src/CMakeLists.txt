@@ -1,7 +1,5 @@
 add_subdirectory(blas)
 add_subdirectory(check)
-if(A2_MPI)
-    add_subdirectory(mpiaux)
-endif()
+add_subdirectory(mpiaux)
 add_subdirectory(sparse)
 add_subdirectory(util)
