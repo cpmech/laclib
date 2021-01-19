@@ -8,12 +8,22 @@ OMP=${3:-"OFF"}
 OPTIMIZED=${4:-"OFF"}
 VERBOSE=${5:-"OFF"}
 
-CC=/usr/bin/mpicc
-CXX=/usr/bin/mpicxx
-
 if [ "${INTEL}" = "ON" ]; then
-    CC=/opt/intel/oneapi/mpi/latest/bin/mpiicc
-    CXX=/opt/intel/oneapi/mpi/latest/bin/mpiicpc
+    if [ "${MPI}" = "ON" ]; then
+        CC=/opt/intel/oneapi/mpi/latest/bin/mpiicc
+        CXX=/opt/intel/oneapi/mpi/latest/bin/mpiicpc
+    else
+        CC=/opt/intel/oneapi/compiler/latest/linux/bin/intel64/icc
+        CXX=/opt/intel/oneapi/compiler/latest/linux/bin/intel64/icpc
+    fi
+else
+    if [ "${MPI}" = "ON" ]; then
+        CC=/usr/bin/mpicc
+        CXX=/usr/bin/mpicxx
+    else
+        CC=/usr/bin/gcc
+        CXX=/usr/bin/g++
+    fi
 fi
 
 BUILD_TYPE="Debug"

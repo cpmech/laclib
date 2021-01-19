@@ -92,8 +92,7 @@ struct Report
                            const std::string &matrix_name,
                            const std::unique_ptr<MumpsOptions> &options,
                            const std::unique_ptr<SparseTriplet> &trip,
-                           const std::unique_ptr<Stats> &stats,
-                           bool ignore_omp)
+                           const std::unique_ptr<Stats> &stats)
     {
         auto mpi_rank = this->mpi->rank();
         auto mpi_size = this->mpi->size();
@@ -106,28 +105,24 @@ struct Report
         auto ordering = mumps_ordering_to_string(options->ordering);
 
 #ifdef USE_INTEL
-        std::string pfx = "intel_";
+        std::string plat = "_intel";
 #else
-        std::string pfx = "";
+        std::string plat = "_open";
+#endif
+#ifdef HAS_MPI
+        plat += "_mpi" + std::to_string(mpi_size);
+#else
+        plat += "_seq";
+#endif
+#ifdef HAS_OMP
+        plat += "_omp" + std::to_string(options->omp_num_threads);
 #endif
 
-        std::string sfx = "";
-        auto omp_num_threads = options->omp_num_threads;
-        if (ignore_omp)
-        {
-            omp_num_threads = 0;
-            sfx = "_mpi" + std::to_string(mpi_size);
-        }
-        else
-        {
-            sfx = "_omp" + std::to_string(options->omp_num_threads);
-        }
-
         std::stringstream fnkey;
-        fnkey << pfx << solver_kind
+        fnkey << solver_kind
               << "_" << matrix_name
               << "_" << ordering
-              << sfx;
+              << plat;
 
         std::string filename = path + fnkey.str() + ".json";
 
@@ -140,7 +135,7 @@ struct Report
         ofs << "  \"MatrixName\": \"" << matrix_name << "\",\n";
         ofs << "  \"Ordering\": \"" << ordering << "\",\n";
         ofs << "  \"MpiSize\": " << mpi_size << ",\n";
-        ofs << "  \"OmpNumThreads\": " << omp_num_threads << ",\n";
+        ofs << "  \"OmpNumThreads\": " << options->omp_num_threads << ",\n";
         ofs << "  \"Symmetric\": " << str_symmetric << ",\n";
         ofs << "  \"NumberOfRows\": " << trip->m << ",\n";
         ofs << "  \"NumberOfCols\": " << trip->n << ",\n";

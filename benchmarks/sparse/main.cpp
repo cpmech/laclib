@@ -14,7 +14,7 @@ void run(int argc, char **argv)
     // get arguments from command line
     vector<string> defaults{
         "bfwb62", // default matrix_name
-        "0",      // default omp_num_threads: 0 means ignore OMP
+        "1",      // default omp_num_threads
         "metis",  // default ordering
     };
     auto args = extract_arguments_or_use_defaults(argc, argv, defaults);
@@ -29,14 +29,12 @@ void run(int argc, char **argv)
     auto trip = read_matrix_market(filename, onebased);
     report->measure_step(STEP_READ_MATRIX);
 
-    // number of threads
-    auto ignore_omp = omp_num_threads == 0;
-    auto num_threads = ignore_omp ? 1 : omp_num_threads;
-    set_num_threads(num_threads);
+    // set number of threads
+    set_num_threads(omp_num_threads);
 
     // set options
     auto options = MumpsOptions::make_new(trip->symmetric);
-    options->omp_num_threads = num_threads;
+    options->omp_num_threads = omp_num_threads;
     options->ordering = ordering;
     options->max_work_memory = 30000 / mpi_size;
 
@@ -68,17 +66,21 @@ void run(int argc, char **argv)
 
     // write report
     auto stats = Stats::make_new(mpi, trip, x, rhs);
-    report->write_json("mumps", matrix_name, options, trip, stats, ignore_omp);
+    report->write_json("mumps", matrix_name, options, trip, stats);
 }
 
 int main(int argc, char **argv)
 {
+#ifdef HAS_MPI
     MPI_Init(&argc, &argv);
+#endif
     try
     {
         run(argc, argv);
     }
     CATCH_ALL
+#ifdef HAS_MPI
     MPI_Finalize();
+#endif
     return 0;
 }

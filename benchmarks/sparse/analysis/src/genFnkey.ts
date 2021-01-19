@@ -1,12 +1,20 @@
 export const genFnkey = (
-  matrixName: string,
-  mpiSize: number = 1,
-  ompNumThreads: number = 0,
+  matrix: string,
+  numPorT: number,
   intel: boolean = false,
-  solverKind: string = 'mumps',
+  mpi: boolean = false,
+  omp: boolean = false,
+  solver: string = 'mumps',
   ordering: string = 'metis',
 ): string => {
-  const pfx = intel ? 'intel_' : '';
-  const sfx = ompNumThreads > 0 ? `_omp${ompNumThreads}` : `_mpi${mpiSize}`;
-  return `${pfx}${solverKind}_${matrixName}_${ordering}${sfx}`;
+  let plat = intel ? '_intel' : '_open';
+  if (mpi) {
+    plat += `_mpi${numPorT}`;
+  } else {
+    plat += `_seq`;
+  }
+  if (omp) {
+    plat += `_omp${numPorT}`;
+  }
+  return `${solver}_${matrix}_${ordering}${plat}`;
 };

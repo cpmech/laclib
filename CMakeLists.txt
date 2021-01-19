@@ -31,6 +31,7 @@ else()
 endif()
 
 if(A3_OMP)
+    add_definitions(-DHAS_OMP)
     set(PLAT "${PLAT}_omp")
 endif()
 

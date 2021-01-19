@@ -2,26 +2,31 @@
 
 set -e
 
-USE_INTEL=${1:-"OFF"}
-WITH_OMP=${2:-"OFF"}
-ORDERING=${3:-"metis"}
-SOLVER_KIND=${4:-"mumps"}
+INTEL=${1:-"OFF"}
+MPI=${2:-"OFF"}
+OMP=${3:-"OFF"}
+ORDERING=${4:-"metis"}
+SOLVER=${5:-"mumps"}
 
 fnkey() {
     local matrix=$1
     local np_or_nt=$2
-    local pfx=""
-    local sfx=""
-    if [ "${USE_INTEL}" = "ON" ]; then
-        pfx="intel_"
+    PLAT="_open"
+    if [ "${INTEL}" = "ON" ]; then
+        PLAT="_intel"
     fi
-    if [ "${WITH_OMP}" = "ON" ]; then
-        sfx="_omp${np_or_nt}"
+    if [ "${MPI}" = "ON" ]; then
+        PLAT="${PLAT}_mpi${np_or_nt}"
     else
-        sfx="_mpi${np_or_nt}"
+        PLAT="${PLAT}_seq"
     fi
-    echo "${pfx}${SOLVER_KIND}_${matrix}_${ORDERING}${sfx}"
+    if [ "${OMP}" = "ON" ]; then
+        PLAT="${PLAT}_omp${np_or_nt}"
+    fi
+    echo "${SOLVER}_${matrix}_${ORDERING}${PLAT}"
 }
+
+RESDIR=`pwd`/benchmarks/sparse/results
 
 MATS="
     bfwb62 \
@@ -43,27 +48,25 @@ MATS="
 #     twotone \
 # "
 
-#MATS="bfwb62"
-# MATS="inline_1"
+MATS="bfwb62"
 
-IGNORE_OMP=0
-RESDIR=`pwd`/benchmarks/sparse/results
-
-bash ./all-bench.bash $USE_INTEL $WITH_OMP
+bash ./all-bench.bash $INTEL $MPI $OMP
 cd build/benchmarks/sparse
 
+NN="1"
+if [ "${MPI}" = "ON" ] || [ "${OMP}" = "ON" ]; then
+    NN="1 2 3 4"
+fi
+
 for mat in $MATS; do
-    for n in 1 2 3 4; do
-        if [ "${WITH_OMP}" = "ON" ]; then
-            fnk=$(fnkey $mat $n)
-            echo "... $fnk"
-            log="${RESDIR}/${fnk}.txt"
-            ./bmark_sparse $mat $n $ORDERING > $log
+    for n in $NN; do
+        fnk=$(fnkey $mat $n)
+        log="${RESDIR}/${fnk}.txt"
+        echo "... $fnk"
+        if [ "${MPI}" = "ON" ]; then
+            mpirun -np $n ./bmark_sparse $mat 1 $ORDERING > $log
         else
-            fnk=$(fnkey $mat $n)
-            echo "... $fnk"
-            log="${RESDIR}/${fnk}.txt"
-            mpirun -np $n ./bmark_sparse $mat $IGNORE_OMP $ORDERING > $log
+            ./bmark_sparse $mat $n $ORDERING > $log
         fi
     done
 done
