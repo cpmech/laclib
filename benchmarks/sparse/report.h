@@ -110,12 +110,17 @@ struct Report
         std::string plat = "_open";
 #endif
 #ifdef HAS_MPI
+        int effective_mpi_size = mpi_size;
         plat += "_mpi" + std::to_string(mpi_size);
 #else
+        int effective_mpi_size = 0;
         plat += "_seq";
 #endif
 #ifdef HAS_OMP
+        int effective_omp_num_threads = options->omp_num_threads;
         plat += "_omp" + std::to_string(options->omp_num_threads);
+#else
+        int effective_omp_num_threads = 0;
 #endif
 
         std::stringstream fnkey;
@@ -134,8 +139,8 @@ struct Report
         ofs << "  \"SolverKind\": \"" << solver_kind << "\",\n";
         ofs << "  \"MatrixName\": \"" << matrix_name << "\",\n";
         ofs << "  \"Ordering\": \"" << ordering << "\",\n";
-        ofs << "  \"MpiSize\": " << mpi_size << ",\n";
-        ofs << "  \"OmpNumThreads\": " << options->omp_num_threads << ",\n";
+        ofs << "  \"MpiSize\": " << effective_mpi_size << ",\n";
+        ofs << "  \"OmpNumThreads\": " << effective_omp_num_threads << ",\n";
         ofs << "  \"Symmetric\": " << str_symmetric << ",\n";
         ofs << "  \"NumberOfRows\": " << trip->m << ",\n";
         ofs << "  \"NumberOfCols\": " << trip->n << ",\n";
