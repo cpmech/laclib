@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`readReport reads bfwb62 1`] = `
+Object {
+  "MatrixName": "bfwb62",
+  "MpiSize": 1,
+  "NumberOfCols": 62,
+  "NumberOfNonZeros": 202,
+  "NumberOfRows": 62,
+  "OmpNumThreads": 1,
+  "Ordering": "metis",
+  "Platform": "laclib",
+  "SolverKind": "mumps",
+  "Stats": Object {
+    "ElapsedTimeNanoseconds": 3247,
+    "ElapsedTimeString": "3.247µs",
+    "NormInfA": 0.0001,
+    "NormInfAx": 1,
+    "NormInfDiff": 6.66133814775094e-16,
+    "RelativeError": 6.66067208054288e-16,
+  },
+  "StepAnalyze": Object {
+    "ElapsedTimeNanoseconds": 753182,
+    "ElapsedTimeString": "753.182µs",
+    "MemoryBytes": 539324416,
+    "MemoryMiB": "514",
+  },
+  "StepFactorize": Object {
+    "ElapsedTimeNanoseconds": 493579,
+    "ElapsedTimeString": "493.579µs",
+    "MemoryBytes": 15572549632,
+    "MemoryMiB": "14,851",
+  },
+  "StepReadMatrix": Object {
+    "ElapsedTimeNanoseconds": 193562,
+    "ElapsedTimeString": "193.562µs",
+    "MemoryBytes": 539058176,
+    "MemoryMiB": "514",
+  },
+  "StepSolve": Object {
+    "ElapsedTimeNanoseconds": 362407,
+    "ElapsedTimeString": "362.407µs",
+    "MemoryBytes": 15572549632,
+    "MemoryMiB": "14,851",
+  },
+  "Symmetric": true,
+  "TimeSolverNanoseconds": 1381404,
+  "TimeSolverString": "1.3814ms",
+}
+`;

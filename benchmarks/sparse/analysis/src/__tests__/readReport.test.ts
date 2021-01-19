@@ -1,8 +1,8 @@
-import { readReport } from './readReport';
+import { readReport } from '../readReport';
 
 describe('readReport', () => {
   it('reads bfwb62', () => {
-    const rpt = readReport('mumps_bfwb62_metis_mpi1');
+    const rpt = readReport('mumps_bfwb62_metis_open_seq');
     expect(rpt).toMatchSnapshot();
   });
 

@@ -1,4 +1,4 @@
-import { genFnkey } from './genFnkey';
+import { genFnkey } from '../genFnkey';
 
 describe('genFnkey', () => {
   it('generates the filename key with', () => {
