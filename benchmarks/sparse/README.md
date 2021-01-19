@@ -23,46 +23,43 @@ _MPI results with "metis" ordering:_
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.50411s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.80898s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.94805s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.01541s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.45024s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.81873s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.84917s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.98114s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.23634s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.79302s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.96317s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.63959s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.13648s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.79339s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.95808s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.63815s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">348.762ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">236.451ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">218.565ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">210.435ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">351.158ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">241.715ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">222.393ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">187.941ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.0869s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.83594s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.12736s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.86273s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.9356s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.85142s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.0272s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.80468s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.64e-15</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.78e-15</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.03e-15</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.70e-15</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.11e-15</td>
   </tr>
 </table>
 
 
-Log files: [MPI-np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_inline_1_metis_mpi1.txt), 
-[MPI-np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_inline_1_metis_mpi2.txt), 
-[MPI-np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_inline_1_metis_mpi3.txt), 
-[MPI-np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_inline_1_metis_mpi4.txt)
+Log files: [mpi1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_inline_1_metis_open_mpi1.txt), [mpi2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_inline_1_metis_open_mpi2.txt), [mpi3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_inline_1_metis_open_mpi3.txt), [mpi4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_inline_1_metis_open_mpi4.txt)
 
 _OpenMP results with "metis" ordering:_
 
@@ -76,31 +73,31 @@ _OpenMP results with "metis" ordering:_
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.61405s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.85841s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.43452s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.43831s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.43877s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.45666s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.44702s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.43961s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.55486s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.86072s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.00242s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.0964s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.36252s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.62749s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.97806s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.25562s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">383.468ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">394.706ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">367.79ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">364.97ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">382.338ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">366.95ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">363.001ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">366.241ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.5482s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.10859s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.79996s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.89611s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.1813s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.44883s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.78587s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.05917s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
@@ -112,10 +109,7 @@ _OpenMP results with "metis" ordering:_
 </table>
 
 
-Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_inline_1_metis_omp1.txt), 
-[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_inline_1_metis_omp2.txt), 
-[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_inline_1_metis_omp3.txt), 
-[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_inline_1_metis_omp4.txt)
+Log files: [omp1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_inline_1_metis_open_seq_omp1.txt), [omp2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_inline_1_metis_open_seq_omp2.txt), [omp3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_inline_1_metis_open_seq_omp3.txt), [omp4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_inline_1_metis_open_seq_omp4.txt)
 
 
 ## Flan_1565 matrix
@@ -139,46 +133,43 @@ _MPI results with "metis" ordering:_
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.5583s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">15.5719s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">15.3078s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">11.517s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.5068s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">14.9886s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">15.2054s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">11.4484s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m38.2518s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">54.617s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">41.8401s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">35.1384s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m37.76s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">54.4157s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">41.9622s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">35.3765s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.72394s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.64562s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.42002s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.32183s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.69291s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.60805s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.38408s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.27821s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m51.5276s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m11.3641s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">58.561s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">47.9243s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m50.9532s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m10.9827s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">58.5448s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">48.0881s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.71e-16</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.58e-16</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.92e-16</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.77e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.21e-16</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.65e-16</td>
   </tr>
 </table>
 
 
-Log files: [MPI-np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_Flan_1565_metis_mpi1.txt), 
-[MPI-np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_Flan_1565_metis_mpi2.txt), 
-[MPI-np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_Flan_1565_metis_mpi3.txt), 
-[MPI-np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_Flan_1565_metis_mpi4.txt)
+Log files: [mpi1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_mpi1.txt), [mpi2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_mpi2.txt), [mpi3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_mpi3.txt), [mpi4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_mpi4.txt)
 
 _OpenMP results with "metis" ordering:_
 
@@ -192,31 +183,31 @@ _OpenMP results with "metis" ordering:_
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.9636s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.6314s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.4571s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">11.0386s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.4714s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.7625s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.4362s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.7432s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m40.1307s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m0.394846s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">48.4354s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">48.4823s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m37.4251s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m0.324837s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">47.8449s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">49.1331s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.83084s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.24101s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.15s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.098s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.69422s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.20496s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.11424s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.07895s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m53.9136s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m13.2551s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m1.03167s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m1.60973s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m50.5844s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m13.2857s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m0.388855s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1m1.94887s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
@@ -228,10 +219,7 @@ _OpenMP results with "metis" ordering:_
 </table>
 
 
-Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_Flan_1565_metis_omp1.txt), 
-[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_Flan_1565_metis_omp2.txt), 
-[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_Flan_1565_metis_omp3.txt), 
-[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_Flan_1565_metis_omp4.txt)
+Log files: [omp1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_seq_omp1.txt), [omp2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_seq_omp2.txt), [omp3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_seq_omp3.txt), [omp4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_seq_omp4.txt)
 
 
 ## pre2 matrix
@@ -255,31 +243,31 @@ _MPI results with "metis" ordering:_
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.24402s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.73832s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.89681s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.23325s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.18899s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.71946s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.82549s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.20831s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.93051s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">22.941s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">22.4214s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2m16.8201s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.91764s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">22.9564s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">22.4854s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2m16.8747s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">303.732ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">393.28ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">357.295ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">429.595ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">311.597ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">397.929ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">364.367ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">428.075ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.4752s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">29.0695s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">28.6563s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2m21.4713s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.4153s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">29.0707s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">28.6719s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2m21.5046s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
@@ -291,10 +279,7 @@ _MPI results with "metis" ordering:_
 </table>
 
 
-Log files: [MPI-np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_pre2_metis_mpi1.txt), 
-[MPI-np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_pre2_metis_mpi2.txt), 
-[MPI-np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_pre2_metis_mpi3.txt), 
-[MPI-np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_pre2_metis_mpi4.txt)
+Log files: [mpi1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_mpi1.txt), [mpi2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_mpi2.txt), [mpi3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_mpi3.txt), [mpi4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_mpi4.txt)
 
 _OpenMP results with "metis" ordering:_
 
@@ -308,31 +293,31 @@ _OpenMP results with "metis" ordering:_
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.34182s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.43775s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.22442s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.26305s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.16108s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.16252s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.15114s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.17366s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.54496s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.77703s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.27801s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.03341s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.37544s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.64571s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.12367s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.95089s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">916.078ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">890.257ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">926.18ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">994.015ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">862.703ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">874.656ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">892.098ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">901.935ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">11.7968s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.1002s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.42241s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.28638s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">11.3963s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.67999s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.16406s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.02354s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
@@ -344,10 +329,7 @@ _OpenMP results with "metis" ordering:_
 </table>
 
 
-Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_pre2_metis_omp1.txt), 
-[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_pre2_metis_omp2.txt), 
-[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_pre2_metis_omp3.txt), 
-[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_pre2_metis_omp4.txt)
+Log files: [omp1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_seq_omp1.txt), [omp2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_seq_omp2.txt), [omp3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_seq_omp3.txt), [omp4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_seq_omp4.txt)
 
 
 ## tmt_unsym matrix
@@ -371,46 +353,43 @@ _MPI results with "metis" ordering:_
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.99342s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.05541s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.13472s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.01318s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.97998s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.05053s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.09479s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.01186s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.81139s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.04522s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">828.134ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">721.381ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.76627s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.032s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">830.282ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">720.785ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">439.191ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">317.758ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">284.659ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">301.085ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">425.746ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">313.424ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">285.904ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">299.337ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.23992s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.4142s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.21132s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.02941s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.16798s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.39151s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.20654s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.02747s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.21e-7</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.85e-7</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.09e-7</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.97e-7</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.79e-7</td>
   </tr>
 </table>
 
 
-Log files: [MPI-np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_tmt_unsym_metis_mpi1.txt), 
-[MPI-np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_tmt_unsym_metis_mpi2.txt), 
-[MPI-np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_tmt_unsym_metis_mpi3.txt), 
-[MPI-np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_tmt_unsym_metis_mpi4.txt)
+Log files: [mpi1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_tmt_unsym_metis_open_mpi1.txt), [mpi2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_tmt_unsym_metis_open_mpi2.txt), [mpi3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_tmt_unsym_metis_open_mpi3.txt), [mpi4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_tmt_unsym_metis_open_mpi4.txt)
 
 _OpenMP results with "metis" ordering:_
 
@@ -424,31 +403,31 @@ _OpenMP results with "metis" ordering:_
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.03723s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.20806s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.15419s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.12041s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.95934s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.04847s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.02533s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.01646s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.83993s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.53251s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.5475s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.69538s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.54191s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.37828s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.31647s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.38263s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.55834s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.60724s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.6618s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.63335s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.49853s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.53421s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.54051s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.54422s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.42812s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.33922s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.35492s</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.44057s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.99578s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.95623s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.87811s</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.93864s</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
@@ -460,10 +439,7 @@ _OpenMP results with "metis" ordering:_
 </table>
 
 
-Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_tmt_unsym_metis_omp1.txt), 
-[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_tmt_unsym_metis_omp2.txt), 
-[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_tmt_unsym_metis_omp3.txt), 
-[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_tmt_unsym_metis_omp4.txt)
+Log files: [omp1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_tmt_unsym_metis_open_seq_omp1.txt), [omp2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_tmt_unsym_metis_open_seq_omp2.txt), [omp3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_tmt_unsym_metis_open_seq_omp3.txt), [omp4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_tmt_unsym_metis_open_seq_omp4.txt)
 
 
 ## bfwb62 matrix
@@ -487,31 +463,31 @@ _MPI results with "metis" ordering:_
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.56817ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.05008ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.33282ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.5754ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.66629ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.2673ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.41377ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.06771ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.20087ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">554.366µs</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">466.698µs</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.0933ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.28033ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.6484ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">926.544µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.05918ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">694.643µs</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">286.828µs</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">299.505µs</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">699.386µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">723.914µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.09976ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">610.829µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">719.884µs</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.99277ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.02804ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.91178ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">7.36158ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.19027ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.1939ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.24688ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.87157ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
@@ -523,10 +499,7 @@ _MPI results with "metis" ordering:_
 </table>
 
 
-Log files: [MPI-np1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_bfwb62_metis_mpi1.txt), 
-[MPI-np2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_bfwb62_metis_mpi2.txt), 
-[MPI-np3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_bfwb62_metis_mpi3.txt), 
-[MPI-np4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_bfwb62_metis_mpi4.txt)
+Log files: [mpi1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_mpi1.txt), [mpi2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_mpi2.txt), [mpi3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_mpi3.txt), [mpi4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_mpi4.txt)
 
 _OpenMP results with "metis" ordering:_
 
@@ -540,31 +513,31 @@ _OpenMP results with "metis" ordering:_
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.04806ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.83837ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.54646ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">6.97648ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">463.178µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">709.094µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">732.382µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">726.987µs</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Factorize</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">842.681µs</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.20702ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">31.183ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">30.8929ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">376.599µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.76785ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">28.5722ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.00163ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Solve</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">581.083µs</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">531.281µs</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">803.611µs</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">722.691µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">392.563µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">537.068µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">522.288µs</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.53828ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Total</th>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">2.05777ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.0255ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">33.9119ms</td>
-    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">33.6688ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.08693ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">9.8105ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">29.6152ms</td>
+    <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">11.0598ms</td>
   </tr>
   <tr>
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Rel Error</th>
@@ -576,9 +549,6 @@ _OpenMP results with "metis" ordering:_
 </table>
 
 
-Log files: [OMP-nt1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_bfwb62_metis_omp1.txt), 
-[OMP-nt2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_bfwb62_metis_omp2.txt), 
-[OMP-nt3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_bfwb62_metis_omp3.txt), 
-[OMP-nt4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/mumps_bfwb62_metis_omp4.txt)
+Log files: [omp1](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_seq_omp1.txt), [omp2](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_seq_omp2.txt), [omp3](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_seq_omp3.txt), [omp4](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_seq_omp4.txt)
 
 
