@@ -6,7 +6,11 @@ INTEL=${1:-"OFF"}
 ORDERING=${2:-"metis"}
 SOLVER=${3:-"mumps"}
 
-RESDIR=`pwd`/benchmarks/sparse/results
+if [ "${INTEL}" = "ON" ]; then
+    RESDIR=`pwd`/benchmarks/sparse/results/intel
+else
+    RESDIR=`pwd`/benchmarks/sparse/results/open
+fi
 
 MATS="
     bfwb62 \
@@ -28,7 +32,7 @@ MATS="
 #     twotone \
 # "
 
-MATS="bfwb62"
+#MATS="bfwb62"
 
 gen_fnkey() {
     local matrix=$1

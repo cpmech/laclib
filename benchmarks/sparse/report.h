@@ -105,8 +105,10 @@ struct Report
         auto ordering = mumps_ordering_to_string(options->ordering);
 
 #ifdef USE_INTEL
+        path += "intel/";
         std::string plat = "_intel";
 #else
+        path += "open/";
         std::string plat = "_open";
 #endif
 #ifdef HAS_MPI
