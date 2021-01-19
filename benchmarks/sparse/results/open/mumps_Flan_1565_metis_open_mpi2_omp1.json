@@ -1,0 +1,46 @@
+{
+  "Platform": "laclib",
+  "SolverKind": "mumps",
+  "MatrixName": "Flan_1565",
+  "Ordering": "metis",
+  "MpiSize": 2,
+  "OmpNumThreads": 1,
+  "Symmetric": true,
+  "NumberOfRows": 1564794,
+  "NumberOfCols": 1564794,
+  "NumberOfNonZeros": 59485419,
+  "StepReadMatrix": {
+    "ElapsedTimeNanoseconds": 19323646860,
+    "ElapsedTimeString": "19.3236s",
+    "MemoryBytes": 1293905920,
+    "MemoryMiB": "1,233"
+  },
+  "StepAnalyze": {
+    "ElapsedTimeNanoseconds": 15077778481,
+    "ElapsedTimeString": "15.0778s",
+    "MemoryBytes": 1600258048,
+    "MemoryMiB": "1,526"
+  },
+  "StepFactorize": {
+    "ElapsedTimeNanoseconds": 55057827871,
+    "ElapsedTimeString": "55.0578s",
+    "MemoryBytes": 16260382720,
+    "MemoryMiB": "15,507"
+  },
+  "StepSolve": {
+    "ElapsedTimeNanoseconds": 1649239725,
+    "ElapsedTimeString": "1.64924s",
+    "MemoryBytes": 16260382720,
+    "MemoryMiB": "15,507"
+  },
+  "TimeSolverNanoseconds": 71778018410,
+  "TimeSolverString": "1m11.778s",
+  "Stats": {
+    "NormInfA": 15292441.38,
+    "NormInfAx": 1.00000001159424,
+    "NormInfDiff": 1.15942384582013e-08,
+    "RelativeError": 7.58167869467643e-16,
+    "ElapsedTimeNanoseconds": 172549062,
+    "ElapsedTimeString": "172.549ms"
+  }
+}
