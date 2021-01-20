@@ -17,8 +17,7 @@ const mat2group = {
 
 const fmtNum = (n: number): string => formatLongNumber(n.toString());
 
-const readOpen = (fnkey: string) => readReport(fnkey);
-const readIntel = (fnkey: string) => readReport(fnkey, true);
+const read = readReport;
 
 export const genReadme = (matrices: string[]): string => {
   let readme = `# Benchmarks using the code for sparse matrices
@@ -28,26 +27,31 @@ The code here tests the perfomance of the MUMPS Sparse Solver.
 
   matrices.forEach((mat) => {
     const four = [1, 2, 3, 4];
-    const genReportSet = (key = 'open'): IReportSet => {
-      const read =
-        key === 'intel' ? (fnk: string) => readReport(fnk, true) : (fnk: string) => readReport(fnk);
-      return {
-        [`${key}_seq_omp# `]: four.map((n) => read(`mumps_${mat}_metis_${key}_seq_omp${n}`)),
-        [`${key}_mpi1_omp#`]: four.map((n) => read(`mumps_${mat}_metis_${key}_mpi1_omp${n}`)),
-        [`${key}_mpi#     `]: four.map((n) => read(`mumps_${mat}_metis_${key}_mpi${n}`)),
-        [`${key}_mpi#_omp1`]: four.map((n) => read(`mumps_${mat}_metis_${key}_mpi${n}_omp1`)),
-        [`${key}_mpi#_omp#`]: [
-          read(`mumps_${mat}_metis_${key}_mpi1_omp1`),
-          read(`mumps_${mat}_metis_${key}_mpi1_omp2`),
-          read(`mumps_${mat}_metis_${key}_mpi2_omp1`),
-          read(`mumps_${mat}_metis_${key}_mpi2_omp2`),
-        ],
-      };
+    const reportSet: IReportSet = {
+      [` open_seq_omp# `]: four.map((n) => read(`mumps_${mat}_metis_open_seq_omp${n}`)),
+      [`intel_seq_omp# `]: four.map((n) => read(`mumps_${mat}_metis_intel_seq_omp${n}`, true)),
+      [` open_mpi1_omp#`]: four.map((n) => read(`mumps_${mat}_metis_open_mpi1_omp${n}`)),
+      [`intel_mpi1_omp#`]: four.map((n) => read(`mumps_${mat}_metis_intel_mpi1_omp${n}`, true)),
+      [` open_mpi#     `]: four.map((n) => read(`mumps_${mat}_metis_open_mpi${n}`)),
+      [`intel_mpi#     `]: four.map((n) => read(`mumps_${mat}_metis_intel_mpi${n}`, true)),
+      [` open_mpi#_omp1`]: four.map((n) => read(`mumps_${mat}_metis_open_mpi${n}_omp1`)),
+      [`intel_mpi#_omp1`]: four.map((n) => read(`mumps_${mat}_metis_intel_mpi${n}_omp1`, true)),
+      [` open_mpi#_omp#`]: [
+        read(`mumps_${mat}_metis_open_mpi1_omp1`),
+        read(`mumps_${mat}_metis_open_mpi1_omp2`),
+        read(`mumps_${mat}_metis_open_mpi2_omp1`),
+        read(`mumps_${mat}_metis_open_mpi2_omp2`),
+      ],
+      [`intel_mpi#_omp#`]: [
+        read(`mumps_${mat}_metis_intel_mpi1_omp1`, true),
+        read(`mumps_${mat}_metis_intel_mpi1_omp2`, true),
+        read(`mumps_${mat}_metis_intel_mpi2_omp1`, true),
+        read(`mumps_${mat}_metis_intel_mpi2_omp2`, true),
+      ],
     };
-    const reportSet = { ...genReportSet('open'), ...genReportSet('intel') };
     const table = genHtmlTable(mat, reportSet);
 
-    const r0 = reportSet['open_seq_omp# '][0];
+    const r0 = reportSet[' open_seq_omp# '][0];
     const strSym = r0.Symmetric ? 'Symmetric matrix' : 'General matrix (unsymmetric)';
     const group = (mat2group as any)[mat];
 
