@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`genRows generates rows 1`] = `
+"
+  <tr>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"2\\">Analyze</th>
+    ana.0
+  </tr>
+  <tr>
+    ana.1
+  </tr>
+  <tr>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"2\\">Factorize</th>
+    fac.0
+  </tr>
+  <tr>
+    fac.1
+  </tr>
+  <tr>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"2\\">Solve</th>
+    sol.0
+  </tr>
+  <tr>
+    sol.1
+  </tr>
+  <tr>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"2\\">Total</th>
+    tot.0
+  </tr>
+  <tr>
+    tot.1
+  </tr>
+  <tr>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"2\\">Linf(A*x)</th>
+    nax.0
+  </tr>
+  <tr>
+    nax.1
+  </tr>
+  <tr>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"2\\">Rel Error</th>
+    rer.0
+  </tr>
+  <tr>
+    rer.1
+  </tr>"
+`;
