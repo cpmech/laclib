@@ -1,8 +1,8 @@
-import { genHtmlTableExtended } from '../genHtmlTableExtended';
+import { genHtmlTable } from '../genHtmlTable';
 import { IReport, IReportSet, zeroReport } from '../types';
 import { writeHtml } from '../genHtml';
 
-describe('genHtmlTableExtended ', () => {
+describe('genHtmlTable ', () => {
   const ro: IReport[] = [zeroReport(), zeroReport(), zeroReport(), zeroReport()];
   const ri: IReport[] = [zeroReport(), zeroReport(), zeroReport(), zeroReport()];
 
@@ -71,7 +71,7 @@ describe('genHtmlTableExtended ', () => {
       open: ro,
       intel: ri,
     };
-    const table = genHtmlTableExtended('mytableX', reports, true);
+    const table = genHtmlTable('mytableX', reports, true);
     expect(table).toMatchSnapshot();
     const filepath = '/tmp/laclib/table.html';
     writeHtml(filepath, 'laclib table', table);
@@ -86,7 +86,7 @@ describe('genHtmlTableExtended ', () => {
     r.TimeSolverString = '6s';
     const reports: IReport[] = [r, r, r, r];
     const reportSet = { intel: reports };
-    const table = genHtmlTableExtended('mytable', reportSet);
+    const table = genHtmlTable('mytable', reportSet);
     expect(table).toMatchSnapshot();
   });
 
@@ -98,7 +98,7 @@ describe('genHtmlTableExtended ', () => {
     r.TimeSolverString = '6s';
     const reports: IReport[] = [r, r, r, r];
     const reportSet = { intel: reports };
-    const table = genHtmlTableExtended('mytable', reportSet, true);
+    const table = genHtmlTable('mytable', reportSet, true);
     expect(table).toMatchSnapshot();
   });
 });

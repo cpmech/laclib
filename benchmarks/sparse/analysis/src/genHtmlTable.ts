@@ -3,7 +3,7 @@ import { genHtmlTableColData } from './genHtmlTableColData';
 import { styTable, styTabHeader } from './htmlStyles';
 import { genHtmlTableRows } from './genHtmlTableRows';
 
-export const genHtmlTableExtended = (
+export const genHtmlTable = (
   matrixName: string,
   reportSet: IReportSet,
   withLinfAx = false,
