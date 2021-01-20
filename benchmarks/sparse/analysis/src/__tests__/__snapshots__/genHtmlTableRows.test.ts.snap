@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`genRows generates rows 1`] = `
+exports[`genHtmlTableRows generates row data 1`] = `
 "
   <tr>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"2\\">Analyze</th>

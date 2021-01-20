@@ -1,11 +1,11 @@
 import { IReport } from './types';
-import { genColumns } from './genColumns';
-import { genRows } from './genRows';
+import { genHtmlTableColData } from './genHtmlTableColData';
+import { genHtmlTableRows } from './genHtmlTableRows';
 import { styTable, styTabHeader } from './htmlStyles';
 
-export const genTable = (matrixName: string, r: IReport[], omp = false): string => {
-  const cols = genColumns('', r);
-  const rows = genRows([cols]);
+export const genHtmlTable = (matrixName: string, r: IReport[], omp = false): string => {
+  const cols = genHtmlTableColData('', r);
+  const rows = genHtmlTableRows([cols]);
 
   const n = r.length;
   const msg = omp ? 'OMP nt' : 'MPI np';

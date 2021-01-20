@@ -1,7 +1,7 @@
 import { IColumns } from './types';
 import { styTabLHeader } from './htmlStyles';
 
-export const genRows = (columns: IColumns[], withLinfAx = false): string => {
+export const genHtmlTableRows = (columns: IColumns[], withLinfAx = false): string => {
   const n = columns.length;
 
   const tr0 = `\n  <tr>\n`;

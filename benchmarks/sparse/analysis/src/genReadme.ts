@@ -1,6 +1,6 @@
 import { formatLongNumber } from '@cpmech/util';
 import { genFnkeysXor } from './genFnkey';
-import { genTable } from './genTable';
+import { genHtmlTable } from './genHtmlTable';
 import { readReport } from './readReport';
 
 const mat2group = {
@@ -29,8 +29,8 @@ The code here tests the perfomance of the MUMPS Sparse Solver.
     const ompFnkeys = genFnkeysXor(mat, true, intel);
     const mpiReports = mpiFnkeys.map((fnk) => readReport(fnk, intel));
     const ompReports = ompFnkeys.map((fnk) => readReport(fnk, intel));
-    const mpiTable = genTable(mat, mpiReports);
-    const ompTable = genTable(mat, ompReports, true);
+    const mpiTable = genHtmlTable(mat, mpiReports);
+    const ompTable = genHtmlTable(mat, ompReports, true);
     const r0 = mpiReports[0];
     const strSym = r0.Symmetric ? 'Symmetric matrix' : 'General matrix (unsymmetric)';
     const group = (mat2group as any)[mat];

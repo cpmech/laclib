@@ -1,8 +1,8 @@
-import { genTableX } from '../genTableX';
+import { genHtmlTableExtended } from '../genHtmlTableExtended';
 import { IReport, IReportSet, zeroReport } from '../types';
 import { writeHtml } from '../genHtml';
 
-describe('genTableX', () => {
+describe('genHtmlTableExtended ', () => {
   const ro: IReport[] = [zeroReport(), zeroReport(), zeroReport(), zeroReport()];
   const ri: IReport[] = [zeroReport(), zeroReport(), zeroReport(), zeroReport()];
 
@@ -71,7 +71,7 @@ describe('genTableX', () => {
       open: ro,
       intel: ri,
     };
-    const table = genTableX('mytableX', reports, true);
+    const table = genHtmlTableExtended('mytableX', reports, true);
     expect(table).toMatchSnapshot();
     const filepath = '/tmp/laclib/table.html';
     writeHtml(filepath, 'laclib table', table);

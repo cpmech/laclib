@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`genTable generates OMP table 1`] = `
+exports[`genHtmlTable generates OMP table 1`] = `
 "<table style=\\"border: 1px solid #979797; border-collapse: collapse;\\">
   <tr>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">mytable</td>
@@ -48,7 +48,7 @@ exports[`genTable generates OMP table 1`] = `
 "
 `;
 
-exports[`genTable generates default table 1`] = `
+exports[`genHtmlTable generates default table 1`] = `
 "<table style=\\"border: 1px solid #979797; border-collapse: collapse;\\">
   <tr>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">mytable</td>

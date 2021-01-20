@@ -1,7 +1,7 @@
-import { genTable } from '../genTable';
+import { genHtmlTable } from '../genHtmlTable';
 import { IReport, zeroReport } from '../types';
 
-describe('genTable', () => {
+describe('genHtmlTable', () => {
   it('generates default table', () => {
     const r = zeroReport();
     r.StepAnalyze.ElapsedTimeString = '1s';
@@ -9,7 +9,7 @@ describe('genTable', () => {
     r.StepSolve.ElapsedTimeString = '3s';
     r.TimeSolverString = '6s';
     const reports: IReport[] = [r, r, r, r];
-    const table = genTable('mytable', reports);
+    const table = genHtmlTable('mytable', reports);
     expect(table).toMatchSnapshot();
   });
 
@@ -20,7 +20,7 @@ describe('genTable', () => {
     r.StepSolve.ElapsedTimeString = '3s';
     r.TimeSolverString = '6s';
     const reports: IReport[] = [r, r, r, r];
-    const table = genTable('mytable', reports, true);
+    const table = genHtmlTable('mytable', reports, true);
     expect(table).toMatchSnapshot();
   });
 });

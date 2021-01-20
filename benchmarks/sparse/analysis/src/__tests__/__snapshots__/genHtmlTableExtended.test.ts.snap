@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`genTableX generates default table 1`] = `
+exports[`genHtmlTableExtended  generates default table 1`] = `
 "<table style=\\"border: 1px solid #979797; border-collapse: collapse;\\">
   <tr>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">mytableX</td>

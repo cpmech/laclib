@@ -1,17 +1,17 @@
 import { IReportSet } from './types';
-import { genColumns } from './genColumns';
+import { genHtmlTableColData } from './genHtmlTableColData';
 import { styTable, styTabHeader } from './htmlStyles';
-import { genRows } from './genRows';
+import { genHtmlTableRows } from './genHtmlTableRows';
 
-export const genTableX = (
+export const genHtmlTableExtended = (
   matrixName: string,
   reportSet: IReportSet,
   withLinfAx = false,
 ): string => {
   const labels = Object.keys(reportSet);
   const data = labels.map((label) => reportSet[label]);
-  const cols = data.map((reports, j) => genColumns(labels[j], reports));
-  const rows = genRows(cols, withLinfAx);
+  const cols = data.map((reports, j) => genHtmlTableColData(labels[j], reports));
+  const rows = genHtmlTableRows(cols, withLinfAx);
 
   const n = data[0].length;
   const nums = Array.from(Array(n).keys());

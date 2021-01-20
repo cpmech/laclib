@@ -1,8 +1,8 @@
-import { genColumns } from '../genColumns';
+import { genHtmlTableColData } from '../genHtmlTableColData';
 import { IReport, zeroReport } from '../types';
 
-describe('genColumns', () => {
-  it('generates columns', () => {
+describe('genHtmlTAbleColData', () => {
+  it('generates column data', () => {
     const rpts: IReport[] = [zeroReport(), zeroReport()];
 
     rpts[0].StepAnalyze.ElapsedTimeString = 'ana.0';
@@ -23,7 +23,7 @@ describe('genColumns', () => {
     rpts[0].Stats.RelativeError = 0.123;
     rpts[1].Stats.RelativeError = 0.456;
 
-    const cols = genColumns('intel', rpts, '');
+    const cols = genHtmlTableColData('intel', rpts, '');
 
     expect(cols.label).toBe(`<td style="">intel</td>`);
 

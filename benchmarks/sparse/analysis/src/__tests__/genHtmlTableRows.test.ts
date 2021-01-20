@@ -1,10 +1,11 @@
-import { genRows } from '../genRows';
+import { genHtmlTableRows } from '../genHtmlTableRows';
 import { IColumns } from '../types';
 
-describe('genRows', () => {
-  it('generates rows', () => {
+describe('genHtmlTableRows', () => {
+  it('generates row data', () => {
     const columns: IColumns[] = [
       {
+        label: '',
         ana: 'ana.0',
         fac: 'fac.0',
         sol: 'sol.0',
@@ -13,6 +14,7 @@ describe('genRows', () => {
         relErr: 'rer.0',
       },
       {
+        label: '',
         ana: 'ana.1',
         fac: 'fac.1',
         sol: 'sol.1',
@@ -21,7 +23,7 @@ describe('genRows', () => {
         relErr: 'rer.1',
       },
     ];
-    const rows = genRows(columns, true);
+    const rows = genHtmlTableRows(columns, true);
     expect(rows).toMatchSnapshot();
   });
 });
