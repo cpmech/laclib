@@ -1,5 +1,5 @@
 import { IReport, IHtmlColData } from './types';
-import { styTabData } from './htmlStyles';
+import { styTabData, styTabDataTAR } from './htmlStyles';
 
 // example:
 //   label    columns
@@ -8,6 +8,7 @@ export const genHtmlTableColData = (
   label: string,
   columns: IReport[],
   sty = styTabData,
+  styLabel = styTabDataTAR,
 ): IHtmlColData => {
   const k = (entry: string, link?: string) => (link ? `<a href="${link}">${entry}</a>` : entry);
   const cs = columns;
@@ -19,7 +20,7 @@ export const genHtmlTableColData = (
   const tt = cs.map((c) => `<td style="${sty}">${c.TimeSolverString}</td>`);
   const na = cs.map((c) => `<td style="${sty}">${c.Stats.NormInfAx}</td>`);
   const re = cs.map((c) => `<td style="${sty}">${c.Stats.RelativeError.toExponential(2)}</td>`);
-  const l = `<td style="${sty}">${label}</td>\n    `;
+  const l = `<td style="${styLabel}">${label}</td>\n    `;
   return {
     ana: l + aa.join('\n    '),
     fac: l + ff.join('\n    '),
