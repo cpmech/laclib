@@ -69,3 +69,16 @@ export const zeroReport = (): IReport => ({
   TimeSolverString: '',
   Stats: zeroStats(),
 });
+
+export interface IColumns {
+  ana: string;
+  fac: string;
+  sol: string;
+  tot: string;
+  normAx: string;
+  relErr: string;
+}
+
+export type IReportSet = {
+  [name: string]: IReport[];
+};

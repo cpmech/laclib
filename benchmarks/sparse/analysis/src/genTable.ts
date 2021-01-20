@@ -1,4 +1,4 @@
-import { IReport } from './report';
+import { IReport } from './types';
 import { genColumns } from './genColumns';
 import { styTable, styTabHeader, styTabLHeader, styTabData } from './htmlStyles';
 

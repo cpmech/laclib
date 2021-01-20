@@ -4,10 +4,10 @@ exports[`genTableX generates default table 1`] = `
 "<table style=\\"border: 1px solid #979797; border-collapse: collapse;\\">
   <tr>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">mytableX</td>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">MPI np 1</th>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">MPI np 2</th>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">MPI np 3</th>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">MPI np 4</th>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 1</th>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 2</th>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 3</th>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 4</th>
   </tr>
   <tr>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"2\\">Analyze</th>

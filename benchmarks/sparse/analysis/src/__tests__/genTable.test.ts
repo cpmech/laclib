@@ -1,5 +1,5 @@
 import { genTable } from '../genTable';
-import { IReport, zeroReport } from '../report';
+import { IReport, zeroReport } from '../types';
 
 describe('genTable', () => {
   it('generates default table', () => {

@@ -1,5 +1,5 @@
 import { genColumns } from '../genColumns';
-import { IReport, zeroReport } from '../report';
+import { IReport, zeroReport } from '../types';
 
 describe('genColumns', () => {
   it('generates columns', () => {

@@ -1,17 +1,7 @@
-import { IReport } from './report';
+import { IReport, IColumns } from './types';
 import { styTabData } from './htmlStyles';
 
-export const genColumns = (
-  r: IReport[],
-  sty = styTabData,
-): {
-  ana: string;
-  fac: string;
-  sol: string;
-  tot: string;
-  normAx: string;
-  relErr: string;
-} => {
+export const genColumns = (r: IReport[], sty = styTabData): IColumns => {
   const aa = r.map((d) => `<td style="${sty}">${d.StepAnalyze.ElapsedTimeString}</td>`);
   const ff = r.map((d) => `<td style="${sty}">${d.StepFactorize.ElapsedTimeString}</td>`);
   const ss = r.map((d) => `<td style="${sty}">${d.StepSolve.ElapsedTimeString}</td>`);

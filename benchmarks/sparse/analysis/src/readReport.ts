@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { any2type } from '@cpmech/js2ts';
-import { IReport, zeroReport } from './report';
+import { IReport, zeroReport } from './types';
 
 const RESDIR = '../results';
 

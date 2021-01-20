@@ -1,16 +1,8 @@
 import { genTableX } from '../genTableX';
-import { IReport, zeroReport } from '../report';
+import { IReport, IReportSet, zeroReport } from '../types';
 import { writeHtml } from '../genHtml';
 
 describe('genTableX', () => {
-  // ro.StepAnalyze.ElapsedTimeString = '1s';
-  // ro.StepFactorize.ElapsedTimeString = '2s';
-  // ro.StepSolve.ElapsedTimeString = '3s';
-  // ro.TimeSolverString = '6s';
-  // ri.StepAnalyze.ElapsedTimeString = '0.99';
-  // ri.StepFactorize.ElapsedTimeString = '1.99s';
-  // ri.StepSolve.ElapsedTimeString = '2.99s';
-  // ri.TimeSolverString = '5.97s';
   const ro: IReport[] = [zeroReport(), zeroReport(), zeroReport(), zeroReport()];
   const ri: IReport[] = [zeroReport(), zeroReport(), zeroReport(), zeroReport()];
 
@@ -75,7 +67,11 @@ describe('genTableX', () => {
   ri[3].Stats.RelativeError = 0.04;
 
   it('generates default table', () => {
-    const table = genTableX('mytableX', ro, ri);
+    const reports: IReportSet = {
+      open: ro,
+      intel: ri,
+    };
+    const table = genTableX('mytableX', reports);
     expect(table).toMatchSnapshot();
     const filepath = '/tmp/laclib/table.html';
     writeHtml(filepath, 'laclib table', table);
