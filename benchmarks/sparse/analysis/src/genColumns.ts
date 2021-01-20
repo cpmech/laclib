@@ -3,6 +3,7 @@ import { styTabData } from './htmlStyles';
 
 export const genColumns = (
   r: IReport[],
+  sty = styTabData,
 ): {
   ana: string;
   fac: string;
@@ -11,7 +12,6 @@ export const genColumns = (
   normAx: string;
   relErr: string;
 } => {
-  const sty = styTabData;
   const aa = r.map((d) => `<td style="${sty}">${d.StepAnalyze.ElapsedTimeString}</td>`);
   const ff = r.map((d) => `<td style="${sty}">${d.StepFactorize.ElapsedTimeString}</td>`);
   const ss = r.map((d) => `<td style="${sty}">${d.StepSolve.ElapsedTimeString}</td>`);
