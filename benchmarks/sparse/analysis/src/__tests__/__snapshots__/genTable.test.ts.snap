@@ -38,13 +38,6 @@ exports[`genTable generates OMP table 1`] = `
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6s</td>
   </tr>
   <tr>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">Linf(A.x)</th>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0</td>
-  </tr>
-  <tr>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">Rel Error</th>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0.00e+0</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0.00e+0</td>
@@ -91,13 +84,6 @@ exports[`genTable generates default table 1`] = `
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6s</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6s</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6s</td>
-  </tr>
-  <tr>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">Linf(A.x)</th>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0</td>
   </tr>
   <tr>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">Rel Error</th>

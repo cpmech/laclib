@@ -71,7 +71,7 @@ describe('genTableX', () => {
       open: ro,
       intel: ri,
     };
-    const table = genTableX('mytableX', reports);
+    const table = genTableX('mytableX', reports, true);
     expect(table).toMatchSnapshot();
     const filepath = '/tmp/laclib/table.html';
     writeHtml(filepath, 'laclib table', table);

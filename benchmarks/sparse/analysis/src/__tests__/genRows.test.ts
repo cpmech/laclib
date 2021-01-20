@@ -21,7 +21,7 @@ describe('genRows', () => {
         relErr: 'rer.1',
       },
     ];
-    const rows = genRows(columns);
+    const rows = genRows(columns, true);
     expect(rows).toMatchSnapshot();
   });
 });
