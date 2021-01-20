@@ -6,38 +6,46 @@ import { styTable, styTabHeader, styTabLHeader } from './htmlStyles';
 //  "open"  : [rpt_for_mpi1, rpt_for_mpi2, rpt_for_mpi3, ...]
 //  "intel" : [rpt_for_mpi1, rpt_for_mpi2, rpt_for_mpi3, ...]
 export const genHtmlTable = (matrixName: string, reportSet: IReportSet): string => {
+  // extract labels and data
   const labels = Object.keys(reportSet);
   const data = labels.map((label) => genHtmlTableColData(label, reportSet[label]));
 
+  // auxiliary
   const numOfLabels = labels.length;
   const rowspan = numOfLabels > 1 ? ` rowspan="${numOfLabels}"` : '';
 
+  // open and close table row
   const tr0 = `\n  <tr>\n`;
   const trx = `\n  </tr>`;
 
-  const th = (i: number, label: string, cols: string) =>
-    i === 0
+  // the header corresponding to the first label (l=0) gets multiple rowspan
+  const th = (l: number, label: string, cols: string) =>
+    l === 0
       ? `    <th style="${styTabLHeader}"${rowspan}>${label}</th>\n    ${cols}`
       : `    ${cols}`;
 
-  const ana = data.map((c, i) => `${tr0}${th(i, 'Analyze', c.ana)}${trx}`);
-  const fac = data.map((c, i) => `${tr0}${th(i, 'Factorize', c.fac)}${trx}`);
-  const sol = data.map((c, i) => `${tr0}${th(i, 'Solve', c.sol)}${trx}`);
-  const tot = data.map((c, i) => `${tr0}${th(i, 'Total', c.tot)}${trx}`);
-  const rer = data.map((c, i) => `${tr0}${th(i, 'Rel Error', c.relErr)}${trx}`);
+  // looping over labels
+  const ana = data.map((d, l) => `${tr0}${th(l, 'Analyze', d.ana)}${trx}`);
+  const fac = data.map((d, l) => `${tr0}${th(l, 'Factorize', d.fac)}${trx}`);
+  const sol = data.map((d, l) => `${tr0}${th(l, 'Solve', d.sol)}${trx}`);
+  const tot = data.map((d, l) => `${tr0}${th(l, 'Total', d.tot)}${trx}`);
+  const rer = data.map((d, l) => `${tr0}${th(l, 'Rel Error', d.relErr)}${trx}`);
 
-  const rows = ana.join('') + fac.join('') + sol.join('') + tot.join('') + rer.join('');
+  // content of table: <tr>...</tr>
+  const content = ana.join('') + fac.join('') + sol.join('') + tot.join('') + rer.join('');
 
-  const width = reportSet[labels[0]].length;
-  const nums = Array.from(Array(width).keys());
+  // header
+  const nproc = reportSet[labels[0]].length;
+  const nums = Array.from(Array(nproc).keys());
   const lines = nums.map((i) => `<th style="${styTabHeader}">NP or NT ${i + 1}</th>`);
   const heads = lines.join(`\n    `);
 
+  // table
   return `<table style="${styTable}">
   <tr>
     <td style="${styTabHeader}">${matrixName}</td>
     ${heads}
-  </tr>${rows}
+  </tr>${content}
 </table>
 `;
 };
