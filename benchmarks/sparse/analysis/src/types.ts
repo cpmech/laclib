@@ -71,6 +71,7 @@ export const zeroReport = (): IReport => ({
 });
 
 export interface IColumns {
+  label: string;
   ana: string;
   fac: string;
   sol: string;
@@ -80,5 +81,5 @@ export interface IColumns {
 }
 
 export type IReportSet = {
-  [name: string]: IReport[];
+  [name: string]: IReport[]; // e.g.: "intel" => [rpt_for_mpi1, rpt_for_mpi2, rpt_for_mpi3, ...]
 };

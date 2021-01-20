@@ -4,7 +4,7 @@ import { genRows } from './genRows';
 import { styTable, styTabHeader } from './htmlStyles';
 
 export const genTable = (matrixName: string, r: IReport[], omp = false): string => {
-  const cols = genColumns(r);
+  const cols = genColumns('', r);
   const rows = genRows([cols]);
 
   const n = r.length;

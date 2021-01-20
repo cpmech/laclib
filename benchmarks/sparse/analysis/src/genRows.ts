@@ -9,10 +9,10 @@ export const genRows = (columns: IColumns[], withLinfAx = false): string => {
 
   const rowspan = n > 1 ? ` rowspan="${n}"` : '';
 
-  const d = (i: number, label: string, data: string) =>
+  const d = (i: number, label: string, cols: string) =>
     i === 0
-      ? `    <th style="${styTabLHeader}"${rowspan}>${label}</th>\n    ${data}`
-      : `    ${data}`;
+      ? `    <th style="${styTabLHeader}"${rowspan}>${label}</th>\n    ${cols}`
+      : `    ${cols}`;
 
   const ana = columns.map((c, i) => `${tr0}${d(i, 'Analyze', c.ana)}${trx}`);
   const fac = columns.map((c, i) => `${tr0}${d(i, 'Factorize', c.fac)}${trx}`);

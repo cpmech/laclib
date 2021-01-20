@@ -23,7 +23,9 @@ describe('genColumns', () => {
     rpts[0].Stats.RelativeError = 0.123;
     rpts[1].Stats.RelativeError = 0.456;
 
-    const cols = genColumns(rpts, '');
+    const cols = genColumns('intel', rpts, '');
+
+    expect(cols.label).toBe(`<td style="">intel</td>`);
 
     expect(cols.ana).toBe(`<td style="">ana.0</td>\n    <td style="">ana.1</td>`);
     expect(cols.fac).toBe(`<td style="">fac.0</td>\n    <td style="">fac.1</td>`);
