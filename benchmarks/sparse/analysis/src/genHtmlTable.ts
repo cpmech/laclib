@@ -27,12 +27,13 @@ export const genHtmlTable = (matrixName: string, reportSet: IReportSet): string 
   // looping over label-entries
   const ana = data.map((d, l) => `${tr0}${th(l, 'Analyze', d.ana)}${trx}`);
   const fac = data.map((d, l) => `${tr0}${th(l, 'Factorize', d.fac)}${trx}`);
-  const sol = data.map((d, l) => `${tr0}${th(l, 'Solve', d.sol)}${trx}`);
-  const tot = data.map((d, l) => `${tr0}${th(l, 'Total', d.tot)}${trx}`);
-  const rer = data.map((d, l) => `${tr0}${th(l, 'Rel Error', d.relErr)}${trx}`);
+  // const sol = data.map((d, l) => `${tr0}${th(l, 'Solve', d.sol)}${trx}`);
+  // const tot = data.map((d, l) => `${tr0}${th(l, 'Total', d.tot)}${trx}`);
+  // const rer = data.map((d, l) => `${tr0}${th(l, 'Rel Error', d.relErr)}${trx}`);
 
   // content of table: <tr>...</tr>
-  const content = ana.join('') + fac.join('') + sol.join('') + tot.join('') + rer.join('');
+  const content = ana.join('') + fac.join('');
+  // const content = ana.join('') + fac.join('') + sol.join('') + tot.join('') + rer.join('');
 
   // header
   const nproc = reportSet[labels[0]].length;
