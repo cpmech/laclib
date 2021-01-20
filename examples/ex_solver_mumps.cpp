@@ -77,12 +77,16 @@ void run(int argc, char **argv)
 // NOTE: the main function will "always" be like this:
 int main(int argc, char **argv)
 {
+#ifdef USE_MPI
     MPI_Init(&argc, &argv);
+#endif
     try
     {
         run(argc, argv);
     }
     CATCH_ALL
+#ifdef USE_MPI
     MPI_Finalize();
+#endif
     return 0;
 }
