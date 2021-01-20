@@ -62,19 +62,6 @@ exports[`genHtmlTable  generates default table 1`] = `
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">44</td>
   </tr>
   <tr>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"2\\">Linf(A.x)</th>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">11.11</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">22.22</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">33.33</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">44.44</td>
-  </tr>
-  <tr>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">101</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">202</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">303</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">404</td>
-  </tr>
-  <tr>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"2\\">Rel Error</th>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.10e-1</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">2.20e-1</td>
@@ -127,61 +114,6 @@ exports[`genHtmlTable  generates small table 1`] = `
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6s</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6s</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6s</td>
-  </tr>
-  <tr>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">Rel Error</th>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0.00e+0</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0.00e+0</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0.00e+0</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0.00e+0</td>
-  </tr>
-</table>
-"
-`;
-
-exports[`genHtmlTable  generates table withAx 1`] = `
-"<table style=\\"border: 1px solid #979797; border-collapse: collapse;\\">
-  <tr>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">mytable</td>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 1</th>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 2</th>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 3</th>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 4</th>
-  </tr>
-  <tr>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">Analyze</th>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1s</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1s</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1s</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1s</td>
-  </tr>
-  <tr>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">Factorize</th>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">2s</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">2s</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">2s</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">2s</td>
-  </tr>
-  <tr>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">Solve</th>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3s</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3s</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3s</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3s</td>
-  </tr>
-  <tr>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">Total</th>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6s</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6s</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6s</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6s</td>
-  </tr>
-  <tr>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">Linf(A.x)</th>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0</td>
   </tr>
   <tr>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">Rel Error</th>

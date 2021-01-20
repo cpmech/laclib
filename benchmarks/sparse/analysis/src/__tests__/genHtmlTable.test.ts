@@ -71,7 +71,7 @@ describe('genHtmlTable ', () => {
       open: ro,
       intel: ri,
     };
-    const table = genHtmlTable('mytableX', reports, true);
+    const table = genHtmlTable('mytableX', reports);
     expect(table).toMatchSnapshot();
     const filepath = '/tmp/laclib/table.html';
     writeHtml(filepath, 'laclib table', table);
@@ -87,18 +87,6 @@ describe('genHtmlTable ', () => {
     const reports: IReport[] = [r, r, r, r];
     const reportSet = { intel: reports };
     const table = genHtmlTable('mytable', reportSet);
-    expect(table).toMatchSnapshot();
-  });
-
-  it('generates table withAx', () => {
-    const r = zeroReport();
-    r.StepAnalyze.ElapsedTimeString = '1s';
-    r.StepFactorize.ElapsedTimeString = '2s';
-    r.StepSolve.ElapsedTimeString = '3s';
-    r.TimeSolverString = '6s';
-    const reports: IReport[] = [r, r, r, r];
-    const reportSet = { intel: reports };
-    const table = genHtmlTable('mytable', reportSet, true);
     expect(table).toMatchSnapshot();
   });
 });
