@@ -1,9 +1,9 @@
 import { genHtmlTableRows } from '../genHtmlTableRows';
-import { IColumns } from '../types';
+import { IHtmlColData } from '../types';
 
 describe('genHtmlTableRows', () => {
   it('generates row data', () => {
-    const columns: IColumns[] = [
+    const columns: IHtmlColData[] = [
       {
         label: '',
         ana: 'ana.0',

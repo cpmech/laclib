@@ -1,7 +1,11 @@
-import { IReport, IColumns } from './types';
+import { IReport, IHtmlColData } from './types';
 import { styTabData } from './htmlStyles';
 
-export const genHtmlTableColData = (label: string, r: IReport[], sty = styTabData): IColumns => {
+export const genHtmlTableColData = (
+  label: string,
+  r: IReport[],
+  sty = styTabData,
+): IHtmlColData => {
   const aa = r.map((d) => `<td style="${sty}">${d.StepAnalyze.ElapsedTimeString}</td>`);
   const ff = r.map((d) => `<td style="${sty}">${d.StepFactorize.ElapsedTimeString}</td>`);
   const ss = r.map((d) => `<td style="${sty}">${d.StepSolve.ElapsedTimeString}</td>`);

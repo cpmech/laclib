@@ -70,7 +70,7 @@ export const zeroReport = (): IReport => ({
   Stats: zeroStats(),
 });
 
-export interface IColumns {
+export interface IHtmlColData {
   label: string;
   ana: string;
   fac: string;
