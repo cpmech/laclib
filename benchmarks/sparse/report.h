@@ -95,7 +95,6 @@ struct Report
                            const std::unique_ptr<Stats> &stats)
     {
         auto mpi_rank = this->mpi->rank();
-        auto mpi_size = this->mpi->size();
         if (mpi_rank != 0)
         {
             return;
@@ -112,6 +111,7 @@ struct Report
         std::string plat = "_open";
 #endif
 #ifdef HAS_MPI
+        auto mpi_size = this->mpi->size();
         int effective_mpi_size = mpi_size;
         plat += "_mpi" + std::to_string(mpi_size);
 #else
