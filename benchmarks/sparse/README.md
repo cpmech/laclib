@@ -22,7 +22,7 @@ _MPI results with "metis" ordering:_
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">MPI np 4</th>
   </tr>
   <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analyze</th>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.45024s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.81873s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.84917s</td>
@@ -72,7 +72,7 @@ _OpenMP results with "metis" ordering:_
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">OMP nt 4</th>
   </tr>
   <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analyze</th>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.43877s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.45666s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.44702s</td>
@@ -132,7 +132,7 @@ _MPI results with "metis" ordering:_
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">MPI np 4</th>
   </tr>
   <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analyze</th>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.5068s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">14.9886s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">15.2054s</td>
@@ -182,7 +182,7 @@ _OpenMP results with "metis" ordering:_
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">OMP nt 4</th>
   </tr>
   <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analyze</th>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.4714s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.7625s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">10.4362s</td>
@@ -242,7 +242,7 @@ _MPI results with "metis" ordering:_
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">MPI np 4</th>
   </tr>
   <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analyze</th>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.18899s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.71946s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.82549s</td>
@@ -292,7 +292,7 @@ _OpenMP results with "metis" ordering:_
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">OMP nt 4</th>
   </tr>
   <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analyze</th>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.16108s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.16252s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.15114s</td>
@@ -352,7 +352,7 @@ _MPI results with "metis" ordering:_
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">MPI np 4</th>
   </tr>
   <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analyze</th>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.97998s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.05053s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.09479s</td>
@@ -402,7 +402,7 @@ _OpenMP results with "metis" ordering:_
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">OMP nt 4</th>
   </tr>
   <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analyze</th>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">3.95934s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.04847s</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">4.02533s</td>
@@ -462,7 +462,7 @@ _MPI results with "metis" ordering:_
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">MPI np 4</th>
   </tr>
   <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analyze</th>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">1.66629ms</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">8.2673ms</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">5.41377ms</td>
@@ -512,7 +512,7 @@ _OpenMP results with "metis" ordering:_
     <th style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">OMP nt 4</th>
   </tr>
   <tr>
-    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analysis</th>
+    <th style="border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;">Analyze</th>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">463.178µs</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">709.094µs</td>
     <td style="border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;">732.382µs</td>
