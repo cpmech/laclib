@@ -24,7 +24,7 @@ export const genHtmlTable = (matrixName: string, reportSet: IReportSet): string 
       ? `    <th style="${styTabLHeader}"${rowspan}>${label}</th>\n    ${cols}`
       : `    ${cols}`;
 
-  // looping over labels
+  // looping over label-entries
   const ana = data.map((d, l) => `${tr0}${th(l, 'Analyze', d.ana)}${trx}`);
   const fac = data.map((d, l) => `${tr0}${th(l, 'Factorize', d.fac)}${trx}`);
   const sol = data.map((d, l) => `${tr0}${th(l, 'Solve', d.sol)}${trx}`);
@@ -44,6 +44,7 @@ export const genHtmlTable = (matrixName: string, reportSet: IReportSet): string 
   return `<table style="${styTable}">
   <tr>
     <td style="${styTabHeader}">${matrixName}</td>
+    <th style="${styTabHeader}">platform</th>
     ${heads}
   </tr>${content}
 </table>

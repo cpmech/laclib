@@ -4,6 +4,7 @@ exports[`genHtmlTable  generates default table 1`] = `
 "<table style=\\"border: 1px solid #979797; border-collapse: collapse;\\">
   <tr>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">mytableX</td>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">platform</th>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 1</th>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 2</th>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 3</th>
@@ -11,12 +12,14 @@ exports[`genHtmlTable  generates default table 1`] = `
   </tr>
   <tr>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"2\\">Analyze</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.1</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.2</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.3</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.4</td>
   </tr>
   <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">11</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">12</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">13</td>
@@ -24,12 +27,14 @@ exports[`genHtmlTable  generates default table 1`] = `
   </tr>
   <tr>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"2\\">Factorize</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">2.1</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">2.2</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">2.3</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">2.4</td>
   </tr>
   <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">21</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">22</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">23</td>
@@ -37,12 +42,14 @@ exports[`genHtmlTable  generates default table 1`] = `
   </tr>
   <tr>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"2\\">Solve</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3.1</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3.2</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3.3</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3.4</td>
   </tr>
   <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">31</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">32</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">33</td>
@@ -50,12 +57,14 @@ exports[`genHtmlTable  generates default table 1`] = `
   </tr>
   <tr>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"2\\">Total</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.1</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.2</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.3</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.4</td>
   </tr>
   <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">41</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">42</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">43</td>
@@ -63,12 +72,14 @@ exports[`genHtmlTable  generates default table 1`] = `
   </tr>
   <tr>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"2\\">Rel Error</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.10e-1</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">2.20e-1</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3.30e-1</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.40e-1</td>
   </tr>
   <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.00e-2</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">2.00e-2</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3.00e-2</td>
@@ -82,6 +93,7 @@ exports[`genHtmlTable  generates small table 1`] = `
 "<table style=\\"border: 1px solid #979797; border-collapse: collapse;\\">
   <tr>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">mytable</td>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">platform</th>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 1</th>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 2</th>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 3</th>
@@ -89,6 +101,7 @@ exports[`genHtmlTable  generates small table 1`] = `
   </tr>
   <tr>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">Analyze</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1s</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1s</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1s</td>
@@ -96,6 +109,7 @@ exports[`genHtmlTable  generates small table 1`] = `
   </tr>
   <tr>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">Factorize</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">2s</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">2s</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">2s</td>
@@ -103,6 +117,7 @@ exports[`genHtmlTable  generates small table 1`] = `
   </tr>
   <tr>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">Solve</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3s</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3s</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3s</td>
@@ -110,6 +125,7 @@ exports[`genHtmlTable  generates small table 1`] = `
   </tr>
   <tr>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">Total</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6s</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6s</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6s</td>
@@ -117,6 +133,7 @@ exports[`genHtmlTable  generates small table 1`] = `
   </tr>
   <tr>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">Rel Error</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0.00e+0</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0.00e+0</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">0.00e+0</td>

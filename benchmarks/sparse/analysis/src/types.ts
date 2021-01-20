@@ -71,7 +71,6 @@ export const zeroReport = (): IReport => ({
 });
 
 export interface IHtmlColData {
-  label: string;
   ana: string;
   fac: string;
   sol: string;

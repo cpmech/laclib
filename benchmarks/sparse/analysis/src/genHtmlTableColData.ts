@@ -16,13 +16,13 @@ export const genHtmlTableColData = (
   const tt = cs.map((c) => `<td style="${sty}">${c.TimeSolverString}</td>`);
   const na = cs.map((c) => `<td style="${sty}">${c.Stats.NormInfAx}</td>`);
   const re = cs.map((c) => `<td style="${sty}">${c.Stats.RelativeError.toExponential(2)}</td>`);
+  const l = `<td style="${sty}">${label}</td>\n    `;
   return {
-    label: `<td style="${sty}">${label}</td>`,
-    ana: aa.join('\n    '),
-    fac: ff.join('\n    '),
-    sol: ss.join('\n    '),
-    tot: tt.join('\n    '),
-    normAx: na.join('\n    '),
-    relErr: re.join('\n    '),
+    ana: l + aa.join('\n    '),
+    fac: l + ff.join('\n    '),
+    sol: l + ss.join('\n    '),
+    tot: l + tt.join('\n    '),
+    normAx: l + na.join('\n    '),
+    relErr: l + re.join('\n    '),
   };
 };
