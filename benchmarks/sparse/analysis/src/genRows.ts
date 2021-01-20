@@ -7,16 +7,18 @@ export const genRows = (columns: IColumns[]): string => {
   const tr0 = `\n  <tr>\n`;
   const trx = `\n  </tr>`;
 
+  const rowspan = n > 1 ? ` rowspan="${n}"` : '';
+
   const d = (i: number, label: string, data: string) =>
     i === 0
-      ? `    <th style="${styTabLHeader}" rowspan="${n}">${label}</th>\n    ${data}`
+      ? `    <th style="${styTabLHeader}"${rowspan}>${label}</th>\n    ${data}`
       : `    ${data}`;
 
   const ana = columns.map((c, i) => `${tr0}${d(i, 'Analyze', c.ana)}${trx}`);
   const fac = columns.map((c, i) => `${tr0}${d(i, 'Factorize', c.fac)}${trx}`);
   const sol = columns.map((c, i) => `${tr0}${d(i, 'Solve', c.sol)}${trx}`);
   const tot = columns.map((c, i) => `${tr0}${d(i, 'Total', c.tot)}${trx}`);
-  const nax = columns.map((c, i) => `${tr0}${d(i, 'Linf(A*x)', c.normAx)}${trx}`);
+  const nax = columns.map((c, i) => `${tr0}${d(i, 'Linf(A.x)', c.normAx)}${trx}`);
   const rer = columns.map((c, i) => `${tr0}${d(i, 'Rel Error', c.relErr)}${trx}`);
 
   const s = '';

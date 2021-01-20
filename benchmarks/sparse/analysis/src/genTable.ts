@@ -1,39 +1,23 @@
 import { IReport } from './types';
 import { genColumns } from './genColumns';
-import { styTable, styTabHeader, styTabLHeader, styTabData } from './htmlStyles';
+import { genRows } from './genRows';
+import { styTable, styTabHeader } from './htmlStyles';
 
 export const genTable = (matrixName: string, r: IReport[], omp = false): string => {
-  const sty = styTabData;
-  const co = genColumns(r);
-  const h = omp ? 'OMP nt' : 'MPI np';
+  const cols = genColumns(r);
+  const rows = genRows([cols]);
+
+  const n = r.length;
+  const msg = omp ? 'OMP nt' : 'MPI np';
+  const nums = Array.from(Array(n).keys());
+  const lines = nums.map((i) => `<th style="${styTabHeader}">${msg} ${i + 1}</th>`);
+  const heads = lines.join(`\n    `);
+
   return `<table style="${styTable}">
   <tr>
     <td style="${styTabHeader}">${matrixName}</td>
-    <th style="${styTabHeader}">${h} 1</th>
-    <th style="${styTabHeader}">${h} 2</th>
-    <th style="${styTabHeader}">${h} 3</th>
-    <th style="${styTabHeader}">${h} 4</th>
-  </tr>
-  <tr>
-    <th style="${styTabLHeader}">Analysis</th>
-    ${co.ana}
-  </tr>
-  <tr>
-    <th style="${styTabLHeader}">Factorize</th>
-    ${co.fac}
-  </tr>
-  <tr>
-    <th style="${styTabLHeader}">Solve</th>
-    ${co.sol}
-  </tr>
-  <tr>
-    <th style="${styTabLHeader}">Total</th>
-    ${co.tot}
-  </tr>
-  <tr>
-    <th style="${styTabLHeader}">Rel Error</th>
-    ${co.relErr}
-  </tr>
+    ${heads}
+  </tr>${rows}
 </table>
 `;
 };
