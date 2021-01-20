@@ -1,56 +1,38 @@
 import { IReport } from './report';
-
-const bcolor = '#979797';
-const padding = '5px';
-const styTable = `border: 1px solid ${bcolor}; border-collapse: collapse;`;
-const styTheader = `border: 1px solid ${bcolor}; border-collapse: collapse; text-align: center; padding: ${padding};`;
-const styLheader = `border: 1px solid ${bcolor}; border-collapse: collapse; text-align: right; padding: ${padding};`;
-const styData = `border: 1px solid ${bcolor}; border-collapse: collapse; text-align: center; padding: ${padding};`;
+import { genColumns } from './genColumns';
+import { styTable, styTabHeader, styTabLHeader, styTabData } from './htmlStyles';
 
 export const genTable = (matrixName: string, r: IReport[], omp = false): string => {
+  const sty = styTabData;
+  const co = genColumns(r);
   const h = omp ? 'OMP nt' : 'MPI np';
   return `<table style="${styTable}">
   <tr>
-    <td style="${styTheader}">${matrixName}</td>
-    <th style="${styTheader}">${h} 1</th>
-    <th style="${styTheader}">${h} 2</th>
-    <th style="${styTheader}">${h} 3</th>
-    <th style="${styTheader}">${h} 4</th>
+    <td style="${styTabHeader}">${matrixName}</td>
+    <th style="${styTabHeader}">${h} 1</th>
+    <th style="${styTabHeader}">${h} 2</th>
+    <th style="${styTabHeader}">${h} 3</th>
+    <th style="${styTabHeader}">${h} 4</th>
   </tr>
   <tr>
-    <th style="${styLheader}">Analysis</th>
-    <td style="${styData}">${r[0].StepAnalyze.ElapsedTimeString}</td>
-    <td style="${styData}">${r[1].StepAnalyze.ElapsedTimeString}</td>
-    <td style="${styData}">${r[2].StepAnalyze.ElapsedTimeString}</td>
-    <td style="${styData}">${r[3].StepAnalyze.ElapsedTimeString}</td>
+    <th style="${styTabLHeader}">Analysis</th>
+    ${co.ana}
   </tr>
   <tr>
-    <th style="${styLheader}">Factorize</th>
-    <td style="${styData}">${r[0].StepFactorize.ElapsedTimeString}</td>
-    <td style="${styData}">${r[1].StepFactorize.ElapsedTimeString}</td>
-    <td style="${styData}">${r[2].StepFactorize.ElapsedTimeString}</td>
-    <td style="${styData}">${r[3].StepFactorize.ElapsedTimeString}</td>
+    <th style="${styTabLHeader}">Factorize</th>
+    ${co.fac}
   </tr>
   <tr>
-    <th style="${styLheader}">Solve</th>
-    <td style="${styData}">${r[0].StepSolve.ElapsedTimeString}</td>
-    <td style="${styData}">${r[1].StepSolve.ElapsedTimeString}</td>
-    <td style="${styData}">${r[2].StepSolve.ElapsedTimeString}</td>
-    <td style="${styData}">${r[3].StepSolve.ElapsedTimeString}</td>
+    <th style="${styTabLHeader}">Solve</th>
+    ${co.sol}
   </tr>
   <tr>
-    <th style="${styLheader}">Total</th>
-    <td style="${styData}">${r[0].TimeSolverString}</td>
-    <td style="${styData}">${r[1].TimeSolverString}</td>
-    <td style="${styData}">${r[2].TimeSolverString}</td>
-    <td style="${styData}">${r[3].TimeSolverString}</td>
+    <th style="${styTabLHeader}">Total</th>
+    ${co.tot}
   </tr>
   <tr>
-    <th style="${styLheader}">Rel Error</th>
-    <td style="${styData}">${r[0].Stats.RelativeError.toExponential(2)}</td>
-    <td style="${styData}">${r[1].Stats.RelativeError.toExponential(2)}</td>
-    <td style="${styData}">${r[2].Stats.RelativeError.toExponential(2)}</td>
-    <td style="${styData}">${r[3].Stats.RelativeError.toExponential(2)}</td>
+    <th style="${styTabLHeader}">Rel Error</th>
+    ${co.relErr}
   </tr>
 </table>
 `;
