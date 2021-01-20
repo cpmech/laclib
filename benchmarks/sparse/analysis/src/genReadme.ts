@@ -17,6 +17,9 @@ const mat2group = {
 
 const fmtNum = (n: number): string => formatLongNumber(n.toString());
 
+const readOpen = (fnkey: string) => readReport(fnkey);
+const readIntel = (fnkey: string) => readReport(fnkey, true);
+
 export const genReadme = (matrices: string[]): string => {
   let readme = `# Benchmarks using the code for sparse matrices
 
@@ -25,19 +28,23 @@ The code here tests the perfomance of the MUMPS Sparse Solver.
 
   matrices.forEach((mat) => {
     const four = [1, 2, 3, 4];
-    const genReportSet = (key = 'open'): IReportSet => ({
-      [`${key}_seq_omp# `]: four.map((n) => readReport(`mumps_${mat}_metis_${key}_seq_omp${n}`)),
-      [`${key}_mpi1_omp#`]: four.map((n) => readReport(`mumps_${mat}_metis_${key}_mpi1_omp${n}`)),
-      [`${key}_mpi#     `]: four.map((n) => readReport(`mumps_${mat}_metis_${key}_mpi${n}`)),
-      [`${key}_mpi#_omp1`]: four.map((n) => readReport(`mumps_${mat}_metis_${key}_mpi${n}_omp1`)),
-      [`${key}_mpi#_omp#`]: [
-        readReport(`mumps_${mat}_metis_${key}_mpi1_omp1`),
-        readReport(`mumps_${mat}_metis_${key}_mpi1_omp2`),
-        readReport(`mumps_${mat}_metis_${key}_mpi2_omp1`),
-        readReport(`mumps_${mat}_metis_${key}_mpi2_omp2`),
-      ],
-    });
-    const reportSet = { ...genReportSet('open') }; //, ...genReportSet('intel') };
+    const genReportSet = (key = 'open'): IReportSet => {
+      const read =
+        key === 'intel' ? (fnk: string) => readReport(fnk, true) : (fnk: string) => readReport(fnk);
+      return {
+        [`${key}_seq_omp# `]: four.map((n) => read(`mumps_${mat}_metis_${key}_seq_omp${n}`)),
+        [`${key}_mpi1_omp#`]: four.map((n) => read(`mumps_${mat}_metis_${key}_mpi1_omp${n}`)),
+        [`${key}_mpi#     `]: four.map((n) => read(`mumps_${mat}_metis_${key}_mpi${n}`)),
+        [`${key}_mpi#_omp1`]: four.map((n) => read(`mumps_${mat}_metis_${key}_mpi${n}_omp1`)),
+        [`${key}_mpi#_omp#`]: [
+          read(`mumps_${mat}_metis_${key}_mpi1_omp1`),
+          read(`mumps_${mat}_metis_${key}_mpi1_omp2`),
+          read(`mumps_${mat}_metis_${key}_mpi2_omp1`),
+          read(`mumps_${mat}_metis_${key}_mpi2_omp2`),
+        ],
+      };
+    };
+    const reportSet = { ...genReportSet('open'), ...genReportSet('intel') };
     const table = genHtmlTable(mat, reportSet);
 
     const r0 = reportSet['open_seq_omp# '][0];

@@ -26,7 +26,7 @@ _results with \\"metis\\" ordering:_
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 4</th>
   </tr>
   <tr>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"5\\">Analyze</th>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"10\\">Analyze</th>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_seq_omp# </td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_seq_omp1.txt\\">463.178µs</a></td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_seq_omp2.txt\\">709.094µs</a></td>
@@ -62,7 +62,42 @@ _results with \\"metis\\" ordering:_
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_mpi2_omp2.txt\\">7.50725ms</a></td>
   </tr>
   <tr>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"5\\">Factorize</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_seq_omp# </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_seq_omp1.txt\\">2.26055ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_seq_omp2.txt\\">9.37454ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_seq_omp3.txt\\">8.10867ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_seq_omp4.txt\\">1.7606ms</a></td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi1_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_mpi1_omp1.txt\\">6.92038ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_mpi1_omp2.txt\\">3.21484ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_mpi1_omp3.txt\\">7.29034ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_mpi1_omp4.txt\\">7.64976ms</a></td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi#     </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_mpi1.txt\\">5.23238ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_mpi2.txt\\">8.30394ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_mpi3.txt\\">14.0877ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_mpi4.txt\\">19.079ms</a></td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi#_omp1</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_mpi1_omp1.txt\\">6.92038ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_mpi2_omp1.txt\\">11.2438ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_mpi3_omp1.txt\\">8.49033ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_mpi4_omp1.txt\\">9.49058ms</a></td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi#_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_mpi1_omp1.txt\\">6.92038ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_mpi1_omp2.txt\\">3.21484ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_mpi2_omp1.txt\\">11.2438ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//intel/mumps_bfwb62_metis_intel_mpi2_omp2.txt\\">11.5611ms</a></td>
+  </tr>
+  <tr>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"10\\">Factorize</th>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_seq_omp# </td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">376.599µs</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">8.76785ms</td>
@@ -98,7 +133,42 @@ _results with \\"metis\\" ordering:_
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">506.321µs</td>
   </tr>
   <tr>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"5\\">Solve</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_seq_omp# </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">22.5825ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.8315ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.69297ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">11.9224ms</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi1_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">10.297ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.58081ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">8.18585ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">14.3465ms</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi#     </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">7.48603ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3.62667ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3.69428ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">23.6338ms</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi#_omp1</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">10.297ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.06645ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3.24646ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3.20821ms</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi#_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">10.297ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.58081ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.06645ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3.36536ms</td>
+  </tr>
+  <tr>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"10\\">Solve</th>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_seq_omp# </td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">392.563µs</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">537.068µs</td>
@@ -134,7 +204,42 @@ _results with \\"metis\\" ordering:_
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">376.69µs</td>
   </tr>
   <tr>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"5\\">Total</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_seq_omp# </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">756.743µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">916.4µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">894.864µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">527.42µs</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi1_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">605.814µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">627.605µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">937.924µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">656.69µs</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi#     </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">517.196µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">874.599µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">988.607µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.76049ms</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi#_omp1</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">605.814µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.31329ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">756.877µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">865.59µs</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi#_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">605.814µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">627.605µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.31329ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">749.399µs</td>
+  </tr>
+  <tr>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"10\\">Total</th>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_seq_omp# </td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.08693ms</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">9.8105ms</td>
@@ -170,7 +275,42 @@ _results with \\"metis\\" ordering:_
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">7.41608ms</td>
   </tr>
   <tr>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"5\\">Rel Error</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_seq_omp# </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">24.2767ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.68645ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.59073ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">13.0515ms</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi1_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">13.5418ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">8.45765ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">12.134ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">18.6644ms</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi#     </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">10.5367ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">8.11955ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">13.1135ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">39.3206ms</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi#_omp1</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">13.5418ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">11.8403ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">7.36644ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">8.00506ms</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi#_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">13.5418ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">8.45765ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">11.8403ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">10.3996ms</td>
+  </tr>
+  <tr>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"10\\">Rel Error</th>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_seq_omp# </td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
@@ -204,6 +344,41 @@ _results with \\"metis\\" ordering:_
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.44e-16</td>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.44e-16</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_seq_omp# </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi1_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi#     </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">5.55e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">5.55e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">5.55e-16</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi#_omp1</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">5.55e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">5.55e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">5.55e-16</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">intel_mpi#_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">5.55e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">5.55e-16</td>
   </tr>
 </table>
 
