@@ -1,0 +1,212 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`genReadme generates readme filw with bfwb62 1`] = `
+"# Benchmarks using the code for sparse matrices
+
+The code here tests the perfomance of the MUMPS Sparse Solver.
+
+## bfwb62 matrix
+
+Reference: https://sparse.tamu.edu/Bai/bfwb62
+
+* Symmetric matrix
+* Dimension = 62
+* Number of non-zero values = 202
+* L-infinity norm of the matrix = 1.000e-4
+
+_results with \\"metis\\" ordering:_
+
+<table style=\\"border: 1px solid #979797; border-collapse: collapse;\\">
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">bfwb62</td>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">case</th>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 1</th>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 2</th>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 3</th>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 4</th>
+  </tr>
+  <tr>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"5\\">Analyze</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_seq_omp# </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_seq_omp1.txt\\">463.178µs</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_seq_omp2.txt\\">709.094µs</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_seq_omp3.txt\\">732.382µs</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_seq_omp4.txt\\">726.987µs</a></td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi1_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_mpi1_omp1.txt\\">1.7058ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_mpi1_omp2.txt\\">1.80039ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_mpi1_omp3.txt\\">1.37454ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_mpi1_omp4.txt\\">3.98261ms</a></td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi#     </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_mpi1.txt\\">1.66629ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_mpi2.txt\\">8.2673ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_mpi3.txt\\">5.41377ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_mpi4.txt\\">6.06771ms</a></td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi#_omp1</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_mpi1_omp1.txt\\">1.7058ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_mpi2_omp1.txt\\">8.60622ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_mpi3_omp1.txt\\">7.66633ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_mpi4_omp1.txt\\">5.14488ms</a></td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi#_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_mpi1_omp1.txt\\">1.7058ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_mpi1_omp2.txt\\">1.80039ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_mpi2_omp1.txt\\">8.60622ms</a></td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_mpi2_omp2.txt\\">7.50725ms</a></td>
+  </tr>
+  <tr>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"5\\">Factorize</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_seq_omp# </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">376.599µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">8.76785ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">28.5722ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">9.00163ms</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi1_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.64748ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">2.08928ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.20363ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.424ms</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi#     </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.28033ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.6484ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">926.544µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.05918ms</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi#_omp1</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.64748ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">656.11µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.33194ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">998.586µs</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi#_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.64748ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">2.08928ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">656.11µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">506.321µs</td>
+  </tr>
+  <tr>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"5\\">Solve</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_seq_omp# </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">392.563µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">537.068µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">522.288µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.53828ms</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi1_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.05724ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.27495ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">575.717µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">650.255µs</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi#     </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">723.914µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.09976ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">610.829µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">719.884µs</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi#_omp1</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.05724ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">460.101µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">996.969µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">726.237µs</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi#_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.05724ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.27495ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">460.101µs</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">376.69µs</td>
+  </tr>
+  <tr>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"5\\">Total</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_seq_omp# </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">1.08693ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">9.8105ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">29.6152ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">11.0598ms</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi1_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3.89388ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.58303ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">2.7574ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">9.37625ms</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi#     </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3.19027ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">10.1939ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.24688ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.87157ms</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi#_omp1</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3.89388ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">8.87028ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">9.03842ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.2041ms</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi#_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">3.89388ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.58303ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">8.87028ms</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">7.41608ms</td>
+  </tr>
+  <tr>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"5\\">Rel Error</th>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_seq_omp# </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi1_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi#     </td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.44e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.44e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.44e-16</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi#_omp1</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.44e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.44e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.44e-16</td>
+  </tr>
+  <tr>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">open_mpi#_omp#</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">6.66e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.44e-16</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">4.44e-16</td>
+  </tr>
+</table>
+
+
+"
+`;

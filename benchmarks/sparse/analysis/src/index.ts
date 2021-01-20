@@ -1,8 +1,6 @@
 import { genReadme } from './genReadme';
 
 async function run() {
-  const args = process.argv;
-  const intel = args[2] == 'ON';
   const matrices: string[] = [
     'inline_1',
     'Flan_1565',
@@ -14,7 +12,7 @@ async function run() {
     // 'oilpan',
     // 'twotone',
   ];
-  const readme = genReadme(matrices, intel);
+  const readme = genReadme(matrices);
   console.log(readme);
 }
 

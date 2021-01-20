@@ -32,6 +32,7 @@ export interface IReport {
   TimeSolverNanoseconds: number;
   TimeSolverString: string;
   Stats: IStats;
+  link?: string;
 }
 
 export const zeroTimeAndMemoryFull = (): ITimeAndMemoryFull => ({

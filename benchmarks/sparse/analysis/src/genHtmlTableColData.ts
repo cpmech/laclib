@@ -9,8 +9,9 @@ export const genHtmlTableColData = (
   columns: IReport[],
   sty = styTabData,
 ): IHtmlColData => {
+  const k = (entry: string, link?: string) => (link ? `<a href="${link}">${entry}</a>` : entry);
   const cs = columns;
-  const aa = cs.map((c) => `<td style="${sty}">${c.StepAnalyze.ElapsedTimeString}</td>`);
+  const aa = cs.map((c) => `<td style="${sty}">${k(c.StepAnalyze.ElapsedTimeString, c.link)}</td>`);
   const ff = cs.map((c) => `<td style="${sty}">${c.StepFactorize.ElapsedTimeString}</td>`);
   const ss = cs.map((c) => `<td style="${sty}">${c.StepSolve.ElapsedTimeString}</td>`);
   const tt = cs.map((c) => `<td style="${sty}">${c.TimeSolverString}</td>`);

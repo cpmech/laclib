@@ -46,5 +46,6 @@ Object {
   "Symmetric": true,
   "TimeSolverNanoseconds": 891818,
   "TimeSolverString": "891.818µs",
+  "link": "https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results//open/mumps_bfwb62_metis_open_seq.txt",
 }
 `;
