@@ -4,7 +4,7 @@ exports[`genHtmlTable  generates default table 1`] = `
 "<table style=\\"border: 1px solid #979797; border-collapse: collapse;\\">
   <tr>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">mytableX</td>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">platform</th>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">case</th>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 1</th>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 2</th>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 3</th>
@@ -93,7 +93,7 @@ exports[`genHtmlTable  generates small table 1`] = `
 "<table style=\\"border: 1px solid #979797; border-collapse: collapse;\\">
   <tr>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">mytable</td>
-    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">platform</th>
+    <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">case</th>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 1</th>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 2</th>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\">NP or NT 3</th>

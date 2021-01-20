@@ -44,7 +44,7 @@ export const genHtmlTable = (matrixName: string, reportSet: IReportSet): string 
   return `<table style="${styTable}">
   <tr>
     <td style="${styTabHeader}">${matrixName}</td>
-    <th style="${styTabHeader}">platform</th>
+    <th style="${styTabHeader}">case</th>
     ${heads}
   </tr>${content}
 </table>
