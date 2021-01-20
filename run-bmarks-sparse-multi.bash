@@ -69,7 +69,7 @@ compile() {
 
 echo
 echo
-echo "### no mpi, no omp => seq ###########################################"
+echo "### 1: no mpi, no omp => seq ###########################################"
 
 compile OFF OFF
 
@@ -82,7 +82,7 @@ done
 
 echo
 echo
-echo "### no mpi, with omp => seq + omp ###################################"
+echo "### 2: no mpi, with omp => seq + omp ###################################"
 
 compile OFF ON
 
@@ -97,7 +97,7 @@ done
 
 echo
 echo
-echo "### with mpi, no omp ################################################"
+echo "### 3: with mpi, no omp ################################################"
 
 compile ON OFF
 
@@ -112,7 +112,7 @@ done
 
 echo
 echo
-echo "### with mpi and with omp, but changing omp only ####################"
+echo "### 4: with mpi and with omp, but changing omp only ####################"
 
 compile ON ON
 
@@ -127,7 +127,7 @@ done
 
 echo
 echo
-echo "### with mpi and with omp, but changing mpi only ####################"
+echo "### 5: with mpi and with omp, but changing mpi only ####################"
 
 compile ON ON
 
@@ -142,7 +142,7 @@ done
 
 echo
 echo
-echo "### with mpi and with omp, and changing both ########################"
+echo "### 6: with mpi and with omp, and changing both ########################"
 
 compile ON ON
 
