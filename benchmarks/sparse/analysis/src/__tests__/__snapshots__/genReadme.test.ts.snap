@@ -5,7 +5,7 @@ exports[`genReadme generates readme filw with bfwb62 1`] = `
 
 The code here tests the perfomance of the MUMPS Sparse Solver.
 
-## bfwb62 matrix
+## Bai / bfwb62 matrix
 
 Reference: https://sparse.tamu.edu/Bai/bfwb62
 

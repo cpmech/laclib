@@ -21,7 +21,7 @@ const genInfo = (report: IReport): string => {
   const strSym = report.Symmetric ? 'Symmetric matrix' : 'General matrix (unsymmetric)';
   const group = (mat2group as any)[report.MatrixName];
   return `
-## ${report.MatrixName} matrix
+## ${(mat2group as any)[report.MatrixName]} / ${report.MatrixName} matrix
 
 Reference: https://sparse.tamu.edu/${group}/${report.MatrixName}
 

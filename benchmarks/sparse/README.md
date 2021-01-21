@@ -2,7 +2,7 @@
 
 The code here tests the perfomance of the MUMPS Sparse Solver.
 
-## inline_1 matrix
+## GHS_psdef / inline_1 matrix
 
 Reference: https://sparse.tamu.edu/GHS_psdef/inline_1
 
@@ -168,7 +168,7 @@ _results with "metis" ordering:_
 
 
 
-## Flan_1565 matrix
+## Janna / Flan_1565 matrix
 
 Reference: https://sparse.tamu.edu/Janna/Flan_1565
 
@@ -334,7 +334,7 @@ _results with "metis" ordering:_
 
 
 
-## pre2 matrix
+## ATandT / pre2 matrix
 
 Reference: https://sparse.tamu.edu/ATandT/pre2
 
@@ -500,7 +500,7 @@ _results with "metis" ordering:_
 
 
 
-## tmt_unsym matrix
+## CEMW / tmt_unsym matrix
 
 Reference: https://sparse.tamu.edu/CEMW/tmt_unsym
 
@@ -666,7 +666,7 @@ _results with "metis" ordering:_
 
 
 
-## bfwb62 matrix
+## Bai / bfwb62 matrix
 
 Reference: https://sparse.tamu.edu/Bai/bfwb62
 
