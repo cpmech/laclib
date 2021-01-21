@@ -2,7 +2,11 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "es2015",
-    "lib": ["es6", "es2017"],
+    "lib": [
+      "es6",
+      "es2017",
+      "dom" // only needed because of dompurify
+    ],
     "outDir": "dist",
     "strict": true,
     "moduleResolution": "node",
