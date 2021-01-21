@@ -1,6 +1,6 @@
 import { genHtmlTable } from '../genHtmlTable';
 import { IReport, IReportSet, zeroReport } from '../types';
-import { writeHtml } from '../genHtml';
+import { genHtml } from '../genHtml';
 
 describe('genHtmlTable ', () => {
   const ro: IReport[] = [zeroReport(), zeroReport(), zeroReport(), zeroReport()];
@@ -76,8 +76,7 @@ describe('genHtmlTable ', () => {
 
     // debugging
     const filepath = '/tmp/laclib/table.html';
-    writeHtml(filepath, 'laclib table', table);
-    console.log(`file <${filepath}> written`);
+    genHtml(filepath, 'laclib table', table);
   });
 
   it('generates small table', () => {

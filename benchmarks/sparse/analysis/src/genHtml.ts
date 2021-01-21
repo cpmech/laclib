@@ -1,20 +1,34 @@
+import marked from 'marked';
+import DOMPurify from 'dompurify';
 import { maybeWriteFile } from '@cpmech/basic-sys';
 
-export const genHtml = (title: string, body: string, style = ''): string => {
-  return `<!DOCTYPE html>
+export const genHtml = (
+  filepath: string,
+  title: string,
+  body: string,
+  bodyIsMarkdown = false,
+  style = '',
+  verbose = true,
+) => {
+  const htmlBody = bodyIsMarkdown ? DOMPurify.sanitize(marked(body, { gfm: true })) : body;
+  const html = `<!DOCTYPE html>
 <html>
-<head>
-<title>${title}</title>
+  <head>
+    <title>${title}</title>
+
 ${style}
-</head>
-<body>
-${body}
-</body>
+
+  </head>
+  <body>
+
+${htmlBody}
+
+  </body>
 </html>
 `;
-};
-
-export const writeHtml = (filepath: string, title: string, body: string, style = '') => {
   const overwrite = true;
-  maybeWriteFile(overwrite, filepath, () => genHtml(title, body, style));
+  maybeWriteFile(overwrite, filepath, () => html);
+  if (verbose) {
+    console.log(`file <${filepath}> written`);
+  }
 };
