@@ -23,7 +23,7 @@ describe('genHtmlTAbleColData', () => {
     rpts[0].Stats.RelativeError = 0.123;
     rpts[1].Stats.RelativeError = 0.456;
 
-    const cols = genHtmlTableColData('intel', rpts);
+    const cols = genHtmlTableColData('intel', { reports: rpts });
 
     expect(cols.Analyze).toBe(`<td>intel</td>\n    <td>ana.0</td>\n    <td>ana.1</td>`);
     expect(cols.Factorize).toBe(`<td>intel</td>\n    <td>fac.0</td>\n    <td>fac.1</td>`);

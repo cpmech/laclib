@@ -1,17 +1,17 @@
-import { IReport, IHtmlColData, IHtmlStyles } from './types';
+import { IHtmlColData, IHtmlStyles, IReportsAndAnalysis } from './types';
 
 // example:
 //   label         columns
 //  "intel_mpi#" : [rpt_for_mpi1, rpt_for_mpi2, rpt_for_mpi3, ...]
 export const genHtmlTableColData = (
   label: string,
-  columns: IReport[],
+  dataset: IReportsAndAnalysis,
   styles?: IHtmlStyles,
 ): IHtmlColData => {
   const styDat = styles ? styles.tabData : '';
   const styLab = styles ? styles.tabDataLabel : '';
   const k = (entry: string, link?: string) => (link ? `<a href="${link}">${entry}</a>` : entry);
-  const cs = columns;
+  const cs = dataset.reports;
   const aa = cs.map((c) => `<td${styDat}>${c.StepAnalyze.ElapsedTimeString}</td>`);
   const ff = cs.map((c) => `<td${styDat}>${k(c.StepFactorize.ElapsedTimeString, c.link)}</td>`);
   const ss = cs.map((c) => `<td${styDat}>${c.StepSolve.ElapsedTimeString}</td>`);

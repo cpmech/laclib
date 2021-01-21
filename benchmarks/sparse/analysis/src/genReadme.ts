@@ -1,4 +1,5 @@
 import { formatLongNumber } from '@cpmech/util';
+import { analyzeData } from './analyzeData';
 import { genHtmlTable } from './genHtmlTable';
 import { readReport } from './readReport';
 import {
@@ -9,6 +10,8 @@ import {
   PlatToolset,
   DescribePlatOption,
   IHtmlStyles,
+  IAnalysis,
+  IReportsAndAnalysis,
 } from './types';
 
 const mat2group = {
@@ -50,16 +53,24 @@ const read = (matrix: string, option: PlatOption, m = '#', n = '#', toolset: Pla
   return readReport(`mumps_${matrix}_metis_${toolset}_${opt}`, toolset);
 };
 
-const readFour = (matrix: string, option: PlatOption, toolset: PlatToolset): IReport[] => {
+const readFour = (
+  matrix: string,
+  option: PlatOption,
+  toolset: PlatToolset,
+): IReportsAndAnalysis => {
+  let reports: IReport[];
   if (option === 'mpi#_omp#') {
-    return [
+    reports = [
       read(matrix, option, '1', '1', toolset),
       read(matrix, option, '1', '2', toolset),
       read(matrix, option, '2', '1', toolset),
       read(matrix, option, '2', '2', toolset),
     ];
+  } else {
+    reports = four.map((n) => read(matrix, option, `${n}`, '#', toolset));
   }
-  return four.map((n) => read(matrix, option, `${n}`, '#', toolset));
+  const analysis = analyzeData(reports);
+  return { reports, analysis };
 };
 
 export const genReadme = (
@@ -87,21 +98,21 @@ The values in blue are links to the log files.
 
   // loop over each matrix name
   matrices.forEach((matrix) => {
-    const reports: IReportSet = {};
+    const reportSet: IReportSet = {};
 
     // load results
     options.forEach((option) => {
       toolsets.forEach((toolset) => {
-        reports[`${toolset}_${option}`] = readFour(matrix, option, toolset);
+        reportSet[`${toolset}_${option}`] = readFour(matrix, option, toolset);
       });
     });
 
     // extract the first report
-    const firstKey = Object.keys(reports)[0];
-    const report = reports[firstKey][0];
+    const firstKey = Object.keys(reportSet)[0];
+    const report = reportSet[firstKey].reports[0];
 
     // generate html table
-    const table = genHtmlTable(matrix, reports, fields, styles);
+    const table = genHtmlTable(matrix, reportSet, fields, styles);
 
     // update
     readme += genInfo(report) + table + '\n\n';

@@ -68,8 +68,8 @@ describe('genHtmlTable ', () => {
 
   it('generates default table', () => {
     const reports: IReportSet = {
-      open: ro,
-      intel: ri,
+      open: { reports: ro },
+      intel: { reports: ri },
     };
     const table = genHtmlTable('mytableX', reports, ['Analyze', 'Factorize'], defaultHtmlStyles());
     expect(table).toMatchSnapshot();
@@ -86,7 +86,7 @@ describe('genHtmlTable ', () => {
     r.StepSolve.ElapsedTimeString = '3s';
     r.TimeSolverString = '6s';
     const reports: IReport[] = [r, r, r, r];
-    const reportSet = { intel: reports };
+    const reportSet = { intel: { reports } };
     const table = genHtmlTable('mytable', reportSet, ['Analyze', 'Factorize'], defaultHtmlStyles());
     expect(table).toMatchSnapshot();
   });

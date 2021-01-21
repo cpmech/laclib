@@ -37,7 +37,7 @@ export const genHtmlTable = (
     .join('');
 
   // header
-  const nproc = reportSet[labels[0]].length;
+  const nproc = reportSet[labels[0]].reports.length;
   const nums = Array.from(Array(nproc).keys());
   const lines = nums.map((i) => `<th${styH}>NP or NT ${i + 1}</th>`);
   const heads = lines.join(`\n    `);

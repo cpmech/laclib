@@ -35,6 +35,25 @@ export interface IReport {
   link?: string;
 }
 
+export interface IAnalysis {
+  fac: {
+    firstNanoseconds: number;
+    lastNanoseconds: number;
+    maxDeltaNanoseconds: number;
+    deltaNanoseconds: number[];
+    speedup: number[];
+  };
+}
+
+export interface IReportsAndAnalysis {
+  reports: IReport[]; // e.g.: "intel" => [rpt_for_mpi1, rpt_for_mpi2, rpt_for_mpi3, ...]
+  analysis?: IAnalysis;
+}
+
+export type IReportSet = {
+  [name: string]: IReportsAndAnalysis;
+};
+
 export const zeroTimeAndMemoryFull = (): ITimeAndMemoryFull => ({
   ElapsedTimeNanoseconds: 0,
   ElapsedTimeString: '',
@@ -79,10 +98,6 @@ export type TableField = 'Analyze' | 'Factorize' | 'Solve' | 'Total' | 'Norm(A.x
 
 export type IHtmlColData = {
   [option in TableField]: string;
-};
-
-export type IReportSet = {
-  [name: string]: IReport[]; // e.g.: "intel" => [rpt_for_mpi1, rpt_for_mpi2, rpt_for_mpi3, ...]
 };
 
 export const DescribePlatOption: { [key in PlatOption]: string } = {

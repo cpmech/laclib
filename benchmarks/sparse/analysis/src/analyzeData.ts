@@ -1,17 +1,7 @@
-import { IReport } from './types';
+import { IAnalysis, IReport } from './types';
 
-interface IAnalysis {
-  fac: {
-    firstNanoseconds: number;
-    lastNanoseconds: number;
-    maxDeltaNanoseconds: number;
-    deltaNanoseconds: number[];
-    speedup: number[];
-  };
-}
-
-export const analyzeData = (data: IReport[]) => {
-  return data.reduce((acc, curr) => {
+export const analyzeData = (reports: IReport[]): IAnalysis => {
+  return reports.reduce((acc, curr) => {
     // data
     const data = curr.StepFactorize;
 
