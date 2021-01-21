@@ -23,26 +23,14 @@ describe('genHtmlTAbleColData', () => {
     rpts[0].Stats.RelativeError = 0.123;
     rpts[1].Stats.RelativeError = 0.456;
 
-    const cols = genHtmlTableColData('intel', rpts, '', '');
+    const cols = genHtmlTableColData('intel', rpts);
 
-    expect(cols.Analyze).toBe(
-      `<td style="">intel</td>\n    <td style="">ana.0</td>\n    <td style="">ana.1</td>`,
-    );
-    expect(cols.Factorize).toBe(
-      `<td style="">intel</td>\n    <td style="">fac.0</td>\n    <td style="">fac.1</td>`,
-    );
-    expect(cols.Solve).toBe(
-      `<td style="">intel</td>\n    <td style="">sol.0</td>\n    <td style="">sol.1</td>`,
-    );
-    expect(cols.Total).toBe(
-      `<td style="">intel</td>\n    <td style="">tot.0</td>\n    <td style="">tot.1</td>`,
-    );
+    expect(cols.Analyze).toBe(`<td>intel</td>\n    <td>ana.0</td>\n    <td>ana.1</td>`);
+    expect(cols.Factorize).toBe(`<td>intel</td>\n    <td>fac.0</td>\n    <td>fac.1</td>`);
+    expect(cols.Solve).toBe(`<td>intel</td>\n    <td>sol.0</td>\n    <td>sol.1</td>`);
+    expect(cols.Total).toBe(`<td>intel</td>\n    <td>tot.0</td>\n    <td>tot.1</td>`);
 
-    expect(cols['Norm(A.x)']).toBe(
-      `<td style="">intel</td>\n    <td style="">1.23</td>\n    <td style="">1.45</td>`,
-    );
-    expect(cols['Rel Error']).toBe(
-      `<td style="">intel</td>\n    <td style="">1.23e-1</td>\n    <td style="">4.56e-1</td>`,
-    );
+    expect(cols['Norm(A.x)']).toBe(`<td>intel</td>\n    <td>1.23</td>\n    <td>1.45</td>`);
+    expect(cols['Rel Error']).toBe(`<td>intel</td>\n    <td>1.23e-1</td>\n    <td>4.56e-1</td>`);
   });
 });

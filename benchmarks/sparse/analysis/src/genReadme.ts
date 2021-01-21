@@ -8,6 +8,7 @@ import {
   PlatOption,
   PlatToolset,
   DescribePlatOption,
+  IHtmlStyles,
 } from './types';
 
 const mat2group = {
@@ -66,6 +67,7 @@ export const genReadme = (
   toolsets: PlatToolset[] = ['open', 'intel'],
   options: PlatOption[] = ['seq_omp#'],
   fields: TableField[] = ['Analyze', 'Factorize'],
+  styles?: IHtmlStyles,
 ): string => {
   // description of options (cases)
   const desc = options.map((option) => `- **${option}** ${DescribePlatOption[option]}`).join('\n');
@@ -85,21 +87,21 @@ The values in blue are links to the log files.
 
   // loop over each matrix name
   matrices.forEach((matrix) => {
-    const reportSet: IReportSet = {};
+    const reports: IReportSet = {};
 
     // load results
     options.forEach((option) => {
       toolsets.forEach((toolset) => {
-        reportSet[`${toolset}_${option}`] = readFour(matrix, option, toolset);
+        reports[`${toolset}_${option}`] = readFour(matrix, option, toolset);
       });
     });
 
     // extract the first report
-    const firstKey = Object.keys(reportSet)[0];
-    const report = reportSet[firstKey][0];
+    const firstKey = Object.keys(reports)[0];
+    const report = reports[firstKey][0];
 
     // generate html table
-    const table = genHtmlTable(matrix, reportSet, fields);
+    const table = genHtmlTable(matrix, reports, fields, styles);
 
     // update
     readme += genInfo(report) + table + '\n\n';

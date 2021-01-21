@@ -92,3 +92,24 @@ export const DescribePlatOption: { [key in PlatOption]: string } = {
   'mpi#_omp1': 'varying number of MPI procs, but compiled with OpenMP (ignored)',
   'mpi#_omp#': '1 and 2 MPI procs combined with 1 and 2 OpenMP threads (1-1, 1-2, 2-1, 2-2)',
 };
+
+export interface IHtmlStyles {
+  table: string;
+  tabHeader: string;
+  tabLHeader: string;
+  tabData: string;
+  tabDataLabel: string;
+}
+
+export const defaultHtmlStyles = (
+  tableBorderColor = '#979797',
+  tablePadding = '5px',
+): IHtmlStyles => {
+  return {
+    table: ` style="border: 1px solid ${tableBorderColor}; border-collapse: collapse;"`,
+    tabHeader: ` style="border: 1px solid ${tableBorderColor}; border-collapse: collapse; text-align: center; padding: ${tablePadding};"`,
+    tabLHeader: ` style="border: 1px solid ${tableBorderColor}; border-collapse: collapse; text-align: right; padding: ${tablePadding};"`,
+    tabData: ` style="border: 1px solid ${tableBorderColor}; border-collapse: collapse; text-align: center; padding: ${tablePadding};"`,
+    tabDataLabel: ` style="border: 1px solid ${tableBorderColor}; border-collapse: collapse; text-align: right; padding: ${tablePadding};"`,
+  };
+};

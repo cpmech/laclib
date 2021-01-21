@@ -1,5 +1,5 @@
 import { genHtmlTable } from '../genHtmlTable';
-import { IReport, IReportSet, zeroReport } from '../types';
+import { IReport, IReportSet, zeroReport, defaultHtmlStyles } from '../types';
 import { genHtml } from '../genHtml';
 
 describe('genHtmlTable ', () => {
@@ -71,7 +71,7 @@ describe('genHtmlTable ', () => {
       open: ro,
       intel: ri,
     };
-    const table = genHtmlTable('mytableX', reports);
+    const table = genHtmlTable('mytableX', reports, ['Analyze', 'Factorize'], defaultHtmlStyles());
     expect(table).toMatchSnapshot();
 
     // debugging
@@ -87,7 +87,7 @@ describe('genHtmlTable ', () => {
     r.TimeSolverString = '6s';
     const reports: IReport[] = [r, r, r, r];
     const reportSet = { intel: reports };
-    const table = genHtmlTable('mytable', reportSet);
+    const table = genHtmlTable('mytable', reportSet, ['Analyze', 'Factorize'], defaultHtmlStyles());
     expect(table).toMatchSnapshot();
   });
 });

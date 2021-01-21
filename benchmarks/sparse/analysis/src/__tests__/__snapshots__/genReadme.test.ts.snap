@@ -5,6 +5,17 @@ exports[`genReadme generates readme filw with bfwb62 1`] = `
 
 The code here tests the perfomance of the MUMPS Sparse Solver.
 
+The **case** keywords in the tables have the following meanings:
+
+- **seq_omp#** sequential (no mpi) with varying number of OpenMP threads
+- **mpi1_omp#** compiled with MPI but with varying number of OpenMP threads (mpirun -np 1)
+- **mpi#** varying number of MPI procs; without OpenMP
+- **mpi#_omp1** varying number of MPI procs, but compiled with OpenMP (ignored)
+- **mpi#_omp#** 1 and 2 MPI procs combined with 1 and 2 OpenMP threads (1-1, 1-2, 2-1, 2-2)
+
+The values in blue are links to the log files.
+
+
 ## Bai / bfwb62 matrix
 
 Reference: https://sparse.tamu.edu/Bai/bfwb62
