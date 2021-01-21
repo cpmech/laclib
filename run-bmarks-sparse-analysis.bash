@@ -8,6 +8,13 @@ ANA_DIR=$BMARK_DIR/analysis
 cd $ANA_DIR
 yarn build
 
-A="open_intel_ana_fact_all"
+CASES="
+    open_seq_ana_fact_total
+    open_mpionly_ana_fact_total
+    open_mpi1_omp_fact_problem
+    open_intel_all_fact
+"
 
-node dist/cjs/index.js $A > "${BMARK_DIR}/README-${A}.md"
+for case in $CASES; do
+    node dist/cjs/index.js $case > "${BMARK_DIR}/README-${case}.md"
+done
