@@ -58,7 +58,7 @@ export const genReadme = (
   matrices: string[],
   toolsets: PlatToolset[] = ['open', 'intel'],
   options: PlatOption[] = ['seq_omp#'],
-  show: TableField[] = ['Analyze', 'Factorize'],
+  fields: TableField[] = ['Analyze', 'Factorize'],
 ): string => {
   // title of page
   let readme = `# Benchmarks using the code for sparse matrices
@@ -82,7 +82,7 @@ The code here tests the perfomance of the MUMPS Sparse Solver.
     const report = reportSet[firstKey][0];
 
     // generate html table
-    const table = genHtmlTable(matrix, reportSet, show);
+    const table = genHtmlTable(matrix, reportSet, fields);
 
     // update
     readme += genInfo(report) + table + '\n\n';

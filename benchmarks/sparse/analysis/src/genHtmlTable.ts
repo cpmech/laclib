@@ -8,7 +8,7 @@ import { styTable, styTabHeader, styTabLHeader } from './htmlStyles';
 export const genHtmlTable = (
   matrixName: string,
   reportSet: IReportSet,
-  show: TableField[] = ['Analyze', 'Factorize'],
+  fields: TableField[] = ['Analyze', 'Factorize'],
 ): string => {
   // extract labels and data
   const labels = Object.keys(reportSet);
@@ -29,7 +29,7 @@ export const genHtmlTable = (
       : `    ${cols}`;
 
   // table content
-  const content = show
+  const content = fields
     .map((option) => data.map((d, l) => `${tr0}${th(l, option, d[option])}${trx}`).join(''))
     .join('');
 
