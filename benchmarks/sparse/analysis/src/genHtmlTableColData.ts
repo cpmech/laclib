@@ -22,11 +22,11 @@ export const genHtmlTableColData = (
   const re = cs.map((c) => `<td style="${sty}">${c.Stats.RelativeError.toExponential(2)}</td>`);
   const l = `<td style="${styLabel}">${label}</td>\n    `;
   return {
-    ana: l + aa.join('\n    '),
-    fac: l + ff.join('\n    '),
-    sol: l + ss.join('\n    '),
-    tot: l + tt.join('\n    '),
-    normAx: l + na.join('\n    '),
-    relErr: l + re.join('\n    '),
+    Analyze: l + aa.join('\n    '),
+    Factorize: l + ff.join('\n    '),
+    Solve: l + ss.join('\n    '),
+    Total: l + tt.join('\n    '),
+    'Norm(A.x)': l + na.join('\n    '),
+    'Rel Error': l + re.join('\n    '),
   };
 };

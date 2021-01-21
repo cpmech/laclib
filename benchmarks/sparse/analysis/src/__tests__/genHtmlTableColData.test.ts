@@ -25,23 +25,23 @@ describe('genHtmlTAbleColData', () => {
 
     const cols = genHtmlTableColData('intel', rpts, '', '');
 
-    expect(cols.ana).toBe(
+    expect(cols.Analyze).toBe(
       `<td style="">intel</td>\n    <td style="">ana.0</td>\n    <td style="">ana.1</td>`,
     );
-    expect(cols.fac).toBe(
+    expect(cols.Factorize).toBe(
       `<td style="">intel</td>\n    <td style="">fac.0</td>\n    <td style="">fac.1</td>`,
     );
-    expect(cols.sol).toBe(
+    expect(cols.Solve).toBe(
       `<td style="">intel</td>\n    <td style="">sol.0</td>\n    <td style="">sol.1</td>`,
     );
-    expect(cols.tot).toBe(
+    expect(cols.Total).toBe(
       `<td style="">intel</td>\n    <td style="">tot.0</td>\n    <td style="">tot.1</td>`,
     );
 
-    expect(cols.normAx).toBe(
+    expect(cols['Norm(A.x)']).toBe(
       `<td style="">intel</td>\n    <td style="">1.23</td>\n    <td style="">1.45</td>`,
     );
-    expect(cols.relErr).toBe(
+    expect(cols['Rel Error']).toBe(
       `<td style="">intel</td>\n    <td style="">1.23e-1</td>\n    <td style="">4.56e-1</td>`,
     );
   });

@@ -71,14 +71,17 @@ export const zeroReport = (): IReport => ({
   Stats: zeroStats(),
 });
 
-export interface IHtmlColData {
-  ana: string;
-  fac: string;
-  sol: string;
-  tot: string;
-  normAx: string;
-  relErr: string;
-}
+export type HtmlTableShowOptions =
+  | 'Analyze'
+  | 'Factorize'
+  | 'Solve'
+  | 'Total'
+  | 'Norm(A.x)'
+  | 'Rel Error';
+
+export type IHtmlColData = {
+  [option in HtmlTableShowOptions]: string;
+};
 
 export type IReportSet = {
   [name: string]: IReport[]; // e.g.: "intel" => [rpt_for_mpi1, rpt_for_mpi2, rpt_for_mpi3, ...]
