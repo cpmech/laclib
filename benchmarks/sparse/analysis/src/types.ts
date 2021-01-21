@@ -86,3 +86,12 @@ export type IHtmlColData = {
 export type IReportSet = {
   [name: string]: IReport[]; // e.g.: "intel" => [rpt_for_mpi1, rpt_for_mpi2, rpt_for_mpi3, ...]
 };
+
+export type ReadmeOptions =
+  | 'seq_omp#' // sequential (no mpi) with varying number of OpenMP threads
+  | 'mpi1_omp#' // compiled with MPI but with varying number of OpenMP threads
+  | 'mpi#' // varying number of MPI procs
+  | 'mpi#_omp1' // varying number of MPI procs, but compiled with OpenMP support
+  | 'mpi#_mpi#'; // varying both MPI procs (1 and 2) and OpenMP threads (1 and 2)
+
+export type ReadmePlatforms = 'open' | 'intel' | 'open_and_intel';
