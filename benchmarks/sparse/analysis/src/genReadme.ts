@@ -1,7 +1,7 @@
 import { formatLongNumber } from '@cpmech/util';
 import { genHtmlTable } from './genHtmlTable';
 import { readReport } from './readReport';
-import { HtmlTableShowOptions, IReport, IReportSet, ReadmeOptions, ReadmePlatforms } from './types';
+import { TableField, IReport, IReportSet, PlatformOption, PlatformSuffix } from './types';
 
 const mat2group = {
   bfwb62: 'Bai',
@@ -37,13 +37,13 @@ _results with "${report.Ordering}" ordering:_
 
 const four = [1, 2, 3, 4];
 
-const read = (matrix: string, option: ReadmeOptions, m = '#', n = '#', intel = false) => {
+const read = (matrix: string, option: PlatformOption, m = '#', n = '#', intel = false) => {
   const key = intel ? 'intel' : 'open';
   const opt = option.replace('#', m).replace('#', n);
   return readReport(`mumps_${matrix}_metis_${key}_${opt}`, intel);
 };
 
-const readFour = (matrix: string, option: ReadmeOptions, intel = false): IReport[] => {
+const readFour = (matrix: string, option: PlatformOption, intel = false): IReport[] => {
   if (option === 'mpi#_omp#') {
     return [
       read(matrix, option, '1', '1', intel),
@@ -57,9 +57,9 @@ const readFour = (matrix: string, option: ReadmeOptions, intel = false): IReport
 
 export const genReadme = (
   matrices: string[],
-  plat: ReadmePlatforms = 'open_and_intel',
-  options: ReadmeOptions[] = ['seq_omp#'],
-  show: HtmlTableShowOptions[] = ['Analyze', 'Factorize'],
+  plat: PlatformSuffix = 'open_and_intel',
+  options: PlatformOption[] = ['seq_omp#'],
+  show: TableField[] = ['Analyze', 'Factorize'],
 ): string => {
   // title of page
   let readme = `# Benchmarks using the code for sparse matrices

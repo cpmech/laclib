@@ -1,4 +1,4 @@
-import { HtmlTableShowOptions, IReportSet } from './types';
+import { TableField, IReportSet } from './types';
 import { genHtmlTableColData } from './genHtmlTableColData';
 import { styTable, styTabHeader, styTabLHeader } from './htmlStyles';
 
@@ -8,7 +8,7 @@ import { styTable, styTabHeader, styTabLHeader } from './htmlStyles';
 export const genHtmlTable = (
   matrixName: string,
   reportSet: IReportSet,
-  show: HtmlTableShowOptions[] = ['Analyze', 'Factorize'],
+  show: TableField[] = ['Analyze', 'Factorize'],
 ): string => {
   // extract labels and data
   const labels = Object.keys(reportSet);

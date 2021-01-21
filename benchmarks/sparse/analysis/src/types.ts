@@ -71,27 +71,21 @@ export const zeroReport = (): IReport => ({
   Stats: zeroStats(),
 });
 
-export type HtmlTableShowOptions =
-  | 'Analyze'
-  | 'Factorize'
-  | 'Solve'
-  | 'Total'
-  | 'Norm(A.x)'
-  | 'Rel Error';
+export type PlatformSuffix = 'open' | 'intel' | 'open_and_intel';
 
-export type IHtmlColData = {
-  [option in HtmlTableShowOptions]: string;
-};
-
-export type IReportSet = {
-  [name: string]: IReport[]; // e.g.: "intel" => [rpt_for_mpi1, rpt_for_mpi2, rpt_for_mpi3, ...]
-};
-
-export type ReadmeOptions =
+export type PlatformOption =
   | 'seq_omp#' // sequential (no mpi) with varying number of OpenMP threads
   | 'mpi1_omp#' // compiled with MPI but with varying number of OpenMP threads
   | 'mpi#' // varying number of MPI procs
   | 'mpi#_omp1' // varying number of MPI procs, but compiled with OpenMP support
   | 'mpi#_omp#'; // varying both MPI procs (1 and 2) and OpenMP threads (1 and 2)
 
-export type ReadmePlatforms = 'open' | 'intel' | 'open_and_intel';
+export type TableField = 'Analyze' | 'Factorize' | 'Solve' | 'Total' | 'Norm(A.x)' | 'Rel Error';
+
+export type IHtmlColData = {
+  [option in TableField]: string;
+};
+
+export type IReportSet = {
+  [name: string]: IReport[]; // e.g.: "intel" => [rpt_for_mpi1, rpt_for_mpi2, rpt_for_mpi3, ...]
+};
