@@ -73,7 +73,7 @@ export const zeroReport = (): IReport => ({
 
 export type PlatToolset = 'open' | 'intel';
 
-export type PlatformOption =
+export type PlatOption =
   | 'seq_omp#' // sequential (no mpi) with varying number of OpenMP threads
   | 'mpi1_omp#' // compiled with MPI but with varying number of OpenMP threads
   | 'mpi#' // varying number of MPI procs

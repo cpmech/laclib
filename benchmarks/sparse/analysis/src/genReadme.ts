@@ -1,7 +1,7 @@
 import { formatLongNumber } from '@cpmech/util';
 import { genHtmlTable } from './genHtmlTable';
 import { readReport } from './readReport';
-import { TableField, IReport, IReportSet, PlatformOption, PlatToolset } from './types';
+import { TableField, IReport, IReportSet, PlatOption, PlatToolset } from './types';
 
 const mat2group = {
   bfwb62: 'Bai',
@@ -37,12 +37,12 @@ _results with "${report.Ordering}" ordering:_
 
 const four = [1, 2, 3, 4];
 
-const read = (matrix: string, option: PlatformOption, m = '#', n = '#', toolset: PlatToolset) => {
+const read = (matrix: string, option: PlatOption, m = '#', n = '#', toolset: PlatToolset) => {
   const opt = option.replace('#', m).replace('#', n);
   return readReport(`mumps_${matrix}_metis_${toolset}_${opt}`, toolset);
 };
 
-const readFour = (matrix: string, option: PlatformOption, toolset: PlatToolset): IReport[] => {
+const readFour = (matrix: string, option: PlatOption, toolset: PlatToolset): IReport[] => {
   if (option === 'mpi#_omp#') {
     return [
       read(matrix, option, '1', '1', toolset),
@@ -57,7 +57,7 @@ const readFour = (matrix: string, option: PlatformOption, toolset: PlatToolset):
 export const genReadme = (
   matrices: string[],
   toolsets: PlatToolset[] = ['open', 'intel'],
-  options: PlatformOption[] = ['seq_omp#'],
+  options: PlatOption[] = ['seq_omp#'],
   show: TableField[] = ['Analyze', 'Factorize'],
 ): string => {
   // title of page
