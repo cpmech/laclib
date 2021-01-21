@@ -18,7 +18,7 @@ export const genHtmlTableColData = (
   label: string,
   dataset: IReportsAndAnalysis,
   styles?: IHtmlStyles,
-  speedupWorryThreshold = 0.5,
+  speedupWorryThreshold = 0.75,
 ): IHtmlColData => {
   // select styles
   const styDat = styles ? styles.tabData : '';
