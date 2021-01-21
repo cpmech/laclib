@@ -73,12 +73,7 @@ export const zeroReport = (): IReport => ({
 
 export type PlatToolset = 'open' | 'intel';
 
-export type PlatOption =
-  | 'seq_omp#' // sequential (no mpi) with varying number of OpenMP threads
-  | 'mpi1_omp#' // compiled with MPI but with varying number of OpenMP threads
-  | 'mpi#' // varying number of MPI procs
-  | 'mpi#_omp1' // varying number of MPI procs, but compiled with OpenMP support
-  | 'mpi#_omp#'; // varying both MPI procs (1 and 2) and OpenMP threads (1 and 2)
+export type PlatOption = 'seq_omp#' | 'mpi1_omp#' | 'mpi#' | 'mpi#_omp1' | 'mpi#_omp#';
 
 export type TableField = 'Analyze' | 'Factorize' | 'Solve' | 'Total' | 'Norm(A.x)' | 'Rel Error';
 
@@ -88,4 +83,12 @@ export type IHtmlColData = {
 
 export type IReportSet = {
   [name: string]: IReport[]; // e.g.: "intel" => [rpt_for_mpi1, rpt_for_mpi2, rpt_for_mpi3, ...]
+};
+
+export const DescribePlatOption: { [key in PlatOption]: string } = {
+  'seq_omp#': 'sequential (no mpi) with varying number of OpenMP threads',
+  'mpi1_omp#': 'compiled with MPI but with varying number of OpenMP threads (mpirun -np 1)',
+  'mpi#': 'varying number of MPI procs; without OpenMP',
+  'mpi#_omp1': 'varying number of MPI procs, but compiled with OpenMP (ignored)',
+  'mpi#_omp#': '1 and 2 MPI procs combined with 1 and 2 OpenMP threads (1-1, 1-2, 2-1, 2-2)',
 };

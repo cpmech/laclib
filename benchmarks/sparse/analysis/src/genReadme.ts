@@ -1,7 +1,14 @@
 import { formatLongNumber } from '@cpmech/util';
 import { genHtmlTable } from './genHtmlTable';
 import { readReport } from './readReport';
-import { TableField, IReport, IReportSet, PlatOption, PlatToolset } from './types';
+import {
+  TableField,
+  IReport,
+  IReportSet,
+  PlatOption,
+  PlatToolset,
+  DescribePlatOption,
+} from './types';
 
 const mat2group = {
   bfwb62: 'Bai',
@@ -60,10 +67,18 @@ export const genReadme = (
   options: PlatOption[] = ['seq_omp#'],
   fields: TableField[] = ['Analyze', 'Factorize'],
 ): string => {
-  // title of page
+  // description of options (cases)
+  const desc = options.map((option) => `- **${option}** ${DescribePlatOption[option]}`).join('\n');
+
+  // top of page
   let readme = `# Benchmarks using the code for sparse matrices
 
 The code here tests the perfomance of the MUMPS Sparse Solver.
+
+The **case** keywords in the tables have the following meanings:
+
+${desc}
+
 `;
 
   // loop over each matrix name
