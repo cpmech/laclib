@@ -92,6 +92,6 @@ export type ReadmeOptions =
   | 'mpi1_omp#' // compiled with MPI but with varying number of OpenMP threads
   | 'mpi#' // varying number of MPI procs
   | 'mpi#_omp1' // varying number of MPI procs, but compiled with OpenMP support
-  | 'mpi#_mpi#'; // varying both MPI procs (1 and 2) and OpenMP threads (1 and 2)
+  | 'mpi#_omp#'; // varying both MPI procs (1 and 2) and OpenMP threads (1 and 2)
 
 export type ReadmePlatforms = 'open' | 'intel' | 'open_and_intel';

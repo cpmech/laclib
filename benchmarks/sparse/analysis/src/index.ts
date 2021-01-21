@@ -12,7 +12,13 @@ async function run() {
     // 'oilpan',
     // 'twotone',
   ];
-  const readme = genReadme(matrices);
+  const readme = genReadme(matrices, 'open_and_intel', [
+    'seq_omp#',
+    'mpi1_omp#',
+    'mpi#',
+    'mpi#_omp1',
+    'mpi#_omp#',
+  ]);
   console.log(readme);
 }
 

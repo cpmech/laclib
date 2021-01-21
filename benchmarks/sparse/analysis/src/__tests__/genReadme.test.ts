@@ -7,7 +7,7 @@ describe('genReadme', () => {
       'mpi1_omp#',
       'mpi#',
       'mpi#_omp1',
-      'mpi#_mpi#',
+      'mpi#_omp#',
     ]);
     expect(readme).toMatchSnapshot();
   });

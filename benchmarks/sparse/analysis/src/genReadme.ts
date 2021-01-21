@@ -36,7 +36,24 @@ _results with "${report.Ordering}" ordering:_
 };
 
 const four = [1, 2, 3, 4];
-const read = readReport;
+
+const read = (matrix: string, option: ReadmeOptions, m = '#', n = '#', intel = false) => {
+  const key = intel ? 'intel' : 'open';
+  const opt = option.replace('#', m).replace('#', n);
+  return readReport(`mumps_${matrix}_metis_${key}_${opt}`, intel);
+};
+
+const readFour = (matrix: string, option: ReadmeOptions, intel = false): IReport[] => {
+  if (option === 'mpi#_omp#') {
+    return [
+      read(matrix, option, '1', '1', intel),
+      read(matrix, option, '1', '2', intel),
+      read(matrix, option, '2', '1', intel),
+      read(matrix, option, '2', '2', intel),
+    ];
+  }
+  return four.map((n) => read(matrix, option, `${n}`, '#', intel));
+};
 
 export const genReadme = (
   matrices: string[],
@@ -44,38 +61,39 @@ export const genReadme = (
   options: ReadmeOptions[] = ['seq_omp#'],
   show: HtmlTableShowOptions[] = ['Analyze', 'Factorize'],
 ): string => {
+  // title of page
   let readme = `# Benchmarks using the code for sparse matrices
 
 The code here tests the perfomance of the MUMPS Sparse Solver.
 `;
 
-  matrices.forEach((mat) => {
-    const reportSet: IReportSet = {
-      [` open_seq_omp# `]: four.map((n) => read(`mumps_${mat}_metis_open_seq_omp${n}`)),
-      [`intel_seq_omp# `]: four.map((n) => read(`mumps_${mat}_metis_intel_seq_omp${n}`, true)),
-      [` open_mpi1_omp#`]: four.map((n) => read(`mumps_${mat}_metis_open_mpi1_omp${n}`)),
-      [`intel_mpi1_omp#`]: four.map((n) => read(`mumps_${mat}_metis_intel_mpi1_omp${n}`, true)),
-      [` open_mpi#     `]: four.map((n) => read(`mumps_${mat}_metis_open_mpi${n}`)),
-      [`intel_mpi#     `]: four.map((n) => read(`mumps_${mat}_metis_intel_mpi${n}`, true)),
-      [` open_mpi#_omp1`]: four.map((n) => read(`mumps_${mat}_metis_open_mpi${n}_omp1`)),
-      [`intel_mpi#_omp1`]: four.map((n) => read(`mumps_${mat}_metis_intel_mpi${n}_omp1`, true)),
-      [` open_mpi#_omp#`]: [
-        read(`mumps_${mat}_metis_open_mpi1_omp1`),
-        read(`mumps_${mat}_metis_open_mpi1_omp2`),
-        read(`mumps_${mat}_metis_open_mpi2_omp1`),
-        read(`mumps_${mat}_metis_open_mpi2_omp2`),
-      ],
-      [`intel_mpi#_omp#`]: [
-        read(`mumps_${mat}_metis_intel_mpi1_omp1`, true),
-        read(`mumps_${mat}_metis_intel_mpi1_omp2`, true),
-        read(`mumps_${mat}_metis_intel_mpi2_omp1`, true),
-        read(`mumps_${mat}_metis_intel_mpi2_omp2`, true),
-      ],
-    };
-    const report = reportSet[' open_seq_omp# '][0];
-    const table = genHtmlTable(mat, reportSet, show);
+  // loop over each matrix name
+  matrices.forEach((matrix) => {
+    const reportSet: IReportSet = {};
+
+    // load results
+    if (plat === 'open_and_intel') {
+      options.forEach((option) => {
+        reportSet[`open_${option}`] = readFour(matrix, option);
+        reportSet[`intel_${option}`] = readFour(matrix, option, true);
+      });
+    } else {
+      options.forEach((option) => {
+        reportSet[`${plat}_${option}`] = readFour(matrix, option, plat === 'intel');
+      });
+    }
+
+    // extract the first report
+    const firstKey = Object.keys(reportSet)[0];
+    const report = reportSet[firstKey][0];
+
+    // generate html table
+    const table = genHtmlTable(matrix, reportSet, show);
+
+    // update
     readme += genInfo(report) + table + '\n\n';
   });
 
+  // results
   return readme;
 };
