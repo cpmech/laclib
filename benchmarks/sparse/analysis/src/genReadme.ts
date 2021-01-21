@@ -79,6 +79,8 @@ The **case** keywords in the tables have the following meanings:
 
 ${desc}
 
+The values in blue are links to the log files.
+
 `;
 
   // loop over each matrix name
