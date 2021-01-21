@@ -73,6 +73,8 @@ describe('genHtmlTable ', () => {
     };
     const table = genHtmlTable('mytableX', reports);
     expect(table).toMatchSnapshot();
+
+    // debugging
     const filepath = '/tmp/laclib/table.html';
     writeHtml(filepath, 'laclib table', table);
     console.log(`file <${filepath}> written`);
