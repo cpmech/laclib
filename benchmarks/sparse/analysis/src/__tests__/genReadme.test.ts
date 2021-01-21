@@ -3,7 +3,7 @@ import { genHtml } from '../genHtml';
 import { defaultHtmlStyles } from '../types';
 
 describe('genReadme', () => {
-  it('generates readme filw with bfwb62', () => {
+  it('generates readme file with bfwb62', () => {
     const readme = genReadme(
       ['bfwb62'],
       ['open', 'intel'],

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`genReadme generates readme filw with bfwb62 1`] = `
+exports[`genReadme generates readme file with bfwb62 1`] = `
 "# Benchmarks using the code for sparse matrices
 
 The code here tests the perfomance of the MUMPS Sparse Solver.
