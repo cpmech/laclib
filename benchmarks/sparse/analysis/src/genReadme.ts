@@ -1,7 +1,7 @@
 import { formatLongNumber } from '@cpmech/util';
 import { genHtmlTable } from './genHtmlTable';
 import { readReport } from './readReport';
-import { TableField, IReport, IReportSet, PlatformOption, PlatformSuffix } from './types';
+import { TableField, IReport, IReportSet, PlatformOption, PlatToolset } from './types';
 
 const mat2group = {
   bfwb62: 'Bai',
@@ -37,27 +37,26 @@ _results with "${report.Ordering}" ordering:_
 
 const four = [1, 2, 3, 4];
 
-const read = (matrix: string, option: PlatformOption, m = '#', n = '#', intel = false) => {
-  const key = intel ? 'intel' : 'open';
+const read = (matrix: string, option: PlatformOption, m = '#', n = '#', toolset: PlatToolset) => {
   const opt = option.replace('#', m).replace('#', n);
-  return readReport(`mumps_${matrix}_metis_${key}_${opt}`, intel);
+  return readReport(`mumps_${matrix}_metis_${toolset}_${opt}`, toolset);
 };
 
-const readFour = (matrix: string, option: PlatformOption, intel = false): IReport[] => {
+const readFour = (matrix: string, option: PlatformOption, toolset: PlatToolset): IReport[] => {
   if (option === 'mpi#_omp#') {
     return [
-      read(matrix, option, '1', '1', intel),
-      read(matrix, option, '1', '2', intel),
-      read(matrix, option, '2', '1', intel),
-      read(matrix, option, '2', '2', intel),
+      read(matrix, option, '1', '1', toolset),
+      read(matrix, option, '1', '2', toolset),
+      read(matrix, option, '2', '1', toolset),
+      read(matrix, option, '2', '2', toolset),
     ];
   }
-  return four.map((n) => read(matrix, option, `${n}`, '#', intel));
+  return four.map((n) => read(matrix, option, `${n}`, '#', toolset));
 };
 
 export const genReadme = (
   matrices: string[],
-  plat: PlatformSuffix = 'open_and_intel',
+  toolsets: PlatToolset[] = ['open', 'intel'],
   options: PlatformOption[] = ['seq_omp#'],
   show: TableField[] = ['Analyze', 'Factorize'],
 ): string => {
@@ -72,16 +71,11 @@ The code here tests the perfomance of the MUMPS Sparse Solver.
     const reportSet: IReportSet = {};
 
     // load results
-    if (plat === 'open_and_intel') {
-      options.forEach((option) => {
-        reportSet[`open_${option}`] = readFour(matrix, option);
-        reportSet[`intel_${option}`] = readFour(matrix, option, true);
+    options.forEach((option) => {
+      toolsets.forEach((toolset) => {
+        reportSet[`${toolset}_${option}`] = readFour(matrix, option, toolset);
       });
-    } else {
-      options.forEach((option) => {
-        reportSet[`${plat}_${option}`] = readFour(matrix, option, plat === 'intel');
-      });
-    }
+    });
 
     // extract the first report
     const firstKey = Object.keys(reportSet)[0];

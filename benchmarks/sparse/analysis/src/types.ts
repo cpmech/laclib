@@ -71,7 +71,7 @@ export const zeroReport = (): IReport => ({
   Stats: zeroStats(),
 });
 
-export type PlatformSuffix = 'open' | 'intel' | 'open_and_intel';
+export type PlatToolset = 'open' | 'intel';
 
 export type PlatformOption =
   | 'seq_omp#' // sequential (no mpi) with varying number of OpenMP threads
