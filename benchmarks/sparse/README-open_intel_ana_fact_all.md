@@ -95,7 +95,7 @@ _results with "metis" ordering:_
     <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_inline_1_metis_open_mpi1_omp1.txt">6.4647s</a><br/>(1)</td>
     <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_inline_1_metis_open_mpi1_omp2.txt">18.3009s</a>:worried:<br/>(0.353)</td>
     <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_inline_1_metis_open_mpi2_omp1.txt">3.99489s</a><br/>(1.618)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_inline_1_metis_open_mpi2_omp2.txt">11.2702s</a><br/>(0.574)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_inline_1_metis_open_mpi2_omp2.txt">11.2702s</a>:worried:<br/>(0.574)</td>
   </tr>
   <tr>
     <td>intel_mpi#_omp#<br/>(speedup)</td>
@@ -147,8 +147,8 @@ _results with "metis" ordering:_
     <td>open_mpi1_omp#<br/>(speedup)</td>
     <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_mpi1_omp1.txt">1m38.6689s</a><br/>(1)</td>
     <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_mpi1_omp2.txt">4m1.1184s</a>:worried:<br/>(0.409)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_mpi1_omp3.txt">3m7.80238s</a><br/>(0.525)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_mpi1_omp4.txt">2m52.3749s</a><br/>(0.572)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_mpi1_omp3.txt">3m7.80238s</a>:worried:<br/>(0.525)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_mpi1_omp4.txt">2m52.3749s</a>:worried:<br/>(0.572)</td>
   </tr>
   <tr>
     <td>intel_mpi1_omp#<br/>(speedup)</td>
@@ -242,8 +242,8 @@ _results with "metis" ordering:_
     <td>open_mpi1_omp#<br/>(speedup)</td>
     <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_mpi1_omp1.txt">5.49944s</a><br/>(1)</td>
     <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_mpi1_omp2.txt">13.8721s</a>:worried:<br/>(0.396)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_mpi1_omp3.txt">9.49158s</a><br/>(0.579)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_mpi1_omp4.txt">9.22161s</a><br/>(0.596)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_mpi1_omp3.txt">9.49158s</a>:worried:<br/>(0.579)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_mpi1_omp4.txt">9.22161s</a>:worried:<br/>(0.596)</td>
   </tr>
   <tr>
     <td>intel_mpi1_omp#<br/>(speedup)</td>
@@ -337,7 +337,7 @@ _results with "metis" ordering:_
     <td>open_mpi1_omp#<br/>(speedup)</td>
     <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_tmt_unsym_metis_open_mpi1_omp1.txt">2.80763s</a><br/>(1)</td>
     <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_tmt_unsym_metis_open_mpi1_omp2.txt">11.4492s</a>:worried:<br/>(0.245)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_tmt_unsym_metis_open_mpi1_omp3.txt">5.44067s</a><br/>(0.516)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_tmt_unsym_metis_open_mpi1_omp3.txt">5.44067s</a>:worried:<br/>(0.516)</td>
     <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_tmt_unsym_metis_open_mpi1_omp4.txt">7.76523s</a>:worried:<br/>(0.362)</td>
   </tr>
   <tr>
@@ -440,7 +440,7 @@ _results with "metis" ordering:_
     <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/intel/mumps_bfwb62_metis_intel_mpi1_omp1.txt">10.297ms</a><br/>(1)</td>
     <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/intel/mumps_bfwb62_metis_intel_mpi1_omp2.txt">6.58081ms</a><br/>(1.565)</td>
     <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/intel/mumps_bfwb62_metis_intel_mpi1_omp3.txt">8.18585ms</a><br/>(1.258)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/intel/mumps_bfwb62_metis_intel_mpi1_omp4.txt">14.3465ms</a><br/>(0.718)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/intel/mumps_bfwb62_metis_intel_mpi1_omp4.txt">14.3465ms</a>:worried:<br/>(0.718)</td>
   </tr>
   <tr>
     <td>open_mpi#<br/>(speedup)</td>
