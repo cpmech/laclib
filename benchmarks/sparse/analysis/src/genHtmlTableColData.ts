@@ -8,23 +8,53 @@ export const genHtmlTableColData = (
   dataset: IReportsAndAnalysis,
   styles?: IHtmlStyles,
 ): IHtmlColData => {
+  // select styles
   const styDat = styles ? styles.tabData : '';
   const styLab = styles ? styles.tabDataLabel : '';
-  const k = (entry: string, link?: string) => (link ? `<a href="${link}">${entry}</a>` : entry);
-  const cs = dataset.reports;
-  const aa = cs.map((c) => `<td${styDat}>${c.StepAnalyze.ElapsedTimeString}</td>`);
-  const ff = cs.map((c) => `<td${styDat}>${k(c.StepFactorize.ElapsedTimeString, c.link)}</td>`);
-  const ss = cs.map((c) => `<td${styDat}>${c.StepSolve.ElapsedTimeString}</td>`);
-  const tt = cs.map((c) => `<td${styDat}>${c.TimeSolverString}</td>`);
-  const na = cs.map((c) => `<td${styDat}>${c.Stats.NormInfAx}</td>`);
-  const re = cs.map((c) => `<td${styDat}>${c.Stats.RelativeError.toExponential(2)}</td>`);
-  const l = `<td${styLab}>${label}</td>\n    `;
+
+  // function to generate link
+  const link = (entry: string, link?: string) => (link ? `<a href="${link}">${entry}</a>` : entry);
+
+  // auxiliary
+  const { reports } = dataset;
+
+  // analyze
+  const analyze = reports.map(
+    (report) => `<td${styDat}>${report.StepAnalyze.ElapsedTimeString}</td>`,
+  );
+
+  // factorize columns
+  const factorizeColumns = reports.map(
+    (report) => `<td${styDat}>${link(report.StepFactorize.ElapsedTimeString, report.link)}</td>`,
+  );
+
+  // solve columns
+  const solveColumns = reports.map(
+    (report) => `<td${styDat}>${report.StepSolve.ElapsedTimeString}</td>`,
+  );
+
+  // total columns
+  const total = reports.map((report) => `<td${styDat}>${report.TimeSolverString}</td>`);
+
+  // normInfAx columns
+  const normInfAxColumns = reports.map((report) => `<td${styDat}>${report.Stats.NormInfAx}</td>`);
+
+  // rel error columns
+  const relErrorColumns = reports.map(
+    (report) => `<td${styDat}>${report.Stats.RelativeError.toExponential(2)}</td>`,
+  );
+
+  // label column
+  const labelColumn = `<td${styLab}>${label}</td>\n    `;
+
+  // results
+  const sep = '\n    ';
   return {
-    Analyze: l + aa.join('\n    '),
-    Factorize: l + ff.join('\n    '),
-    Solve: l + ss.join('\n    '),
-    Total: l + tt.join('\n    '),
-    'Norm(A.x)': l + na.join('\n    '),
-    'Rel Error': l + re.join('\n    '),
+    Analyze: labelColumn + analyze.join(sep),
+    Factorize: labelColumn + factorizeColumns.join(sep),
+    Solve: labelColumn + solveColumns.join(sep),
+    Total: labelColumn + total.join(sep),
+    'Norm(A.x)': labelColumn + normInfAxColumns.join(sep),
+    'Rel Error': labelColumn + relErrorColumns.join(sep),
   };
 };
