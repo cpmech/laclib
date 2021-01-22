@@ -54,3 +54,4 @@ sudo cp -av build/liblaclib${PLAT}.so $LIBDIR/
 # update ldconfig
 echo "${LIBDIR}" | sudo tee /etc/ld.so.conf.d/laclib.conf >/dev/null
 sudo ldconfig
+
