@@ -51,10 +51,10 @@ enum MumpsJob
 {
     MUMPS_JOB_INITIALIZE = -1,
     MUMPS_JOB_TERMINATE = -2,
-    MUMPS_JOB_ANALIZE = 1,
+    MUMPS_JOB_ANALYZE = 1,
     MUMPS_JOB_FACTORIZE = 2,
     MUMPS_JOB_SOLVE = 3,
-    MUMPS_JOB_ANALIZE_AND_FACTORIZE = 4,
+    MUMPS_JOB_ANALYZE_AND_FACTORIZE = 4,
 };
 
 inline std::string mumps_ordering_to_string(MumpsOrdering ordering)

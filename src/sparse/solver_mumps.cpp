@@ -65,7 +65,7 @@ void SolverMumps::analyze(const std::unique_ptr<SparseTriplet> &trip,
     this->analyzed = false;
     this->factorized = false;
 
-    _call_dmumps(&this->data, MUMPS_JOB_ANALIZE, verbose);
+    _call_dmumps(&this->data, MUMPS_JOB_ANALYZE, verbose);
 
     this->analyzed = true;
 }
@@ -94,7 +94,7 @@ void SolverMumps::analyze_and_factorize(const std::unique_ptr<SparseTriplet> &tr
 {
     if (!this->mpi->belong())
     {
-        throw "SolverMumps::analize_and_factorize: must only be called by processors in the group";
+        throw "SolverMumps::analyze_and_factorize: must only be called by processors in the group";
     }
 
     _set_data(&this->data, this->options, trip, this->mpi->size());
@@ -102,7 +102,7 @@ void SolverMumps::analyze_and_factorize(const std::unique_ptr<SparseTriplet> &tr
     this->analyzed = false;
     this->factorized = false;
 
-    _call_dmumps(&this->data, MUMPS_JOB_ANALIZE_AND_FACTORIZE, verbose);
+    _call_dmumps(&this->data, MUMPS_JOB_ANALYZE_AND_FACTORIZE, verbose);
 
     this->analyzed = true;
     this->factorized = true;
@@ -114,7 +114,7 @@ void SolverMumps::solve(std::vector<double> &x,
 {
     if (!this->mpi->belong())
     {
-        throw "SolverMumps::analize_and_factorize: must only be called by processors in the group";
+        throw "SolverMumps::analyze_and_factorize: must only be called by processors in the group";
     }
 
     if (!this->factorized)
