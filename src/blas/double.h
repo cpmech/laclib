@@ -12,12 +12,8 @@
 //  NOTE: the functions here do not check for the limits of indices. Be careful.
 
 #pragma once
-#ifdef USE_INTEL
-#include "mkl.h"
-#else
 #include "cblas.h"
 #include "lapacke.h"
-#endif
 #include <vector>
 
 inline CBLAS_TRANSPOSE cTrans(bool trans)
@@ -28,11 +24,7 @@ inline CBLAS_TRANSPOSE cTrans(bool trans)
 // set_num_threads sets the number of threads
 inline void set_num_threads(int n)
 {
-#ifdef USE_INTEL
-    mkl_set_num_threads(n);
-#else
     openblas_set_num_threads(n);
-#endif
 }
 
 // dcopy copies a vector, x, to a vector, y. uses unrolled loops for increments equal to 1.

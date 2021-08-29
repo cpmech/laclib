@@ -31,33 +31,23 @@ After installation (explained below), you may clone https://github.com/cpmech/us
 
 The docker image is convenient with Visual Code remote development tools (but containerized; "not really remote").
 
-We consider two sets of tools:
-
-1. `_open`: GCC GFortran + OpenBLAS + OpenMPI; and
-2. `_intel`: Intel compilers + Intel MKL + Intel MPI
-
 After installing the MUMPS docker image according to [script-install-mumps](https://github.com/cpmech/script-install-mumps), we can build the Laclib Docker image by running:
 
 ```bash
-./build-docker-image.bash [INTEL] [MPI]
+./build-docker-image.bash
 ```
-
-where (the default options are all "OFF"):
-
-1. INTEL -- "ON" or "OFF" => use the Intel tools
-2. MPI -- "ON" or "OFF" => use {Intel,Open}MPI
 
 ## Ubuntu/Linux 20.10
 
 ### MUMPS Sparse Solver
 
-**NOTE**: we prefer to compile MUMPS ourselves instead of using the default Debian package named _libmumps-dev_ because the Debian package doesn't include some additional, and efficient, ordering tools. Also, the libmumps compiled by Debian doesn't use OpenMPI.
+**NOTE**: we prefer to compile MUMPS ourselves instead of using the default Debian package named _libmumps-dev_ because the Debian package doesn't include some additional, and efficient, ordering tools.
 
 Follow the procedures in https://github.com/cpmech/script-install-mumps
 
 ### Additional dependencies (open toolset)
 
-If using the `open` toolset, after installing MUMPS according to [script-install-mumps](https://github.com/cpmech/script-install-mumps), install:
+Run:
 
 ```bash
 sudo apt-get install liblapacke-dev
@@ -68,21 +58,19 @@ sudo apt-get install liblapacke-dev
 To compile and install the header files in `/usr/local/include/laclib` and the library files in `/usr/local/lib/laclib`, execute:
 
 ```bash
-./install.bash [INTEL] [MPI] [OMP]
+./install.bash [OMP]
 ```
 
-where (the default options are all "OFF"):
+where:
 
-1. INTEL -- "ON" or "OFF" => use the Intel tools
-2. MPI -- "ON" or "OFF" => use {Intel,Open}MPI
-3. OMP -- "ON" or "OFF" => allow use of OpenMP when posible
+1. OMP = ON or OFF to allow use of OpenMP.
 
 ### Developing and debugging Laclib
 
 Execute:
 
 ```bash
-./all.bash [INTEL] [MPI] [OMP]
+./all.bash [OMP]
 ```
 
 We could call _cmake_ directly as long as we'd set the CC and CXX environmental flags first; see the file `zscripts/do_cmake.bash`.
