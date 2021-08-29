@@ -14,7 +14,7 @@ Type of parallelism: Working host
  Processing a graph of size:        62
  Average density of rows/columns =    5
  Ordering based on METIS
- ELAPSED TIME SPENT IN METIS reordering  =      0.0001
+ ELAPSED TIME SPENT IN METIS reordering  =      0.0002
 
 Leaving analysis phase with  ...
  INFOG(1)                                       =               0
@@ -39,7 +39,7 @@ Leaving analysis phase with  ...
     Total space in MBytes, IC factorization      (INFOG(17)):           1
     Total space in MBytes,  OOC factorization    (INFOG(27)):           1
 
- Elapsed time in analysis driver=       0.0003
+ Elapsed time in analysis driver=       0.0004
 
 Entering DMUMPS 5.4.0 from C interface with JOB, N, NNZ =   2          62            202
       executing #MPI =      1 and #OMP =      1
@@ -108,11 +108,11 @@ Entering DMUMPS 5.4.0 from C interface with JOB, N, NNZ =   3          62       
  ** Space in MBYTES used for solve                        :     14999
 
  Leaving solve with ...
- Time to build/scatter RHS        =       0.000037
- Time in solution step (fwd/bwd)  =       0.000237
-  .. Time in forward (fwd) step   =          0.000167
-  .. Time in backward (bwd) step  =          0.000069
- Time to gather solution(cent.sol)=       0.000001
+ Time to build/scatter RHS        =       0.000031
+ Time in solution step (fwd/bwd)  =       0.000241
+  .. Time in forward (fwd) step   =          0.000168
+  .. Time in backward (bwd) step  =          0.000071
+ Time to gather solution(cent.sol)=       0.000002
  Time to copy/scale dist. solution=       0.000000
 
  Elapsed time in solve driver=       0.0004

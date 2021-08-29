@@ -27,7 +27,7 @@ MATS="
 #     twotone \
 # "
 
-MATS="bfwb62"
+#MATS="bfwb62"
 
 gen_fnkey() {
     local matrix=$1

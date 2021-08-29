@@ -39,7 +39,7 @@ Leaving analysis phase with  ...
     Total space in MBytes, IC factorization      (INFOG(17)):           1
     Total space in MBytes,  OOC factorization    (INFOG(27)):           1
 
- Elapsed time in analysis driver=       0.0004
+ Elapsed time in analysis driver=       0.0002
 
 Entering DMUMPS 5.4.0 from C interface with JOB, N, NNZ =   2          62            202
       executing #MPI =      1 and #OMP =      2
@@ -63,12 +63,12 @@ Entering DMUMPS 5.4.0 from C interface with JOB, N, NNZ =   2          62       
  Max difference from 1 after scaling the entries for ONE-NORM (option 7/8)   = 0.17D-01
  Effective size of S     (based on INFO(39))=           1874958508
 
- Elapsed time to reformat/distribute matrix =      0.0082
+ Elapsed time to reformat/distribute matrix =      0.0021
 
  ** Memory allocated, total in Mbytes           (INFOG(19)):       15000
  ** Memory effectively used, total in Mbytes    (INFOG(22)):           1
 
- Elapsed time for factorization             =      0.0004
+ Elapsed time for factorization             =      0.0003
 
 Leaving factorization with ...
  RINFOG(2)  Operations in node assembly     = 2.990D+02
@@ -84,7 +84,7 @@ Leaving factorization with ...
  Number of 2x2 pivots in type 2 nodes       =               0
  INFOG(14)  Number of memory compress       =               0
 
- Elapsed time in factorization driver=       0.0087
+ Elapsed time in factorization driver=       0.0024
 
 ### OK: x ###
 
@@ -108,11 +108,11 @@ Entering DMUMPS 5.4.0 from C interface with JOB, N, NNZ =   3          62       
  ** Space in MBYTES used for solve                        :     14999
 
  Leaving solve with ...
- Time to build/scatter RHS        =       0.000038
- Time in solution step (fwd/bwd)  =       0.000243
-  .. Time in forward (fwd) step   =          0.000171
-  .. Time in backward (bwd) step  =          0.000069
+ Time to build/scatter RHS        =       0.000019
+ Time in solution step (fwd/bwd)  =       0.000161
+  .. Time in forward (fwd) step   =          0.000111
+  .. Time in backward (bwd) step  =          0.000045
  Time to gather solution(cent.sol)=       0.000001
  Time to copy/scale dist. solution=       0.000000
 
- Elapsed time in solve driver=       0.0004
+ Elapsed time in solve driver=       0.0003
