@@ -10,7 +10,6 @@ import {
   PlatToolset,
   DescribePlatOption,
   IHtmlStyles,
-  IAnalysis,
   IReportsAndAnalysis,
 } from './types';
 
