@@ -26,7 +26,6 @@ struct TimeAndMemory
 
 struct Report
 {
-    const std::unique_ptr<MpiAux> &mpi;
     Stopwatch sw_step;
     Stopwatch sw_solver;
     TimeAndMemory step_read_matrix;
@@ -35,10 +34,9 @@ struct Report
     TimeAndMemory step_solve;
     uint64_t solver_nanoseconds;
 
-    inline static std::unique_ptr<Report> make_new(const std::unique_ptr<MpiAux> &mpi)
+    inline static std::unique_ptr<Report> make_new()
     {
         return std::unique_ptr<Report>{new Report{
-            mpi,
             Stopwatch::make_new(),
             Stopwatch::make_new(),
             {0, 0},
@@ -94,30 +92,13 @@ struct Report
                            const std::unique_ptr<SparseTriplet> &trip,
                            const std::unique_ptr<Stats> &stats)
     {
-        auto mpi_rank = this->mpi->rank();
-        if (mpi_rank != 0)
-        {
-            return;
-        }
-
         auto path = path_get_current() + "/../../../benchmarks/sparse/results/";
         auto ordering = mumps_ordering_to_string(options->ordering);
 
-#ifdef USE_INTEL
-        path += "intel/";
-        std::string plat = "_intel";
-#else
         path += "open/";
         std::string plat = "_open";
-#endif
-#ifdef HAS_MPI
-        auto mpi_size = this->mpi->size();
-        int effective_mpi_size = mpi_size;
-        plat += "_mpi" + std::to_string(mpi_size);
-#else
         int effective_mpi_size = 0;
         plat += "_seq";
-#endif
 #ifdef HAS_OMP
         int effective_omp_num_threads = options->omp_num_threads;
         plat += "_omp" + std::to_string(options->omp_num_threads);

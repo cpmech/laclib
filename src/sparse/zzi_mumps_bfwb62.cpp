@@ -8,7 +8,6 @@ using namespace std;
 
 TEST_CASE("solve bfwb62 system")
 {
-    auto mpi = MpiAux::make_new();
     set_num_threads(1);
 
     auto data_path = path_get_current() + "/../../../data";
@@ -17,7 +16,7 @@ TEST_CASE("solve bfwb62 system")
     auto trip = read_matrix_market(mtx_path, onebased);
 
     auto options = MumpsOptions::make_new(trip->symmetric);
-    auto solver = SolverMumps::make_new(mpi, options);
+    auto solver = SolverMumps::make_new(options);
 
     solver->analyze_and_factorize(trip);
     CHECK(solver.get()->analyzed == true);

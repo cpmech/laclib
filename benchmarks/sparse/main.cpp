@@ -7,9 +7,7 @@ using namespace std;
 void run(int argc, char **argv)
 {
     // allocate mpi and report
-    auto mpi = MpiAux::make_new();
-    auto report = Report::make_new(mpi);
-    auto mpi_size = mpi->size();
+    auto report = Report::make_new();
 
     // get arguments from command line
     vector<string> defaults{
@@ -36,10 +34,10 @@ void run(int argc, char **argv)
     auto options = MumpsOptions::make_new(trip->symmetric);
     options->omp_num_threads = omp_num_threads;
     options->ordering = ordering;
-    options->max_work_memory = 30000 / mpi_size;
+    options->max_work_memory = 30000;
 
     // allocate solver
-    auto solver = SolverMumps::make_new(mpi, options);
+    auto solver = SolverMumps::make_new(options);
     auto verbose = true;
 
     // set right-hand-side and solution vector
@@ -62,25 +60,19 @@ void run(int argc, char **argv)
     // stop linear solver execution //////////////////////////////////////
 
     // check results
-    check_x(mpi, matrix_name, x);
+    check_x(matrix_name, x);
 
     // write report
-    auto stats = Stats::make_new(mpi, trip, x, rhs);
+    auto stats = Stats::make_new(trip, x, rhs);
     report->write_json("mumps", matrix_name, options, trip, stats);
 }
 
 int main(int argc, char **argv)
 {
-#ifdef HAS_MPI
-    MPI_Init(&argc, &argv);
-#endif
     try
     {
         run(argc, argv);
     }
     CATCH_ALL
-#ifdef HAS_MPI
-    MPI_Finalize();
-#endif
     return 0;
 }

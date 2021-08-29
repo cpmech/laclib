@@ -5,14 +5,9 @@
 #include <vector>
 #include <iostream>
 
-void check_x(const std::unique_ptr<MpiAux> &mpi,
-             const std::string &matrix_name,
+void check_x(const std::string &matrix_name,
              const std::vector<double> &x)
 {
-    if (mpi->rank() != 0)
-    {
-        return;
-    }
     if (matrix_name == "bfwb62")
     {
         if (equal_vectors_tol(x, bfwb62_x_correct, 1e-10, true))

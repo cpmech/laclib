@@ -6,7 +6,6 @@ This is the "main" laclib directory with the following:
 
 - [blas](https://github.com/cpmech/laclib/tree/main/src/blas) basic linear algebra tools
 - [check](https://github.com/cpmech/laclib/tree/main/src/check) functions for unit/integration tests
-- [mpiaux](https://github.com/cpmech/laclib/tree/main/src/mpiaux) convenient wrapper to MPI functions
 - [sparse](https://github.com/cpmech/laclib/tree/main/src/sparse) sparse matrix and solvers tools
 - [util](https://github.com/cpmech/laclib/tree/main/src/util) some utilities for file/string manipulations
 

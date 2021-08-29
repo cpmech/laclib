@@ -27,7 +27,6 @@ cd ..
 SUBDIRS="
     blas
     check
-    mpiaux
     sparse
     util
 "
