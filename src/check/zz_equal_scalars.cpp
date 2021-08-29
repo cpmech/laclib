@@ -1,14 +1,13 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include <string>
+#include <vector>
+
 #include "../util/doctest.h"
 #include "check.h"
-#include <vector>
-#include <string>
 using namespace std;
 
-TEST_CASE("equal_scalars_tol")
-{
-    SUBCASE("float")
-    {
+TEST_CASE("equal_scalars_tol") {
+    SUBCASE("float") {
         float a = 1.0;
         float b = 1.0;
         float c = 1.0001;
@@ -17,8 +16,7 @@ TEST_CASE("equal_scalars_tol")
         CHECK(equal_scalars_tol(b, c, tolerance) == false);
     }
 
-    SUBCASE("double")
-    {
+    SUBCASE("double") {
         double a = 1.0;
         double b = 1.0;
         double c = 1.0000001;

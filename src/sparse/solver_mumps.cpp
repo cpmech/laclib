@@ -1,17 +1,18 @@
+#include "solver_mumps.h"
+
 #include <algorithm>
 #include <memory>
 #include <vector>
+
 #include "dmumps_c.h"
-#include "solver_mumps.h"
 #include "solver_mumps_constants.h"
 #include "solver_mumps_options.h"
 
-#define ICNTL(I) icntl[(I)-1] // macro to make indices match documentation
+#define ICNTL(I) icntl[(I)-1]  // macro to make indices match documentation
 
 static inline void _set_data(DMUMPS_STRUC_C *data,
                              const std::unique_ptr<MumpsOptions> &options,
-                             const std::unique_ptr<SparseTriplet> &trip)
-{
+                             const std::unique_ptr<SparseTriplet> &trip) {
     data->ICNTL(5) = MUMPS_ICNTL5_ASSEMBLED_MATRIX;
     data->ICNTL(7) = options->ordering;
     data->ICNTL(8) = options->scaling;
@@ -28,12 +29,11 @@ static inline void _set_data(DMUMPS_STRUC_C *data,
     data->a = trip->X.data();
 
     data->ICNTL(28) = MUMPS_ICNTL28_SEQUENTIAL;
-    data->ICNTL(29) = 0; // ignored
+    data->ICNTL(29) = 0;  // ignored
 }
 
 void SolverMumps::analyze(const std::unique_ptr<SparseTriplet> &trip,
-                          bool verbose)
-{
+                          bool verbose) {
     _set_data(&this->data, this->options, trip);
 
     this->analyzed = false;
@@ -44,10 +44,8 @@ void SolverMumps::analyze(const std::unique_ptr<SparseTriplet> &trip,
     this->analyzed = true;
 }
 
-void SolverMumps::factorize(bool verbose)
-{
-    if (!this->analyzed)
-    {
+void SolverMumps::factorize(bool verbose) {
+    if (!this->analyzed) {
         throw "SolverMumps::factorize: analysis must be completed first";
     }
 
@@ -59,8 +57,7 @@ void SolverMumps::factorize(bool verbose)
 }
 
 void SolverMumps::analyze_and_factorize(const std::unique_ptr<SparseTriplet> &trip,
-                                        bool verbose)
-{
+                                        bool verbose) {
     _set_data(&this->data, this->options, trip);
 
     this->analyzed = false;
@@ -74,15 +71,12 @@ void SolverMumps::analyze_and_factorize(const std::unique_ptr<SparseTriplet> &tr
 
 void SolverMumps::solve(std::vector<double> &x,
                         const std::vector<double> &rhs,
-                        bool verbose)
-{
-    if (!this->factorized)
-    {
+                        bool verbose) {
+    if (!this->factorized) {
         throw "SolverMumps::solve: factorization must be completed first";
     }
 
-    if (x.size() != rhs.size())
-    {
+    if (x.size() != rhs.size()) {
         throw "SolverMumps::solve: x and rhs vectors must have the same size";
     }
 

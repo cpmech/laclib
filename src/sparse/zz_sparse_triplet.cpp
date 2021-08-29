@@ -1,14 +1,13 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "../util/doctest.h"
-#include "../check/check.h"
-#include "sparse_triplet.h"
 #include <vector>
+
+#include "../check/check.h"
+#include "../util/doctest.h"
+#include "sparse_triplet.h"
 using namespace std;
 
-TEST_CASE("testing SparseTriplet (put)")
-{
-    SUBCASE("default values")
-    {
+TEST_CASE("testing SparseTriplet (put)") {
+    SUBCASE("default values") {
         auto trip = SparseTriplet::make_new(3, 3, 4);
 
         vector<MUMPS_INT> Icorrect{0, 0, 0, 0};
@@ -28,8 +27,7 @@ TEST_CASE("testing SparseTriplet (put)")
         CHECK(equal_vectors_tol(trip->X, Xcorrect, 1e-15));
     }
 
-    SUBCASE("put")
-    {
+    SUBCASE("put") {
         auto trip = SparseTriplet::make_new(3, 3, 4);
 
         vector<MUMPS_INT> Icorrect{0, 1, 2, 0};
@@ -47,8 +45,7 @@ TEST_CASE("testing SparseTriplet (put)")
         CHECK(equal_vectors_tol(trip->X, Xcorrect, 1e-15));
     }
 
-    SUBCASE("put: onebased")
-    {
+    SUBCASE("put: onebased") {
         bool onebased = true;
         auto trip = SparseTriplet::make_new(3, 3, 4, onebased);
 
@@ -67,8 +64,7 @@ TEST_CASE("testing SparseTriplet (put)")
         CHECK(equal_vectors_tol(trip->X, Xcorrect, 1e-15));
     }
 
-    SUBCASE("put: exceptions")
-    {
+    SUBCASE("put: exceptions") {
         auto trip = SparseTriplet::make_new(3, 3, 4);
 
         CHECK_THROWS_WITH(trip->put(-1, 0, 10.0), "SparseTriplet::put: index of row is outside range");

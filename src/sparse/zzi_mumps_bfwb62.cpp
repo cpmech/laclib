@@ -1,13 +1,13 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include <vector>
 #include <iostream>
+#include <vector>
+
+#include "../../data/sparse-matrix/bfwb62_x_correct.h"
 #include "../laclib.h"
 #include "../util/doctest.h"
-#include "../../data/sparse-matrix/bfwb62_x_correct.h"
 using namespace std;
 
-TEST_CASE("solve bfwb62 system")
-{
+TEST_CASE("solve bfwb62 system") {
     set_num_threads(1);
 
     auto data_path = path_get_current() + "/../../../data";

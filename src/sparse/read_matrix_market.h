@@ -1,10 +1,10 @@
 #pragma once
-#include <string>
 #include <memory>
+#include <string>
+
 #include "sparse_triplet.h"
 
-enum PartitionOption
-{
+enum PartitionOption {
     PARTITION_BY_NNZ,
     PARTITION_BY_ROW,
     PARTITION_BY_COL,

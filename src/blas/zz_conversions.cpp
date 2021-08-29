@@ -1,14 +1,13 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "../util/doctest.h"
-#include "../check/check.h"
-#include "conversions.h"
 #include <vector>
+
+#include "../check/check.h"
+#include "../util/doctest.h"
+#include "conversions.h"
 using namespace std;
 
-TEST_CASE("conversions")
-{
-    SUBCASE("vecvec_to_colmaj")
-    {
+TEST_CASE("conversions") {
+    SUBCASE("vecvec_to_colmaj") {
         auto a = std::vector<std::vector<double>>{
             {1, 2, +3, +4},
             {5, 6, +7, +8},
@@ -19,8 +18,7 @@ TEST_CASE("conversions")
         CHECK(equal_vectors_tol(a_cm, a_correct, 1e-15));
     }
 
-    SUBCASE("colmaj_to_vecvec")
-    {
+    SUBCASE("colmaj_to_vecvec") {
         size_t m = 3;
         size_t n = 4;
         auto a_cm = std::vector<double>{1, 5, 9, 2, 6, 0, 3, 7, -1, 4, 8, -2};
@@ -30,17 +28,14 @@ TEST_CASE("conversions")
             {5, 6, +7, +8},
             {9, 0, -1, -2},
         };
-        for (size_t i = 0; i < m; i++)
-        {
-            for (size_t j = 0; j < n; j++)
-            {
+        for (size_t i = 0; i < m; i++) {
+            for (size_t j = 0; j < n; j++) {
                 CHECK(a[i][j] == a_correct[i][j]);
             }
         }
     }
 
-    SUBCASE("colmaj_extract_row")
-    {
+    SUBCASE("colmaj_extract_row") {
         // 1, 2, +3, +4
         // 5, 6, +7, +8
         // 9, 0, -1, -2
@@ -58,8 +53,7 @@ TEST_CASE("conversions")
         CHECK(equal_vectors_tol(row2, row2_correct, 1e-15));
     }
 
-    SUBCASE("colmaj_extract_col")
-    {
+    SUBCASE("colmaj_extract_col") {
         // 1, 2, +3, +4
         // 5, 6, +7, +8
         // 9, 0, -1, -2

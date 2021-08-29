@@ -1,23 +1,21 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include <vector>
+
+#include "../check/check.h"
 #include "../util/doctest.h"
 #include "../util/path_tools.h"
 #include "../util/print_vector.h"
-#include "../check/check.h"
 #include "read_matrix_market.h"
-#include <vector>
 using namespace std;
 
-TEST_CASE("read_matrix_market")
-{
+TEST_CASE("read_matrix_market") {
     auto data_path = path_get_current() + "/../../../data/sparse-matrix/";
 
-    SUBCASE("cannot open file")
-    {
+    SUBCASE("cannot open file") {
         CHECK_THROWS_WITH(read_matrix_market("invalid.mtx"), "read_matrix_market: cannot open file");
     }
 
-    SUBCASE("read sparse-matrix bad")
-    {
+    SUBCASE("read sparse-matrix bad") {
         auto s = data_path + "bad";
         CHECK_THROWS_WITH(read_matrix_market(s + "1.mtx"), "read_matrix_market: number of tokens in the header is incorrect");
         CHECK_THROWS_WITH(read_matrix_market(s + "2.mtx"), "read_matrix_market: option must be \"matrix\"");
@@ -30,8 +28,7 @@ TEST_CASE("read_matrix_market")
         CHECK_THROWS_WITH(read_matrix_market(s + "9.mtx"), "read_matrix_market: cannot parse the values (i,j,x)");
     }
 
-    SUBCASE("read sparse-matrix ok1")
-    {
+    SUBCASE("read sparse-matrix ok1") {
         auto mtx = data_path + "ok1.mtx";
         auto trip = read_matrix_market(mtx);
 
@@ -45,8 +42,7 @@ TEST_CASE("read_matrix_market")
         CHECK(equal_vectors_tol(trip->X, Xcorrect, 1e-15) == true);
     }
 
-    SUBCASE("read sparse-matrix ok2; onebased")
-    {
+    SUBCASE("read sparse-matrix ok2; onebased") {
         auto mtx = data_path + "ok2.mtx";
         bool onebased = true;
         auto trip = read_matrix_market(mtx, onebased);

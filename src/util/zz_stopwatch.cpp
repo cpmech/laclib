@@ -1,11 +1,10 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "doctest.h"
 #include "constants.h"
+#include "doctest.h"
 #include "sleep.h"
 #include "stopwatch.h"
 
-TEST_CASE("stopwatch")
-{
+TEST_CASE("stopwatch") {
     auto sw_total = Stopwatch::make_new();
     auto sw = Stopwatch::make_new();
 

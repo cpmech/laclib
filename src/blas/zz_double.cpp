@@ -1,14 +1,15 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include <cmath>
+#include <complex>
+#include <iostream>
+#include <vector>
+
+#include "../check/check.h"
 #include "../util/doctest.h"
 #include "../util/print_vector.h"
-#include "../check/check.h"
 #include "auxiliary.h"
 #include "conversions.h"
 #include "double.h"
-#include <cmath>
-#include <complex>
-#include <vector>
-#include <iostream>
 using namespace std;
 
 #define CMGET(a, num_rows, i, j) a[i + j * num_rows]
@@ -20,8 +21,7 @@ void checksvd(
     std::vector<double> s_correct,
     double tols,
     double tolusv,
-    bool verbose = false)
-{
+    bool verbose = false) {
     // copy matrix a
     auto a_copy = a;
 
@@ -47,26 +47,21 @@ void checksvd(
 
     // check SVD
     auto usv = std::vector<double>(m * n, 0.0);
-    for (int i = 0; i < m; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            for (int k = 0; k < min_mn; k++)
-            {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            for (int k = 0; k < min_mn; k++) {
                 CMGET(usv, m, i, j) += CMGET(u, m, i, k) * s[k] * CMGET(vt, n, k, j);
             }
         }
     }
-    if (verbose)
-    {
+    if (verbose) {
         print_colmaj("usv", "%13g", m, n, usv);
         print_colmaj("a", "%13g", m, n, a_copy);
     }
     CHECK(equal_vectors_tol(usv, a_copy, tolusv));
 }
 
-TEST_CASE("double")
-{
+TEST_CASE("double") {
     // 4 x 5 matrix
     auto a_mat = vecvec_to_colmaj(vector<vector<double>>{
         {1, 2, +0, 1, -1},
@@ -176,8 +171,7 @@ TEST_CASE("double")
         +7.220870298624550e-01,
     };
 
-    SUBCASE("dcopy")
-    {
+    SUBCASE("dcopy") {
         auto x = vector<double>{20, 10, 30, 123, 123};
         auto y = vector<double>(x.size(), 0.0);
         int n = 3;
@@ -188,8 +182,7 @@ TEST_CASE("double")
         CHECK(equal_vectors_tol(y, y_correct, 1e-15));
     }
 
-    SUBCASE("ddot")
-    {
+    SUBCASE("ddot") {
         auto x = vector<double>{20, 10, 30, 123, 123};
         auto y = vector<double>{-15, -5, -24, 666, 666, 666};
         int n = 3;
@@ -200,8 +193,7 @@ TEST_CASE("double")
         CHECK(equal_scalars_tol(res, correct, 1e-15));
     }
 
-    SUBCASE("dnrm2")
-    {
+    SUBCASE("dnrm2") {
         auto x = vector<double>{1, 2, 3, 4, 123, 123};
         int n = 4;
         int incx = 1;
@@ -210,8 +202,7 @@ TEST_CASE("double")
         CHECK(equal_scalars_tol(res, correct, 1e-15));
     }
 
-    SUBCASE("dscal")
-    {
+    SUBCASE("dscal") {
         double alpha = 0.5;
         auto x = vector<double>{20, 10, 30, 123, 123};
         int n = 3;
@@ -221,8 +212,7 @@ TEST_CASE("double")
         CHECK(equal_vectors_tol(x, x_correct, 1e-15));
     }
 
-    SUBCASE("daxpy")
-    {
+    SUBCASE("daxpy") {
         double alpha = 0.5;
         auto x = vector<double>{20, 10, 30, 123, 123};
         auto y = vector<double>{-15, -5, -24, 666, 666, 666};
@@ -236,8 +226,7 @@ TEST_CASE("double")
         CHECK(equal_vectors_tol(y, y_correct, 1e-15));
     }
 
-    SUBCASE("dgemv")
-    {
+    SUBCASE("dgemv") {
         auto a = vector<double>{0.1, 1, 2, 3, 0.2, 0.2, 0.2, 0.2, 0.3, 0.3, 0.3, 0.3};
 
         // perform mv
@@ -264,11 +253,10 @@ TEST_CASE("double")
         CHECK(equal_vectors_tol(a, a_correct, 1e-15));
     }
 
-    SUBCASE("dgemm 1: c = 0.5⋅a⋅b + 2⋅c")
-    {
-        int m = 4; // m = nrow(a) = a.M = nrow(c)
-        int k = 5; // k = ncol(a) = a.N = nrow(b)
-        int n = 3; // n = ncol(b) = b.N = ncol(c)
+    SUBCASE("dgemm 1: c = 0.5⋅a⋅b + 2⋅c") {
+        int m = 4;  // m = nrow(a) = a.M = nrow(c)
+        int k = 5;  // k = ncol(a) = a.N = nrow(b)
+        int n = 3;  // n = ncol(b) = b.N = ncol(c)
 
         auto transA = false;
         auto transB = false;
@@ -288,11 +276,10 @@ TEST_CASE("double")
         CHECK(equal_vectors_tol(c_mat, c_correct, 1e-15));
     }
 
-    SUBCASE("dgemm 2: 0.5⋅a⋅bᵀ + 2⋅c")
-    {
-        int m = 4; // m = nrow(a)        = a.M = nrow(c)
-        int k = 5; // k = ncol(a)        = a.N = nrow(trans(b))
-        int n = 3; // n = ncol(trans(b)) = b.M = ncol(c)
+    SUBCASE("dgemm 2: 0.5⋅a⋅bᵀ + 2⋅c") {
+        int m = 4;  // m = nrow(a)        = a.M = nrow(c)
+        int k = 5;  // k = ncol(a)        = a.N = nrow(trans(b))
+        int n = 3;  // n = ncol(trans(b)) = b.M = ncol(c)
 
         auto transA = false;
         auto transB = true;
@@ -312,11 +299,10 @@ TEST_CASE("double")
         CHECK(equal_vectors_tol(c_mat, c_correct, 1e-15));
     }
 
-    SUBCASE("dgemm 3: 0.5⋅aᵀ⋅b + 2⋅c")
-    {
-        int m = 4; // m = nrow(trans(a)) = a.N = nrow(c)
-        int k = 5; // k = ncol(trans(a)) = a.M = nrow(trans(b))
-        int n = 3; // n = ncol(b)        = b.N = ncol(c)
+    SUBCASE("dgemm 3: 0.5⋅aᵀ⋅b + 2⋅c") {
+        int m = 4;  // m = nrow(trans(a)) = a.N = nrow(c)
+        int k = 5;  // k = ncol(trans(a)) = a.M = nrow(trans(b))
+        int n = 3;  // n = ncol(b)        = b.N = ncol(c)
 
         auto transA = true;
         auto transB = false;
@@ -336,11 +322,10 @@ TEST_CASE("double")
         CHECK(equal_vectors_tol(c_mat, c_correct, 1e-15));
     }
 
-    SUBCASE("dgemm: 4: 0.5⋅aᵀ⋅bᵀ + 2⋅c")
-    {
-        int m = 4; // m = nrow(trans(a)) = a.N = nrow(c)
-        int k = 5; // k = ncol(trans(a)) = a.M = nrow(trans(b))
-        int n = 3; // n = ncol(trans(b)) = b.M = ncol(c)
+    SUBCASE("dgemm: 4: 0.5⋅aᵀ⋅bᵀ + 2⋅c") {
+        int m = 4;  // m = nrow(trans(a)) = a.N = nrow(c)
+        int k = 5;  // k = ncol(trans(a)) = a.M = nrow(trans(b))
+        int n = 3;  // n = ncol(trans(b)) = b.M = ncol(c)
 
         auto transA = true;
         auto transB = true;
@@ -360,8 +345,7 @@ TEST_CASE("double")
         CHECK(equal_vectors_tol(c_mat, c_correct, 1e-15));
     }
 
-    SUBCASE("dgesv")
-    {
+    SUBCASE("dgesv") {
         // matrix
         auto a = vecvec_to_colmaj(vector<vector<double>>{
             {2, +3, +0, 0, 0},
@@ -392,8 +376,7 @@ TEST_CASE("double")
         CHECK(equal_vectors(ipiv, vector<int>{2, 5, 5, 5, 5}));
     }
 
-    SUBCASE("dgesvd 1")
-    {
+    SUBCASE("dgesvd 1") {
         auto a = vecvec_to_colmaj(vector<vector<double>>{
             {1, 0, 0, 0, 2},
             {0, 0, 3, 0, 0},
@@ -404,8 +387,7 @@ TEST_CASE("double")
         checksvd(4, 5, a, s_correct, 1e-15, 1e-15);
     }
 
-    SUBCASE("dgesvd 2")
-    {
+    SUBCASE("dgesvd 2") {
         double s33 = sqrt(3.0) / 3.0;
         auto a = vecvec_to_colmaj(vector<vector<double>>{
             {-s33, -s33, 1},
@@ -417,8 +399,7 @@ TEST_CASE("double")
         checksvd(4, 3, a, s_correct, 1e-15, 1e-15);
     }
 
-    SUBCASE("dgesvd 3")
-    {
+    SUBCASE("dgesvd 3") {
         auto a = vecvec_to_colmaj(vector<vector<double>>{
             {64, 2, 3, 61, 60, 6},
             {9, 55, 54, 12, 13, 51},
@@ -433,15 +414,14 @@ TEST_CASE("double")
         checksvd(8, 6, a, s_correct, 1e-13, 1e-13);
     }
 
-    SUBCASE("dgeev 1")
-    {
+    SUBCASE("dgeev 1") {
         int n = 4;
         int lda = n;
 
-        auto wr = vector<double>(n, 0.0);     // eigen values (real part)
-        auto wi = vector<double>(n, 0.0);     // eigen values (imaginary part)
-        auto vl = vector<double>(n * n, 0.0); // left eigenvectors
-        auto vr = vector<double>(n * n, 0.0); // right eigenvectors
+        auto wr = vector<double>(n, 0.0);      // eigen values (real part)
+        auto wi = vector<double>(n, 0.0);      // eigen values (imaginary part)
+        auto vl = vector<double>(n * n, 0.0);  // left eigenvectors
+        auto vr = vector<double>(n * n, 0.0);  // right eigenvectors
 
         int ldvl = n;
         int ldvr = n;
@@ -473,13 +453,12 @@ TEST_CASE("double")
         CHECK(equal_complex_vectors_tol(colmaj_extract_col(3, n, n, vvr), vr3_correct, 1e-15, 1e-15));
     }
 
-    SUBCASE("dgeev 2 (eigenvalues only)")
-    {
+    SUBCASE("dgeev 2 (eigenvalues only)") {
         int n = 4;
         int lda = n;
 
-        auto wr = vector<double>(n, 0.0); // eigen values (real part)
-        auto wi = vector<double>(n, 0.0); // eigen values (imaginary part)
+        auto wr = vector<double>(n, 0.0);  // eigen values (real part)
+        auto wi = vector<double>(n, 0.0);  // eigen values (imaginary part)
         auto dummy = vector<double>();
 
         const int DUMMY = 1;
@@ -491,16 +470,14 @@ TEST_CASE("double")
 
         auto zero = complex<double>(0, 0);
         auto ww = vector<complex<double>>(n, zero);
-        for (int i = 0; i < n; i++)
-        {
+        for (int i = 0; i < n; i++) {
             ww[i] = std::complex<double>(wr[i], wi[i]);
         }
 
         CHECK(equal_complex_vectors_tol(ww, ww_correct, 1e-15, 1e-15));
     }
 
-    SUBCASE("dger a = 100 + 0.5⋅u⋅vᵀ")
-    {
+    SUBCASE("dger a = 100 + 0.5⋅u⋅vᵀ") {
         auto a = vecvec_to_colmaj(vector<vector<double>>{
             {100, 100, 100},
             {100, 100, 100},
@@ -510,8 +487,8 @@ TEST_CASE("double")
         auto u = vector<double>{1, 2, 3, 4};
         auto v = vector<double>{4, 3, 2};
 
-        int m = 4; // m = nrow(a) = len(u)
-        int n = 3; // n = ncol(a) = len(v)
+        int m = 4;  // m = nrow(a) = len(u)
+        int n = 3;  // n = ncol(a) = len(v)
 
         double alpha = 0.5;
         int lda = 4;
@@ -526,8 +503,7 @@ TEST_CASE("double")
         CHECK(equal_vectors_tol(a, a_correct, 1e-15));
     }
 
-    SUBCASE("dgetrf and dgetri")
-    {
+    SUBCASE("dgetrf and dgetri") {
         auto a = vecvec_to_colmaj(vector<vector<double>>{
             {1, 2, +0, 1},
             {2, 3, -1, 1},
@@ -565,8 +541,7 @@ TEST_CASE("double")
         CHECK(equal_vectors_tol(a, a_inverse, 1e-15));
     }
 
-    SUBCASE("dpotrf")
-    {
+    SUBCASE("dpotrf") {
         auto a_up = vecvec_to_colmaj(vector<vector<double>>{
             {+3, +0, -3, +0},
             {+0, +3, +1, +2},
@@ -608,8 +583,7 @@ TEST_CASE("double")
         CHECK(equal_vectors_tol(a_lo, a_lo_correct, 1e-15));
     }
 
-    SUBCASE("idamax")
-    {
+    SUBCASE("idamax") {
         vector<double> x{1, 2, 0, 4, -10, 8};
         auto idx = idamax(x.size(), x, 1);
         CHECK(idx == 4);
