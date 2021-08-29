@@ -73,8 +73,6 @@ Execute:
 ./all.bash [OMP]
 ```
 
-We could call _cmake_ directly as long as we'd set the CC and CXX environmental flags first; see the file `zscripts/do_cmake.bash`.
-
 ## Code organization
 
 ```

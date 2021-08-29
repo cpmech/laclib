@@ -16,9 +16,17 @@ if [ "${OMP}" = "ON" ]; then
     PLAT="${PLAT}_omp"
 fi
 
+# remove previous build
+rm -rf ./build
+
+# call cmake
+cmake -D A1_OMP=${OMP} \
+      -D A2_OPTIMIZED="ON" \
+      -D A3_VERBOSE="OFF" \
+      -D CMAKE_BUILD_TYPE="Release" \
+      -B build
+
 # compile the library
-OPTIMIZED="ON"
-bash zscripts/do_cmake.bash $OMP $OPTIMIZED
 cd build
 make laclib${PLAT}
 cd ..

@@ -7,8 +7,8 @@ then
     echo "sudo rm -rf /usr/local/include/laclib"
     sudo rm -rf /usr/local/include/laclib
 
-    echo "sudo rm -rf /usr/local/lib/liblaclib*.so"
-    sudo rm -rf /usr/local/lib/liblaclib*.so
+    echo "sudo rm -rf /usr/local/lib/laclib"
+    sudo rm -rf /usr/local/lib/laclib
 
     echo "sudo ldconfig"
     sudo ldconfig
