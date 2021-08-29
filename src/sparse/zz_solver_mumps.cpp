@@ -36,7 +36,6 @@ TEST_CASE("testing sparse solver MUMPS (NP1)")
 
     auto options = MumpsOptions::make_new();
     auto solver = SolverMumps::make_new(options);
-    /*
 
     REQUIRE(solver.get()->data.par == MUMPS_PAR_HOST_ALSO_WORKS);
     REQUIRE(solver.get()->data.sym == MUMPS_SYMMETRY_NONE);
@@ -70,5 +69,4 @@ TEST_CASE("testing sparse solver MUMPS (NP1)")
         solver->solve(x, rhs);
         CHECK(equal_vectors_tol(x, x_correct, 1e-14) == true);
     }
-*/
 }
