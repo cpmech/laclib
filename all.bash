@@ -1,11 +1,9 @@
 #!/bin/bash
 
-INTEL=${1:-"OFF"}
-MPI=${2:-"OFF"}
-OMP=${3:-"OFF"}
-OPTIMIZED=${4:-"OFF"}
-VERBOSE=${5:-"OFF"}
+OMP=${1:-"OFF"}
+OPTIMIZED=${2:-"OFF"}
+VERBOSE=${3:-"OFF"}
 
-bash zscripts/do_cmake.bash ${INTEL} ${MPI} ${OMP} ${OPTIMIZED} ${VERBOSE}
+bash zscripts/do_cmake.bash ${OMP} ${OPTIMIZED} ${VERBOSE}
 cd build
 make && make test
