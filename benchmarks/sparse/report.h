@@ -95,7 +95,7 @@ struct Report
         auto path = path_get_current() + "/../../../benchmarks/sparse/results/";
         auto ordering = mumps_ordering_to_string(options->ordering);
 
-        path += "open/";
+        path += "latest/";
         std::string plat = "_open";
         int effective_mpi_size = 0;
         plat += "_seq";

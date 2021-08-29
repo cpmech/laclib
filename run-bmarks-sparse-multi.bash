@@ -46,8 +46,14 @@ compile() {
     local omp=$1
     echo
     cd $here
-    bash ./all-bench.bash $omp
+    rm -rf ./build
+    cmake -D A1_OMP=${omp} \
+        -D A2_OPTIMIZED="ON" \
+        -D A3_VERBOSE="OFF" \
+        -D CMAKE_BUILD_TYPE="Release" \
+        -B build
     cd build/benchmarks/sparse
+    make
     echo
 }
 
