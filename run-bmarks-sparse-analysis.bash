@@ -6,7 +6,7 @@ BMARK_DIR=`pwd`/benchmarks/sparse
 ANA_DIR=$BMARK_DIR/analysis
 
 cd $ANA_DIR
-yarn build
+npm run build
 
 CASES="
     open_seq_ana_fact_total
