@@ -1,15 +1,14 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include <vector>
+
+#include "../check/check.h"
 #include "../util/doctest.h"
 #include "../util/print_vector.h"
-#include "../check/check.h"
 #include "sparse_blas.h"
-#include <vector>
 using namespace std;
 
-TEST_CASE("sparse_blas")
-{
-    SUBCASE("sp_matvecmul: default options")
-    {
+TEST_CASE("sparse_blas") {
+    SUBCASE("sp_matvecmul: default options") {
         // { 1.0,  2.0,  3.0,  4.0,  5.0},
         // { 0.1,  0.2,  0.3,  0.4,  0.5},
         // {10.0, 20.0, 30.0, 40.0, 50.0},
@@ -40,8 +39,7 @@ TEST_CASE("sparse_blas")
         CHECK(equal_vectors_tol(v, v_correct, 1e-15));
     }
 
-    SUBCASE("sp_matvecmul: check_sizes = true")
-    {
+    SUBCASE("sp_matvecmul: check_sizes = true") {
         auto trip = SparseTriplet::make_new(3, 5, 15);
         vector<double> u = {0.1, 0.2, 0.3, 0.4, 0.5};
         vector<double> v(10);
@@ -51,8 +49,7 @@ TEST_CASE("sparse_blas")
         CHECK_THROWS_WITH(sp_matvecmul(vv, 1.0, trip, uu), "sp_matvecmul: size of u must be equal to the number of columns of a");
     }
 
-    SUBCASE("sp_matvecmul: fill_zeros = false")
-    {
+    SUBCASE("sp_matvecmul: fill_zeros = false") {
         // {0.1, 0.2, 0.3},
         // {1.0, 0.2, 0.3},
         // {2.0, 0.2, 0.3},
@@ -81,8 +78,7 @@ TEST_CASE("sparse_blas")
         CHECK(equal_vectors_tol(v, v_correct, 1e-15));
     }
 
-    SUBCASE("sp_matvecmul: triplet is onebased")
-    {
+    SUBCASE("sp_matvecmul: triplet is onebased") {
         // { 1.0,  2.0,  3.0,  4.0,  5.0},
         // { 0.1,  0.2,  0.3,  0.4,  0.5},
         // {10.0, 20.0, 30.0, 40.0, 50.0},
@@ -114,8 +110,7 @@ TEST_CASE("sparse_blas")
         CHECK(equal_vectors_tol(v, v_correct, 1e-15));
     }
 
-    SUBCASE("sp_matvecmul: triplet has symmetric = true")
-    {
+    SUBCASE("sp_matvecmul: triplet has symmetric = true") {
         // {2, 1, 1, 3, 2},
         // {1, 2, 2, 1, 1},
         // {1, 2, 9, 1, 5},

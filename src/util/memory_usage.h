@@ -1,10 +1,10 @@
 #pragma once
-#include <fstream>
 #include <unistd.h>
 
+#include <fstream>
+
 // memory_usage reads /proc/self/stat and returns the memory used (bytes) by this process
-inline uint64_t memory_usage()
-{
+inline uint64_t memory_usage() {
     // from `man proc`
     //
     //   /proc/[pid]/stat

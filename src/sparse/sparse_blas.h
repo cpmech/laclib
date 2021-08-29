@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <vector>
+
 #include "sparse_triplet.h"
 
 // sp_matvecmul returns the (sparse) matrix-vector multiplication (scaled):

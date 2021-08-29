@@ -1,15 +1,14 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "../util/doctest.h"
-#include "check.h"
-#include <vector>
 #include <complex>
 #include <string>
+#include <vector>
+
+#include "../util/doctest.h"
+#include "check.h"
 using namespace std;
 
-TEST_CASE("equal_vectors")
-{
-    SUBCASE("int vectors")
-    {
+TEST_CASE("equal_vectors") {
+    SUBCASE("int vectors") {
         vector<int> a{1, 2, 3};
         vector<int> b{1, 2, 3};
         vector<int> c{1, 2, 4};
@@ -19,8 +18,7 @@ TEST_CASE("equal_vectors")
         CHECK(equal_vectors(c, d) == false);
     }
 
-    SUBCASE("size_t vectors")
-    {
+    SUBCASE("size_t vectors") {
         vector<size_t> a{1, 2, 3};
         vector<size_t> b{1, 2, 3};
         vector<size_t> c{1, 2, 4};
@@ -30,8 +28,7 @@ TEST_CASE("equal_vectors")
         CHECK(equal_vectors(c, d) == false);
     }
 
-    SUBCASE("string vectors")
-    {
+    SUBCASE("string vectors") {
         vector<string> a{"1", "2", "3"};
         vector<string> b{"1", "2", "3"};
         vector<string> c{"1", "2", "4"};
@@ -42,10 +39,8 @@ TEST_CASE("equal_vectors")
     }
 }
 
-TEST_CASE("equal_vectors_tol")
-{
-    SUBCASE("float vectors")
-    {
+TEST_CASE("equal_vectors_tol") {
+    SUBCASE("float vectors") {
         float tolerance = 1e-6;
         vector<float> a{1.0f, 2.0f, 3.0f};
         vector<float> b{1.0f, 2.0f, 3.0f + tolerance};
@@ -56,8 +51,7 @@ TEST_CASE("equal_vectors_tol")
         CHECK(equal_vectors_tol(c, d, tolerance) == false);
     }
 
-    SUBCASE("double vectors")
-    {
+    SUBCASE("double vectors") {
         double tolerance = 1e-15;
         vector<double> a{1.0, 2.0, 3.0};
         vector<double> b{1.0, 2.0, 3.0 + tolerance};
@@ -69,10 +63,8 @@ TEST_CASE("equal_vectors_tol")
     }
 }
 
-TEST_CASE("equal_complex_vectors_tol")
-{
-    SUBCASE("float complex vectors")
-    {
+TEST_CASE("equal_complex_vectors_tol") {
+    SUBCASE("float complex vectors") {
         float tol_real = 1e-6;
         float tol_imag = 1e-6;
         vector<complex<float>> a{1.0f, 2.0f, 3.0f};
@@ -97,8 +89,7 @@ TEST_CASE("equal_complex_vectors_tol")
         CHECK(equal_complex_vectors_tol(cc, dd, tol_real, tol_imag) == false);
     }
 
-    SUBCASE("double complex vectors")
-    {
+    SUBCASE("double complex vectors") {
         double tol_real = 1e-15;
         double tol_imag = 1e-15;
         vector<complex<double>> a{1.0, 2.0, 3.0};

@@ -1,16 +1,16 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "doctest.h"
+#include <iostream>
+
 #include "../check/check.h"
 #include "constants.h"
+#include "doctest.h"
 #include "formaters.h"
 #include "memory_usage.h"
-#include <iostream>
 using namespace std;
 
 #define F(num) format_large_number(num)
 
-TEST_CASE("memory_usage")
-{
+TEST_CASE("memory_usage") {
     // allocate 2 GiB
     void *ptr = malloc(2 * BYTES_PER_GIB);
 

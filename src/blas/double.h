@@ -12,18 +12,17 @@
 //  NOTE: the functions here do not check for the limits of indices. Be careful.
 
 #pragma once
-#include "cblas.h"
-#include "lapacke.h"
 #include <vector>
 
-inline CBLAS_TRANSPOSE cTrans(bool trans)
-{
+#include "cblas.h"
+#include "lapacke.h"
+
+inline CBLAS_TRANSPOSE cTrans(bool trans) {
     return trans ? CblasTrans : CblasNoTrans;
 }
 
 // set_num_threads sets the number of threads
-inline void set_num_threads(int n)
-{
+inline void set_num_threads(int n) {
     openblas_set_num_threads(n);
 }
 
@@ -35,8 +34,7 @@ inline void dcopy(int n,
                   const std::vector<double> &x,
                   int incx,
                   std::vector<double> &y,
-                  int incy)
-{
+                  int incy) {
     cblas_dcopy(n,
                 x.data(),
                 incx,
@@ -52,8 +50,7 @@ inline double ddot(int n,
                    const std::vector<double> &x,
                    int incx,
                    const std::vector<double> &y,
-                   int incy)
-{
+                   int incy) {
     return cblas_ddot(n,
                       x.data(),
                       incx,
@@ -69,8 +66,7 @@ inline double ddot(int n,
 //
 inline double dnrm2(int n,
                     const std::vector<double> &x,
-                    int incx)
-{
+                    int incx) {
     return cblas_dnrm2(n,
                        x.data(),
                        incx);
@@ -83,8 +79,7 @@ inline double dnrm2(int n,
 inline void dscal(int n,
                   double alpha,
                   std::vector<double> &x,
-                  int incx)
-{
+                  int incx) {
     cblas_dscal(n,
                 alpha,
                 x.data(),
@@ -103,8 +98,7 @@ inline void daxpy(int n,
                   double alpha,
                   const std::vector<double> &x,
                   int incx, std::vector<double> &y,
-                  int incy)
-{
+                  int incy) {
     cblas_daxpy(n,
                 alpha,
                 x.data(),
@@ -137,8 +131,7 @@ inline void dgemv(bool trans,
                   int incx,
                   double beta,
                   std::vector<double> &y,
-                  int incy)
-{
+                  int incy) {
     cblas_dgemv(CblasColMajor,
                 cTrans(trans),
                 m,
@@ -185,8 +178,7 @@ inline void dgemm(bool transA,
                   int ldb,
                   double beta,
                   std::vector<double> &c,
-                  int ldc)
-{
+                  int ldc) {
     cblas_dgemm(CblasColMajor,
                 cTrans(transA),
                 cTrans(transB),
@@ -232,10 +224,8 @@ inline void dgesv(int n,
                   int lda,
                   std::vector<int> &ipiv,
                   std::vector<double> &b,
-                  int ldb)
-{
-    if (n < 0 || ipiv.size() != static_cast<size_t>(n))
-    {
+                  int ldb) {
+    if (n < 0 || ipiv.size() != static_cast<size_t>(n)) {
         throw "ipiv.size must be equal to n.";
     }
     int info = LAPACKE_dgesv(
@@ -247,8 +237,7 @@ inline void dgesv(int n,
         ipiv.data(),
         b.data(),
         ldb);
-    if (info != 0)
-    {
+    if (info != 0) {
         throw "LAPACK failed on dgesv";
     }
 }
@@ -301,8 +290,7 @@ inline void dgesvd(char jobu,
                    int ldu,
                    std::vector<double> &vt,
                    int ldvt,
-                   std::vector<double> &superb)
-{
+                   std::vector<double> &superb) {
     int info = LAPACKE_dgesvd(
         LAPACK_COL_MAJOR,
         jobu,
@@ -317,8 +305,7 @@ inline void dgesvd(char jobu,
         vt.data(),
         ldvt,
         superb.data());
-    if (info != 0)
-    {
+    if (info != 0) {
         throw "LAPACK failed on dgesvd";
     }
 }
@@ -366,22 +353,19 @@ inline void dgeev(bool calc_vl,
                   std::vector<double> &vl,
                   int ldvl,
                   std::vector<double> &vr,
-                  int ldvr)
-{
+                  int ldvr) {
     char jobvl = 'N';
     char jobvr = 'N';
     double *vl_effective = NULL;
     double *vr_effective = NULL;
     int ldvl_effective = 1;
     int ldvr_effective = 1;
-    if (calc_vl)
-    {
+    if (calc_vl) {
         jobvl = 'V';
         vl_effective = vl.data();
         ldvl_effective = ldvl;
     }
-    if (calc_vr)
-    {
+    if (calc_vr) {
         jobvr = 'V';
         vr_effective = vr.data();
         ldvr_effective = ldvr;
@@ -399,8 +383,7 @@ inline void dgeev(bool calc_vl,
         ldvl_effective,
         vr_effective,
         ldvr_effective);
-    if (info != 0)
-    {
+    if (info != 0) {
         throw "LAPACK failed on dgeev";
     }
 }
@@ -426,31 +409,25 @@ inline void build_dgeev_complex_output(std::vector<std::complex<double>> &ww,
                                        const std::vector<double> &wr,
                                        const std::vector<double> &wi,
                                        const std::vector<double> &vl,
-                                       const std::vector<double> &vr)
-{
+                                       const std::vector<double> &vr) {
     // eigenvalues
     size_t n = wr.size();
-    for (size_t i = 0; i < n; i++)
-    {
+    for (size_t i = 0; i < n; i++) {
         ww[i] = std::complex<double>(wr[i], wi[i]);
     }
 
     // loop over columns == eigenvalues
-    int dj = 1; // increment for next conjugate pair
-    for (size_t j = 0; j < n; j += dj)
-    {
+    int dj = 1;  // increment for next conjugate pair
+    for (size_t j = 0; j < n; j += dj) {
         // eigenvalue is complex
-        if (fabs(wi[j]) > 0.0)
-        {
+        if (fabs(wi[j]) > 0.0) {
             // check
-            if (j > n - 2)
-            {
+            if (j > n - 2) {
                 throw "dgeev_complex_output: last eigenvalue cannot be complex";
             }
 
             // loop over rows
-            for (size_t i = 0; i < n; i++)
-            {
+            for (size_t i = 0; i < n; i++) {
                 size_t p = i + j * n;
                 size_t q = i + (j + 1) * n;
                 vvl[p] = std::complex<double>(vl[p], vl[q]);
@@ -462,11 +439,9 @@ inline void build_dgeev_complex_output(std::vector<std::complex<double>> &ww,
         }
 
         // eigenvalue is real only
-        else
-        {
+        else {
             // loop over rows
-            for (size_t i = 0; i < n; i++)
-            {
+            for (size_t i = 0; i < n; i++) {
                 size_t p = i + j * n;
                 vvl[p] = std::complex<double>(vl[p], 0.0);
                 vvr[p] = std::complex<double>(vr[p], 0.0);
@@ -495,8 +470,7 @@ inline void dger(int m,
                  const std::vector<double> &y,
                  int incy,
                  std::vector<double> &a,
-                 int lda)
-{
+                 int lda) {
     cblas_dger(
         CblasColMajor,
         m,
@@ -531,8 +505,7 @@ inline void dgetrf(int m,
                    int n,
                    std::vector<double> &a,
                    int lda,
-                   std::vector<int> &ipiv)
-{
+                   std::vector<int> &ipiv) {
     int info = LAPACKE_dgetrf(
         LAPACK_COL_MAJOR,
         m,
@@ -540,8 +513,7 @@ inline void dgetrf(int m,
         a.data(),
         lda,
         ipiv.data());
-    if (info != 0)
-    {
+    if (info != 0) {
         throw "LAPACK failed on dgetrf";
     }
 }
@@ -558,16 +530,14 @@ inline void dgetrf(int m,
 inline void dgetri(int n,
                    std::vector<double> &a,
                    int lda,
-                   const std::vector<int> &ipiv)
-{
+                   const std::vector<int> &ipiv) {
     int info = LAPACKE_dgetri(
         LAPACK_COL_MAJOR,
         n,
         a.data(),
         lda,
         ipiv.data());
-    if (info != 0)
-    {
+    if (info != 0) {
         throw "LAPACK failed on dgetri";
     }
 }
@@ -593,8 +563,7 @@ inline void dgetri(int n,
 inline void dpotrf(bool up,
                    int n,
                    std::vector<double> &a,
-                   int lda)
-{
+                   int lda) {
     char uplo = up ? 'U' : 'L';
     int info = LAPACKE_dpotrf(
         LAPACK_COL_MAJOR,
@@ -602,8 +571,7 @@ inline void dpotrf(bool up,
         n,
         a.data(),
         lda);
-    if (info != 0)
-    {
+    if (info != 0) {
         throw "LAPACK failed on dpotrf";
     }
 }
@@ -614,8 +582,7 @@ inline void dpotrf(bool up,
 //
 inline int idamax(int n,
                   const std::vector<double> &x,
-                  int incx)
-{
+                  int incx) {
     return cblas_idamax(
         n,
         x.data(),
