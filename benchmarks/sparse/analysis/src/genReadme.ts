@@ -10,7 +10,6 @@ import {
   PlatToolset,
   DescribePlatOption,
   IHtmlStyles,
-  IAnalysis,
   IReportsAndAnalysis,
 } from './types';
 
@@ -48,23 +47,31 @@ _results with "${report.Ordering}" ordering:_
 
 const four = [1, 2, 3, 4];
 
-const read = (matrix: string, option: PlatOption, m = '#', n = '#', toolset: PlatToolset) => {
+const read = (
+  matrix: string,
+  option: PlatOption,
+  m = '#',
+  n = '#',
+  toolset: PlatToolset,
+  subDir = 'latest',
+) => {
   const opt = option.replace('#', m).replace('#', n);
-  return readReport(`mumps_${matrix}_metis_${toolset}_${opt}`, toolset);
+  return readReport(`mumps_${matrix}_metis_${toolset}_${opt}`, subDir);
 };
 
 const readFour = (
   matrix: string,
   option: PlatOption,
   toolset: PlatToolset,
+  subDir = 'latest',
 ): IReportsAndAnalysis => {
   let reports: IReport[];
   if (option === 'mpi#_omp#') {
     reports = [
-      read(matrix, option, '1', '1', toolset),
-      read(matrix, option, '1', '2', toolset),
-      read(matrix, option, '2', '1', toolset),
-      read(matrix, option, '2', '2', toolset),
+      read(matrix, option, '1', '1', toolset, subDir),
+      read(matrix, option, '1', '2', toolset, subDir),
+      read(matrix, option, '2', '1', toolset, subDir),
+      read(matrix, option, '2', '2', toolset, subDir),
     ];
   } else {
     reports = four.map((n) => read(matrix, option, `${n}`, '#', toolset));
@@ -86,7 +93,7 @@ export const genReadme = (
   // top of page
   let readme = `# Benchmarks using the code for sparse matrices
 
-The code here tests the perfomance of the MUMPS Sparse Solver.
+The code here tests the performance of the MUMPS Sparse Solver.
 
 The **case** keywords in the tables have the following meanings:
 

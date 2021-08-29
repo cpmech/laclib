@@ -25,7 +25,7 @@ void run(int argc, char **argv)
 
     // constants
     auto onebased = true;   // important for MUMPS (indices start at 1)
-    auto symmetric = false; // the triplet doen't consider symmetry of A
+    auto symmetric = false; // the triplet doesn't consider symmetry of A
 
     // input A matrix in triplet format
     auto trip = SparseTriplet::make_new(5, 5, 13, onebased, symmetric);
@@ -44,9 +44,8 @@ void run(int argc, char **argv)
     trip->put(4, 4, +1.0);
 
     // allocate MUMPS solver and options
-    auto mpi = MpiAux::make_new();
     auto options = MumpsOptions::make_new(symmetric);
-    auto solver = SolverMumps::make_new(mpi, options);
+    auto solver = SolverMumps::make_new(options);
 
     // analyse and factorize the matrix
     solver->analyze_and_factorize(trip);
@@ -77,16 +76,10 @@ void run(int argc, char **argv)
 // NOTE: the main function will "always" be like this:
 int main(int argc, char **argv)
 {
-#ifdef USE_MPI
-    MPI_Init(&argc, &argv);
-#endif
     try
     {
         run(argc, argv);
     }
     CATCH_ALL
-#ifdef USE_MPI
-    MPI_Finalize();
-#endif
     return 0;
 }

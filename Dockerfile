@@ -2,10 +2,6 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
-# arguments (must come after FROM ${BASE_IMAGE})
-ARG INTEL="OFF"
-ARG MPI="OFF"
-
 # install deps
 ENV DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "-c"]
@@ -18,8 +14,8 @@ COPY . /tmp/laclib
 WORKDIR /tmp/laclib
 
 # install laclib
-RUN bash install.bash ${INTEL} ${MPI} "OFF"
-RUN bash install.bash ${INTEL} ${MPI} "ON"
+RUN bash install.bash "OFF"
+RUN bash install.bash "ON"
 
 # configure image for remote development
 RUN bash zscripts/common-debian.sh

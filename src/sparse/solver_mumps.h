@@ -5,22 +5,19 @@
 #include "solver_mumps_constants.h"
 #include "solver_mumps_options.h"
 #include "solver_mumps_wrapper.h"
-#include "../mpiaux/mpiaux.h"
 
 struct SolverMumps
 {
-    const std::unique_ptr<MpiAux> &mpi;           // MPI wrapper
     const std::unique_ptr<MumpsOptions> &options; // options
 
     DMUMPS_STRUC_C data; // MUMPS data structure for C-code
     bool analyzed;       // analyze or analyze_and_factorize has been called
     bool factorized;     // analyze_and_factorize or factorize has been called
 
-    inline static std::unique_ptr<SolverMumps> make_new(const std::unique_ptr<MpiAux> &mpi,
-                                                        const std::unique_ptr<MumpsOptions> &options)
+    inline static std::unique_ptr<SolverMumps> make_new(const std::unique_ptr<MumpsOptions> &options)
     {
         DMUMPS_STRUC_C data;
-        data.comm_fortran = make_mumps_int(mpi->get_fortran_comm());
+        data.comm_fortran = 0;
         data.par = MUMPS_PAR_HOST_ALSO_WORKS;
         data.sym = options->symmetry;
 
@@ -28,7 +25,6 @@ struct SolverMumps
 
         return std::unique_ptr<SolverMumps>{
             new SolverMumps{
-                mpi,
                 options,
                 data,
                 false,

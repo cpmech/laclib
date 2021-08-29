@@ -1,6 +1,6 @@
 # Benchmarks using the code for sparse matrices
 
-The code here tests the perfomance of the MUMPS Sparse Solver.
+The code here tests the performance of the MUMPS Sparse Solver.
 
 The **case** keywords in the tables have the following meanings:
 
@@ -32,26 +32,26 @@ _results with "metis" ordering:_
   <tr>
     <th>Analyze</th>
     <td>open_seq_omp#</td>
-    <td>3.43877s</td>
-    <td>3.45666s</td>
-    <td>3.44702s</td>
-    <td>3.43961s</td>
+    <td>3.38483s</td>
+    <td>3.40521s</td>
+    <td>3.4027s</td>
+    <td>3.40982s</td>
   </tr>
   <tr>
     <th>Factorize</th>
     <td>open_seq_omp#<br/>(speedup)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_inline_1_metis_open_seq_omp1.txt">6.36252s</a><br/>(1)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_inline_1_metis_open_seq_omp2.txt">4.62749s</a><br/>(1.375)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_inline_1_metis_open_seq_omp3.txt">3.97806s</a><br/>(1.599)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_inline_1_metis_open_seq_omp4.txt">4.25562s</a><br/>(1.495)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_inline_1_metis_open_seq_omp1.txt">6.34252s</a><br/>(1)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_inline_1_metis_open_seq_omp2.txt">4.66872s</a><br/>(1.359)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_inline_1_metis_open_seq_omp3.txt">3.99374s</a><br/>(1.588)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_inline_1_metis_open_seq_omp4.txt">4.34756s</a><br/>(1.459)</td>
   </tr>
   <tr>
     <th>Total</th>
     <td>open_seq_omp#</td>
-    <td>10.1813s</td>
-    <td>8.44883s</td>
-    <td>7.78587s</td>
-    <td>8.05917s</td>
+    <td>10.0962s</td>
+    <td>8.4344s</td>
+    <td>7.75277s</td>
+    <td>8.11826s</td>
   </tr>
 </table>
 
@@ -80,26 +80,26 @@ _results with "metis" ordering:_
   <tr>
     <th>Analyze</th>
     <td>open_seq_omp#</td>
-    <td>10.4714s</td>
-    <td>10.7625s</td>
-    <td>10.4362s</td>
-    <td>10.7432s</td>
+    <td>10.3829s</td>
+    <td>10.4321s</td>
+    <td>10.4273s</td>
+    <td>10.3844s</td>
   </tr>
   <tr>
     <th>Factorize</th>
     <td>open_seq_omp#<br/>(speedup)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_seq_omp1.txt">1m37.4251s</a><br/>(1)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_seq_omp2.txt">1m0.324837s</a><br/>(1.615)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_seq_omp3.txt">47.8449s</a><br/>(2.036)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_Flan_1565_metis_open_seq_omp4.txt">49.1331s</a><br/>(1.983)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_Flan_1565_metis_open_seq_omp1.txt">1m37.1963s</a><br/>(1)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_Flan_1565_metis_open_seq_omp2.txt">1m0.00271017s</a><br/>(1.620)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_Flan_1565_metis_open_seq_omp3.txt">47.7004s</a><br/>(2.038)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_Flan_1565_metis_open_seq_omp4.txt">44.6016s</a><br/>(2.179)</td>
   </tr>
   <tr>
     <th>Total</th>
     <td>open_seq_omp#</td>
-    <td>1m50.5844s</td>
-    <td>1m13.2857s</td>
-    <td>1m0.388855s</td>
-    <td>1m1.94887s</td>
+    <td>1m50.2458s</td>
+    <td>1m12.6538s</td>
+    <td>1m0.209924s</td>
+    <td>57.0271s</td>
   </tr>
 </table>
 
@@ -128,26 +128,26 @@ _results with "metis" ordering:_
   <tr>
     <th>Analyze</th>
     <td>open_seq_omp#</td>
-    <td>5.16108s</td>
-    <td>5.16252s</td>
-    <td>5.15114s</td>
-    <td>5.17366s</td>
+    <td>5.16896s</td>
+    <td>5.15426s</td>
+    <td>5.15529s</td>
+    <td>5.13033s</td>
   </tr>
   <tr>
     <th>Factorize</th>
     <td>open_seq_omp#<br/>(speedup)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_seq_omp1.txt">5.37544s</a><br/>(1)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_seq_omp2.txt">3.64571s</a><br/>(1.474)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_seq_omp3.txt">3.12367s</a><br/>(1.721)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_pre2_metis_open_seq_omp4.txt">2.95089s</a><br/>(1.822)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_pre2_metis_open_seq_omp1.txt">5.32965s</a><br/>(1)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_pre2_metis_open_seq_omp2.txt">3.68975s</a><br/>(1.444)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_pre2_metis_open_seq_omp3.txt">3.15916s</a><br/>(1.687)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_pre2_metis_open_seq_omp4.txt">3.01845s</a><br/>(1.766)</td>
   </tr>
   <tr>
     <th>Total</th>
     <td>open_seq_omp#</td>
-    <td>11.3963s</td>
-    <td>9.67999s</td>
-    <td>9.16406s</td>
-    <td>9.02354s</td>
+    <td>11.3998s</td>
+    <td>9.75269s</td>
+    <td>9.23565s</td>
+    <td>9.08247s</td>
   </tr>
 </table>
 
@@ -176,26 +176,26 @@ _results with "metis" ordering:_
   <tr>
     <th>Analyze</th>
     <td>open_seq_omp#</td>
-    <td>3.95934s</td>
-    <td>4.04847s</td>
-    <td>4.02533s</td>
-    <td>4.01646s</td>
+    <td>3.98419s</td>
+    <td>4.00929s</td>
+    <td>3.97342s</td>
+    <td>3.98054s</td>
   </tr>
   <tr>
     <th>Factorize</th>
     <td>open_seq_omp#<br/>(speedup)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_tmt_unsym_metis_open_seq_omp1.txt">2.54191s</a><br/>(1)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_tmt_unsym_metis_open_seq_omp2.txt">2.37828s</a><br/>(1.069)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_tmt_unsym_metis_open_seq_omp3.txt">2.31647s</a><br/>(1.097)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_tmt_unsym_metis_open_seq_omp4.txt">2.38263s</a><br/>(1.067)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_tmt_unsym_metis_open_seq_omp1.txt">2.57749s</a><br/>(1)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_tmt_unsym_metis_open_seq_omp2.txt">2.43118s</a><br/>(1.060)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_tmt_unsym_metis_open_seq_omp3.txt">2.3755s</a><br/>(1.085)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_tmt_unsym_metis_open_seq_omp4.txt">2.48729s</a><br/>(1.036)</td>
   </tr>
   <tr>
     <th>Total</th>
     <td>open_seq_omp#</td>
-    <td>7.99578s</td>
-    <td>7.95623s</td>
-    <td>7.87811s</td>
-    <td>7.93864s</td>
+    <td>8.15029s</td>
+    <td>8.06895s</td>
+    <td>7.96464s</td>
+    <td>8.08189s</td>
   </tr>
 </table>
 
@@ -224,26 +224,26 @@ _results with "metis" ordering:_
   <tr>
     <th>Analyze</th>
     <td>open_seq_omp#</td>
-    <td>463.178µs</td>
-    <td>709.094µs</td>
-    <td>732.382µs</td>
-    <td>726.987µs</td>
+    <td>817.612µs</td>
+    <td>428.714µs</td>
+    <td>582.933µs</td>
+    <td>424.82µs</td>
   </tr>
   <tr>
     <th>Factorize</th>
     <td>open_seq_omp#<br/>(speedup)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_seq_omp1.txt">376.599µs</a><br/>(1)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_seq_omp2.txt">8.76785ms</a>:worried:<br/>(0.043)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_seq_omp3.txt">28.5722ms</a>:worried:<br/>(0.013)</td>
-    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_seq_omp4.txt">9.00163ms</a>:worried:<br/>(0.042)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_bfwb62_metis_open_seq_omp1.txt">718.964µs</a><br/>(1)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_bfwb62_metis_open_seq_omp2.txt">2.49391ms</a>:worried:<br/>(0.288)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_bfwb62_metis_open_seq_omp3.txt">8.67061ms</a>:worried:<br/>(0.083)</td>
+    <td><a href="https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/latest/mumps_bfwb62_metis_open_seq_omp4.txt">9.46407ms</a>:worried:<br/>(0.076)</td>
   </tr>
   <tr>
     <th>Total</th>
     <td>open_seq_omp#</td>
-    <td>1.08693ms</td>
-    <td>9.8105ms</td>
-    <td>29.6152ms</td>
-    <td>11.0598ms</td>
+    <td>1.78449ms</td>
+    <td>3.12266ms</td>
+    <td>9.39697ms</td>
+    <td>10.0863ms</td>
   </tr>
 </table>
 

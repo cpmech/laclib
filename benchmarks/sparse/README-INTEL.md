@@ -1,6 +1,6 @@
 # Benchmarks using the code for sparse matrices (Intel)
 
-The code here tests the perfomance of the MUMPS Sparse Solver.
+The code here tests the performance of the MUMPS Sparse Solver.
 
 ## inline_1 matrix
 

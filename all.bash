@@ -1,11 +1,24 @@
 #!/bin/bash
 
-INTEL=${1:-"OFF"}
-MPI=${2:-"OFF"}
-OMP=${3:-"OFF"}
-OPTIMIZED=${4:-"OFF"}
-VERBOSE=${5:-"OFF"}
+set -e
 
-bash zscripts/do_cmake.bash ${INTEL} ${MPI} ${OMP} ${OPTIMIZED} ${VERBOSE}
+OMP=${1:-"OFF"}
+OPTIMIZED=${2:-"OFF"}
+VERBOSE=${3:-"OFF"}
+
+BUILD_TYPE="Debug"
+if [ "${OPTIMIZED}" = "ON" ]; then
+    BUILD_TYPE="Release"
+fi
+
+rm -rf ./build
+
+cmake -D A1_OMP=${OMP} \
+      -D A2_OPTIMIZED=${OPTIMIZED} \
+      -D A3_VERBOSE=${VERBOSE} \
+      -D CMAKE_BUILD_TYPE=${BUILD_TYPE} \
+      -B build
+
 cd build
+
 make && make test
