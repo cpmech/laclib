@@ -17,7 +17,7 @@ struct MumpsOptions {
     inline static std::unique_ptr<MumpsOptions> make_new(bool general_symmetry = false) {
         return std::unique_ptr<MumpsOptions>{new MumpsOptions{
             general_symmetry ? MUMPS_SYMMETRY_GENERAL : MUMPS_SYMMETRY_NONE,
-            MUMPS_ORDERING_AUTO,
+            MUMPS_ORDERING_METIS,
             MUMPS_SCALING_AUTO,
             120,    // pct_inc_workspace
             0,      // auto
