@@ -12,7 +12,7 @@ struct MumpsOptions {
     MUMPS_INT max_work_memory;    // ICNTL(23)
     MUMPS_INT omp_num_threads;    // ICNTL(16)
     bool distributed_matrix;      // matrix is distributed; not centralized on the host with rank == 0
-    bool rhs_is_distributed;      // right-hand-sice is distributed
+    bool rhs_is_distributed;      // right-hand-side is distributed
 
     inline static std::unique_ptr<MumpsOptions> make_new(bool general_symmetry = false) {
         return std::unique_ptr<MumpsOptions>{new MumpsOptions{
