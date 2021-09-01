@@ -4,8 +4,7 @@ This directory contains some benchmark tests using the _laclib_ library.
 
 ```
 ├── benchmarks
-    ├── blas    # tests the performance of some blas code
-    └── sparse  # tests the performance of sparse solvers
+    └── sparse  # performance of sparse solvers
 ```
 
 First, we need to download some (large) test matrices in the data subdirectory:
