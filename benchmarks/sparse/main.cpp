@@ -1,19 +1,16 @@
-#include "check.h"
-#include "report.h"
-#include "stats.h"
 #include "../../src/laclib.h"
+#include "check.h"
 using namespace std;
 
-void run(int argc, char **argv)
-{
+void run(int argc, char **argv) {
     // allocate mpi and report
     auto report = Report::make_new();
 
     // get arguments from command line
     vector<string> defaults{
-        "bfwb62", // default matrix_name
-        "1",      // default omp_num_threads
-        "metis",  // default ordering
+        "bfwb62",  // default matrix_name
+        "1",       // default omp_num_threads
+        "metis",   // default ordering
     };
     auto args = extract_arguments_or_use_defaults(argc, argv, defaults);
     auto matrix_name = args[0];
@@ -64,13 +61,12 @@ void run(int argc, char **argv)
 
     // write report
     auto stats = Stats::make_new(trip, x, rhs);
-    report->write_json("mumps", matrix_name, options, trip, stats);
+    auto out_dir = path_get_current() + "/../../../benchmarks/sparse/results/latest/";
+    report->write_json(out_dir, "mumps", matrix_name, options, trip, stats);
 }
 
-int main(int argc, char **argv)
-{
-    try
-    {
+int main(int argc, char **argv) {
+    try {
         run(argc, argv);
     }
     CATCH_ALL

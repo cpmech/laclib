@@ -4,28 +4,29 @@
 #include <memory>
 #include <sstream>
 #include <string>
-#include "../../src/laclib.h"
+
+#include "../sparse/solver_mumps_options.h"
+#include "../util/memory_usage.h"
+#include "../util/path_tools.h"
+#include "../util/stopwatch.h"
 #include "stats.h"
 
 #define SNSEC(ns) format_nanoseconds(ns).c_str()
 #define SMIB(bytes) format_large_number(bytes_to_MiB(bytes)).c_str()
 
-enum StepName
-{
+enum StepName {
     STEP_READ_MATRIX,
     STEP_ANALYZE,
     STEP_FACTORIZE,
     STEP_SOLVE,
 };
 
-struct TimeAndMemory
-{
+struct TimeAndMemory {
     uint64_t nanoseconds;
     uint64_t bytes;
 };
 
-struct Report
-{
+struct Report {
     Stopwatch sw_step;
     Stopwatch sw_solver;
     TimeAndMemory step_read_matrix;
@@ -34,8 +35,7 @@ struct Report
     TimeAndMemory step_solve;
     uint64_t solver_nanoseconds;
 
-    inline static std::unique_ptr<Report> make_new()
-    {
+    inline static std::unique_ptr<Report> make_new() {
         return std::unique_ptr<Report>{new Report{
             Stopwatch::make_new(),
             Stopwatch::make_new(),
@@ -47,61 +47,54 @@ struct Report
         }};
     }
 
-    inline void solver_start_stopwatch()
-    {
+    inline void solver_start_stopwatch() {
         this->sw_solver.reset();
     }
 
-    inline void solver_stop_stopwatch()
-    {
+    inline void solver_stop_stopwatch() {
         this->solver_nanoseconds = this->sw_solver.stop("");
     }
 
-    inline void measure_step(StepName step)
-    {
+    inline void measure_step(StepName step) {
         bool reset_stopwatch = true;
         auto nanoseconds = this->sw_step.stop("", reset_stopwatch);
         auto bytes = memory_usage();
 
-        switch (step)
-        {
-        case STEP_READ_MATRIX:
-            this->step_read_matrix = TimeAndMemory{nanoseconds, bytes};
-            break;
+        switch (step) {
+            case STEP_READ_MATRIX:
+                this->step_read_matrix = TimeAndMemory{nanoseconds, bytes};
+                break;
 
-        case STEP_ANALYZE:
-            this->step_analyze = TimeAndMemory{nanoseconds, bytes};
-            break;
+            case STEP_ANALYZE:
+                this->step_analyze = TimeAndMemory{nanoseconds, bytes};
+                break;
 
-        case STEP_FACTORIZE:
-            this->step_factorize = TimeAndMemory{nanoseconds, bytes};
-            break;
+            case STEP_FACTORIZE:
+                this->step_factorize = TimeAndMemory{nanoseconds, bytes};
+                break;
 
-        case STEP_SOLVE:
-            this->step_solve = TimeAndMemory{nanoseconds, bytes};
-            break;
+            case STEP_SOLVE:
+                this->step_solve = TimeAndMemory{nanoseconds, bytes};
+                break;
 
-        default:
-            throw "Report::measure_now: StepName is invalid";
+            default:
+                throw "Report::measure_now: StepName is invalid";
         }
     }
 
-    inline void write_json(const std::string &solver_kind,
+    inline void write_json(const std::string &output_dir,
+                           const std::string &solver_kind,
                            const std::string &matrix_name,
                            const std::unique_ptr<MumpsOptions> &options,
                            const std::unique_ptr<SparseTriplet> &trip,
-                           const std::unique_ptr<Stats> &stats)
-    {
-        auto path = path_get_current() + "/../../../benchmarks/sparse/results/";
+                           const std::unique_ptr<Stats> &stats) {
         auto ordering = mumps_ordering_to_string(options->ordering);
 
-        path += "latest/";
-        std::string plat = "_open";
+        std::string suffix = "_open_seq";
         int effective_mpi_size = 0;
-        plat += "_seq";
 #ifdef HAS_OMP
         int effective_omp_num_threads = options->omp_num_threads;
-        plat += "_omp" + std::to_string(options->omp_num_threads);
+        suffix += "_omp" + std::to_string(options->omp_num_threads);
 #else
         int effective_omp_num_threads = 0;
 #endif
@@ -110,13 +103,13 @@ struct Report
         fnkey << solver_kind
               << "_" << matrix_name
               << "_" << ordering
-              << plat;
+              << suffix;
 
-        std::string filename = path + fnkey.str() + ".json";
+        std::string filepath = output_dir + "/" + fnkey.str() + ".json";
 
         std::string str_symmetric = trip->symmetric ? "true" : "false";
 
-        std::ofstream ofs(filename, std::ofstream::out);
+        std::ofstream ofs(filepath, std::ofstream::out);
         ofs << "{\n";
         ofs << "  \"Platform\": \"laclib\",\n";
         ofs << "  \"SolverKind\": \"" << solver_kind << "\",\n";

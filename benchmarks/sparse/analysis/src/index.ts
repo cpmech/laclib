@@ -15,7 +15,7 @@ const matrices: string[] = [
 
 async function run() {
   const args = process.argv.slice(2);
-  const selection = args.length > 0 ? args[0] : '';
+  const selection = args.length > 0 ? args[0] : 'open_seq_ana_fact_total';
 
   let toolsets: PlatToolset[] = ['open'];
   let options: PlatOption[] = ['seq_omp#'];

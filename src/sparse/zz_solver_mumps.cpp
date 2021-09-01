@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <vector>
 
-#include "../blas/index.h"
+#include "../analysis/index.h"
 #include "../check/check.h"
 #include "../util/doctest.h"
 #include "solver_mumps.h"
