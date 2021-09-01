@@ -3,7 +3,6 @@ set(TESTS
     zz_memory_usage
     zz_path_tools
     zz_stopwatch
-    zz_string_tools
 )
 
 foreach(var ${TESTS})

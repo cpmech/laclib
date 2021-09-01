@@ -3,8 +3,6 @@
 #include <cstdio>
 #include <cstring>
 
-#include "../util/string_tools.h"
-
 std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
                                                   bool onebased) {
     FILE *f = fopen(filename.c_str(), "r");
