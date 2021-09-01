@@ -14,7 +14,7 @@ struct Stopwatch {
         };
     };
 
-    // returns the elased time in nanoseconds
+    // returns the elapsed time in nanoseconds
     // INPUT:
     //   prefix != "" => will print to the terminal too
     //   do_reset => will reset initial time to the current time
