@@ -4,7 +4,7 @@ We suggest looking at the [sparse](https://github.com/cpmech/laclib/tree/main/sr
 
 This is the "main" laclib directory with the following:
 
-- [blas](https://github.com/cpmech/laclib/tree/main/src/blas) basic linear algebra tools
+- [analysis](https://github.com/cpmech/laclib/tree/main/src/analysis) analysis of results and reporting
 - [check](https://github.com/cpmech/laclib/tree/main/src/check) functions for unit/integration tests
 - [sparse](https://github.com/cpmech/laclib/tree/main/src/sparse) sparse matrix and solvers tools
 - [util](https://github.com/cpmech/laclib/tree/main/src/util) some utilities for file/string manipulations

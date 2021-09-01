@@ -1,6 +1,6 @@
 # Linear Algebra (simple) C++17 Library
 
-This project implements some structures and functions to assist in developing code for linear algebra computations. We wrap some BLAS routines and solvers for sparse linear systems.
+Laclib wraps UMFPACK and MUMP solvers to solve large linear systems with a sparse matrix.
 
 We use **modern C++17 without the "fancy" stuff**. For example, we keep OOP usage to a minimal. The idea is to follow the best concepts of Rust and Go.
 
@@ -39,23 +39,9 @@ After installing the MUMPS docker image according to [script-install-mumps](http
 
 ## Ubuntu/Linux 20.10
 
-### MUMPS Sparse Solver
+First, follow the procedures in https://github.com/cpmech/script-install-mumps
 
-**NOTE**: we prefer to compile MUMPS ourselves instead of using the default Debian package named _libmumps-dev_ because the Debian package doesn't include some additional, and efficient, ordering tools.
-
-Follow the procedures in https://github.com/cpmech/script-install-mumps
-
-### Additional dependencies (open toolset)
-
-Run:
-
-```bash
-sudo apt-get install liblapacke-dev
-```
-
-### Installing an optimized code for your application
-
-To compile and install the header files in `/usr/local/include/laclib` and the library files in `/usr/local/lib/laclib`, execute:
+Next, compile and install the header files in `/usr/local/include/laclib` and the library files in `/usr/local/lib/laclib`, by using:
 
 ```bash
 ./install.bash [OMP]
@@ -76,17 +62,15 @@ Execute:
 ## Code organization
 
 ```
-├── benchmarks  # tests for computational performance
-├── data        # auxiliary data for unit tests
-├── examples    # examples of usage
-├── src         # this is the "main library"
-│   ├── blas    # basic linear algebra tools
-│   ├── check   # functions for unit/integration tests
-│   ├── sparse  # sparse matrix and solvers tools
-│   └── util    # some utilities for file/string manipulations
-└── zscripts    # auxiliary "internal" bash scripts
+├── benchmarks   # tests for computational performance
+├── data         # auxiliary data for unit tests
+├── examples     # examples of usage
+├── src          # this is the "main library"
+│   ├── analysis # analysis, stats, and reporting
+│   ├── check    # functions for unit/integration tests
+│   ├── sparse   # sparse matrix and solvers tools
+│   └── util     # some utilities for file/string manipulations
+└── zscripts     # auxiliary "internal" bash scripts
 ```
-
-The `src` directory contains all the _library_ code that you can use in your project. The `blas` and `sparse` _libraries_ may be the most useful for your project. The other directories mostly contain functions used here internally. For instance, the `check` directory contains functions to assist in the unit (and integration) tests and `util` includes some utility functions.
 
 We suggest looking at the [sparse](https://github.com/cpmech/laclib/tree/main/src/sparse) directory first.
