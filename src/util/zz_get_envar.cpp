@@ -3,6 +3,6 @@
 #include "get_envar.h"
 
 TEST_CASE("get_envar") {
-    auto envar = get_envar("OMP_NUM_THREADS");
-    CHECK(envar == "4");
+    auto envar = get_envar("PATH");
+    CHECK(envar.length() > 0);
 }
