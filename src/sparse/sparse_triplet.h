@@ -29,7 +29,7 @@ struct SparseTriplet {
     size_t pos;                // current index => nnz in the end
     size_t max;                // max allowed number of entries
     bool onebased;             // indices (i; j) start with 1 instead of 0 (e.g. for MUMPS)
-    bool symmetric;            // symmetric matrix?, but WITHOUT both sides of the diagonal
+    bool symmetric;            // symmetric matrix?, but WITHOUT one side of the diagonal
     std::vector<MUMPS_INT> I;  // zero- or one-based indices stored here
     std::vector<MUMPS_INT> J;  // zero- or one-based indices stored here
     std::vector<double> X;     // the non-zero entries in the matrix
