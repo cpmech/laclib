@@ -44,6 +44,7 @@ interface IVerify {
 
 export interface INewReport {
   platform: string;
+  blasLib: string;
   matrixName: string;
   read: IRead;
   triplet: ITriplet;
@@ -97,6 +98,7 @@ const zeroVerify = (): IVerify => ({
 
 export const zeroNewReport = (): INewReport => ({
   platform: '',
+  blasLib: '',
   matrixName: '',
   read: zeroRead(),
   triplet: zeroTriplet(),

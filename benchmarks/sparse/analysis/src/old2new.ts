@@ -1,15 +1,18 @@
+import { v4 } from 'uuid';
 import { camelize } from '@cpmech/basic';
+import { maybeWriteFile } from '@cpmech/basic-sys';
 import { readReport } from './readReport';
 import { INewReport } from './typesNewReport';
 
-async function run() {
-  const args = process.argv.slice(2);
-  const fnkey = args.length > 0 ? args[0] : 'mumps_bfwb62_metis_open_seq';
-  const subDir = args.length > 1 ? args[1] : 'latest';
+const convert = (blasLib: string, matrixName: string, ompNt: number) => {
+  const suffix = ompNt == 0 ? '' : `_omp${ompNt}`;
+  const fnkey = `mumps_${matrixName}_metis_${blasLib}_seq${suffix}`;
 
-  let oldRpt = readReport(fnkey, subDir);
-  let newRpt: INewReport = {
+  const oldRpt = readReport(fnkey, blasLib);
+
+  const newRpt: INewReport = {
     platform: oldRpt.Platform,
+    blasLib: blasLib == 'intel' ? 'IntelMKL' : 'OpenBLAS',
     matrixName: oldRpt.MatrixName,
     read: {
       timeReadNs: oldRpt.StepReadMatrix.ElapsedTimeNanoseconds,
@@ -53,7 +56,32 @@ async function run() {
     },
   };
 
-  console.log(newRpt);
+  const filepath = `/tmp/laclib/${matrixName}/${v4()}.json`;
+  maybeWriteFile(true, filepath, () => JSON.stringify(newRpt, null, 2) + '\n');
+  console.log(filepath);
+};
+
+async function run() {
+  const args = process.argv.slice(2);
+  if (args.length != 2) {
+    console.log('Usage:');
+    console.log();
+    console.log(`    basename  BLASLIB MATRIX_NAME OMP_NT`);
+    console.log();
+    console.log('Where:');
+    console.log();
+    console.log('  BLASLIB     -- {intel,open,latest}');
+    console.log('  MATRIX_NAME -- e.g., pre2');
+    console.log();
+    return;
+  }
+
+  const blasLib = args[0];
+  const matrixName = args[1];
+
+  for (let ompNt = 0; ompNt < 5; ompNt++) {
+    convert(blasLib, matrixName, ompNt);
+  }
 }
 
 (async () => {
