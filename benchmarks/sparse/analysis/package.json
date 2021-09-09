@@ -11,6 +11,7 @@
   "scripts": {
     "tsnode": "ts-node -O '{\"module\":\"commonjs\",\"resolveJsonModule\":true}'",
     "start": "npm run tsnode src/index.ts",
+    "o2n": "npm run tsnode src/old2new.ts",
     "build": "rm -rf dist && rollup --config rollup.config-tslib.js",
     "test": "jest --verbose",
     "tw": "jest --watch --verbose"
