@@ -26,11 +26,21 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
+  "dependencies": {
+    "@cpmech/basic-sys": "^2.27.0",
+    "@cpmech/js2ts": "^2.27.0",
+    "@cpmech/util": "^1.32.0",
+    "dompurify": "^2.3.1",
+    "marked": "^3.0.3",
+    "uuid": "^8.3.2"
+  },
   "devDependencies": {
+    "@types/dompurify": "^2.2.3",
     "@types/jest": "^27.0.1",
     "@types/marked": "^3.0.0",
-    "@types/node": "^16.7.5",
-    "jest": "^27.1.0",
+    "@types/node": "^16.9.0",
+    "@types/uuid": "^8.3.1",
+    "jest": "^27.1.1",
     "prettier": "^2.3.2",
     "rollup": "^2.56.3",
     "rollup-plugin-node-resolve": "^5.2.0",
@@ -39,13 +49,5 @@
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.2"
-  },
-  "dependencies": {
-    "@cpmech/basic-sys": "^2.27.0",
-    "@cpmech/js2ts": "^2.27.0",
-    "@cpmech/util": "^1.32.0",
-    "@types/dompurify": "^2.2.3",
-    "dompurify": "^2.3.1",
-    "marked": "^3.0.2"
   }
 }
