@@ -5,8 +5,9 @@ import { INewReport } from './typesNewReport';
 async function run() {
   const args = process.argv.slice(2);
   const fnkey = args.length > 0 ? args[0] : 'mumps_bfwb62_metis_open_seq';
+  const subDir = args.length > 1 ? args[1] : 'latest';
 
-  let oldRpt = readReport(fnkey);
+  let oldRpt = readReport(fnkey, subDir);
   let newRpt: INewReport = {
     platform: oldRpt.Platform,
     matrixName: oldRpt.MatrixName,
@@ -52,7 +53,6 @@ async function run() {
     },
   };
 
-  console.log(oldRpt);
   console.log(newRpt);
 }
 
