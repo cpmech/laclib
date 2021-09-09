@@ -1,4 +1,3 @@
-import { v4 } from 'uuid';
 import { camelize } from '@cpmech/basic';
 import { maybeWriteFile } from '@cpmech/basic-sys';
 import { readReport } from './readReport';
@@ -34,6 +33,8 @@ const convert = (blasLib: string, matrixName: string, ompNt: number) => {
       pctIncWorkspace: 120,
       maxWorkMemory: 30000,
       openmpNumThreads: oldRpt.OmpNumThreads,
+      usedOrdering: camelize(oldRpt.Ordering, true),
+      usedScaling: 'Auto',
       doneInitialize: true,
       doneFactorize: true,
       ndim: oldRpt.NumberOfRows,
@@ -56,7 +57,7 @@ const convert = (blasLib: string, matrixName: string, ompNt: number) => {
     },
   };
 
-  const filepath = `/tmp/laclib/${matrixName}/${v4()}.json`;
+  const filepath = `/tmp/laclib/${matrixName}/metis_${blasLib}_seq${suffix}.json`;
   maybeWriteFile(true, filepath, () => JSON.stringify(newRpt, null, 2) + '\n');
   console.log(filepath);
 };

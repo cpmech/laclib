@@ -20,6 +20,8 @@ interface ISolver {
   pctIncWorkspace: number;
   maxWorkMemory: number;
   openmpNumThreads: number;
+  usedOrdering: string;
+  usedScaling: string;
   doneInitialize: boolean;
   doneFactorize: boolean;
   ndim: number;
@@ -74,6 +76,8 @@ const zeroSolver = (): ISolver => ({
   pctIncWorkspace: 0,
   maxWorkMemory: 0,
   openmpNumThreads: 0,
+  usedOrdering: '',
+  usedScaling: '',
   doneInitialize: false,
   doneFactorize: false,
   ndim: 0,
