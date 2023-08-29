@@ -2,20 +2,19 @@
 
 #include <memory>
 
-#include "dmumps_c.h"
-#include "solver_mumps_constants.h"
-#include "solver_mumps_options.h"
-#include "solver_mumps_wrapper.h"
+#include "solver_pardiso_constants.h"
+#include "solver_pardiso_options.h"
+#include "solver_pardiso_wrapper.h"
 #include "sparse_triplet.h"
 
-struct SolverMumps {
-    const std::unique_ptr<MumpsOptions> &options; // options
+struct SolverPardiso {
+    const std::unique_ptr<PardisoOptions> &options; // options
 
     DMUMPS_STRUC_C data; // MUMPS data structure for C-code
     bool analyzed;       // analyze or analyze_and_factorize has been called
     bool factorized;     // analyze_and_factorize or factorize has been called
 
-    inline static std::unique_ptr<SolverMumps> make_new(const std::unique_ptr<MumpsOptions> &options) {
+    inline static std::unique_ptr<SolverPardiso> make_new(const std::unique_ptr<PardisoOptions> &options) {
         DMUMPS_STRUC_C data;
         data.comm_fortran = 0;
         data.par = MUMPS_PAR_HOST_ALSO_WORKS;
@@ -23,8 +22,8 @@ struct SolverMumps {
 
         _call_dmumps(&data, MUMPS_JOB_INITIALIZE, false);
 
-        return std::unique_ptr<SolverMumps>{
-            new SolverMumps{
+        return std::unique_ptr<SolverPardiso>{
+            new SolverPardiso{
                 options,
                 data,
                 false,
@@ -32,7 +31,7 @@ struct SolverMumps {
             }};
     };
 
-    ~SolverMumps() {
+    ~SolverPardiso() {
         _call_dmumps(&this->data, MUMPS_JOB_TERMINATE, false);
     }
 
@@ -48,5 +47,3 @@ struct SolverMumps {
                const std::vector<double> &rhs,
                bool verbose = false);
 };
-
-// Page 29: Again, out-of-range entries are ignored and duplicate entries are summed.
