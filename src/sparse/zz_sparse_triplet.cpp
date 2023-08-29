@@ -10,9 +10,9 @@ TEST_CASE("testing SparseTriplet (put)") {
     SUBCASE("default values") {
         auto trip = SparseTriplet::make_new(3, 3, 4);
 
-        vector<MUMPS_INT> Icorrect{0, 0, 0, 0};
-        vector<MUMPS_INT> Jcorrect{0, 0, 0, 0};
-        vector<double> Xcorrect{0.0, 0.0, 0.0, 0.0};
+        vector<MUMPS_INT> I_correct{0, 0, 0, 0};
+        vector<MUMPS_INT> J_correct{0, 0, 0, 0};
+        vector<double> X_correct{0.0, 0.0, 0.0, 0.0};
 
         CHECK(trip->m == 3);
         CHECK(trip->n == 3);
@@ -22,17 +22,17 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(trip->I.size() == 4);
         CHECK(trip->J.size() == 4);
         CHECK(trip->X.size() == 4);
-        CHECK(equal_vectors(trip->I, Icorrect));
-        CHECK(equal_vectors(trip->J, Jcorrect));
-        CHECK(equal_vectors_tol(trip->X, Xcorrect, 1e-15));
+        CHECK(equal_vectors(trip->I, I_correct));
+        CHECK(equal_vectors(trip->J, J_correct));
+        CHECK(equal_vectors_tol(trip->X, X_correct, 1e-15));
     }
 
     SUBCASE("put") {
         auto trip = SparseTriplet::make_new(3, 3, 4);
 
-        vector<MUMPS_INT> Icorrect{0, 1, 2, 0};
-        vector<MUMPS_INT> Jcorrect{0, 1, 2, 1};
-        vector<double> Xcorrect{10.0, 11.0, 12.0, 4.0};
+        vector<MUMPS_INT> I_correct{0, 1, 2, 0};
+        vector<MUMPS_INT> J_correct{0, 1, 2, 1};
+        vector<double> X_correct{10.0, 11.0, 12.0, 4.0};
 
         trip->put(0, 0, 10.0);
         trip->put(1, 1, 11.0);
@@ -40,18 +40,18 @@ TEST_CASE("testing SparseTriplet (put)") {
         trip->put(0, 1, 4.0);
 
         CHECK(trip->pos == 4);
-        CHECK(equal_vectors(trip->I, Icorrect));
-        CHECK(equal_vectors(trip->J, Jcorrect));
-        CHECK(equal_vectors_tol(trip->X, Xcorrect, 1e-15));
+        CHECK(equal_vectors(trip->I, I_correct));
+        CHECK(equal_vectors(trip->J, J_correct));
+        CHECK(equal_vectors_tol(trip->X, X_correct, 1e-15));
     }
 
-    SUBCASE("put: onebased") {
-        bool onebased = true;
-        auto trip = SparseTriplet::make_new(3, 3, 4, onebased);
+    SUBCASE("put: one_based") {
+        bool one_based = true;
+        auto trip = SparseTriplet::make_new(3, 3, 4, one_based);
 
-        vector<MUMPS_INT> Icorrect{1, 2, 3, 1};
-        vector<MUMPS_INT> Jcorrect{1, 2, 3, 2};
-        vector<double> Xcorrect{10.0, 11.0, 12.0, 4.0};
+        vector<MUMPS_INT> I_correct{1, 2, 3, 1};
+        vector<MUMPS_INT> J_correct{1, 2, 3, 2};
+        vector<double> X_correct{10.0, 11.0, 12.0, 4.0};
 
         trip->put(0, 0, 10.0);
         trip->put(1, 1, 11.0);
@@ -59,9 +59,9 @@ TEST_CASE("testing SparseTriplet (put)") {
         trip->put(0, 1, 4.0);
 
         CHECK(trip->pos == 4);
-        CHECK(equal_vectors(trip->I, Icorrect));
-        CHECK(equal_vectors(trip->J, Jcorrect));
-        CHECK(equal_vectors_tol(trip->X, Xcorrect, 1e-15));
+        CHECK(equal_vectors(trip->I, I_correct));
+        CHECK(equal_vectors(trip->J, J_correct));
+        CHECK(equal_vectors_tol(trip->X, X_correct, 1e-15));
     }
 
     SUBCASE("put: exceptions") {

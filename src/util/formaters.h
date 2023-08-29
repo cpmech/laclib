@@ -16,7 +16,7 @@ inline std::string format_large_number(const T &num) {
 
 //  Note:
 //   The SI prefixes are for strict use with powers of 10, not powers of 2 as used by computers.
-//   To solve this the International Electrotechnical Commission (IEC) came up with a new prefix
+//   To solve this the International Electro-technical Commission (IEC) came up with a new prefix
 //   standard for powers of 2, known as binary prefixes. The solution was to add an "i" between
 //   the initial letter and the "B". Full prefixes were also defined. As per the specification
 //   of the prefixes, the power of 2 prefix counterpart to Kilo- is Kibi-. The prefix Kilo-

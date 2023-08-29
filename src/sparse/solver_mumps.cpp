@@ -8,7 +8,7 @@
 #include "solver_mumps_constants.h"
 #include "solver_mumps_options.h"
 
-#define ICNTL(I) icntl[(I)-1]  // macro to make indices match documentation
+#define ICNTL(I) icntl[(I)-1] // macro to make indices match documentation
 
 static inline void _set_data(DMUMPS_STRUC_C *data,
                              const std::unique_ptr<MumpsOptions> &options,
@@ -29,7 +29,7 @@ static inline void _set_data(DMUMPS_STRUC_C *data,
     data->a = trip->X.data();
 
     data->ICNTL(28) = MUMPS_ICNTL28_SEQUENTIAL;
-    data->ICNTL(29) = 0;  // ignored
+    data->ICNTL(29) = 0; // ignored
 }
 
 void SolverMumps::analyze(const std::unique_ptr<SparseTriplet> &trip,

@@ -61,24 +61,24 @@ struct Report {
         auto bytes = memory_usage();
 
         switch (step) {
-            case STEP_READ_MATRIX:
-                this->step_read_matrix = TimeAndMemory{nanoseconds, bytes};
-                break;
+        case STEP_READ_MATRIX:
+            this->step_read_matrix = TimeAndMemory{nanoseconds, bytes};
+            break;
 
-            case STEP_ANALYZE:
-                this->step_analyze = TimeAndMemory{nanoseconds, bytes};
-                break;
+        case STEP_ANALYZE:
+            this->step_analyze = TimeAndMemory{nanoseconds, bytes};
+            break;
 
-            case STEP_FACTORIZE:
-                this->step_factorize = TimeAndMemory{nanoseconds, bytes};
-                break;
+        case STEP_FACTORIZE:
+            this->step_factorize = TimeAndMemory{nanoseconds, bytes};
+            break;
 
-            case STEP_SOLVE:
-                this->step_solve = TimeAndMemory{nanoseconds, bytes};
-                break;
+        case STEP_SOLVE:
+            this->step_solve = TimeAndMemory{nanoseconds, bytes};
+            break;
 
-            default:
-                throw "Report::measure_now: StepName is invalid";
+        default:
+            throw "Report::measure_now: StepName is invalid";
         }
     }
 

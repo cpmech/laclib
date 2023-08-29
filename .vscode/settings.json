@@ -1,5 +1,7 @@
 {
-  "C_Cpp.default.includePath": ["/usr/local/include/mumps"],
+  "C_Cpp.default.includePath": [
+    "/usr/local/include/mumps"
+  ],
   "files.associations": {
     "*.C": "cpp",
     "optional": "cpp",
@@ -41,5 +43,17 @@
     "**/dist": true,
     "**/.rpt2_cache": true,
     "**/cdk.out": true
-  }
+  },
+  "cSpell.words": [
+    "envar",
+    "Gibibytes",
+    "Kibi",
+    "Kibibyte",
+    "PARMETIS",
+    "PERMUT",
+    "PTSCOTCH",
+    "ROWCOL",
+    "SMIB",
+    "SUBCASE"
+  ]
 }

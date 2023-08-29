@@ -8,11 +8,11 @@
 #include "sparse_triplet.h"
 
 struct SolverMumps {
-    const std::unique_ptr<MumpsOptions> &options;  // options
+    const std::unique_ptr<MumpsOptions> &options; // options
 
-    DMUMPS_STRUC_C data;  // MUMPS data structure for C-code
-    bool analyzed;        // analyze or analyze_and_factorize has been called
-    bool factorized;      // analyze_and_factorize or factorize has been called
+    DMUMPS_STRUC_C data; // MUMPS data structure for C-code
+    bool analyzed;       // analyze or analyze_and_factorize has been called
+    bool factorized;     // analyze_and_factorize or factorize has been called
 
     inline static std::unique_ptr<SolverMumps> make_new(const std::unique_ptr<MumpsOptions> &options) {
         DMUMPS_STRUC_C data;

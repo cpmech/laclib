@@ -4,7 +4,7 @@
 #include <cstring>
 
 std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
-                                                  bool onebased) {
+                                                  bool one_based) {
     FILE *f = fopen(filename.c_str(), "r");
     if (f == NULL) {
         throw "read_matrix_market: cannot open file";
@@ -71,7 +71,7 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
                 throw "read_matrix_market: cannot parse the dimensions (m,n,nnz)";
             }
 
-            trip = SparseTriplet::make_new(m, n, nnz, onebased, symmetric);
+            trip = SparseTriplet::make_new(m, n, nnz, one_based, symmetric);
             initialized = true;
         }
 

@@ -3,14 +3,14 @@
 
 #include "dmumps_c.h"
 
-const MUMPS_INT MUMPS_PAR_HOST_ALSO_WORKS = 1;      // section 5.1.4, page 26
-const MUMPS_INT MUMPS_ICNTL5_ASSEMBLED_MATRIX = 0;  // section 5.2.2, page 27
-const MUMPS_INT MUMPS_ICNTL18_CENTRALIZED = 0;      // section 5.2.2, page 27
-const MUMPS_INT MUMPS_ICNTL18_DISTRIBUTED = 3;      // section 5.2.2, page 28
-const MUMPS_INT MUMPS_ICNTL6_PERMUT_NONE = 0;       // section 5.3, page 31
-const MUMPS_INT MUMPS_ICNTL6_PERMUT_AUTO = 7;       // section 5.3, page 32
-const MUMPS_INT MUMPS_ICNTL28_SEQUENTIAL = 1;       // section 5.4, page 33
-const MUMPS_INT MUMPS_ICNTL28_PARALLEL = 2;         // section 5.4, page 34
+const MUMPS_INT MUMPS_PAR_HOST_ALSO_WORKS = 1;     // section 5.1.4, page 26
+const MUMPS_INT MUMPS_ICNTL5_ASSEMBLED_MATRIX = 0; // section 5.2.2, page 27
+const MUMPS_INT MUMPS_ICNTL18_CENTRALIZED = 0;     // section 5.2.2, page 27
+const MUMPS_INT MUMPS_ICNTL18_DISTRIBUTED = 3;     // section 5.2.2, page 28
+const MUMPS_INT MUMPS_ICNTL6_PERMUT_NONE = 0;      // section 5.3, page 31
+const MUMPS_INT MUMPS_ICNTL6_PERMUT_AUTO = 7;      // section 5.3, page 32
+const MUMPS_INT MUMPS_ICNTL28_SEQUENTIAL = 1;      // section 5.4, page 33
+const MUMPS_INT MUMPS_ICNTL28_PARALLEL = 2;        // section 5.4, page 34
 
 enum MumpsSymmetry {
     MUMPS_SYMMETRY_NONE = 0,
@@ -55,29 +55,29 @@ enum MumpsJob {
 
 inline std::string mumps_ordering_to_string(MumpsOrdering ordering) {
     switch (ordering) {
-        case MUMPS_ORDERING_AMD:
-            return "amd";
+    case MUMPS_ORDERING_AMD:
+        return "amd";
 
-        case MUMPS_ORDERING_AMF:
-            return "amf";
+    case MUMPS_ORDERING_AMF:
+        return "amf";
 
-        case MUMPS_ORDERING_SCOTCH:
-            return "scotch";
+    case MUMPS_ORDERING_SCOTCH:
+        return "scotch";
 
-        case MUMPS_ORDERING_PORD:
-            return "pord";
+    case MUMPS_ORDERING_PORD:
+        return "pord";
 
-        case MUMPS_ORDERING_METIS:
-            return "metis";
+    case MUMPS_ORDERING_METIS:
+        return "metis";
 
-        case MUMPS_ORDERING_QAMD:
-            return "qamd";
+    case MUMPS_ORDERING_QAMD:
+        return "qamd";
 
-        case MUMPS_ORDERING_AUTO:
-            return "auto";
+    case MUMPS_ORDERING_AUTO:
+        return "auto";
 
-        default:
-            throw "mumps_ordering_to_string: ordering is invalid";
+    default:
+        throw "mumps_ordering_to_string: ordering is invalid";
     }
 }
 

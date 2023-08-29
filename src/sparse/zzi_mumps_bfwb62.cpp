@@ -12,8 +12,8 @@ TEST_CASE("solve bfwb62 system") {
 
     auto data_path = path_get_current() + "/../../../data";
     auto mtx_path = data_path + "/sparse-matrix/bfwb62.mtx";
-    bool onebased = true;
-    auto trip = read_matrix_market(mtx_path, onebased);
+    bool one_based = true;
+    auto trip = read_matrix_market(mtx_path, one_based);
 
     auto options = MumpsOptions::make_new(trip->symmetric);
     auto solver = SolverMumps::make_new(options);

@@ -8,16 +8,16 @@
 #include "sparse_triplet.h"
 using namespace std;
 
-#define ICNTL(I) icntl[(I)-1]  // macro such that indices match documentation
-#define INFOG(I) infog[(I)-1]  // macro to make indices match documentation
+#define ICNTL(I) icntl[(I)-1] // macro such that indices match documentation
+#define INFOG(I) infog[(I)-1] // macro to make indices match documentation
 
 TEST_CASE("testing sparse solver MUMPS (NP1)") {
     set_num_threads(1);
 
-    bool onebased = true;
-    auto trip = SparseTriplet::make_new(5, 5, 13, onebased);
-    trip->put(0, 0, +1.0);  // << duplicated
-    trip->put(0, 0, +1.0);  // << duplicated
+    bool one_based = true;
+    auto trip = SparseTriplet::make_new(5, 5, 13, one_based);
+    trip->put(0, 0, +1.0); // << duplicated
+    trip->put(0, 0, +1.0); // << duplicated
     trip->put(1, 0, +3.0);
     trip->put(0, 1, +3.0);
     trip->put(2, 1, -1.0);
@@ -46,7 +46,7 @@ TEST_CASE("testing sparse solver MUMPS (NP1)") {
     REQUIRE(solver.get()->analyzed == false);
     REQUIRE(solver.get()->factorized == false);
 
-    SUBCASE("using analyse, factorize and solve") {
+    SUBCASE("using analyze, factorize and solve") {
         solver->analyze(trip);
         CHECK(solver.get()->analyzed == true);
         CHECK(solver.get()->factorized == false);
@@ -59,7 +59,7 @@ TEST_CASE("testing sparse solver MUMPS (NP1)") {
         CHECK(equal_vectors_tol(x, x_correct, 1e-14) == true);
     }
 
-    SUBCASE("using analyse_and_factorize and solve") {
+    SUBCASE("using analyze_and_factorize and solve") {
         solver->analyze_and_factorize(trip);
         CHECK(solver.get()->analyzed == true);
         CHECK(solver.get()->factorized == true);

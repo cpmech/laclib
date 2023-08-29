@@ -20,7 +20,7 @@ void SparseTriplet::put(size_t i_zero_based,
     if (this->pos >= this->max) {
         throw "SparseTriplet::put: max number of items has been exceeded";
     }
-    if (this->onebased) {
+    if (this->one_based) {
         if (check_overflow) {
             this->I[this->pos] = make_mumps_int(i_zero_based + 1);
             this->J[this->pos] = make_mumps_int(j_zero_based + 1);

@@ -1,5 +1,5 @@
-#include <iostream>
 #include "../src/laclib.h"
+#include <iostream>
 using namespace std;
 
 // NOTE: The code must be inside a sub-scope such as the "run"
@@ -7,8 +7,7 @@ using namespace std;
 //       dmumps to clean up memory. Also, the "run" function
 //       assists in catching exceptions.
 
-void run(int argc, char **argv)
-{
+void run(int argc, char **argv) {
     // Solving:
     //            A              x         b
     //   [  2  3  0  0  0  ]   [ x0 ]   [  8 ]
@@ -24,11 +23,11 @@ void run(int argc, char **argv)
     // The solution is: x = {1, 2, 3, 4, 5}
 
     // constants
-    auto onebased = true;   // important for MUMPS (indices start at 1)
+    auto one_based = true;  // important for MUMPS (indices start at 1)
     auto symmetric = false; // the triplet doesn't consider symmetry of A
 
     // input A matrix in triplet format
-    auto trip = SparseTriplet::make_new(5, 5, 13, onebased, symmetric);
+    auto trip = SparseTriplet::make_new(5, 5, 13, one_based, symmetric);
     trip->put(0, 0, +1.0); // << duplicated (no problem)
     trip->put(0, 0, +1.0); // << duplicated
     trip->put(1, 0, +3.0);
@@ -47,7 +46,7 @@ void run(int argc, char **argv)
     auto options = MumpsOptions::make_new(symmetric);
     auto solver = SolverMumps::make_new(options);
 
-    // analyse and factorize the matrix
+    // analyze and factorize the matrix
     solver->analyze_and_factorize(trip);
 
     // allocate some vectors
@@ -63,21 +62,16 @@ void run(int argc, char **argv)
 
     // check the solution
     auto ok = equal_vectors_tol(x, x_correct, 1e-14);
-    if (ok)
-    {
+    if (ok) {
         cout << "OK\n";
-    }
-    else
-    {
+    } else {
         cout << "not OK\n";
     }
 }
 
 // NOTE: the main function will "always" be like this:
-int main(int argc, char **argv)
-{
-    try
-    {
+int main(int argc, char **argv) {
+    try {
         run(argc, argv);
     }
     CATCH_ALL

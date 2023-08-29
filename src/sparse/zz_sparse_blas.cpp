@@ -8,7 +8,7 @@
 using namespace std;
 
 TEST_CASE("sparse_blas") {
-    SUBCASE("sp_matvecmul: default options") {
+    SUBCASE("sp_mat_vec_mul: default options") {
         // { 1.0,  2.0,  3.0,  4.0,  5.0},
         // { 0.1,  0.2,  0.3,  0.4,  0.5},
         // {10.0, 20.0, 30.0, 40.0, 50.0},
@@ -35,21 +35,21 @@ TEST_CASE("sparse_blas") {
         vector<double> v(trip->m);
         vector<double> v_correct{5.5, 0.55, 55};
 
-        sp_matvecmul(v, 1.0, trip, u);
+        sp_mat_vec_mul(v, 1.0, trip, u);
         CHECK(equal_vectors_tol(v, v_correct, 1e-15));
     }
 
-    SUBCASE("sp_matvecmul: check_sizes = true") {
+    SUBCASE("sp_mat_vec_mul: check_sizes = true") {
         auto trip = SparseTriplet::make_new(3, 5, 15);
         vector<double> u = {0.1, 0.2, 0.3, 0.4, 0.5};
         vector<double> v(10);
         vector<double> vv(3);
         vector<double> uu = {0.1, 0.2, 0.3, 0.4, 0.5, 0.6};
-        CHECK_THROWS_WITH(sp_matvecmul(v, 1.0, trip, u), "sp_matvecmul: size of v must be equal to the number of rows of a");
-        CHECK_THROWS_WITH(sp_matvecmul(vv, 1.0, trip, uu), "sp_matvecmul: size of u must be equal to the number of columns of a");
+        CHECK_THROWS_WITH(sp_mat_vec_mul(v, 1.0, trip, u), "sp_mat_vec_mul: size of v must be equal to the number of rows of a");
+        CHECK_THROWS_WITH(sp_mat_vec_mul(vv, 1.0, trip, uu), "sp_mat_vec_mul: size of u must be equal to the number of columns of a");
     }
 
-    SUBCASE("sp_matvecmul: fill_zeros = false") {
+    SUBCASE("sp_mat_vec_mul: fill_zeros = false") {
         // {0.1, 0.2, 0.3},
         // {1.0, 0.2, 0.3},
         // {2.0, 0.2, 0.3},
@@ -74,16 +74,16 @@ TEST_CASE("sparse_blas") {
         vector<double> u = {20, 10, 30};
         vector<double> v = {6, 2, 4, 8};
         vector<double> v_correct{12.5, 17.5, 29.5, 43.5};
-        sp_matvecmul(v, 0.5, trip, u, true, false);
+        sp_mat_vec_mul(v, 0.5, trip, u, true, false);
         CHECK(equal_vectors_tol(v, v_correct, 1e-15));
     }
 
-    SUBCASE("sp_matvecmul: triplet is onebased") {
+    SUBCASE("sp_mat_vec_mul: triplet is one_based") {
         // { 1.0,  2.0,  3.0,  4.0,  5.0},
         // { 0.1,  0.2,  0.3,  0.4,  0.5},
         // {10.0, 20.0, 30.0, 40.0, 50.0},
-        bool onebased = true;
-        auto trip = SparseTriplet::make_new(3, 5, 15, onebased);
+        bool one_based = true;
+        auto trip = SparseTriplet::make_new(3, 5, 15, one_based);
         trip->put(0, 0, 1);
         trip->put(0, 1, 2);
         trip->put(0, 2, 3);
@@ -106,7 +106,7 @@ TEST_CASE("sparse_blas") {
         vector<double> v(trip->m);
         vector<double> v_correct{5.5, 0.55, 55};
 
-        sp_matvecmul(v, 1.0, trip, u);
+        sp_mat_vec_mul(v, 1.0, trip, u);
         CHECK(equal_vectors_tol(v, v_correct, 1e-15));
     }
 
@@ -116,9 +116,9 @@ TEST_CASE("sparse_blas") {
         // {1, 2, 9, 1, 5},
         // {3, 1, 1, 7, 1},
         // {2, 1, 5, 1, 8},
-        bool onebased = false;
+        bool one_based = false;
         bool symmetric = true;
-        auto trip = SparseTriplet::make_new(5, 5, 15, onebased, symmetric);
+        auto trip = SparseTriplet::make_new(5, 5, 15, one_based, symmetric);
 
         trip->put(0, 0, 2.0);
         trip->put(1, 1, 2.0);
@@ -149,7 +149,7 @@ TEST_CASE("sparse_blas") {
         };
 
         vector<double> v(trip->m, 0.0);
-        sp_matvecmul(v, 1.0, trip, u);
+        sp_mat_vec_mul(v, 1.0, trip, u);
 
         print_vector("v", v);
 

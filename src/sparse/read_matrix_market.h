@@ -10,7 +10,7 @@ enum PartitionOption {
     PARTITION_BY_COL,
 };
 
-// NOTE: use onebased = true for MUMPS
+// NOTE: use one_based = true for MUMPS
 //       because MUMPS uses arrays (I; J) with one-based indices
 std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
-                                                  bool onebased = false);
+                                                  bool one_based = false);
