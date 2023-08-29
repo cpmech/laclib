@@ -1,6 +1,6 @@
 # Results provided by Intel
 
-From here: https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl.html#gs.4gyjrj
+From here: https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl.html
 
 ![FFT](onemkl-bench-fft-performance-4th-gen-xeon-17mar23-rwd.png.rendition.intel.web.1280.720.png)
 ![GEMM](onemkl-bench-gemm-performance-4th-gen-xeon-17mar23-rwd.png.rendition.intel.web.1280.720.png)
