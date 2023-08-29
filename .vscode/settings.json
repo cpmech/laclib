@@ -46,14 +46,17 @@
   },
   "cSpell.words": [
     "envar",
+    "GEMM",
     "Gibibytes",
     "Kibi",
     "Kibibyte",
+    "PARDISO",
     "PARMETIS",
     "PERMUT",
     "PTSCOTCH",
     "ROWCOL",
     "SMIB",
+    "SPMV",
     "SUBCASE"
   ]
 }

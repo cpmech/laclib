@@ -74,3 +74,24 @@ Execute:
 ```
 
 We suggest looking at the [sparse](https://github.com/cpmech/laclib/tree/main/src/sparse) directory first.
+
+
+## Install Intel MKL
+
+From: https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl-download.html
+
+Link advisor: https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl-link-line-advisor.html
+
+Example: https://www.intel.com/content/www/us/en/docs/onemkl/tutorial-c/2023-2/multiplying-matrices-using-dgemm.html
+
+### Linux
+
+Select `Linux → APT Package Manager` and follow the instructions (see below).
+
+```bash
+bash ./zscripts/install-intel-mkl-linux.bash
+```
+
+### Windows
+
+Select `Windows → Online Installer` and follow the instructions.
