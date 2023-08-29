@@ -5,6 +5,9 @@ set(TESTS
 )
 
 if(A0_MKL)
+    set(TESTS ${TESTS}
+        z_test_solver_dss
+    )
 else()
     set(TESTS ${TESTS}
         z_test_solver_mumps
