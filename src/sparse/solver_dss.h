@@ -10,17 +10,25 @@
 ///
 /// https://www.intel.com/content/www/us/en/docs/onemkl/developer-reference-c/2023-2/direct-sparse-solver-dss-interface-routines.html
 struct SolverDss {
-    const std::unique_ptr<DssOptions> &options; // options
-
-    _MKL_DSS_HANDLE_t handle; // handle for Intel DSS data
+    _MKL_DSS_HANDLE_t handle; // Intel DSS handle
+    MKL_INT sym;              // symmetric option
+    MKL_INT type;             // positive-definite option
     bool analyzed;            // analyze or analyze_and_factorize has been called
     bool factorized;          // analyze_and_factorize or factorize has been called
 
     inline static std::unique_ptr<SolverDss> make_new(const std::unique_ptr<DssOptions> &options) {
         _MKL_DSS_HANDLE_t handle;
 
-        MKL_INT opt = MKL_DSS_DEFAULTS;
+        MKL_INT sym = MKL_DSS_NON_SYMMETRIC;
+        MKL_INT type = MKL_DSS_INDEFINITE;
+        if (options->symmetric) {
+            sym = MKL_DSS_SYMMETRIC;
+        }
+        if (options->positive_definite) {
+            type = MKL_DSS_POSITIVE_DEFINITE;
+        }
 
+        MKL_INT opt = MKL_DSS_DEFAULTS;
         auto error = dss_create(handle, opt);
         if (error != MKL_DSS_SUCCESS) {
             throw "Intel DSS create failed";
@@ -28,8 +36,9 @@ struct SolverDss {
 
         return std::unique_ptr<SolverDss>{
             new SolverDss{
-                options,
                 handle,
+                sym,
+                type,
                 false,
                 false,
             }};
