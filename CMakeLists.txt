@@ -9,15 +9,18 @@ set(CMAKE_CXX_STANDARD 17)
 
 # options ####################################################################################
 
-option(A1_OMP "Allow use of OpenMP when posible" ON)
+option(A0_MKL "Use Intel MKL instead of OpenBLAS+MUMPS" OFF)
+option(A1_OMP "(not for MKL) Allow use of OpenMP when posible" ON)
 option(A2_OPTIMIZED "Make optimized (-O3)" OFF)
 option(A3_VERBOSE "Show additional messages during compilation/link?" OFF)
 
-set(PLAT "_open_seq")
-
-if(A1_OMP)
-    add_definitions(-DHAS_OMP)
-    set(PLAT "${PLAT}_omp")
+if(A0_MKL)
+else()
+    set(PLAT "_open_seq")
+    if(A1_OMP)
+        add_definitions(-DHAS_OMP)
+        set(PLAT "${PLAT}_omp")
+    endif()
 endif()
 
 if(A2_OPTIMIZED)
@@ -32,12 +35,15 @@ endif()
 
 # dependencies ###############################################################################
 
-include(zscripts/FindOBLAS.cmake)
-include_directories(${OBLAS_IDIRS})
-set(LA_LIBS ${OBLAS_LIBS})
+if(A0_MKL)
+else()
+    include(zscripts/FindOBLAS.cmake)
+    include_directories(${OBLAS_IDIRS})
+    set(LA_LIBS ${OBLAS_LIBS})
 
-include(zscripts/FindMUMPS.cmake)
-include_directories(${MUMPS_IDIRS})
+    include(zscripts/FindMUMPS.cmake)
+    include_directories(${MUMPS_IDIRS})
+endif()
 
 # library ####################################################################################
 

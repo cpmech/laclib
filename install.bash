@@ -33,11 +33,13 @@ cd ..
 
 # copy internal include files
 SUBDIRS="
-    blas
+    analysis
     check
+    linalg
     sparse
     util
 "
+
 for dir in $SUBDIRS; do
     sudo mkdir -p $INCDIR/$dir
     sudo cp -av src/$dir/*.h $INCDIR/$dir/
