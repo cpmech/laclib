@@ -11,8 +11,8 @@ In this repository, the files starting with `zz_...` are **unit tests** whereas 
 The following code shows how to solve a linear system with a (large) sparse matrix:
 
 ```c++
-auto onebased = true;
-auto trip = read_matrix_market("my-matrix.mtx", onebased);
+auto one_based = true;
+auto trip = read_matrix_market("my-matrix.mtx", one_based);
 auto options = MumpsOptions::make_new(trip->symmetric);
 auto solver = SolverMumps::make_new(options);
 auto rhs = vector<double>(trip->n, 1.0);
