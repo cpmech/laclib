@@ -1,4 +1,4 @@
-# Results provide by Intel
+# Results provided by Intel
 
 From here: https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl.html#gs.4gyjrj
 
