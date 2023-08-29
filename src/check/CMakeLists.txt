@@ -1,6 +1,6 @@
 set(TESTS
-    zz_equal_scalars
-    zz_equal_vectors
+    z_test_equal_scalars
+    z_test_equal_vectors
 )
 
 foreach(var ${TESTS})

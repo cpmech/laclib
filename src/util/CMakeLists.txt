@@ -1,8 +1,8 @@
 set(TESTS
-    zz_formaters
-    zz_memory_usage
-    zz_path_tools
-    zz_stopwatch
+    z_test_formaters
+    z_test_memory_usage
+    z_test_path_tools
+    z_test_stopwatch
 )
 
 foreach(var ${TESTS})
@@ -10,12 +10,12 @@ foreach(var ${TESTS})
     add_test(NAME ${var} COMMAND ${var})
 endforeach(var)
 
-add_executable(zz_extract_arguments zz_extract_arguments.cpp)
-add_test(NAME zz_extract_arguments COMMAND $<TARGET_FILE:zz_extract_arguments> first second third)
+add_executable(z_test_extract_arguments z_test_extract_arguments.cpp)
+add_test(NAME z_test_extract_arguments COMMAND $<TARGET_FILE:z_test_extract_arguments> first second third)
 
-add_executable(zz_extract_first_default zz_extract_first_default.cpp)
-add_test(NAME zz_extract_first_default COMMAND zz_extract_first_default)
+add_executable(z_test_extract_first_default z_test_extract_first_default.cpp)
+add_test(NAME z_test_extract_first_default COMMAND z_test_extract_first_default)
 
-add_executable(zz_get_envar zz_get_envar.cpp)
-add_test(NAME zz_get_envar COMMAND zz_get_envar -E environment)
-set_property(TEST zz_get_envar APPEND PROPERTY ENVIRONMENT OMP_NUM_THREADS=4)
+add_executable(z_test_get_envar z_test_get_envar.cpp)
+add_test(NAME z_test_get_envar COMMAND z_test_get_envar -E environment)
+set_property(TEST z_test_get_envar APPEND PROPERTY ENVIRONMENT OMP_NUM_THREADS=4)

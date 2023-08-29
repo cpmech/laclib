@@ -1,14 +1,14 @@
 set(TESTS
-    zz_read_matrix_market
-    zz_sparse_blas
-    zz_sparse_triplet
+    z_test_read_matrix_market
+    z_test_sparse_blas
+    z_test_sparse_triplet
 )
 
 if(A0_MKL)
 else()
     set(TESTS ${TESTS}
-        zz_solver_mumps
-        zzi_mumps_bfwb62
+        z_test_solver_mumps
+        z_test_solver_mumps_bfwb62
     )
 endif()
 
