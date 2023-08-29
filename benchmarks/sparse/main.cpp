@@ -8,9 +8,9 @@ void run(int argc, char **argv) {
 
     // get arguments from command line
     vector<string> defaults{
-        "bfwb62",  // default matrix_name
-        "1",       // default omp_num_threads
-        "metis",   // default ordering
+        "bfwb62", // default matrix_name
+        "1",      // default omp_num_threads
+        "metis",  // default ordering
     };
     auto args = extract_arguments_or_use_defaults(argc, argv, defaults);
     auto matrix_name = args[0];
@@ -20,8 +20,8 @@ void run(int argc, char **argv) {
     // read matrix
     auto path = path_get_current() + "/../../../benchmarks/sparse/data/";
     auto filename = path + matrix_name + ".mtx";
-    auto onebased = true;
-    auto trip = read_matrix_market(filename, onebased);
+    auto one_based = true;
+    auto trip = read_matrix_market(filename, one_based);
     report->measure_step(STEP_READ_MATRIX);
 
     // set number of threads

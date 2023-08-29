@@ -2,9 +2,15 @@ set(TESTS
     zz_read_matrix_market
     zz_sparse_blas
     zz_sparse_triplet
-    zz_solver_mumps
-    zzi_mumps_bfwb62
 )
+
+if(A0_MKL)
+else()
+    set(TESTS ${TESTS}
+        zz_solver_mumps
+        zzi_mumps_bfwb62
+    )
+endif()
 
 foreach(var ${TESTS})
     add_executable(${var} "${var}.cpp")

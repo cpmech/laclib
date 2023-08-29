@@ -8,4 +8,4 @@ echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt
 
 sudo apt update
 
-sudo apt install intel-oneapi-mkl
+sudo apt install intel-oneapi-mkl intel-oneapi-mkl-devel
