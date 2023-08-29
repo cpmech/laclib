@@ -50,6 +50,7 @@
     "Gibibytes",
     "Kibi",
     "Kibibyte",
+    "linalg",
     "PARDISO",
     "PARMETIS",
     "PERMUT",
