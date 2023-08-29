@@ -1,10 +1,6 @@
-# Linear Algebra (simple) C++17 Library
+# Simple Linear Algebra Library
 
-Laclib wraps UMFPACK and MUMP solvers to solve large linear systems with a sparse matrix.
-
-We use **modern C++17 without the "fancy" stuff**. For example, we keep OOP usage to a minimal. The idea is to follow the best concepts of Rust and Go.
-
-In this repository, the files starting with `zz_...` are **unit tests** whereas the files such as `zzi_...` are **integration tests** (those involving more than one single structure or function).
+Laclib implements basic linear algebra functions, wrapping OpenBLAS or Intel MKL. It also wraps MUMPS or PARDISO for the solution of large linear systems with sparse matrices.
 
 ## Examples
 
@@ -31,35 +27,25 @@ After installation (explained below), you may clone https://github.com/cpmech/us
 
 The docker image is convenient with Visual Code remote development tools (but containerized; "not really remote").
 
-After installing the MUMPS docker image according to [script-install-mumps](https://github.com/cpmech/script-install-mumps), we can build the Laclib Docker image by running:
-
 ```bash
 ./build-docker-image.bash
 ```
 
-## Ubuntu/Linux 20.10
+## Ubuntu/Linux 22.04
 
-First, follow the procedures in https://github.com/cpmech/script-install-mumps
+First, follow the procedures from https://github.com/cpmech/script-install-mumps
 
-Next, compile and install the header files in `/usr/local/include/laclib` and the library files in `/usr/local/lib/laclib`, by using:
+Then, execute
 
 ```bash
 ./install.bash [OMP]
 ```
 
-where:
+which will compile and install the header files in `/usr/local/include/laclib` and the library files in `/usr/local/lib/laclib`.
 
-1. OMP = ON or OFF to allow use of OpenMP.
+The `OMP` option above enables the use of OpenMP when using OpenBLAS.
 
-### Developing and debugging Laclib
-
-Execute:
-
-```bash
-./all.bash [OMP]
-```
-
-## Code organization
+## Directory structure
 
 ```
 ├── benchmarks   # tests for computational performance
@@ -68,6 +54,7 @@ Execute:
 ├── src          # this is the "main library"
 │   ├── analysis # analysis, stats, and reporting
 │   ├── check    # functions for unit/integration tests
+│   ├── linalg   # basic linear algebra functions
 │   ├── sparse   # sparse matrix and solvers tools
 │   └── util     # some utilities for file/string manipulations
 └── zscripts     # auxiliary "internal" bash scripts
@@ -75,8 +62,7 @@ Execute:
 
 We suggest looking at the [sparse](https://github.com/cpmech/laclib/tree/main/src/sparse) directory first.
 
-
-## Install Intel MKL
+## Intel MKL Installation
 
 From: https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl-download.html
 
