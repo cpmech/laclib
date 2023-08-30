@@ -5,16 +5,32 @@
 #include <tuple>
 #include <vector>
 
+/// @brief Holes a pair of indices (i,j)
 typedef std::tuple<size_t, size_t> ij_pair_t;
 
+/// @brief Holds the row index, col index, and values of a matrix (also kwnon as COO, coordinates format)
 struct SparseTriplet {
-    bool lower_triangular;          // layout
-    size_t dimension;               // number of rows == number of columns
-    size_t pos;                     // current index => nnz in the end
-    size_t max;                     // max allowed number of entries
-    std::vector<size_t> indices_i;  // zero- or one-based indices stored here
-    std::vector<size_t> indices_j;  // zero- or one-based indices stored here
-    std::vector<double> values_aij; // the non-zero entries in the matrix
+    /// @brief layout
+    bool lower_triangular;
+
+    /// @brief number of rows == number of columns
+    size_t dimension;
+
+    /// @brief current index => nnz in the end
+    size_t pos;
+
+    /// @brief max allowed number of entries
+    size_t max;
+
+    /// @brief row indices (zero-based)
+    std::vector<size_t> indices_i;
+
+    /// @brief column indices (zero-based)
+    std::vector<size_t> indices_j;
+
+    /// @brief the non-zero entries in the matrix
+    /// @note if lower triangular, the diagonal entry must be included, even if it's zero
+    std::vector<double> values_aij;
 
     /// @brief Maps a pair of indices (i,j) to pos and assists in summing duplicates up
     std::map<ij_pair_t, size_t> ij_to_pos;
