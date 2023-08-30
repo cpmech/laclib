@@ -4,7 +4,6 @@
       "name": "Linux",
       "includePath": [
         "${default}",
-        "/usr/lib/x86_64-linux-gnu/openmpi/include",
         "/opt/intel/oneapi/mkl/latest/include"
       ],
       "defines": [
