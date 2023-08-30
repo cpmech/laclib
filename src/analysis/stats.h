@@ -23,10 +23,10 @@ struct Stats {
                                                   const std::vector<double> &x,
                                                   const std::vector<double> &rhs) {
         auto sw = Stopwatch::make_new();
-        auto max_abs_a = max_abs_value(a->X);
+        auto max_abs_a = max_abs_value(a->values_aij);
 
         // compute ax := a*x
-        auto m = a->m;
+        auto m = a->dimension;
         std::vector<double> ax(m, 0.0);
         bool check_sizes = true;
         bool fill_zeros = false;

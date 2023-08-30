@@ -26,34 +26,20 @@ TEST_CASE("read_matrix_market") {
         CHECK_THROWS_WITH(read_matrix_market(s + "7.mtx"), "read_matrix_market: cannot parse the dimensions (m,n,nnz)");
         CHECK_THROWS_WITH(read_matrix_market(s + "8.mtx"), "read_matrix_market: cannot parse the values (i,j,x)");
         CHECK_THROWS_WITH(read_matrix_market(s + "9.mtx"), "read_matrix_market: cannot parse the values (i,j,x)");
+        CHECK_THROWS_WITH(read_matrix_market(s + "10.mtx"), "SparseTriplet::put: j > i is incorrect for lower triangular layout");
     }
 
     SUBCASE("read sparse-matrix ok1") {
         auto mtx = data_path + "ok1.mtx";
         auto trip = read_matrix_market(mtx);
 
-        vector<INT> I_correct = {0, 1, 0, 2, 4, 1, 2, 3, 4, 2, 1, 4};
-        vector<INT> J_correct = {0, 0, 1, 1, 1, 2, 2, 2, 2, 3, 4, 4};
-        vector<double> X_correct = {2, 3, 3, -1, 4, 4, -3, 1, 2, 2, 6, 1};
+        vector<size_t> correct_i = {0, 1, 0, 2, 4, 1, 2, 3, 4, 2, 1, 4};
+        vector<size_t> correct_j = {0, 0, 1, 1, 1, 2, 2, 2, 2, 3, 4, 4};
+        vector<double> correct_aij = {2, 3, 3, -1, 4, 4, -3, 1, 2, 2, 6, 1};
 
-        CHECK(trip->symmetric == false);
-        CHECK(equal_vectors(trip->I, I_correct) == true);
-        CHECK(equal_vectors(trip->J, J_correct) == true);
-        CHECK(equal_vectors_tol(trip->X, X_correct, 1e-15) == true);
-    }
-
-    SUBCASE("read sparse-matrix ok2; one_based") {
-        auto mtx = data_path + "ok2.mtx";
-        bool one_based = true;
-        auto trip = read_matrix_market(mtx, one_based);
-
-        vector<INT> I_correct = {1, 2, 3, 4, 5, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4};
-        vector<INT> J_correct = {1, 2, 3, 4, 5, 2, 3, 4, 5, 3, 4, 5, 4, 5, 5};
-        vector<double> X_correct = {2, 2, 9, 7, 8, 1, 1, 3, 2, 2, 1, 1, 1, 5, 1};
-
-        CHECK(trip->symmetric == true);
-        CHECK(equal_vectors(trip->I, I_correct) == true);
-        CHECK(equal_vectors(trip->J, J_correct) == true);
-        CHECK(equal_vectors_tol(trip->X, X_correct, 1e-15) == true);
+        CHECK(trip->lower_triangular == false);
+        CHECK(equal_vectors(trip->indices_i, correct_i) == true);
+        CHECK(equal_vectors(trip->indices_j, correct_j) == true);
+        CHECK(equal_vectors_tol(trip->values_aij, correct_aij, 1e-15) == true);
     }
 }

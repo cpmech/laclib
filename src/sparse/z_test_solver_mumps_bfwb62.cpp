@@ -12,18 +12,17 @@ TEST_CASE("solve bfwb62 system") {
 
     auto data_path = path_get_current() + "/../../../data";
     auto mtx_path = data_path + "/sparse-matrix/bfwb62.mtx";
-    bool one_based = true;
-    auto trip = read_matrix_market(mtx_path, one_based);
+    auto trip = read_matrix_market(mtx_path);
 
-    auto options = MumpsOptions::make_new(trip->symmetric);
+    auto options = MumpsOptions::make_new(trip->lower_triangular);
     auto solver = SolverMumps::make_new(options);
 
     solver->analyze_and_factorize(trip);
     CHECK(solver.get()->analyzed == true);
     CHECK(solver.get()->factorized == true);
 
-    auto rhs = vector<double>(trip->n, 1.0);
-    auto x = vector<double>(trip->n, 0.0);
+    auto rhs = vector<double>(trip->dimension, 1.0);
+    auto x = vector<double>(trip->dimension, 0.0);
 
     solver->solve(x, rhs);
 

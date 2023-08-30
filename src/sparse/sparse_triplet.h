@@ -5,65 +5,44 @@
 #include <tuple>
 #include <vector>
 
-#ifdef USE_MKL
-#include "mkl.h"
-#define INT MKL_INT
-#else
-#include "dmumps_c.h"
-#undef I // some crazy cupcake defined this somewhere else
-#define INT MUMPS_INT
-#endif
-
-inline INT make_int(size_t a) {
-    INT n = static_cast<INT>(a);
-    size_t temp = static_cast<size_t>(n);
-    if (a != temp) {
-        throw "make_mumps_int: integer overflow ocurred";
-    }
-    return n;
-}
-
-typedef std::tuple<INT, INT> ij_pair_t;
+typedef std::tuple<size_t, size_t> ij_pair_t;
 
 struct SparseTriplet {
-    size_t m;              // number of rows
-    size_t n;              // number of columns
-    size_t pos;            // current index => nnz in the end
-    size_t max;            // max allowed number of entries
-    bool one_based;        // indices (i; j) start with 1 instead of 0 (e.g. for MUMPS)
-    bool symmetric;        // symmetric matrix?, but WITHOUT one side of the diagonal
-    std::vector<INT> I;    // zero- or one-based indices stored here
-    std::vector<INT> J;    // zero- or one-based indices stored here
-    std::vector<double> X; // the non-zero entries in the matrix
+    bool lower_triangular;          // layout
+    size_t dimension;               // number of rows == number of columns
+    size_t pos;                     // current index => nnz in the end
+    size_t max;                     // max allowed number of entries
+    std::vector<size_t> indices_i;  // zero- or one-based indices stored here
+    std::vector<size_t> indices_j;  // zero- or one-based indices stored here
+    std::vector<double> values_aij; // the non-zero entries in the matrix
 
-    // maps a pair of indices (i,j) to pos and assists in summing duplicates up
+    /// @brief Maps a pair of indices (i,j) to pos and assists in summing duplicates up
     std::map<ij_pair_t, size_t> ij_to_pos;
 
-    inline static std::unique_ptr<SparseTriplet> make_new(size_t m,
-                                                          size_t n,
-                                                          size_t max,
-                                                          bool one_based = false,
-                                                          bool symmetric = false) {
-        make_int(m);   // check if size_t fits INT
-        make_int(n);   // check if size_t fits INT
-        make_int(max); // check if size_t fits INT
-
+    /// @brief Allocates a new structure
+    /// @param lower_triangular Indicates that this triplet holds the lower triangular part of a matrix
+    /// @param dimension number of rows (= number of columns)
+    /// @param max Maximum number of entries ≥ nnz (number of non-zeros)
+    /// @return Returns a new structure
+    inline static std::unique_ptr<SparseTriplet> make_new(
+        bool lower_triangular,
+        size_t dimension,
+        size_t max) {
         return std::unique_ptr<SparseTriplet>{new SparseTriplet{
-            m,
-            n,
+            lower_triangular,
+            dimension,
             0,
             max,
-            one_based,
-            symmetric,
-            std::vector<INT>(max, 0),
-            std::vector<INT>(max, 0),
+            std::vector<size_t>(max, 0),
+            std::vector<size_t>(max, 0),
             std::vector<double>(max, 0.0),
-            std::map<std::tuple<INT, INT>, size_t>(),
+            std::map<std::tuple<size_t, size_t>, size_t>(),
         }};
     }
 
-    void put(size_t i_zero_based,
-             size_t j_zero_based,
-             double x,
-             bool check_overflow = true);
+    /// @brief Puts a new entry and updates pos (may be duplicate)
+    /// @param i Row index (indices start at zero; zero-based)
+    /// @param j Column index (indices start at zero; zero-based)
+    /// @param aij The value A(i,j) (duplicate values will be summed up)
+    void put(size_t i, size_t j, double aij);
 };

@@ -14,8 +14,7 @@ using namespace std;
 TEST_CASE("testing sparse solver MUMPS (NP1)") {
     set_num_threads(1);
 
-    bool one_based = true;
-    auto trip = SparseTriplet::make_new(5, 5, 13, one_based);
+    auto trip = SparseTriplet::make_new(false, 5, 13);
     trip->put(0, 0, +1.0); // << duplicated
     trip->put(0, 0, +1.0); // << duplicated
     trip->put(1, 0, +3.0);

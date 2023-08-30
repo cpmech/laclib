@@ -20,15 +20,14 @@ void run(int argc, char **argv) {
     // read matrix
     auto path = path_get_current() + "/../../../benchmarks/sparse/data/";
     auto filename = path + matrix_name + ".mtx";
-    auto one_based = true;
-    auto trip = read_matrix_market(filename, one_based);
+    auto trip = read_matrix_market(filename);
     report->measure_step(STEP_READ_MATRIX);
 
     // set number of threads
     set_num_threads(omp_num_threads);
 
     // set options
-    auto options = MumpsOptions::make_new(trip->symmetric);
+    auto options = MumpsOptions::make_new(trip->lower_triangular);
     options->omp_num_threads = omp_num_threads;
     options->ordering = ordering;
     options->max_work_memory = 30000;
@@ -38,8 +37,8 @@ void run(int argc, char **argv) {
     auto verbose = true;
 
     // set right-hand-side and solution vector
-    auto rhs = vector<double>(trip->n, 1.0);
-    auto x = vector<double>(trip->n, 0.0);
+    auto rhs = vector<double>(trip->dimension, 1.0);
+    auto x = vector<double>(trip->dimension, 0.0);
 
     // start linear solver execution /////////////////////////////////////
     report->solver_start_stopwatch();

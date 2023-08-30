@@ -5,15 +5,14 @@
 
 #include "sparse_triplet.h"
 
-// Returns the (sparse) matrix-vector multiplication (scaled):
-//  v := alpha * a * u  =>  vi = alpha * aij * uj
-// INPUT:
-//   v -- the output vector
-//   alpha -- the multiplier
-//   a -- the input matrix (in triplet format, may have only half-band)
-//   u -- the input vector
-//   check_sizes -- will check size(v)
-//   fill_zeros -- fill the dense vector v with zeros
+/// @brief Returns the (sparse) matrix-vector multiplication (scaled):
+/// @param v Is the output vector
+/// @param alpha Is the multiplier
+/// @param a Is the input matrix (in triplet format, may have only half-band)
+/// @param u Is the input vector
+/// @param check_sizes Will check size(v)
+/// @param fill_zeros Fill the dense vector v with zeros
+/// @note v := alpha * a * u  =>  vi = alpha * aij * uj
 void sp_mat_vec_mul(std::vector<double> &v,
                     double alpha,
                     const std::unique_ptr<SparseTriplet> &a,

@@ -3,8 +3,7 @@
 #include <cstdio>
 #include <cstring>
 
-std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
-                                                  bool one_based) {
+std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename) {
     FILE *f = fopen(filename.c_str(), "r");
     if (f == NULL) {
         throw "read_matrix_market: cannot open file";
@@ -52,7 +51,7 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
     }
 
     std::unique_ptr<SparseTriplet> trip;
-    bool symmetric = strncmp(sym, "symmetric", 9) == 0;
+    bool lower_triangular = strncmp(sym, "symmetric", 9) == 0;
 
     bool initialized = false;
     size_t m, n, nnz, i, j;
@@ -71,7 +70,7 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
                 throw "read_matrix_market: cannot parse the dimensions (m,n,nnz)";
             }
 
-            trip = SparseTriplet::make_new(m, n, nnz, one_based, symmetric);
+            trip = SparseTriplet::make_new(lower_triangular, m, nnz);
             initialized = true;
         }
 

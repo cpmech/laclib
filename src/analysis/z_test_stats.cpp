@@ -12,7 +12,7 @@ TEST_CASE("Stats") {
         // | 1  3 -2 |
         // | 3  5  6 |
         // | 2  4  3 |
-        auto trip = SparseTriplet::make_new(3, 3, 9);
+        auto trip = SparseTriplet::make_new(false, 3, 9);
         trip->put(0, 0, 1.0);
         trip->put(0, 1, 3.0);
         trip->put(0, 2, -2.0);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <vector>
 
 #include "dmumps_c.h"
 #include "solver_mumps_constants.h"
@@ -14,6 +15,9 @@ struct SolverMumps {
     DMUMPS_STRUC_C data; // MUMPS data structure for C-code
     bool analyzed;       // analyze or analyze_and_factorize has been called
     bool factorized;     // analyze_and_factorize or factorize has been called
+
+    std::vector<MUMPS_INT> indices_i;
+    std::vector<MUMPS_INT> indices_j;
 
     inline static std::unique_ptr<SolverMumps> make_new(const std::unique_ptr<MumpsOptions> &options) {
         DMUMPS_STRUC_C data;
@@ -29,6 +33,8 @@ struct SolverMumps {
                 data,
                 false,
                 false,
+                std::vector<MUMPS_INT>(),
+                std::vector<MUMPS_INT>(),
             }};
     };
 

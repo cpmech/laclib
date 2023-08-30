@@ -106,7 +106,7 @@ struct Report {
 
         std::string filepath = output_dir + "/" + fnkey.str() + ".json";
 
-        std::string str_symmetric = trip->symmetric ? "true" : "false";
+        std::string str_symmetric = trip->lower_triangular ? "true" : "false";
 
         std::ofstream ofs(filepath, std::ofstream::out);
         ofs << "{\n";
@@ -117,8 +117,8 @@ struct Report {
         ofs << "  \"MpiSize\": " << effective_mpi_size << ",\n";
         ofs << "  \"OmpNumThreads\": " << effective_omp_num_threads << ",\n";
         ofs << "  \"Symmetric\": " << str_symmetric << ",\n";
-        ofs << "  \"NumberOfRows\": " << trip->m << ",\n";
-        ofs << "  \"NumberOfCols\": " << trip->n << ",\n";
+        ofs << "  \"NumberOfRows\": " << trip->dimension << ",\n";
+        ofs << "  \"NumberOfCols\": " << trip->dimension << ",\n";
         ofs << "  \"NumberOfNonZeros\": " << trip->pos << ",\n";
         ofs << "  \"StepReadMatrix\": {\n";
         ofs << "    \"ElapsedTimeNanoseconds\": " << this->step_read_matrix.nanoseconds << ",\n";

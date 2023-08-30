@@ -32,8 +32,7 @@ Now, we can give the triplet to a sparse linear solver (or do something else).
 Another way to create a SparseTriplet is to read a MatrixMarket file (see https://math.nist.gov/MatrixMarket/ and https://sparse.tamu.edu/). To do so, we can use the function `read_matrix_market.` For instance:
 
 ```c++
-auto one_based = true;
-auto trip = read_matrix_market("large-matrix.mtx", one_based);
+auto trip = read_matrix_market("large-matrix.mtx");
 ```
 
 will read "large-matrix.mtx" and store the values in a SparseTriplet where the indices of rows and columns start at 1 (one-based, as required by MUMPS).
@@ -45,9 +44,8 @@ SolverMumps wraps the high-performant linear solver named MUMPS (not the disease
 MUMPS solves the problem by doing three steps: analysis, factorization, and back substitution (the "solve" step). In this way, having the SparseTriplet configured already, we can use SolverMumps as follows:
 
 ```c++
-auto one_based = true;
-auto trip = read_matrix_market("my-matrix.mtx", one_based);
-auto options = MumpsOptions::make_new(trip->symmetric);
+auto trip = read_matrix_market("my-matrix.mtx");
+auto options = MumpsOptions::make_new(trip->lower_diagonal);
 auto solver = SolverMumps::make_new(options);
 auto rhs = vector<double>(trip->n, 1.0);
 auto x = vector<double>(trip->n, 0.0);
