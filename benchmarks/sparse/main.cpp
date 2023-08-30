@@ -62,7 +62,13 @@ void run(int argc, char **argv) {
     // write report
     auto stats = Stats::make_new(trip, x, rhs);
     auto out_dir = path_get_current() + "/../../../benchmarks/sparse/results/latest/";
-    report->write_json(out_dir, "mumps", matrix_name, options, trip, stats);
+    report->write_json(out_dir,
+                       "mumps",
+                       matrix_name,
+                       mumps_ordering_to_string(options->ordering),
+                       options->omp_num_threads,
+                       trip,
+                       stats);
 }
 
 int main(int argc, char **argv) {
