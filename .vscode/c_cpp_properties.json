@@ -8,7 +8,8 @@
         "/opt/intel/oneapi/mkl/latest/include"
       ],
       "defines": [
-        "USE_MKL"
+        "USE_MKL",
+        "HAS_OMP"
       ],
       "compilerPath": "/usr/bin/gcc",
       "cStandard": "c17",
