@@ -5,6 +5,14 @@
 #include <tuple>
 #include <vector>
 
+#ifdef USE_MKL
+#include "mkl.h"
+#define INT MKL_INT
+#else
+#include "dmumps_c.h"
+#define INT MUMPS_INT
+#endif
+
 enum StoredLayout {
     LOWER_TRIANGULAR,
     FULL_MATRIX,
@@ -28,10 +36,10 @@ struct SparseTriplet {
     size_t max;
 
     /// @brief row indices (zero-based)
-    std::vector<size_t> indices_i;
+    std::vector<INT> indices_i;
 
     /// @brief column indices (zero-based)
-    std::vector<size_t> indices_j;
+    std::vector<INT> indices_j;
 
     /// @brief the non-zero entries in the matrix
     /// @note if lower triangular, the diagonal entry must be included, even if it's zero
@@ -54,8 +62,8 @@ struct SparseTriplet {
             dimension,
             0,
             max,
-            std::vector<size_t>(max, 0),
-            std::vector<size_t>(max, 0),
+            std::vector<INT>(max, 0),
+            std::vector<INT>(max, 0),
             std::vector<double>(max, 0.0),
             std::map<std::tuple<size_t, size_t>, size_t>(),
         }};
@@ -65,5 +73,5 @@ struct SparseTriplet {
     /// @param i Row index (indices start at zero; zero-based)
     /// @param j Column index (indices start at zero; zero-based)
     /// @param aij The value A(i,j) (duplicate values will be summed up)
-    void put(size_t i, size_t j, double aij);
+    void put(INT i, INT j, double aij);
 };

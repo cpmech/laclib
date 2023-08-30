@@ -10,15 +10,6 @@
 
 #define ICNTL(I) icntl[(I)-1] // macro to make indices match documentation
 
-inline MUMPS_INT make_mumps_int(size_t a) {
-    MUMPS_INT n = static_cast<MUMPS_INT>(a);
-    size_t temp = static_cast<size_t>(n);
-    if (a != temp) {
-        throw "make_mumps_int: integer overflow ocurred";
-    }
-    return n;
-}
-
 inline MUMPS_INT8 make_mumps_int8(size_t a) {
     MUMPS_INT8 n = static_cast<MUMPS_INT8>(a);
     size_t temp = static_cast<size_t>(n);
@@ -35,8 +26,8 @@ void SolverMumps::analyze(const std::unique_ptr<SparseTriplet> &trip,
     this->indices_i.resize(trip->pos);
     this->indices_j.resize(trip->pos);
     for (size_t k = 0; k < trip->pos; k++) {
-        this->indices_i[k] = make_mumps_int(trip->indices_i[k] + 1);
-        this->indices_j[k] = make_mumps_int(trip->indices_j[k] + 1);
+        this->indices_i[k] = trip->indices_i[k] + 1;
+        this->indices_j[k] = trip->indices_j[k] + 1;
     }
 
     // set flags
@@ -46,7 +37,7 @@ void SolverMumps::analyze(const std::unique_ptr<SparseTriplet> &trip,
     this->data.ICNTL(14) = options->pct_inc_workspace;
     this->data.ICNTL(23) = options->max_work_memory;
     this->data.ICNTL(16) = options->omp_num_threads;
-    this->data.n = make_mumps_int(trip->dimension);
+    this->data.n = static_cast<INT>(trip->dimension);
 
     // set more flags
     this->data.ICNTL(18) = MUMPS_ICNTL18_CENTRALIZED;

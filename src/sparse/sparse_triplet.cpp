@@ -5,13 +5,13 @@
 #include <tuple>
 #include <vector>
 
-void SparseTriplet::put(size_t i, size_t j, double aij) {
+void SparseTriplet::put(INT i, INT j, double aij) {
 
     // check range
-    if (i >= this->dimension) {
+    if (i < 0 || i >= static_cast<INT>(this->dimension)) {
         throw "SparseTriplet::put: index of row is outside range";
     }
-    if (j >= this->dimension) {
+    if (j < 0 || j >= static_cast<INT>(this->dimension)) {
         throw "SparseTriplet::put: index of column is outside range";
     }
     if (this->pos >= this->max) {

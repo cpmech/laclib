@@ -33,8 +33,8 @@ TEST_CASE("read_matrix_market") {
         auto mtx = data_path + "ok1.mtx";
         auto trip = read_matrix_market(mtx);
 
-        vector<size_t> correct_i = {0, 1, 0, 2, 4, 1, 2, 3, 4, 2, 1, 4};
-        vector<size_t> correct_j = {0, 0, 1, 1, 1, 2, 2, 2, 2, 3, 4, 4};
+        vector<INT> correct_i = {0, 1, 0, 2, 4, 1, 2, 3, 4, 2, 1, 4};
+        vector<INT> correct_j = {0, 0, 1, 1, 1, 2, 2, 2, 2, 3, 4, 4};
         vector<double> correct_aij = {2, 3, 3, -1, 4, 4, -3, 1, 2, 2, 6, 1};
 
         CHECK(trip->layout == FULL_MATRIX);

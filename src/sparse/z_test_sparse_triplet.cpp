@@ -13,8 +13,8 @@ TEST_CASE("testing SparseTriplet (put)") {
     SUBCASE("default values") {
         auto trip = SparseTriplet::make_new(FULL_MATRIX, 3, 4);
 
-        vector<size_t> I_correct{0, 0, 0, 0};
-        vector<size_t> J_correct{0, 0, 0, 0};
+        vector<INT> I_correct{0, 0, 0, 0};
+        vector<INT> J_correct{0, 0, 0, 0};
         vector<double> X_correct{0.0, 0.0, 0.0, 0.0};
 
         CHECK(trip->layout == FULL_MATRIX);
@@ -33,8 +33,8 @@ TEST_CASE("testing SparseTriplet (put)") {
     SUBCASE("put") {
         auto trip = SparseTriplet::make_new(FULL_MATRIX, 3, 4);
 
-        vector<size_t> I_correct{0, 1, 2, 0};
-        vector<size_t> J_correct{0, 1, 2, 1};
+        vector<INT> I_correct{0, 1, 2, 0};
+        vector<INT> J_correct{0, 1, 2, 1};
         vector<double> X_correct{10.0, 11.0, 12.0, 4.0};
 
         trip->put(0, 0, 10.0);
@@ -64,8 +64,8 @@ TEST_CASE("testing SparseTriplet (put)") {
         size_t max = 6; // could also be 4, but suppose we don't know about the duplicates
         auto trip = SparseTriplet::make_new(FULL_MATRIX, 3, max);
 
-        vector<size_t> I_correct{0, 1, 2, 0, /*extra; not used*/ 0, 0};
-        vector<size_t> J_correct{0, 1, 2, 1, /*extra; not used*/ 0, 0};
+        vector<INT> I_correct{0, 1, 2, 0, /*extra; not used*/ 0, 0};
+        vector<INT> J_correct{0, 1, 2, 1, /*extra; not used*/ 0, 0};
         vector<double> X_correct{10.0, 11.0, 12.0, 4.0, /*extra; not used*/ 0.0, 0.0};
 
         trip->put(0, 0, 5.0);
