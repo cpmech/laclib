@@ -13,7 +13,7 @@ using namespace std;
 TEST_CASE("testing sparse solver Intel DSS") {
     set_num_threads(1);
 
-    auto trip = SparseTriplet::make_new(false, 5, 9);
+    auto trip = SparseTriplet::make_new(FULL_MATRIX, 5, 9);
     /* this is the unsymmetric case
     trip->put(0, 0, 1.0);
     trip->put(0, 1, 2.0);

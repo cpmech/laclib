@@ -11,13 +11,13 @@ using namespace std;
 
 TEST_CASE("testing SparseTriplet (put)") {
     SUBCASE("default values") {
-        auto trip = SparseTriplet::make_new(false, 3, 4);
+        auto trip = SparseTriplet::make_new(FULL_MATRIX, 3, 4);
 
         vector<size_t> I_correct{0, 0, 0, 0};
         vector<size_t> J_correct{0, 0, 0, 0};
         vector<double> X_correct{0.0, 0.0, 0.0, 0.0};
 
-        CHECK(trip->lower_triangular == false);
+        CHECK(trip->layout == FULL_MATRIX);
         CHECK(trip->dimension == 3);
         CHECK(trip->pos == 0);
         CHECK(trip->max == 4);
@@ -31,7 +31,7 @@ TEST_CASE("testing SparseTriplet (put)") {
     }
 
     SUBCASE("put") {
-        auto trip = SparseTriplet::make_new(false, 3, 4);
+        auto trip = SparseTriplet::make_new(FULL_MATRIX, 3, 4);
 
         vector<size_t> I_correct{0, 1, 2, 0};
         vector<size_t> J_correct{0, 1, 2, 1};
@@ -62,7 +62,7 @@ TEST_CASE("testing SparseTriplet (put)") {
 
     SUBCASE("put: with duplicates") {
         size_t max = 6; // could also be 4, but suppose we don't know about the duplicates
-        auto trip = SparseTriplet::make_new(false, 3, max);
+        auto trip = SparseTriplet::make_new(FULL_MATRIX, 3, max);
 
         vector<size_t> I_correct{0, 1, 2, 0, /*extra; not used*/ 0, 0};
         vector<size_t> J_correct{0, 1, 2, 1, /*extra; not used*/ 0, 0};
@@ -94,7 +94,7 @@ TEST_CASE("testing SparseTriplet (put)") {
     }
 
     SUBCASE("put: exceptions") {
-        auto trip = SparseTriplet::make_new(false, 3, 4);
+        auto trip = SparseTriplet::make_new(FULL_MATRIX, 3, 4);
 
         CHECK_THROWS_WITH(trip->put(-1, 0, 10.0), "SparseTriplet::put: index of row is outside range");
         CHECK_THROWS_WITH(trip->put(3, 0, 10.0), "SparseTriplet::put: index of row is outside range");

@@ -13,7 +13,7 @@ TEST_CASE("sparse_blas") {
         // { 1.0,  2.0,  3.0},
         // { 0.1,  0.2,  0.3},
         // {10.0, 20.0, 30.0},
-        auto trip = SparseTriplet::make_new(false, 3, 9);
+        auto trip = SparseTriplet::make_new(FULL_MATRIX, 3, 9);
         trip->put(0, 0, 1);
         trip->put(0, 1, 2);
         trip->put(0, 2, 3);
@@ -35,7 +35,7 @@ TEST_CASE("sparse_blas") {
     }
 
     SUBCASE("sp_mat_vec_mul: check_sizes = true") {
-        auto trip = SparseTriplet::make_new(false, 5, 15);
+        auto trip = SparseTriplet::make_new(FULL_MATRIX, 5, 15);
         vector<double> u_correct(5);
         vector<double> v_correct(5);
         vector<double> u_wrong(3);
@@ -48,7 +48,7 @@ TEST_CASE("sparse_blas") {
         // {0.1, 0.2, 0.3},
         // {1.0, 0.2, 0.3},
         // {2.0, 0.2, 0.3},
-        auto trip = SparseTriplet::make_new(false, 3, 9);
+        auto trip = SparseTriplet::make_new(FULL_MATRIX, 3, 9);
         trip->put(0, 0, 0.1);
         trip->put(0, 1, 0.2);
         trip->put(0, 2, 0.3);
@@ -74,8 +74,7 @@ TEST_CASE("sparse_blas") {
         // {1, 2, 9, 1, 5},
         // {3, 1, 1, 7, 1},
         // {2, 1, 5, 1, 8},
-        bool symmetric = true;
-        auto trip = SparseTriplet::make_new(true, 5, 15);
+        auto trip = SparseTriplet::make_new(LOWER_TRIANGULAR, 5, 15);
 
         trip->put(0, 0, 2.0);
         trip->put(1, 1, 2.0);

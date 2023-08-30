@@ -2,7 +2,7 @@
 
 set -e
 
-MKL=${1:-"OFF"}
+MKL=${1:-"ON"}
 OMP=${2:-"ON"}
 OPTIMIZED=${3:-"OFF"}
 VERBOSE=${4:-"OFF"}

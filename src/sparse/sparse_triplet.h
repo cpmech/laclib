@@ -5,13 +5,18 @@
 #include <tuple>
 #include <vector>
 
+enum StoredLayout {
+    LOWER_TRIANGULAR,
+    FULL_MATRIX,
+};
+
 /// @brief Holes a pair of indices (i,j)
 typedef std::tuple<size_t, size_t> ij_pair_t;
 
 /// @brief Holds the row index, col index, and values of a matrix (also kwnon as COO, coordinates format)
 struct SparseTriplet {
     /// @brief layout
-    bool lower_triangular;
+    StoredLayout layout;
 
     /// @brief number of rows == number of columns
     size_t dimension;
@@ -41,11 +46,11 @@ struct SparseTriplet {
     /// @param max Maximum number of entries ≥ nnz (number of non-zeros)
     /// @return Returns a new structure
     inline static std::unique_ptr<SparseTriplet> make_new(
-        bool lower_triangular,
+        StoredLayout layout,
         size_t dimension,
         size_t max) {
         return std::unique_ptr<SparseTriplet>{new SparseTriplet{
-            lower_triangular,
+            layout,
             dimension,
             0,
             max,

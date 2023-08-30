@@ -17,7 +17,7 @@ void SparseTriplet::put(size_t i, size_t j, double aij) {
     if (this->pos >= this->max) {
         throw "SparseTriplet::put: max number of items has been exceeded";
     }
-    if (this->lower_triangular) {
+    if (this->layout == LOWER_TRIANGULAR) {
         if (j > i) {
             throw "SparseTriplet::put: j > i is incorrect for lower triangular layout";
         }

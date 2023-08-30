@@ -27,7 +27,8 @@ void run(int argc, char **argv) {
     set_num_threads(omp_num_threads);
 
     // set options
-    auto options = MumpsOptions::make_new(trip->lower_triangular);
+    auto symmetric = trip->layout == LOWER_TRIANGULAR ? true : false;
+    auto options = MumpsOptions::make_new(symmetric);
     options->omp_num_threads = omp_num_threads;
     options->ordering = ordering;
     options->max_work_memory = 30000;

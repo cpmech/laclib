@@ -37,7 +37,7 @@ TEST_CASE("read_matrix_market") {
         vector<size_t> correct_j = {0, 0, 1, 1, 1, 2, 2, 2, 2, 3, 4, 4};
         vector<double> correct_aij = {2, 3, 3, -1, 4, 4, -3, 1, 2, 2, 6, 1};
 
-        CHECK(trip->lower_triangular == false);
+        CHECK(trip->layout == FULL_MATRIX);
         CHECK(equal_vectors(trip->indices_i, correct_i) == true);
         CHECK(equal_vectors(trip->indices_j, correct_j) == true);
         CHECK(equal_vectors_tol(trip->values_aij, correct_aij, 1e-15) == true);

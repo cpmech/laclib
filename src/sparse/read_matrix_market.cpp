@@ -51,7 +51,8 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename) {
     }
 
     std::unique_ptr<SparseTriplet> trip;
-    bool lower_triangular = strncmp(sym, "symmetric", 9) == 0;
+    bool symmetric = strncmp(sym, "symmetric", 9) == 0;
+    StoredLayout layout = symmetric ? LOWER_TRIANGULAR : FULL_MATRIX;
 
     bool initialized = false;
     size_t m, n, nnz, i, j;
@@ -70,7 +71,7 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename) {
                 throw "read_matrix_market: cannot parse the dimensions (m,n,nnz)";
             }
 
-            trip = SparseTriplet::make_new(lower_triangular, m, nnz);
+            trip = SparseTriplet::make_new(layout, m, nnz);
             initialized = true;
         }
 

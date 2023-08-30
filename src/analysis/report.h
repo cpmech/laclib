@@ -106,7 +106,7 @@ struct Report {
 
         std::string filepath = output_dir + "/" + fnkey.str() + ".json";
 
-        std::string str_symmetric = trip->lower_triangular ? "true" : "false";
+        std::string str_symmetric = trip->layout == LOWER_TRIANGULAR ? "true" : "false";
 
         std::ofstream ofs(filepath, std::ofstream::out);
         ofs << "{\n";

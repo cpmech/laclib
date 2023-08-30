@@ -25,7 +25,7 @@ void sp_mat_vec_mul(std::vector<double> &v,
         auto j = a->indices_j[k];
         auto aij = a->values_aij[k];
         v[i] += alpha * aij * u[j];
-        if (a->lower_triangular) {
+        if (a->layout == LOWER_TRIANGULAR) {
             if (i != j) {
                 v[j] += alpha * aij * u[i];
             }

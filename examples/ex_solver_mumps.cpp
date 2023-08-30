@@ -23,7 +23,7 @@ void run(int argc, char **argv) {
     // The solution is: x = {1, 2, 3, 4, 5}
 
     // input A matrix in triplet format
-    auto trip = SparseTriplet::make_new(false, 5, 13);
+    auto trip = SparseTriplet::make_new(FULL_MATRIX, 5, 13);
     trip->put(0, 0, +1.0); // << duplicated (no problem)
     trip->put(0, 0, +1.0); // << duplicated
     trip->put(1, 0, +3.0);
@@ -39,7 +39,8 @@ void run(int argc, char **argv) {
     trip->put(4, 4, +1.0);
 
     // allocate MUMPS solver and options
-    auto options = MumpsOptions::make_new(trip->lower_triangular);
+    auto symmetric = trip->layout == LOWER_TRIANGULAR ? true : false;
+    auto options = MumpsOptions::make_new(symmetric);
     auto solver = SolverMumps::make_new(options);
 
     // analyze and factorize the matrix

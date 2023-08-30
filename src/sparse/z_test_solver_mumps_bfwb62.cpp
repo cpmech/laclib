@@ -14,7 +14,8 @@ TEST_CASE("solve bfwb62 system") {
     auto mtx_path = data_path + "/sparse-matrix/bfwb62.mtx";
     auto trip = read_matrix_market(mtx_path);
 
-    auto options = MumpsOptions::make_new(trip->lower_triangular);
+    auto symmetric = trip->layout == LOWER_TRIANGULAR ? true : false;
+    auto options = MumpsOptions::make_new(symmetric);
     auto solver = SolverMumps::make_new(options);
 
     solver->analyze_and_factorize(trip);
