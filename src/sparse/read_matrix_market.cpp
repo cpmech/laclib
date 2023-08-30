@@ -16,10 +16,10 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
     // %%MatrixMarket matrix coordinate real    general
     // 12345678901234 123456 1234567890 1234    1234567
 
-    const int LINE_MAX = 2048;
-    char line[LINE_MAX];
+    const int line_max = 2048;
+    char line[line_max];
 
-    if (fgets(line, LINE_MAX, f) == NULL) {
+    if (fgets(line, line_max, f) == NULL) {
         fclose(f);
         throw "read_matrix_market: cannot read any line in the file";
     }
@@ -58,7 +58,7 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
     size_t m, n, nnz, i, j;
     double x;
 
-    while (fgets(line, LINE_MAX, f) != NULL) {
+    while (fgets(line, line_max, f) != NULL) {
         // dimensions
         if (!initialized) {
             if (line[0] == '%') {
