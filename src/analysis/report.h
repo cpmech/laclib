@@ -5,7 +5,6 @@
 #include <sstream>
 #include <string>
 
-#include "../sparse/solver_mumps_options.h"
 #include "../util/memory_usage.h"
 #include "../util/path_tools.h"
 #include "../util/stopwatch.h"
@@ -85,16 +84,16 @@ struct Report {
     inline void write_json(const std::string &output_dir,
                            const std::string &solver_kind,
                            const std::string &matrix_name,
-                           const std::unique_ptr<MumpsOptions> &options,
+                           const std::string &ordering,
+                           int omp_num_threads,
                            const std::unique_ptr<SparseTriplet> &trip,
                            const std::unique_ptr<Stats> &stats) {
-        auto ordering = mumps_ordering_to_string(options->ordering);
 
         std::string suffix = "_open_seq";
         int effective_mpi_size = 0;
 #ifdef HAS_OMP
-        int effective_omp_num_threads = options->omp_num_threads;
-        suffix += "_omp" + std::to_string(options->omp_num_threads);
+        int effective_omp_num_threads = omp_num_threads;
+        suffix += "_omp" + std::to_string(omp_num_threads);
 #else
         int effective_omp_num_threads = 0;
 #endif
