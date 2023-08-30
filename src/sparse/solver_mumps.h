@@ -9,16 +9,29 @@
 #include "solver_mumps_wrapper.h"
 #include "sparse_triplet.h"
 
+/// @brief Wraps the MUMPS solver
 struct SolverMumps {
-    const std::unique_ptr<MumpsOptions> &options; // options
+    /// @brief Holds options
+    const std::unique_ptr<MumpsOptions> &options;
 
-    DMUMPS_STRUC_C data; // MUMPS data structure for C-code
-    bool analyzed;       // analyze or analyze_and_factorize has been called
-    bool factorized;     // analyze_and_factorize or factorize has been called
+    /// @brief MUMPS data structure for C-code
+    DMUMPS_STRUC_C data;
 
+    /// @brief Indicates if analyze or analyze_and_factorize were called
+    bool analyzed;
+
+    /// @brief Indicates if analyze_and_factorize or factorize were called
+    bool factorized;
+
+    /// @brief Row indices of the COO (triplet) matrix format
     std::vector<MUMPS_INT> indices_i;
+
+    /// @brief Columns indices of the COO (triplet) matrix format
     std::vector<MUMPS_INT> indices_j;
 
+    /// @brief Allocates a new structure
+    /// @param options Holds options
+    /// @return A new structure
     inline static std::unique_ptr<SolverMumps> make_new(const std::unique_ptr<MumpsOptions> &options) {
         DMUMPS_STRUC_C data;
         data.comm_fortran = 0;
@@ -38,18 +51,33 @@ struct SolverMumps {
             }};
     };
 
+    /// @brief Clears temporary data
     ~SolverMumps() {
         _call_dmumps(&this->data, MUMPS_JOB_TERMINATE, false);
     }
 
+    /// @brief Performs the analyze step
+    /// @param trip The matrix data in Triplet form (COO)
+    /// @param verbose Show messages
     void analyze(const std::unique_ptr<SparseTriplet> &trip,
                  bool verbose = false);
 
+    /// @brief Performs the factorization step
+    /// @param verbose Show messages
+    /// @note Must be called after analyze
     void factorize(bool verbose = false);
 
+    /// @brief Calls analyze and factorize
+    /// @param trip The matrix data in Triplet form (COO)
+    /// @param verbose Show messages
     void analyze_and_factorize(const std::unique_ptr<SparseTriplet> &trip,
                                bool verbose = false);
 
+    /// @brief Performs the solution step
+    /// @param x The vector in A*x = rhs
+    /// @param rhs The hand-side vector
+    /// @param verbose Show messages
+    /// @note Must be called after analyze and factorize
     void solve(std::vector<double> &x,
                const std::vector<double> &rhs,
                bool verbose = false);
