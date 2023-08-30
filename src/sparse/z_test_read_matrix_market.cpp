@@ -32,8 +32,8 @@ TEST_CASE("read_matrix_market") {
         auto mtx = data_path + "ok1.mtx";
         auto trip = read_matrix_market(mtx);
 
-        vector<MUMPS_INT> I_correct = {0, 1, 0, 2, 4, 1, 2, 3, 4, 2, 1, 4};
-        vector<MUMPS_INT> J_correct = {0, 0, 1, 1, 1, 2, 2, 2, 2, 3, 4, 4};
+        vector<INT> I_correct = {0, 1, 0, 2, 4, 1, 2, 3, 4, 2, 1, 4};
+        vector<INT> J_correct = {0, 0, 1, 1, 1, 2, 2, 2, 2, 3, 4, 4};
         vector<double> X_correct = {2, 3, 3, -1, 4, 4, -3, 1, 2, 2, 6, 1};
 
         CHECK(trip->symmetric == false);
@@ -47,8 +47,8 @@ TEST_CASE("read_matrix_market") {
         bool one_based = true;
         auto trip = read_matrix_market(mtx, one_based);
 
-        vector<MUMPS_INT> I_correct = {1, 2, 3, 4, 5, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4};
-        vector<MUMPS_INT> J_correct = {1, 2, 3, 4, 5, 2, 3, 4, 5, 3, 4, 5, 4, 5, 5};
+        vector<INT> I_correct = {1, 2, 3, 4, 5, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4};
+        vector<INT> J_correct = {1, 2, 3, 4, 5, 2, 3, 4, 5, 3, 4, 5, 4, 5, 5};
         vector<double> X_correct = {2, 2, 9, 7, 8, 1, 1, 3, 2, 2, 1, 1, 1, 5, 1};
 
         CHECK(trip->symmetric == true);

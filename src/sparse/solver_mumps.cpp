@@ -10,6 +10,15 @@
 
 #define ICNTL(I) icntl[(I)-1] // macro to make indices match documentation
 
+inline MUMPS_INT8 make_mumps_int8(size_t a) {
+    MUMPS_INT8 n = static_cast<MUMPS_INT8>(a);
+    size_t temp = static_cast<size_t>(n);
+    if (a != temp) {
+        throw "make_mumps_int8: integer overflow ocurred";
+    }
+    return n;
+}
+
 static inline void _set_data(DMUMPS_STRUC_C *data,
                              const std::unique_ptr<MumpsOptions> &options,
                              const std::unique_ptr<SparseTriplet> &trip) {
@@ -19,7 +28,7 @@ static inline void _set_data(DMUMPS_STRUC_C *data,
     data->ICNTL(14) = options->pct_inc_workspace;
     data->ICNTL(23) = options->max_work_memory;
     data->ICNTL(16) = options->omp_num_threads;
-    data->n = make_mumps_int(trip->m);
+    data->n = make_int(trip->m);
 
     data->ICNTL(18) = MUMPS_ICNTL18_CENTRALIZED;
     data->ICNTL(6) = MUMPS_ICNTL6_PERMUT_AUTO;

@@ -38,7 +38,7 @@ TEST_CASE("testing sparse solver Intel DSS") {
 
     solver->analyze(trip);
     solver->factorize();
-    // solver->solve(x, rhs);
+    solver->solve(x, rhs);
 
     print_vector("x", x);
 }
