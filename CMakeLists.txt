@@ -60,7 +60,6 @@ set(LACLIB_NAME "laclib${PLAT}")
 if(A0_MKL)
     add_library(${LACLIB_NAME} SHARED
         src/sparse/read_matrix_market.cpp
-        src/sparse/solver_dss.cpp
         src/sparse/sparse_blas.cpp
         src/sparse/sparse_triplet.cpp
     )
