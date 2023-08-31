@@ -13,6 +13,7 @@
 #define INT MUMPS_INT
 #endif
 
+/// @brief Defines how the Triplet represents a matrix
 enum StoredLayout {
     LOWER_TRIANGULAR,
     FULL_MATRIX,
@@ -21,7 +22,7 @@ enum StoredLayout {
 /// @brief Holes a pair of indices (i,j)
 typedef std::tuple<size_t, size_t> ij_pair_t;
 
-/// @brief Holds the row index, col index, and values of a matrix (also known as COO, coordinates format)
+/// @brief Holds the row index, col index, and values of a matrix (also known as COO, coordinates matrix)
 struct SparseTriplet {
     /// @brief layout
     StoredLayout layout;
