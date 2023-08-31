@@ -21,7 +21,7 @@ enum StoredLayout {
 /// @brief Holes a pair of indices (i,j)
 typedef std::tuple<size_t, size_t> ij_pair_t;
 
-/// @brief Holds the row index, col index, and values of a matrix (also kwnon as COO, coordinates format)
+/// @brief Holds the row index, col index, and values of a matrix (also known as COO, coordinates format)
 struct SparseTriplet {
     /// @brief layout
     StoredLayout layout;

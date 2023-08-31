@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd build/src/sparse
+cd build
 make && ctest -T memcheck -R solver_dss
