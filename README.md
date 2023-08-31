@@ -1,6 +1,6 @@
 # Simple Linear Algebra Library
 
-Laclib implements basic linear algebra functions, wrapping OpenBLAS or Intel MKL. It also wraps MUMPS for the solution of large linear systems with sparse matrices.
+Laclib implements basic linear algebra functions, wrapping OpenBLAS or Intel MKL. It also wraps MUMPS or Intel Direct Sparse Solver (DSS, e.g., PARDISO) for the solution of large linear systems with sparse matrices.
 
 ## Examples
 
