@@ -13,6 +13,25 @@
 #define INT MUMPS_INT
 #endif
 
+/// @brief Casts a size_t integer to INT and checks if it worked
+/// @param a is the size_t integer
+/// @return the INT integer
+inline INT make_int(size_t a) {
+    INT n = static_cast<INT>(a);
+    size_t temp = static_cast<size_t>(n);
+    if (a != temp) {
+        throw "make_int failed with integer overflow";
+    }
+    return n;
+}
+
+/// @brief Holds the arrays needed for a CSR (compressed sparse row) matrix
+struct CompressedSparseRowData {
+    std::vector<INT> row_pointers;
+    std::vector<INT> column_indices;
+    std::vector<double> values;
+};
+
 /// @brief Defines how the Triplet represents a matrix
 enum StoredLayout {
     LOWER_TRIANGULAR,
@@ -75,4 +94,9 @@ struct SparseTriplet {
     /// @param j Column index (indices start at zero; zero-based)
     /// @param aij The value A(i,j) (duplicate values will be summed up)
     void put(INT i, INT j, double aij);
+
+    /// @brief Converts the Triplet (aka COO) matrix to CSR matrix
+    /// @param sum_duplicates Do sum the duplicates, if any
+    /// @return Three vectors: row_pointers, column_indices, and values
+    CompressedSparseRowData to_csr(bool sum_duplicates);
 };

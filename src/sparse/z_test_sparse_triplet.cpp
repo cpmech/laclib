@@ -5,6 +5,7 @@
 
 #include "../check/check.h"
 #include "../util/doctest.h"
+#include "../util/print_vector.h"
 #include "sparse_triplet.h"
 
 using namespace std;
@@ -107,5 +108,35 @@ TEST_CASE("testing SparseTriplet (put)") {
         trip->put(1, 1, 4);
 
         CHECK_THROWS_WITH(trip->put(0, 0, 4.0), "SparseTriplet::put: max number of items has been exceeded");
+    }
+
+    SUBCASE("convert to csr works with small matrix") {
+        // 1  2  .  .  .
+        // 3  4  .  .  .
+        // .  .  5  6  .
+        // .  .  7  8  .
+        // .  .  .  .  9
+        auto trip = SparseTriplet::make_new(FULL_MATRIX, 5, 9);
+        trip->put(4, 4, 9.0);
+        trip->put(0, 0, 1.0);
+        trip->put(1, 0, 3.0);
+        trip->put(2, 2, 5.0);
+        trip->put(2, 3, 6.0);
+        trip->put(0, 1, 2.0);
+        trip->put(3, 2, 7.0);
+        trip->put(1, 1, 4.0);
+        trip->put(3, 3, 8.0);
+
+        auto csr = trip->to_csr(false);
+        print_vector("p", csr.row_pointers);
+        print_vector("j", csr.column_indices);
+        print_vector("x", csr.values);
+
+        vector<INT> correct_p{0, 2, 4, 6, 8, 9};
+        vector<INT> correct_j{0, 1, 0, 1, 2, 3, 2, 3, 4};
+        vector<double> correct_x{1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0};
+        CHECK(equal_vectors(csr.row_pointers, correct_p));
+        CHECK(equal_vectors(csr.column_indices, correct_j));
+        CHECK(equal_vectors_tol(csr.values, correct_x, 1e-15));
     }
 }
