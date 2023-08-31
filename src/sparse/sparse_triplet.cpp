@@ -116,15 +116,18 @@ CompressedSparseRowData SparseTriplet::to_csr(bool sum_duplicates) {
     }
     bp[n_row] = nnz;
 
-    // write aj and ax into bj and bx
-    for (size_t n = 0; n < nnz; n++) {
-        INT row = ai[n];
+    // write aj and ax into bj and bx (will use bp as workspace)
+    for (size_t k = 0; k < nnz; k++) {
+        INT row = ai[k];
         INT dest = bp[row];
-        bj[dest] = aj[n];
-        bx[dest] = ax[n];
+        bj[dest] = aj[k];
+        bx[dest] = ax[k];
         bp[row]++;
     }
-    for (size_t i = 0, last = 0; i <= n_row; i++) {
+
+    // fix bp
+    size_t last = 0;
+    for (size_t i = 0; i <= n_row; i++) {
         INT temp = bp[i];
         bp[i] = last;
         last = temp;
