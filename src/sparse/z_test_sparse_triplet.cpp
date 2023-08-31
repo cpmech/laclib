@@ -269,9 +269,9 @@ TEST_CASE("testing SparseTriplet (put)") {
         trip->put(4, 4, 16.0);
 
         auto csr = trip->to_csr(false);
-        print_vector("p", csr.row_pointers);
-        print_vector("j", csr.column_indices);
-        print_vector("x", csr.values);
+        // print_vector("p", csr.row_pointers);
+        // print_vector("j", csr.column_indices);
+        // print_vector("x", csr.values);
 
         vector<INT> correct_p{0, 1, 3, 5, 7, 9};
         vector<INT> correct_j{0, 0, 1, 0, 2, 0, 3, 0, 4};
@@ -310,8 +310,8 @@ TEST_CASE("testing SparseTriplet (put)") {
         vector<INT> correct_p{0, 1, 3, 5, 7, 9};
         vector<INT> correct_j{0, 0, 1, 0, 2, 0, 3, 0, 4};
         vector<double> correct_x{9.0, 1.5, 0.5, 6.0, 12.0, 0.75, 0.625, 3.0, 16.0};
-        // CHECK(equal_vectors(csr.row_pointers, correct_p));
-        // CHECK(equal_vectors(csr.column_indices, correct_j));
-        // CHECK(equal_vectors_tol(csr.values, correct_x, 1e-15));
+        CHECK(equal_vectors(csr.row_pointers, correct_p));
+        CHECK(equal_vectors(csr.column_indices, correct_j));
+        CHECK(equal_vectors_tol(csr.values, correct_x, 1e-15));
     }
 }
