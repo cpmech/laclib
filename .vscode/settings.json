@@ -49,6 +49,7 @@
     "GEMM",
     "Gibibytes",
     "IFORMAT",
+    "indptr",
     "Kibi",
     "Kibibyte",
     "linalg",
@@ -62,5 +63,9 @@
     "SMIB",
     "SPMV",
     "SUBCASE"
-  ]
+  ],
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "python.formatting.provider": "none"
 }
