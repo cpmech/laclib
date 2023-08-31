@@ -11,7 +11,7 @@
 using namespace std;
 
 TEST_CASE("testing SparseTriplet (put)") {
-    SUBCASE("default values") {
+    SUBCASE("make_new works with default values") {
         auto trip = SparseTriplet::make_new(FULL_MATRIX, 3, 4);
 
         vector<INT> I_correct{0, 0, 0, 0};
@@ -28,10 +28,9 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(equal_vectors(trip->indices_i, I_correct));
         CHECK(equal_vectors(trip->indices_j, J_correct));
         CHECK(equal_vectors_tol(trip->values_aij, X_correct, 1e-15));
-        CHECK(trip->ij_to_pos.size() == 0);
     }
 
-    SUBCASE("put") {
+    SUBCASE("put works") {
         auto trip = SparseTriplet::make_new(FULL_MATRIX, 3, 4);
 
         vector<INT> I_correct{0, 1, 2, 0};
@@ -47,54 +46,30 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(equal_vectors(trip->indices_i, I_correct));
         CHECK(equal_vectors(trip->indices_j, J_correct));
         CHECK(equal_vectors_tol(trip->values_aij, X_correct, 1e-15));
-
-        CHECK(trip->ij_to_pos.size() == 4);
-        if (false) {
-            for (const auto &[key, value] : trip->ij_to_pos) {
-                const auto [i, j] = key;
-                std::cout << "(" << i << "," << j << ") → " << value << "\n";
-            }
-        }
-        CHECK(trip->ij_to_pos.at({0, 0}) == 0);
-        CHECK(trip->ij_to_pos.at({1, 1}) == 1);
-        CHECK(trip->ij_to_pos.at({2, 2}) == 2);
-        CHECK(trip->ij_to_pos.at({0, 1}) == 3);
     }
 
-    SUBCASE("put: with duplicates") {
-        size_t max = 6; // could also be 4, but suppose we don't know about the duplicates
+    SUBCASE("put works with duplicates") {
+        size_t max = 6;
         auto trip = SparseTriplet::make_new(FULL_MATRIX, 3, max);
 
-        vector<INT> I_correct{0, 1, 2, 0, /*extra; not used*/ 0, 0};
-        vector<INT> J_correct{0, 1, 2, 1, /*extra; not used*/ 0, 0};
-        vector<double> X_correct{10.0, 11.0, 12.0, 4.0, /*extra; not used*/ 0.0, 0.0};
+        vector<INT> I_correct{0, 1, 2, 0, 0, 2};
+        vector<INT> J_correct{0, 1, 2, 1, 0, 2};
+        vector<double> X_correct{5.0, 11.0, 6.0, 4.0, 5.0, 6.0};
 
         trip->put(0, 0, 5.0);
-        trip->put(0, 0, 5.0); // << duplicate
         trip->put(1, 1, 11.0);
         trip->put(2, 2, 6.0);
-        trip->put(2, 2, 6.0); // << duplicate
         trip->put(0, 1, 4.0);
+        trip->put(0, 0, 5.0); // << duplicate
+        trip->put(2, 2, 6.0); // << duplicate
 
-        CHECK(trip->pos == 4);
+        CHECK(trip->pos == 6);
         CHECK(equal_vectors(trip->indices_i, I_correct));
         CHECK(equal_vectors(trip->indices_j, J_correct));
         CHECK(equal_vectors_tol(trip->values_aij, X_correct, 1e-15));
-
-        CHECK(trip->ij_to_pos.size() == 4);
-        if (false) {
-            for (const auto &[key, value] : trip->ij_to_pos) {
-                const auto [i, j] = key;
-                std::cout << "(" << i << "," << j << ") → " << value << "\n";
-            }
-        }
-        CHECK(trip->ij_to_pos.at({0, 0}) == 0);
-        CHECK(trip->ij_to_pos.at({1, 1}) == 1);
-        CHECK(trip->ij_to_pos.at({2, 2}) == 2);
-        CHECK(trip->ij_to_pos.at({0, 1}) == 3);
     }
 
-    SUBCASE("put: exceptions") {
+    SUBCASE("put handles exceptions") {
         auto trip = SparseTriplet::make_new(FULL_MATRIX, 3, 4);
 
         CHECK_THROWS_WITH(trip->put(-1, 0, 10.0), "SparseTriplet::put: index of row is outside range");

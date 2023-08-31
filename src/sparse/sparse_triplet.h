@@ -2,7 +2,6 @@
 
 #include <map>
 #include <memory>
-#include <tuple>
 #include <vector>
 
 #ifdef USE_MKL
@@ -38,9 +37,6 @@ enum StoredLayout {
     FULL_MATRIX,
 };
 
-/// @brief Holes a pair of indices (i,j)
-typedef std::tuple<size_t, size_t> ij_pair_t;
-
 /// @brief Holds the row index, col index, and values of a matrix (also known as COO, coordinates matrix)
 struct SparseTriplet {
     /// @brief layout
@@ -65,9 +61,6 @@ struct SparseTriplet {
     /// @note if lower triangular, the diagonal entry must be included, even if it's zero
     std::vector<double> values_aij;
 
-    /// @brief Maps a pair of indices (i,j) to pos and assists in summing duplicates up
-    std::map<ij_pair_t, size_t> ij_to_pos;
-
     /// @brief Allocates a new structure
     /// @param lower_triangular Indicates that this triplet holds the lower triangular part of a matrix
     /// @param dimension number of rows (= number of columns)
@@ -85,7 +78,6 @@ struct SparseTriplet {
             std::vector<INT>(max, 0),
             std::vector<INT>(max, 0),
             std::vector<double>(max, 0.0),
-            std::map<std::tuple<size_t, size_t>, size_t>(),
         }};
     }
 
