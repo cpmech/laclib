@@ -45,8 +45,7 @@ MUMPS solves the problem by doing three steps: analysis, factorization, and back
 
 ```c++
 auto trip = read_matrix_market("my-matrix.mtx");
-auto symmetric = trip->layout == LOWER_TRIANGULAR ? true : false;
-auto options = MumpsOptions::make_new(symmetric);
+auto options = MumpsOptions::make_new(is_symmetric(trip->layout));
 auto solver = SolverMumps::make_new(options);
 auto rhs = vector<double>(trip->n, 1.0);
 auto x = vector<double>(trip->n, 0.0);

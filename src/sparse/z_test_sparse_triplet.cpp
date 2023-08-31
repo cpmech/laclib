@@ -103,9 +103,9 @@ TEST_CASE("testing SparseTriplet (put)") {
         trip->put(3, 3, 8.0);
 
         auto csr = trip->to_csr(false);
-        print_vector("p", csr.row_pointers);
-        print_vector("j", csr.column_indices);
-        print_vector("x", csr.values);
+        // print_vector("p", csr.row_pointers);
+        // print_vector("j", csr.column_indices);
+        // print_vector("x", csr.values);
 
         vector<INT> correct_p{0, 2, 4, 6, 8, 9};
         vector<INT> correct_j{0, 1, 0, 1, 2, 3, 2, 3, 4};
@@ -135,9 +135,9 @@ TEST_CASE("testing SparseTriplet (put)") {
         trip->put(1, 1, 2.0); // << duplicate
 
         auto csr = trip->to_csr(true);
-        print_vector("p", csr.row_pointers);
-        print_vector("j", csr.column_indices);
-        print_vector("x", csr.values);
+        // print_vector("p", csr.row_pointers);
+        // print_vector("j", csr.column_indices);
+        // print_vector("x", csr.values);
 
         auto n_summed = trip->pos - csr.nnz;
         CHECK(n_summed == 2);
@@ -150,5 +150,63 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(equal_vectors(csr.row_pointers, correct_p));
         CHECK(equal_vectors(final_j, correct_j));
         CHECK(equal_vectors_tol(final_x, correct_x, 1e-15));
+    }
+
+    SUBCASE("convert to csr works with symmetric matrix (upper triangular)") {
+        //  9.00  1.5   6.0  0.750   3.0
+        //  1.50  0.5   0.0  0.000   0.0
+        //  6.00  0.0  12.0  0.000   0.0
+        //  0.75  0.0   0.0  0.625   0.0
+        //  3.00  0.0   0.0  0.000  16.0
+        auto trip = SparseTriplet::make_new(UPPER_TRIANGULAR, 5, 9);
+
+        // diagonal
+        trip->put(0, 0, 9.0);
+        trip->put(1, 1, 0.5);
+        trip->put(2, 2, 12.0);
+        trip->put(3, 3, 0.625);
+        trip->put(4, 4, 16.0);
+
+        // upper diagonal
+        trip->put(0, 1, 1.5);
+        trip->put(0, 2, 6.0);
+        trip->put(0, 3, 0.75);
+        trip->put(0, 4, 3.0);
+
+        auto csr = trip->to_csr(true);
+        print_vector("p", csr.row_pointers);
+        print_vector("j", csr.column_indices);
+        print_vector("x", csr.values);
+
+        vector<INT> correct_p{0, 5, 6, 7, 8, 9};
+        vector<INT> correct_j{0, 1, 2, 3, 4, 1, 2, 3, 4};
+        vector<double> correct_x{9.0, 1.5, 6.0, 0.75, 3.0, 0.5, 12.0, 0.625, 16.0};
+        CHECK(equal_vectors(csr.row_pointers, correct_p));
+        CHECK(equal_vectors(csr.column_indices, correct_j));
+        CHECK(equal_vectors_tol(csr.values, correct_x, 1e-15));
+    }
+
+    SUBCASE("convert to csr works with symmetric matrix (lower triangular)") {
+        //  9.00  1.5   6.0  0.750   3.0
+        //  1.50  0.5   0.0  0.000   0.0
+        //  6.00  0.0  12.0  0.000   0.0
+        //  0.75  0.0   0.0  0.625   0.0
+        //  3.00  0.0   0.0  0.000  16.0
+        auto trip = SparseTriplet::make_new(LOWER_TRIANGULAR, 5, 9);
+
+        // diagonal
+        trip->put(0, 0, 9.0);
+        trip->put(1, 1, 0.5);
+        trip->put(2, 2, 12.0);
+        trip->put(3, 3, 0.625);
+        trip->put(4, 4, 16.0);
+
+        // lower diagonal
+        trip->put(1, 0, 1.5);
+        trip->put(2, 0, 6.0);
+        trip->put(3, 0, 0.75);
+        trip->put(4, 0, 3.0);
+
+        // TODO
     }
 }

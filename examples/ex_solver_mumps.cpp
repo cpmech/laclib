@@ -39,8 +39,7 @@ void run(int argc, char **argv) {
     trip->put(4, 4, +1.0);
 
     // allocate MUMPS solver and options
-    auto symmetric = trip->layout == LOWER_TRIANGULAR ? true : false;
-    auto options = MumpsOptions::make_new(symmetric);
+    auto options = MumpsOptions::make_new(is_symmetric(trip->layout));
     auto solver = SolverMumps::make_new(options);
 
     // analyze and factorize the matrix

@@ -43,9 +43,20 @@ struct CompressedSparseRowData {
 
 /// @brief Defines how the Triplet represents a matrix
 enum StoredLayout {
-    LOWER_TRIANGULAR,
-    FULL_MATRIX,
+    LOWER_TRIANGULAR, // e.g., for MUMPS
+    UPPER_TRIANGULAR, // e.g., for DSS
+    FULL_MATRIX,      // e.g., for UMFPACK
 };
+
+/// @brief Checks if layout is symmetric or not (e.g., with lower or upper triangular)
+/// @param layout is the layout
+/// @return true if certainly symmetric, or false if general matrix (which could be symmetric)
+inline bool is_symmetric(StoredLayout layout) {
+    if (layout == FULL_MATRIX) {
+        return false;
+    }
+    return true;
+}
 
 /// @brief Holds the row index, col index, and values of a matrix (also known as COO, coordinates matrix)
 struct SparseTriplet {

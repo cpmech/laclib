@@ -21,6 +21,10 @@ void SparseTriplet::put(INT i, INT j, double aij) {
         if (j > i) {
             throw "SparseTriplet::put: j > i is incorrect for lower triangular layout";
         }
+    } else if (this->layout == UPPER_TRIANGULAR) {
+        if (j < i) {
+            throw "SparseTriplet::put: j < i is incorrect for upper triangular layout";
+        }
     }
 
     // insert a new entry
