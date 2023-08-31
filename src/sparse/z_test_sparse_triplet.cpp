@@ -114,4 +114,41 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(equal_vectors(csr.column_indices, correct_j));
         CHECK(equal_vectors_tol(csr.values, correct_x, 1e-15));
     }
+
+    SUBCASE("convert to csr works with small matrix (sum duplicates)") {
+        // 1  2  .  .  .
+        // 3  4  .  .  .
+        // .  .  5  6  .
+        // .  .  7  8  .
+        // .  .  .  .  9
+        auto trip = SparseTriplet::make_new(FULL_MATRIX, 5, 11);
+        trip->put(4, 4, 9.0);
+        trip->put(0, 0, 1.0);
+        trip->put(1, 0, 3.0);
+        trip->put(2, 2, 5.0);
+        trip->put(2, 3, 3.0); // <<
+        trip->put(0, 1, 2.0);
+        trip->put(3, 2, 7.0);
+        trip->put(1, 1, 2.0); // <<
+        trip->put(3, 3, 8.0);
+        trip->put(2, 3, 3.0); // << duplicate
+        trip->put(1, 1, 2.0); // << duplicate
+
+        auto csr = trip->to_csr(true);
+        print_vector("p", csr.row_pointers);
+        print_vector("j", csr.column_indices);
+        print_vector("x", csr.values);
+
+        auto n_summed = trip->pos - csr.nnz;
+        CHECK(n_summed == 2);
+        auto final_j = std::vector<INT>(csr.column_indices.begin(), csr.column_indices.end() - n_summed);
+        auto final_x = std::vector<double>(csr.values.begin(), csr.values.end() - n_summed);
+
+        vector<INT> correct_p{0, 2, 4, 6, 8, 9};
+        vector<INT> correct_j{0, 1, 0, 1, 2, 3, 2, 3, 4};
+        vector<double> correct_x{1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0};
+        CHECK(equal_vectors(csr.row_pointers, correct_p));
+        CHECK(equal_vectors(final_j, correct_j));
+        CHECK(equal_vectors_tol(final_x, correct_x, 1e-15));
+    }
 }

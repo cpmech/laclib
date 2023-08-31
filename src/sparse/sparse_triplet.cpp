@@ -31,7 +31,8 @@ void SparseTriplet::put(INT i, INT j, double aij) {
 }
 
 /// @brief Sums duplicate column entries in each row of a CSR matrix
-void _csr_sum_duplicates(size_t dimension, INT ap[], INT aj[], double ax[]) {
+/// @return The final number of non-zeros (nnz) after duplicates have been handled
+size_t _csr_sum_duplicates(size_t dimension, INT ap[], INT aj[], double ax[]) {
 
     // Based on the SciPy code from here:
     //
@@ -64,6 +65,7 @@ void _csr_sum_duplicates(size_t dimension, INT ap[], INT aj[], double ax[]) {
         }
         ap[i + 1] = nnz;
     }
+    return static_cast<size_t>(nnz);
 }
 
 CompressedSparseRowData SparseTriplet::to_csr(bool sum_duplicates) {
@@ -89,6 +91,7 @@ CompressedSparseRowData SparseTriplet::to_csr(bool sum_duplicates) {
         std::vector<INT>(n_row + 1, 0), // row_pointers
         std::vector<INT>(nnz, 0),       // column_indices
         std::vector<double>(nnz, 0.0),  // values
+        nnz,
     };
     auto bp = csr.row_pointers.data();
     auto bj = csr.column_indices.data();
@@ -125,7 +128,8 @@ CompressedSparseRowData SparseTriplet::to_csr(bool sum_duplicates) {
 
     // sum duplicates
     if (sum_duplicates) {
-        _csr_sum_duplicates(n_row, bp, bj, bx);
+        auto final_nnz = _csr_sum_duplicates(n_row, bp, bj, bx);
+        csr.nnz = final_nnz;
     }
 
     // results

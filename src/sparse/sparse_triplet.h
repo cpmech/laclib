@@ -26,9 +26,19 @@ inline INT make_int(size_t a) {
 
 /// @brief Holds the arrays needed for a CSR (compressed sparse row) matrix
 struct CompressedSparseRowData {
+    /// @brief Is the row pointers array with size = n_row + 1
     std::vector<INT> row_pointers;
+
+    /// @brief Is the column indices array with size = nnz (number of non-zeros)
+    /// @note The size of this vector may be greater than nnz because some duplicates have been summed up
     std::vector<INT> column_indices;
+
+    /// @brief Is the values array with size = nnz (number of non-zeros)
+    /// @note The size of this vector may be greater than nnz because some duplicates have been summed up
     std::vector<double> values;
+
+    /// @brief Is the resulting number of non-zeros after duplicates have been handled
+    size_t nnz;
 };
 
 /// @brief Defines how the Triplet represents a matrix
@@ -88,7 +98,8 @@ struct SparseTriplet {
     void put(INT i, INT j, double aij);
 
     /// @brief Converts the Triplet (aka COO) matrix to CSR matrix
-    /// @param sum_duplicates Do sum the duplicates, if any
+    /// @param sum_duplicates Do sum the duplicates, if any. See note below about entries left in the array.
     /// @return Three vectors: row_pointers, column_indices, and values
+    /// @note If there are duplicates, the resulting column_indices and values arrays will have larger sizes. Thus, one must check the resulting nnz value.
     CompressedSparseRowData to_csr(bool sum_duplicates);
 };
