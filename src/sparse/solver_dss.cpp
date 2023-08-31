@@ -110,10 +110,10 @@ void SolverDss::analyze(const std::unique_ptr<SparseTriplet> &trip,
 }
 
 void SolverDss::factorize(bool verbose) {
-    // auto error = dss_factor_real(this->handle, this->type, matrix_values);
-    // if (error != MKL_DSS_SUCCESS) {
-    // throw "Intel DSS failed to factorize the matrix";
-    // }
+    auto error = dss_factor_real(this->handle, this->dss_type, this->csr_values);
+    if (error != MKL_DSS_SUCCESS) {
+        throw "Intel DSS failed to factorize the matrix";
+    }
 }
 
 void SolverDss::analyze_and_factorize(const std::unique_ptr<SparseTriplet> &trip,
