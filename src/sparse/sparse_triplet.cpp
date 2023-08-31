@@ -80,7 +80,7 @@ CompressedSparseRowData SparseTriplet::to_csr(bool sum_duplicates) {
     //
     // Notes:
     //
-    // * The row and column indices may be unordered
+    // * The row and column indices may be unordered (NOT TRUE)
     // * Linear complexity: O(nnz(A) + max(n_row,n_col))
 
     // access triplet data
