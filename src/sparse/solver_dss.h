@@ -27,8 +27,23 @@ struct SolverDss {
     /// @brief Indicates if analyze_and_factorize or factorize were called
     bool factorized;
 
-    /// @brief Holds the handle to COO (triplet) matrix
-    sparse_matrix_t coo_matrix;
+    /// @brief Handle to CSR matrix (delete only this one)
+    sparse_matrix_t csr_handle;
+
+    /// @brief Holds the row indices according to the CSR3 format
+    MKL_INT *csr_row_indices;
+
+    /// @brief Holds the first row indices according to the CSR format
+    MKL_INT *csr_pointer_b;
+
+    /// @brief Holds the last row indices according to the CSR format
+    MKL_INT *csr_pointer_e;
+
+    /// @brief Holds the columns according to the CSR or CSR3 format
+    MKL_INT *csr_columns;
+
+    /// @brief Holds the values according to the CSR or CSR3 format
+    double *csr_values;
 
     /// @brief Allocates a new structure
     /// @param options Holds options
@@ -61,17 +76,28 @@ struct SolverDss {
                 dss_type,
                 false,
                 false,
+                sparse_matrix_t(),
+                NULL,
+                NULL,
+                NULL,
+                NULL,
                 NULL,
             }};
     };
 
+    /// @brief Clears the memory allocated by analyze
+    /// @note This is an internal function that must not be called by the user
+    void _clear_memory_allocated_by_analyze() {
+        if (this->csr_row_indices != NULL) {
+            free(this->csr_row_indices);
+        }
+        mkl_sparse_destroy(this->csr_handle);
+    }
+
     /// @brief Clears temporary data
     ~SolverDss() {
-        if (coo_matrix != NULL) {
-            mkl_sparse_destroy(coo_matrix);
-        }
-        MKL_INT opt = MKL_DSS_DEFAULTS;
-        dss_delete(handle, opt);
+        _clear_memory_allocated_by_analyze();
+        dss_delete(this->handle, this->dss_opt);
     }
 
     /// @brief Performs the analyze step

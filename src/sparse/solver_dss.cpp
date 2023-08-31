@@ -6,6 +6,10 @@
 
 void SolverDss::analyze(const std::unique_ptr<SparseTriplet> &trip,
                         bool verbose) {
+    // clear previous memory
+    if (this->analyzed) {
+        _clear_memory_allocated_by_analyze();
+    }
 
     // create handle to COO (triplet) matrix
     INT m = static_cast<INT>(trip->dimension);
@@ -28,37 +32,53 @@ void SolverDss::analyze(const std::unique_ptr<SparseTriplet> &trip,
     // are stored continuously, that is the set of non-zero elements in the row J goes
     // just after the set of non-zero elements in the row J-1.
     // https://www.intel.com/content/www/us/en/docs/onemkl/developer-reference-c/2023-2/sparse-blas-csr-matrix-storage-format.html
-    sparse_matrix_t csr;
-    status = mkl_sparse_convert_csr(coo, SPARSE_OPERATION_NON_TRANSPOSE, &csr);
+    // TODO: Check this: in no place Intel states whether the conversion guarantees the above requirement or not.
+    status = mkl_sparse_convert_csr(coo, SPARSE_OPERATION_NON_TRANSPOSE, &this->csr_handle);
     if (status != SPARSE_STATUS_SUCCESS) {
         throw "Intel DSS failed to convert COO to CSR matrix";
     }
 
+    // delete handle
+    status = mkl_sparse_destroy(coo);
+    if (status != SPARSE_STATUS_SUCCESS) {
+        throw "Intel DSS failed to destroy COO handle";
+    }
+
     // allocate data to access the CRS matrix
     sparse_index_base_t indexing;
-    MKL_INT *csr_pointer_b = NULL;
-    MKL_INT *csr_pointer_e = NULL;
-    MKL_INT *csr_columns = NULL;
-    double *csr_values = NULL;
     MKL_INT n_rows;
     MKL_INT n_cols;
-    status = mkl_sparse_d_export_csr(csr,
+    status = mkl_sparse_d_export_csr(this->csr_handle,
                                      &indexing,
                                      &n_rows,
                                      &n_cols,
-                                     &csr_pointer_b,
-                                     &csr_pointer_e,
-                                     &csr_columns,
-                                     &csr_values);
+                                     &this->csr_pointer_b,
+                                     &this->csr_pointer_e,
+                                     &this->csr_columns,
+                                     &this->csr_values);
     if (status != SPARSE_STATUS_SUCCESS) {
         throw "Intel DSS failed to export CSR matrix";
     }
+
+    // compute the row indices vector to make a CSR3 matrix
+    this->csr_row_indices = (MKL_INT *)malloc((m + 1) * sizeof(MKL_INT));
+    if (this->csr_row_indices == NULL) {
+        throw "cannot allocate row_indices";
+    }
+    for (INT i = 0; i < m; i++) {
+        this->csr_row_indices[i] = csr_pointer_b[i];
+    }
+    this->csr_row_indices[m] = csr_pointer_e[m - 1];
 
     // print CSR matrix
     if (verbose) {
         std::cout << "\nCSR MATRIX\n";
         std::cout << "==========\n";
-        std::cout << "row : (value, column) (value, column) ... (value, column)\n";
+        std::cout << "\nrow_indices = ";
+        for (INT i = 0; i < m + 1; i++) {
+            std::cout << this->csr_row_indices[i] << ", ";
+        }
+        std::cout << "\n\nrow : (value, column) (value, column) ... (value, column)\n";
         MKL_INT k = 0;
         for (INT i = 0; i < m; i++) {
             std::cout << i << " : ";
@@ -68,43 +88,32 @@ void SolverDss::analyze(const std::unique_ptr<SparseTriplet> &trip,
             }
             std::cout << std::endl;
         }
-        status = mkl_sparse_destroy(csr);
-        if (status != SPARSE_STATUS_SUCCESS) {
-            throw "Intel DSS failed to destroy CSR matrix";
-        }
     }
 
     // define the non-zero structure of the matrix
-    // auto info = dss_define_structure(this->handle,
-    //                                  this->dss_opt,
-    //                                  matrix_row_indices,
-    //                                  m,
-    //                                  m,
-    //                                  matrix_columns,
-    //                                  nnz);
-    // if (info != MKL_DSS_SUCCESS) {
-    //     throw "Intel DSS failed to define the non-zero structure of the matrix";
-    // }
+    auto info = dss_define_structure(this->handle,
+                                     this->dss_opt,
+                                     this->csr_row_indices,
+                                     m,
+                                     m,
+                                     this->csr_columns,
+                                     nnz);
+    if (info != MKL_DSS_SUCCESS) {
+        throw "Intel DSS failed to define the non-zero structure of the matrix";
+    }
 
-    // // reorder the matrix
-    // error = dss_reorder(handle, opt, 0);
-    // if (error != MKL_DSS_SUCCESS) {
-    //     throw "Intel DSS failed to reorder the matrix";
-    // }
+    // reorder the matrix
+    info = dss_reorder(this->handle, this->dss_opt, 0);
+    if (info != MKL_DSS_SUCCESS) {
+        throw "Intel DSS failed to reorder the matrix";
+    }
 }
 
 void SolverDss::factorize(bool verbose) {
-    /*
-
-    // TEMPORARY
-    double matrix_values[9] = {9, 1.5, 6, .75, 3, 0.5, 12, .625, 16};
-
-    // factorize the matrix
-    auto error = dss_factor_real(handle, type, matrix_values);
-    if (error != MKL_DSS_SUCCESS) {
-        throw "Intel DSS failed to factorize the matrix";
-    }
-    */
+    // auto error = dss_factor_real(this->handle, this->type, matrix_values);
+    // if (error != MKL_DSS_SUCCESS) {
+    // throw "Intel DSS failed to factorize the matrix";
+    // }
 }
 
 void SolverDss::analyze_and_factorize(const std::unique_ptr<SparseTriplet> &trip,

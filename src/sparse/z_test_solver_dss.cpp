@@ -39,7 +39,7 @@ TEST_CASE("testing sparse solver Intel DSS") {
     auto solver = SolverDss::make_new(options);
 
     solver->analyze(trip, true);
-    // solver->factorize();
+    solver->factorize();
     // solver->solve(x, rhs);
 
     // print_vector("x", x);
