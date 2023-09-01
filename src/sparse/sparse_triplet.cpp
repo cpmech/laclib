@@ -1,6 +1,7 @@
 #include "sparse_triplet.h"
 
 #include <algorithm> // fill
+#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -166,3 +167,63 @@ CompressedSparseRowData SparseTriplet::to_csr() {
     // results
     return csr;
 }
+
+#ifdef USE_MKL
+sparse_matrix_t SparseTriplet::to_csr_using_mkl() {
+    // access triplet data
+    auto ai = this->indices_i.data();
+    auto aj = this->indices_j.data();
+    auto ax = this->values_aij.data();
+
+    // create COO matrix
+    auto m = this->dimension;
+    auto nnz = this->pos;
+    sparse_matrix_t coo;
+    auto status = mkl_sparse_d_create_coo(&coo, SPARSE_INDEX_BASE_ZERO, m, m, nnz, ai, aj, ax);
+    if (status != SPARSE_STATUS_SUCCESS) {
+        throw "Intel MKL failed to create COO matrix";
+    }
+
+    // convert COO to CSR
+    sparse_matrix_t csr;
+    status = mkl_sparse_convert_csr(coo, SPARSE_OPERATION_NON_TRANSPOSE, &csr);
+    if (status != SPARSE_STATUS_SUCCESS) {
+        throw "Intel MKL failed to convert COO matrix to CSR matrix";
+    }
+
+    // results
+    return csr;
+}
+
+void SparseTriplet::print_intel_csr_matrix(sparse_matrix_t &csr, INT dimension) {
+
+    sparse_index_base_t indexing;
+    INT *pointer_b = NULL;
+    INT *pointer_e = NULL;
+    INT *columns = NULL;
+    double *values = NULL;
+
+    auto status = mkl_sparse_d_export_csr(csr, &indexing, &dimension, &dimension, &pointer_b, &pointer_e, &columns, &values);
+    if (status != SPARSE_STATUS_SUCCESS) {
+        throw "Intel MKL failed to export csr matrix for printing";
+    }
+
+    std::cout << "\nCSR MATRIX\n";
+    std::cout << "==========\n";
+    std::cout << "\n\nrow : (value, column) (value, column) ... (value, column)\n";
+    INT k = 0;
+    for (INT i = 0; i < dimension; i++) {
+        std::cout << i << " : ";
+        for (INT j = pointer_b[i]; j < pointer_e[i]; j++) {
+            std::cout << "(" << values[k] << ", " << columns[k] << ") ";
+            k++;
+        }
+        std::cout << std::endl;
+    }
+
+    mkl_free(pointer_b);
+    mkl_free(pointer_e);
+    mkl_free(columns);
+    mkl_free(values);
+}
+#endif
