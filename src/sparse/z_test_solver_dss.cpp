@@ -7,7 +7,7 @@
 #include "../util/doctest.h"
 #include "../util/print_vector.h"
 #include "solver_dss.h"
-#include "sparse_triplet.h"
+#include "coo_matrix.h"
 
 using namespace std;
 

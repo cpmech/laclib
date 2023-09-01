@@ -5,7 +5,7 @@
 #include "../check/index.h"
 #include "../util/doctest.h"
 #include "solver_mumps.h"
-#include "sparse_triplet.h"
+#include "coo_matrix.h"
 using namespace std;
 
 #define ICNTL(I) icntl[(I)-1] // macro such that indices match documentation

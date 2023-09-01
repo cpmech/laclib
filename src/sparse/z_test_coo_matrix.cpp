@@ -4,7 +4,7 @@
 
 #include "../check/index.h"
 #include "../util/doctest.h"
-#include "sparse_triplet.h"
+#include "coo_matrix.h"
 
 #define _SUBCASE(name) if (false)
 

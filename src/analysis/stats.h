@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "../sparse/sparse_blas.h"
-#include "../sparse/sparse_triplet.h"
+#include "../sparse/coo_matrix.h"
 #include "../util/stopwatch.h"
 #include "cblas_tools.h"
 

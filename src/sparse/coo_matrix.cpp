@@ -1,4 +1,4 @@
-#include "sparse_triplet.h"
+#include "coo_matrix.h"
 
 void SparseTriplet::put(INT i, INT j, double aij) {
 

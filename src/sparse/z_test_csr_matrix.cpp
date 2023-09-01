@@ -5,7 +5,7 @@
 #include "../check/index.h"
 #include "../util/doctest.h"
 #include "csr_matrix.h"
-#include "sparse_triplet.h"
+#include "coo_matrix.h"
 
 using namespace std;
 

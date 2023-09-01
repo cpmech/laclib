@@ -2,7 +2,7 @@
 #include <vector>
 
 #include "../check/index.h"
-#include "../sparse/sparse_triplet.h"
+#include "../sparse/coo_matrix.h"
 #include "../util/doctest.h"
 #include "stats.h"
 using namespace std;

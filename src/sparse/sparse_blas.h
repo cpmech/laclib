@@ -3,7 +3,7 @@
 #include <memory>
 #include <vector>
 
-#include "sparse_triplet.h"
+#include "coo_matrix.h"
 
 /// @brief Returns the (sparse) matrix-vector multiplication (scaled):
 /// @param v Is the output vector

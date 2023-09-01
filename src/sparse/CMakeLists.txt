@@ -1,8 +1,8 @@
 set(TESTS
+    z_test_coo_matrix
     z_test_csr_matrix
     z_test_read_matrix_market
     z_test_sparse_blas
-    z_test_sparse_triplet
 )
 
 if(A0_MKL)

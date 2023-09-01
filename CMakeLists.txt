@@ -59,20 +59,20 @@ set(LACLIB_NAME "laclib${PLAT}")
 
 if(A0_MKL)
     add_library(${LACLIB_NAME} SHARED
+        src/sparse/coo_matrix.cpp
         src/sparse/csr_matrix.cpp
         src/sparse/read_matrix_market.cpp
-        src/sparse/solver_dss.cpp
         src/sparse/sparse_blas.cpp
-        src/sparse/sparse_triplet.cpp
+        src/sparse/solver_dss.cpp
     )
     target_link_libraries(${LACLIB_NAME} PUBLIC MKL::MKL)
 else()
     add_library(${LACLIB_NAME} SHARED
+        src/sparse/coo_matrix.cpp
         src/sparse/csr_matrix.cpp
         src/sparse/read_matrix_market.cpp
         src/sparse/solver_mumps.cpp
         src/sparse/sparse_blas.cpp
-        src/sparse/sparse_triplet.cpp
     )
     target_link_libraries(${LACLIB_NAME} PUBLIC ${MUMPS_LIBS} ${LA_LIBS})
 endif()

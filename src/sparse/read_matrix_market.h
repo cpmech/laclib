@@ -2,7 +2,7 @@
 #include <memory>
 #include <string>
 
-#include "sparse_triplet.h"
+#include "coo_matrix.h"
 
 enum PartitionOption {
     PARTITION_BY_NNZ,

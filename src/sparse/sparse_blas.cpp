@@ -1,7 +1,7 @@
 #include <memory>
 #include <vector>
 
-#include "sparse_triplet.h"
+#include "coo_matrix.h"
 
 void sp_mat_vec_mul(std::vector<double> &v,
                     double alpha,

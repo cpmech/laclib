@@ -9,4 +9,4 @@
 #include "csr_matrix.h"
 #include "read_matrix_market.h"
 #include "sparse_blas.h"
-#include "sparse_triplet.h"
+#include "coo_matrix.h"

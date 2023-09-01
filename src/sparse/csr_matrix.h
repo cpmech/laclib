@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "../util/print_vector.h"
-#include "sparse_triplet.h"
+#include "coo_matrix.h"
 
 /// @brief Holds the arrays needed for a CSR (compressed sparse row) matrix
 struct CsrMatrix {

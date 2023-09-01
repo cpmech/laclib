@@ -5,7 +5,7 @@
 #include "mkl_dss.h"
 #include "mkl_spblas.h"
 #include "solver_dss_options.h"
-#include "sparse_triplet.h"
+#include "coo_matrix.h"
 
 /// @brief Wraps the Intel DSS solver
 struct SolverDss {

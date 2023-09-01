@@ -7,7 +7,7 @@
 #include "solver_mumps_constants.h"
 #include "solver_mumps_options.h"
 #include "solver_mumps_wrapper.h"
-#include "sparse_triplet.h"
+#include "coo_matrix.h"
 
 /// @brief Wraps the MUMPS solver
 struct SolverMumps {
