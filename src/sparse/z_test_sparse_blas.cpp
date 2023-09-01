@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "../check/check.h"
+#include "../check/index.h"
 #include "../util/doctest.h"
 #include "sparse_blas.h"
 

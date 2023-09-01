@@ -1,1 +1,2 @@
-#include "check.h"
+#include "check_arrays.h"
+#include "check_vectors.h"

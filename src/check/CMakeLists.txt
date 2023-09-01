@@ -1,4 +1,5 @@
 set(TESTS
+    z_test_equal_arrays
     z_test_equal_scalars
     z_test_equal_vectors
 )

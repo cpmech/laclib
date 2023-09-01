@@ -2,7 +2,7 @@
 #include <vector>
 
 #include "../analysis/index.h"
-#include "../check/check.h"
+#include "../check/index.h"
 #include "../util/doctest.h"
 #include "solver_mumps.h"
 #include "sparse_triplet.h"

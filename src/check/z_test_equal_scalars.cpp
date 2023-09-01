@@ -1,9 +1,11 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+
 #include <string>
 #include <vector>
 
 #include "../util/doctest.h"
-#include "check.h"
+#include "index.h"
+
 using namespace std;
 
 TEST_CASE("equal_scalars_tol") {

@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <vector>
 
-#include "../check/check.h"
+#include "../check/index.h"
 #include "../sparse/sparse_triplet.h"
 #include "../util/doctest.h"
 #include "stats.h"

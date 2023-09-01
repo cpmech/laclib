@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "../analysis/index.h"
-#include "../check/check.h"
+#include "../check/index.h"
 #include "../util/doctest.h"
 #include "../util/print_vector.h"
 #include "solver_dss.h"
