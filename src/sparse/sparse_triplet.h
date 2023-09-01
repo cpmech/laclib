@@ -109,8 +109,7 @@ struct SparseTriplet {
     void put(INT i, INT j, double aij);
 
     /// @brief Converts the Triplet (aka COO) matrix to CSR matrix
-    /// @param sum_duplicates Do sum the duplicates, if any. See note below about entries left in the array.
     /// @return Three vectors: row_pointers, column_indices, and values
     /// @note If there are duplicates, the resulting column_indices and values arrays will have larger sizes. Thus, one must check the resulting nnz value.
-    CompressedSparseRowData to_csr(bool sum_duplicates);
+    CompressedSparseRowData to_csr();
 };

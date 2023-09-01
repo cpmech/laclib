@@ -110,7 +110,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         trip->put(1, 0, -2.0);
         trip->put(3, 3, 7.0);
 
-        auto csr = trip->to_csr(false);
+        auto csr = trip->to_csr();
         // print_vector("p", csr.row_pointers);
         // print_vector("j", csr.column_indices);
         // print_vector("x", csr.values);
@@ -140,7 +140,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         trip->put(1, 1, 4.0);
         trip->put(3, 3, 8.0);
 
-        auto csr = trip->to_csr(false);
+        auto csr = trip->to_csr();
         // print_vector("p", csr.row_pointers);
         // print_vector("j", csr.column_indices);
         // print_vector("x", csr.values);
@@ -172,7 +172,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         trip->put(2, 3, 3.0); // << duplicate
         trip->put(1, 1, 2.0); // << duplicate
 
-        auto csr = trip->to_csr(true);
+        auto csr = trip->to_csr();
         // print_vector("p", csr.row_pointers);
         // print_vector("j", csr.column_indices);
         // print_vector("x", csr.values);
@@ -209,7 +209,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         trip->put(0, 4, 3.0);
         trip->put(4, 4, 16.0);
 
-        auto csr = trip->to_csr(false);
+        auto csr = trip->to_csr();
         // print_vector("p", csr.row_pointers);
         // print_vector("j", csr.column_indices);
         // print_vector("x", csr.values);
@@ -241,7 +241,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         trip->put(1, 1, 0.5);
         trip->put(0, 4, 3.0);
 
-        auto csr = trip->to_csr(false);
+        auto csr = trip->to_csr();
         // print_vector("p", csr.row_pointers);
         // print_vector("j", csr.column_indices);
         // print_vector("x", csr.values);
@@ -275,7 +275,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         trip->put(0, 3, 0.75);
         trip->put(0, 4, 3.0);
 
-        auto csr = trip->to_csr(false);
+        auto csr = trip->to_csr();
         // print_vector("p", csr.row_pointers);
         // print_vector("j", csr.column_indices);
         // print_vector("x", csr.values);
@@ -307,7 +307,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         trip->put(4, 0, 3.0);
         trip->put(4, 4, 16.0);
 
-        auto csr = trip->to_csr(false);
+        auto csr = trip->to_csr();
         // print_vector("p", csr.row_pointers);
         // print_vector("j", csr.column_indices);
         // print_vector("x", csr.values);
@@ -341,7 +341,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         trip->put(3, 0, 0.75);
         trip->put(4, 0, 3.0);
 
-        auto csr = trip->to_csr(false);
+        auto csr = trip->to_csr();
         // print_vector("p", csr.row_pointers);
         // print_vector("j", csr.column_indices);
         // print_vector("x", csr.values);

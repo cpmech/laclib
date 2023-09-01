@@ -81,7 +81,7 @@ bool _kv_pair_less(const std::pair<T1, T2> &x, const std::pair<T1, T2> &y) {
     return x.first < y.first;
 }
 
-CompressedSparseRowData SparseTriplet::to_csr(bool sum_duplicates) {
+CompressedSparseRowData SparseTriplet::to_csr() {
 
     // Based on the SciPy code from here:
     //
@@ -160,10 +160,8 @@ CompressedSparseRowData SparseTriplet::to_csr(bool sum_duplicates) {
     }
 
     // sum duplicates
-    if (sum_duplicates) {
-        auto final_nnz = _csr_sum_duplicates(n_row, bp, bj, bx);
-        csr.nnz = final_nnz;
-    }
+    auto final_nnz = _csr_sum_duplicates(n_row, bp, bj, bx);
+    csr.nnz = final_nnz;
 
     // results
     return csr;
