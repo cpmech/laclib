@@ -1,7 +1,6 @@
 #include "sparse_triplet.h"
 
 #include <algorithm> // fill
-#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -123,34 +122,14 @@ CompressedSparseRowData SparseTriplet::to_csr(bool sum_duplicates) {
     }
     bp[n_row] = nnz;
 
-    cout << "\nai = ";
-    for (size_t k = 0; k < nnz; k++) {
-        cout << ai[k] << ", ";
-    }
-    cout << "\naj = ";
-    for (size_t k = 0; k < nnz; k++) {
-        cout << aj[k] << ", ";
-    }
-    cout << "\nax = ";
-    for (size_t k = 0; k < nnz; k++) {
-        cout << ax[k] << ", ";
-    }
-    cout << endl;
-    cout << "\nrow dest bj[dest] bx[dest]" << endl;
-
     // write aj and ax into bj and bx (will use bp as workspace)
     for (size_t k = 0; k < nnz; k++) {
         INT row = ai[k];
         INT dest = bp[row];
         bj[dest] = aj[k];
         bx[dest] = ax[k];
-
-        cout << row << " " << dest << " " << bj[dest] << " " << bx[dest] << endl;
-
         bp[row]++;
     }
-
-    cout << endl;
 
     // fix bp
     size_t last = 0;
@@ -160,24 +139,9 @@ CompressedSparseRowData SparseTriplet::to_csr(bool sum_duplicates) {
         last = temp;
     }
 
-    cout << "\nbp = ";
-    for (size_t k = 0; k < n_row + 1; k++) {
-        cout << bp[k] << ", ";
-    }
-    cout << "\naj = ";
-    for (size_t k = 0; k < nnz; k++) {
-        cout << bj[k] << ", ";
-    }
-    cout << "\nax = ";
-    for (size_t k = 0; k < nnz; k++) {
-        cout << bx[k] << ", ";
-    }
-    cout << endl;
-    cout << endl;
-
     // sort rows
     std::vector<std::pair<INT, double>> temp;
-    for (INT i = 0; i < n_row; i++) {
+    for (size_t i = 0; i < n_row; i++) {
         INT row_start = bp[i];
         INT row_end = bp[i + 1];
         temp.resize(row_end - row_start);

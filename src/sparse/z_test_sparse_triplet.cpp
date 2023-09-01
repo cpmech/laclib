@@ -111,9 +111,10 @@ TEST_CASE("testing SparseTriplet (put)") {
         trip->put(3, 3, 7.0);
 
         auto csr = trip->to_csr(false);
-        print_vector("p", csr.row_pointers);
-        print_vector("j", csr.column_indices);
-        print_vector("x", csr.values);
+        // print_vector("p", csr.row_pointers);
+        // print_vector("j", csr.column_indices);
+        // print_vector("x", csr.values);
+
         vector<INT> correct_p{0, 3, 5, 8, 11, 13};
         vector<INT> correct_j{0, 1, 3, /**/ 0, 1, /**/ 2, 3, 4, /**/ 0, 2, 3, /**/ 1, 4};
         vector<double> correct_x{1.0, -1.0, -3.0, -2.0, 5.0, 4.0, 6.0, 4.0, -4.0, 2.0, 7.0, 8.0, -5.0};
@@ -122,7 +123,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(equal_vectors_tol(csr.values, correct_x, 1e-15));
     }
 
-    _SUBCASE("convert to csr works with small matrix") {
+    SUBCASE("convert to csr works with small matrix") {
         // 1  2  .  .  .
         // 3  4  .  .  .
         // .  .  5  6  .
@@ -152,7 +153,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(equal_vectors_tol(csr.values, correct_x, 1e-15));
     }
 
-    _SUBCASE("convert to csr works with small matrix (sum duplicates)") {
+    SUBCASE("convert to csr works with small matrix (sum duplicates)") {
         // 1  2  .  .  .
         // 3  4  .  .  .
         // .  .  5  6  .
@@ -189,7 +190,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(equal_vectors_tol(final_x, correct_x, 1e-15));
     }
 
-    _SUBCASE("convert to csr works with symmetric matrix (upper triangular / ordered)") {
+    SUBCASE("convert to csr works with symmetric matrix (upper triangular / ordered)") {
         //  9.00  1.5   6.0  0.750   3.0
         //  1.50  0.5   0.0  0.000   0.0
         //  6.00  0.0  12.0  0.000   0.0
@@ -221,7 +222,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(equal_vectors_tol(csr.values, correct_x, 1e-15));
     }
 
-    _SUBCASE("convert to csr works with symmetric matrix (upper triangular / shuffled)") {
+    SUBCASE("convert to csr works with symmetric matrix (upper triangular / shuffled)") {
         //  9.00  1.5   6.0  0.750   3.0
         //  1.50  0.5   0.0  0.000   0.0
         //  6.00  0.0  12.0  0.000   0.0
@@ -253,7 +254,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(equal_vectors_tol(csr.values, correct_x, 1e-15));
     }
 
-    _SUBCASE("convert to csr works with symmetric matrix (upper triangular / diagonal first)") {
+    SUBCASE("convert to csr works with symmetric matrix (upper triangular / diagonal first)") {
         //  9.00  1.5   6.0  0.750   3.0
         //  1.50  0.5   0.0  0.000   0.0
         //  6.00  0.0  12.0  0.000   0.0
@@ -287,7 +288,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(equal_vectors_tol(csr.values, correct_x, 1e-15));
     }
 
-    _SUBCASE("convert to csr works with symmetric matrix (lower triangular / ordered)") {
+    SUBCASE("convert to csr works with symmetric matrix (lower triangular / ordered)") {
         //  9.00  1.5   6.0  0.750   3.0
         //  1.50  0.5   0.0  0.000   0.0
         //  6.00  0.0  12.0  0.000   0.0
@@ -319,7 +320,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(equal_vectors_tol(csr.values, correct_x, 1e-15));
     }
 
-    _SUBCASE("convert to csr works with symmetric matrix (lower triangular / diagonal first)") {
+    SUBCASE("convert to csr works with symmetric matrix (lower triangular / diagonal first)") {
         //  9.00  1.5   6.0  0.750   3.0
         //  1.50  0.5   0.0  0.000   0.0
         //  6.00  0.0  12.0  0.000   0.0
@@ -341,9 +342,9 @@ TEST_CASE("testing SparseTriplet (put)") {
         trip->put(4, 0, 3.0);
 
         auto csr = trip->to_csr(false);
-        print_vector("p", csr.row_pointers);
-        print_vector("j", csr.column_indices);
-        print_vector("x", csr.values);
+        // print_vector("p", csr.row_pointers);
+        // print_vector("j", csr.column_indices);
+        // print_vector("x", csr.values);
 
         vector<INT> correct_p{0, 1, 3, 5, 7, 9};
         vector<INT> correct_j{0, 0, 1, 0, 2, 0, 3, 0, 4};
