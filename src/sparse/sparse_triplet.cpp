@@ -37,6 +37,7 @@ void SparseTriplet::put(INT i, INT j, double aij) {
 
 /// @brief Sums duplicate column entries in each row of a CSR matrix
 /// @return The final number of non-zeros (nnz) after duplicates have been handled
+/// @note INTERNAL FUNCTION
 size_t _csr_sum_duplicates(size_t dimension, INT ap[], INT aj[], double ax[]) {
 
     // Based on the SciPy code from here:
@@ -73,8 +74,10 @@ size_t _csr_sum_duplicates(size_t dimension, INT ap[], INT aj[], double ax[]) {
     return static_cast<size_t>(nnz);
 }
 
+/// @brief Compares two values (for sorting)
+/// @note INTERNAL FUNCTION
 template <class T1, class T2>
-bool kv_pair_less(const std::pair<T1, T2> &x, const std::pair<T1, T2> &y) {
+bool _kv_pair_less(const std::pair<T1, T2> &x, const std::pair<T1, T2> &y) {
     return x.first < y.first;
 }
 
@@ -149,7 +152,7 @@ CompressedSparseRowData SparseTriplet::to_csr(bool sum_duplicates) {
             temp[n].first = bj[jj];
             temp[n].second = bx[jj];
         }
-        std::sort(temp.begin(), temp.end(), kv_pair_less<INT, double>);
+        std::sort(temp.begin(), temp.end(), _kv_pair_less<INT, double>);
         for (INT jj = row_start, n = 0; jj < row_end; jj++, n++) {
             bj[jj] = temp[n].first;
             bx[jj] = temp[n].second;
