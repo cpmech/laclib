@@ -9,4 +9,3 @@ This is the "main" laclib directory with the following:
 - [sparse](https://github.com/cpmech/laclib/tree/main/src/sparse) sparse matrix and solvers tools
 - [util](https://github.com/cpmech/laclib/tree/main/src/util) some utilities for file/string manipulations
 
-Here, the files starting with `zz_...` are **unit tests** whereas the files such as `zzi_...` are **integration tests** (those involving more than one single structure or function).

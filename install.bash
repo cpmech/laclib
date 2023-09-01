@@ -3,7 +3,8 @@
 set -e
 
 # arguments
-OMP=${1:-"ON"}
+MKL=${1:-"ON"}
+OMP=${2:-"OFF"}
 
 # options
 PREFIX="/usr/local"
@@ -11,16 +12,22 @@ INCDIR=$PREFIX/include/laclib
 LIBDIR=$PREFIX/lib/laclib
 
 # platform suffix
-PLAT="_open_seq"
-if [ "${OMP}" = "ON" ]; then
-    PLAT="${PLAT}_omp"
+PLAT=""
+if [ "${MPI}" = "ON" ]; then
+    PLAT="_intel"
+else
+    PLAT="_open_seq"
+    if [ "${OMP}" = "ON" ]; then
+        PLAT="${PLAT}_omp"
+    fi
 fi
 
 # remove previous build
 rm -rf ./build
 
 # call cmake
-cmake -D A1_OMP=${OMP} \
+cmake -D A0_MKL=${MKL} \
+      -D A1_OMP=${OMP} \
       -D A2_OPTIMIZED="ON" \
       -D A3_VERBOSE="OFF" \
       -D CMAKE_BUILD_TYPE="Release" \
@@ -28,13 +35,14 @@ cmake -D A1_OMP=${OMP} \
 
 # compile the library
 cd build
-make laclib${PLAT}
+make && make test
 cd ..
 
 # copy internal include files
 SUBDIRS="
-    blas
+    analysis
     check
+    linalg
     sparse
     util
 "

@@ -5,7 +5,6 @@
 #include <sstream>
 #include <string>
 
-#include "../sparse/solver_mumps_options.h"
 #include "../util/memory_usage.h"
 #include "../util/path_tools.h"
 #include "../util/stopwatch.h"
@@ -61,40 +60,40 @@ struct Report {
         auto bytes = memory_usage();
 
         switch (step) {
-            case STEP_READ_MATRIX:
-                this->step_read_matrix = TimeAndMemory{nanoseconds, bytes};
-                break;
+        case STEP_READ_MATRIX:
+            this->step_read_matrix = TimeAndMemory{nanoseconds, bytes};
+            break;
 
-            case STEP_ANALYZE:
-                this->step_analyze = TimeAndMemory{nanoseconds, bytes};
-                break;
+        case STEP_ANALYZE:
+            this->step_analyze = TimeAndMemory{nanoseconds, bytes};
+            break;
 
-            case STEP_FACTORIZE:
-                this->step_factorize = TimeAndMemory{nanoseconds, bytes};
-                break;
+        case STEP_FACTORIZE:
+            this->step_factorize = TimeAndMemory{nanoseconds, bytes};
+            break;
 
-            case STEP_SOLVE:
-                this->step_solve = TimeAndMemory{nanoseconds, bytes};
-                break;
+        case STEP_SOLVE:
+            this->step_solve = TimeAndMemory{nanoseconds, bytes};
+            break;
 
-            default:
-                throw "Report::measure_now: StepName is invalid";
+        default:
+            throw "Report::measure_now: StepName is invalid";
         }
     }
 
     inline void write_json(const std::string &output_dir,
                            const std::string &solver_kind,
                            const std::string &matrix_name,
-                           const std::unique_ptr<MumpsOptions> &options,
-                           const std::unique_ptr<SparseTriplet> &trip,
+                           const std::string &ordering,
+                           int omp_num_threads,
+                           const std::unique_ptr<CooMatrix> &coo,
                            const std::unique_ptr<Stats> &stats) {
-        auto ordering = mumps_ordering_to_string(options->ordering);
 
         std::string suffix = "_open_seq";
         int effective_mpi_size = 0;
 #ifdef HAS_OMP
-        int effective_omp_num_threads = options->omp_num_threads;
-        suffix += "_omp" + std::to_string(options->omp_num_threads);
+        int effective_omp_num_threads = omp_num_threads;
+        suffix += "_omp" + std::to_string(omp_num_threads);
 #else
         int effective_omp_num_threads = 0;
 #endif
@@ -107,7 +106,7 @@ struct Report {
 
         std::string filepath = output_dir + "/" + fnkey.str() + ".json";
 
-        std::string str_symmetric = trip->symmetric ? "true" : "false";
+        std::string str_symmetric = is_symmetric(coo->layout) ? "true" : "false";
 
         std::ofstream ofs(filepath, std::ofstream::out);
         ofs << "{\n";
@@ -118,9 +117,9 @@ struct Report {
         ofs << "  \"MpiSize\": " << effective_mpi_size << ",\n";
         ofs << "  \"OmpNumThreads\": " << effective_omp_num_threads << ",\n";
         ofs << "  \"Symmetric\": " << str_symmetric << ",\n";
-        ofs << "  \"NumberOfRows\": " << trip->m << ",\n";
-        ofs << "  \"NumberOfCols\": " << trip->n << ",\n";
-        ofs << "  \"NumberOfNonZeros\": " << trip->pos << ",\n";
+        ofs << "  \"NumberOfRows\": " << coo->dimension << ",\n";
+        ofs << "  \"NumberOfCols\": " << coo->dimension << ",\n";
+        ofs << "  \"NumberOfNonZeros\": " << coo->pos << ",\n";
         ofs << "  \"StepReadMatrix\": {\n";
         ofs << "    \"ElapsedTimeNanoseconds\": " << this->step_read_matrix.nanoseconds << ",\n";
         ofs << "    \"ElapsedTimeString\": \"" << SNSEC(this->step_read_matrix.nanoseconds) << "\",\n";

@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <iostream>
 
-#include "../check/check.h"
+#include "../check/index.h"
 #include "constants.h"
 #include "doctest.h"
 #include "formaters.h"

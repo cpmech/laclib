@@ -1,5 +1,7 @@
 {
-  "C_Cpp.default.includePath": ["/usr/local/include/mumps"],
+  "C_Cpp.default.includePath": [
+    "/usr/local/include/mumps"
+  ],
   "files.associations": {
     "*.C": "cpp",
     "optional": "cpp",
@@ -41,5 +43,29 @@
     "**/dist": true,
     "**/.rpt2_cache": true,
     "**/cdk.out": true
-  }
+  },
+  "cSpell.words": [
+    "envar",
+    "GEMM",
+    "Gibibytes",
+    "IFORMAT",
+    "indptr",
+    "Kibi",
+    "Kibibyte",
+    "linalg",
+    "NCOLS",
+    "NNONZEROS",
+    "PARDISO",
+    "PARMETIS",
+    "PERMUT",
+    "PTSCOTCH",
+    "ROWCOL",
+    "SMIB",
+    "SPMV",
+    "SUBCASE"
+  ],
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "python.formatting.provider": "none"
 }

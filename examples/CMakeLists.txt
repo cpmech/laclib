@@ -1,6 +1,9 @@
+if(A0_MKL)
+else()
 set(EXAMPLES
     ex_solver_mumps
 )
+endif()
 
 foreach(var ${EXAMPLES})
     add_executable(${var} "${var}.cpp")

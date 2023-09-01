@@ -3,8 +3,7 @@
 #include <cstdio>
 #include <cstring>
 
-std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
-                                                  bool onebased) {
+std::unique_ptr<CooMatrix> read_matrix_market(const std::string &filename) {
     FILE *f = fopen(filename.c_str(), "r");
     if (f == NULL) {
         throw "read_matrix_market: cannot open file";
@@ -16,10 +15,10 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
     // %%MatrixMarket matrix coordinate real    general
     // 12345678901234 123456 1234567890 1234    1234567
 
-    const int LINE_MAX = 2048;
-    char line[LINE_MAX];
+    const int line_max = 2048;
+    char line[line_max];
 
-    if (fgets(line, LINE_MAX, f) == NULL) {
+    if (fgets(line, line_max, f) == NULL) {
         fclose(f);
         throw "read_matrix_market: cannot read any line in the file";
     }
@@ -51,14 +50,15 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
         throw "read_matrix_market: matrix must be \"general\" or \"symmetric\"";
     }
 
-    std::unique_ptr<SparseTriplet> trip;
+    std::unique_ptr<CooMatrix> coo;
     bool symmetric = strncmp(sym, "symmetric", 9) == 0;
+    StoredLayout layout = symmetric ? LOWER_TRIANGULAR : FULL_MATRIX;
 
     bool initialized = false;
     size_t m, n, nnz, i, j;
     double x;
 
-    while (fgets(line, LINE_MAX, f) != NULL) {
+    while (fgets(line, line_max, f) != NULL) {
         // dimensions
         if (!initialized) {
             if (line[0] == '%') {
@@ -71,7 +71,7 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
                 throw "read_matrix_market: cannot parse the dimensions (m,n,nnz)";
             }
 
-            trip = SparseTriplet::make_new(m, n, nnz, onebased, symmetric);
+            coo = CooMatrix::make_new(layout, m, nnz);
             initialized = true;
         }
 
@@ -83,10 +83,10 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename,
                 throw "read_matrix_market: cannot parse the values (i,j,x)";
             }
 
-            trip->put(i - 1, j - 1, x);
+            coo->put(i - 1, j - 1, x);
         }
     }
 
     fclose(f);
-    return trip;
+    return coo;
 }

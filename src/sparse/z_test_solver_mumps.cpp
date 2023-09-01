@@ -2,33 +2,32 @@
 #include <vector>
 
 #include "../analysis/index.h"
-#include "../check/check.h"
+#include "../check/index.h"
 #include "../util/doctest.h"
+#include "coo_matrix.h"
 #include "solver_mumps.h"
-#include "sparse_triplet.h"
 using namespace std;
 
-#define ICNTL(I) icntl[(I)-1]  // macro such that indices match documentation
-#define INFOG(I) infog[(I)-1]  // macro to make indices match documentation
+#define ICNTL(I) icntl[(I)-1] // macro such that indices match documentation
+#define INFOG(I) infog[(I)-1] // macro to make indices match documentation
 
 TEST_CASE("testing sparse solver MUMPS (NP1)") {
     set_num_threads(1);
 
-    bool onebased = true;
-    auto trip = SparseTriplet::make_new(5, 5, 13, onebased);
-    trip->put(0, 0, +1.0);  // << duplicated
-    trip->put(0, 0, +1.0);  // << duplicated
-    trip->put(1, 0, +3.0);
-    trip->put(0, 1, +3.0);
-    trip->put(2, 1, -1.0);
-    trip->put(4, 1, +4.0);
-    trip->put(1, 2, +4.0);
-    trip->put(2, 2, -3.0);
-    trip->put(3, 2, +1.0);
-    trip->put(4, 2, +2.0);
-    trip->put(2, 3, +2.0);
-    trip->put(1, 4, +6.0);
-    trip->put(4, 4, +1.0);
+    auto coo = CooMatrix::make_new(FULL_MATRIX, 5, 13);
+    coo->put(0, 0, +1.0); // << duplicated
+    coo->put(0, 0, +1.0); // << duplicated
+    coo->put(1, 0, +3.0);
+    coo->put(0, 1, +3.0);
+    coo->put(2, 1, -1.0);
+    coo->put(4, 1, +4.0);
+    coo->put(1, 2, +4.0);
+    coo->put(2, 2, -3.0);
+    coo->put(3, 2, +1.0);
+    coo->put(4, 2, +2.0);
+    coo->put(2, 3, +2.0);
+    coo->put(1, 4, +6.0);
+    coo->put(4, 4, +1.0);
 
     auto rhs = vector<double>{8.0, 45.0, -3.0, 3.0, 19.0};
     auto x = vector<double>{0, 0, 0, 0, 0};
@@ -46,8 +45,8 @@ TEST_CASE("testing sparse solver MUMPS (NP1)") {
     REQUIRE(solver.get()->analyzed == false);
     REQUIRE(solver.get()->factorized == false);
 
-    SUBCASE("using analyse, factorize and solve") {
-        solver->analyze(trip);
+    SUBCASE("using analyze, factorize and solve") {
+        solver->analyze(coo);
         CHECK(solver.get()->analyzed == true);
         CHECK(solver.get()->factorized == false);
 
@@ -59,8 +58,8 @@ TEST_CASE("testing sparse solver MUMPS (NP1)") {
         CHECK(equal_vectors_tol(x, x_correct, 1e-14) == true);
     }
 
-    SUBCASE("using analyse_and_factorize and solve") {
-        solver->analyze_and_factorize(trip);
+    SUBCASE("using analyze_and_factorize and solve") {
+        solver->analyze_and_factorize(coo);
         CHECK(solver.get()->analyzed == true);
         CHECK(solver.get()->factorized == true);
 

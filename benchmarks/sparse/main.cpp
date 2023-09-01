@@ -8,9 +8,9 @@ void run(int argc, char **argv) {
 
     // get arguments from command line
     vector<string> defaults{
-        "bfwb62",  // default matrix_name
-        "1",       // default omp_num_threads
-        "metis",   // default ordering
+        "bfwb62", // default matrix_name
+        "1",      // default omp_num_threads
+        "metis",  // default ordering
     };
     auto args = extract_arguments_or_use_defaults(argc, argv, defaults);
     auto matrix_name = args[0];
@@ -20,15 +20,14 @@ void run(int argc, char **argv) {
     // read matrix
     auto path = path_get_current() + "/../../../benchmarks/sparse/data/";
     auto filename = path + matrix_name + ".mtx";
-    auto onebased = true;
-    auto trip = read_matrix_market(filename, onebased);
+    auto coo = read_matrix_market(filename);
     report->measure_step(STEP_READ_MATRIX);
 
     // set number of threads
     set_num_threads(omp_num_threads);
 
     // set options
-    auto options = MumpsOptions::make_new(trip->symmetric);
+    auto options = MumpsOptions::make_new(is_symmetric(coo->layout));
     options->omp_num_threads = omp_num_threads;
     options->ordering = ordering;
     options->max_work_memory = 30000;
@@ -38,13 +37,13 @@ void run(int argc, char **argv) {
     auto verbose = true;
 
     // set right-hand-side and solution vector
-    auto rhs = vector<double>(trip->n, 1.0);
-    auto x = vector<double>(trip->n, 0.0);
+    auto rhs = vector<double>(coo->dimension, 1.0);
+    auto x = vector<double>(coo->dimension, 0.0);
 
     // start linear solver execution /////////////////////////////////////
     report->solver_start_stopwatch();
 
-    solver->analyze(trip, verbose);
+    solver->analyze(coo, verbose);
     report->measure_step(STEP_ANALYZE);
 
     solver->factorize(verbose);
@@ -60,9 +59,15 @@ void run(int argc, char **argv) {
     check_x(matrix_name, x);
 
     // write report
-    auto stats = Stats::make_new(trip, x, rhs);
+    auto stats = Stats::make_new(coo, x, rhs);
     auto out_dir = path_get_current() + "/../../../benchmarks/sparse/results/latest/";
-    report->write_json(out_dir, "mumps", matrix_name, options, trip, stats);
+    report->write_json(out_dir,
+                       "mumps",
+                       matrix_name,
+                       mumps_ordering_to_string(options->ordering),
+                       options->omp_num_threads,
+                       coo,
+                       stats);
 }
 
 int main(int argc, char **argv) {

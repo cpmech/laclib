@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <vector>
 
-#include "../check/check.h"
+#include "../check/index.h"
 #include "../util/doctest.h"
 #include "cblas_tools.h"
 using namespace std;

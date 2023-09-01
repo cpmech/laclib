@@ -1,6 +1,6 @@
 set(TESTS
-    zz_cblas_tools
-    zz_stats
+    z_test_cblas_tools
+    z_test_stats
 )
 
 foreach(var ${TESTS})
