@@ -23,27 +23,27 @@ void run(int argc, char **argv) {
     // The solution is: x = {1, 2, 3, 4, 5}
 
     // input A matrix in triplet format
-    auto trip = SparseTriplet::make_new(FULL_MATRIX, 5, 13);
-    trip->put(0, 0, +1.0); // << duplicated (no problem)
-    trip->put(0, 0, +1.0); // << duplicated
-    trip->put(1, 0, +3.0);
-    trip->put(0, 1, +3.0);
-    trip->put(2, 1, -1.0);
-    trip->put(4, 1, +4.0);
-    trip->put(1, 2, +4.0);
-    trip->put(2, 2, -3.0);
-    trip->put(3, 2, +1.0);
-    trip->put(4, 2, +2.0);
-    trip->put(2, 3, +2.0);
-    trip->put(1, 4, +6.0);
-    trip->put(4, 4, +1.0);
+    auto coo = CooMatrix::make_new(FULL_MATRIX, 5, 13);
+    coo->put(0, 0, +1.0); // << duplicated (no problem)
+    coo->put(0, 0, +1.0); // << duplicated
+    coo->put(1, 0, +3.0);
+    coo->put(0, 1, +3.0);
+    coo->put(2, 1, -1.0);
+    coo->put(4, 1, +4.0);
+    coo->put(1, 2, +4.0);
+    coo->put(2, 2, -3.0);
+    coo->put(3, 2, +1.0);
+    coo->put(4, 2, +2.0);
+    coo->put(2, 3, +2.0);
+    coo->put(1, 4, +6.0);
+    coo->put(4, 4, +1.0);
 
     // allocate MUMPS solver and options
-    auto options = MumpsOptions::make_new(is_symmetric(trip->layout));
+    auto options = MumpsOptions::make_new(is_symmetric(coo->layout));
     auto solver = SolverMumps::make_new(options);
 
     // analyze and factorize the matrix
-    solver->analyze_and_factorize(trip);
+    solver->analyze_and_factorize(coo);
 
     // allocate some vectors
     auto b = vector<double>{8.0, 45.0, -3.0, 3.0, 19.0};

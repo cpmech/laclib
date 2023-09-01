@@ -26,20 +26,20 @@ TEST_CASE("read_matrix_market") {
         CHECK_THROWS_WITH(read_matrix_market(s + "7.mtx"), "read_matrix_market: cannot parse the dimensions (m,n,nnz)");
         CHECK_THROWS_WITH(read_matrix_market(s + "8.mtx"), "read_matrix_market: cannot parse the values (i,j,x)");
         CHECK_THROWS_WITH(read_matrix_market(s + "9.mtx"), "read_matrix_market: cannot parse the values (i,j,x)");
-        CHECK_THROWS_WITH(read_matrix_market(s + "10.mtx"), "SparseTriplet::put: j > i is incorrect for lower triangular layout");
+        CHECK_THROWS_WITH(read_matrix_market(s + "10.mtx"), "CooMatrix::put: j > i is incorrect for lower triangular layout");
     }
 
     SUBCASE("read sparse-matrix ok1") {
         auto mtx = data_path + "ok1.mtx";
-        auto trip = read_matrix_market(mtx);
+        auto coo = read_matrix_market(mtx);
 
         vector<INT> correct_i = {0, 1, 0, 2, 4, 1, 2, 3, 4, 2, 1, 4};
         vector<INT> correct_j = {0, 0, 1, 1, 1, 2, 2, 2, 2, 3, 4, 4};
         vector<double> correct_aij = {2, 3, 3, -1, 4, 4, -3, 1, 2, 2, 6, 1};
 
-        CHECK(trip->layout == FULL_MATRIX);
-        CHECK(equal_vectors(trip->indices_i, correct_i) == true);
-        CHECK(equal_vectors(trip->indices_j, correct_j) == true);
-        CHECK(equal_vectors_tol(trip->values_aij, correct_aij, 1e-15) == true);
+        CHECK(coo->layout == FULL_MATRIX);
+        CHECK(equal_vectors(coo->indices_i, correct_i) == true);
+        CHECK(equal_vectors(coo->indices_j, correct_j) == true);
+        CHECK(equal_vectors_tol(coo->values_aij, correct_aij, 1e-15) == true);
     }
 }

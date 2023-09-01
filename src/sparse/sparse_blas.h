@@ -15,7 +15,7 @@
 /// @note v := alpha * a * u  =>  vi = alpha * aij * uj
 void sp_mat_vec_mul(std::vector<double> &v,
                     double alpha,
-                    const std::unique_ptr<SparseTriplet> &a,
+                    const std::unique_ptr<CooMatrix> &a,
                     const std::vector<double> &u,
                     bool check_sizes = true,
                     bool fill_zeros = true);

@@ -10,9 +10,9 @@ enum PartitionOption {
     PARTITION_BY_COL,
 };
 
-/// @brief Reads a MatrixMarket file into a SparseTriplet
+/// @brief Reads a MatrixMarket file into a CooMatrix
 /// @note This function works only with square matrices.
-std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename);
+std::unique_ptr<CooMatrix> read_matrix_market(const std::string &filename);
 
 // If the matrix is symmetric, only entries in the **lower triangular** portion
 // are present in the MatrixMarket file (see reference).

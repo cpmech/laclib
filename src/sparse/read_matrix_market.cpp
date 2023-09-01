@@ -3,7 +3,7 @@
 #include <cstdio>
 #include <cstring>
 
-std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename) {
+std::unique_ptr<CooMatrix> read_matrix_market(const std::string &filename) {
     FILE *f = fopen(filename.c_str(), "r");
     if (f == NULL) {
         throw "read_matrix_market: cannot open file";
@@ -50,7 +50,7 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename) {
         throw "read_matrix_market: matrix must be \"general\" or \"symmetric\"";
     }
 
-    std::unique_ptr<SparseTriplet> trip;
+    std::unique_ptr<CooMatrix> coo;
     bool symmetric = strncmp(sym, "symmetric", 9) == 0;
     StoredLayout layout = symmetric ? LOWER_TRIANGULAR : FULL_MATRIX;
 
@@ -71,7 +71,7 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename) {
                 throw "read_matrix_market: cannot parse the dimensions (m,n,nnz)";
             }
 
-            trip = SparseTriplet::make_new(layout, m, nnz);
+            coo = CooMatrix::make_new(layout, m, nnz);
             initialized = true;
         }
 
@@ -83,10 +83,10 @@ std::unique_ptr<SparseTriplet> read_matrix_market(const std::string &filename) {
                 throw "read_matrix_market: cannot parse the values (i,j,x)";
             }
 
-            trip->put(i - 1, j - 1, x);
+            coo->put(i - 1, j - 1, x);
         }
     }
 
     fclose(f);
-    return trip;
+    return coo;
 }

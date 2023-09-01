@@ -2,10 +2,10 @@
 
 #include <memory>
 
+#include "coo_matrix.h"
 #include "mkl_dss.h"
 #include "mkl_spblas.h"
 #include "solver_dss_options.h"
-#include "coo_matrix.h"
 
 /// @brief Wraps the Intel DSS solver
 struct SolverDss {
@@ -101,9 +101,9 @@ struct SolverDss {
     }
 
     /// @brief Performs the analyze step
-    /// @param trip The matrix data in Triplet form (COO)
+    /// @param coo The matrix data in Triplet form (COO)
     /// @param verbose Show messages
-    void analyze(const std::unique_ptr<SparseTriplet> &trip,
+    void analyze(const std::unique_ptr<CooMatrix> &coo,
                  bool verbose = false);
 
     /// @brief Performs the factorization step
@@ -112,9 +112,9 @@ struct SolverDss {
     void factorize(bool verbose = false);
 
     /// @brief Calls analyze and factorize
-    /// @param trip The matrix data in Triplet form (COO)
+    /// @param coo The matrix data in Triplet form (COO)
     /// @param verbose Show messages
-    void analyze_and_factorize(const std::unique_ptr<SparseTriplet> &trip,
+    void analyze_and_factorize(const std::unique_ptr<CooMatrix> &coo,
                                bool verbose = false);
 
     /// @brief Performs the solution step

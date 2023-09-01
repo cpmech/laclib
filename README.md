@@ -7,12 +7,12 @@ Laclib implements basic linear algebra functions, wrapping OpenBLAS or Intel MKL
 The following code shows how to solve a linear system with a (large) sparse matrix:
 
 ```c++
-auto trip = read_matrix_market("my-matrix.mtx");
-auto options = MumpsOptions::make_new(is_symmetric(trip->layout));
+auto coo = read_matrix_market("my-matrix.mtx");
+auto options = MumpsOptions::make_new(is_symmetric(coo->layout));
 auto solver = SolverMumps::make_new(options);
-auto rhs = vector<double>(trip->n, 1.0);
-auto x = vector<double>(trip->n, 0.0);
-solver->analyze_and_factorize(trip);
+auto rhs = vector<double>(coo->n, 1.0);
+auto x = vector<double>(coo->n, 0.0);
+solver->analyze_and_factorize(coo);
 solver->solve(x, rhs);
 ```
 

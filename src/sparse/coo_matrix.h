@@ -23,7 +23,7 @@ inline INT make_int(size_t a) {
     return n;
 }
 
-/// @brief Defines how the Triplet represents a matrix
+/// @brief Defines how the CooMatrix (triplet) represents a matrix
 enum StoredLayout {
     LOWER_TRIANGULAR, // e.g., for MUMPS
     UPPER_TRIANGULAR, // e.g., for DSS
@@ -40,8 +40,8 @@ inline bool is_symmetric(StoredLayout layout) {
     return true;
 }
 
-/// @brief Holds the row index, col index, and values of a matrix (also known as COO, coordinates matrix)
-struct SparseTriplet {
+/// @brief Holds the row index, col index, and values of a matrix (also known as Triplet)
+struct CooMatrix {
     /// @brief layout
     StoredLayout layout;
 
@@ -69,11 +69,11 @@ struct SparseTriplet {
     /// @param dimension number of rows (= number of columns)
     /// @param max Maximum number of entries ≥ nnz (number of non-zeros)
     /// @return Returns a new structure
-    inline static std::unique_ptr<SparseTriplet> make_new(
+    inline static std::unique_ptr<CooMatrix> make_new(
         StoredLayout layout,
         size_t dimension,
         size_t max) {
-        return std::unique_ptr<SparseTriplet>{new SparseTriplet{
+        return std::unique_ptr<CooMatrix>{new CooMatrix{
             layout,
             dimension,
             0,

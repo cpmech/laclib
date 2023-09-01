@@ -49,7 +49,7 @@ bool _kv_pair_less(const std::pair<T1, T2> &x, const std::pair<T1, T2> &y) {
     return x.first < y.first;
 }
 
-std::unique_ptr<CsrMatrix> CsrMatrix::from(std::unique_ptr<SparseTriplet> &coo) {
+std::unique_ptr<CsrMatrix> CsrMatrix::from(std::unique_ptr<CooMatrix> &coo) {
 
     // Based on the SciPy code from here:
     //
@@ -137,7 +137,7 @@ std::unique_ptr<CsrMatrix> CsrMatrix::from(std::unique_ptr<SparseTriplet> &coo) 
 }
 
 #ifdef USE_MKL
-std::unique_ptr<CsrMatrixMkl> CsrMatrixMkl::from(std::unique_ptr<SparseTriplet> &coo) {
+std::unique_ptr<CsrMatrixMkl> CsrMatrixMkl::from(std::unique_ptr<CooMatrix> &coo) {
     // access triplet data
     auto ai = coo->indices_i.data();
     auto aj = coo->indices_j.data();

@@ -19,7 +19,7 @@ struct Stats {
     double relative_error; // norm_inf_diff / (norm_inf_a + 1)
     uint64_t nanoseconds;  // time spent here
 
-    inline static std::unique_ptr<Stats> make_new(const std::unique_ptr<SparseTriplet> &a,
+    inline static std::unique_ptr<Stats> make_new(const std::unique_ptr<CooMatrix> &a,
                                                   const std::vector<double> &x,
                                                   const std::vector<double> &rhs) {
         auto sw = Stopwatch::make_new();

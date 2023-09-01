@@ -27,7 +27,7 @@ struct CsrMatrix {
     std::vector<double> values;
 
     /// @brief Allocates a new structure
-    static std::unique_ptr<CsrMatrix> from(std::unique_ptr<SparseTriplet> &coo);
+    static std::unique_ptr<CsrMatrix> from(std::unique_ptr<CooMatrix> &coo);
 
     /// @brief Prints the matrix
     /// @param name A label
@@ -64,7 +64,7 @@ struct CsrMatrixMkl {
 
     /// @brief Allocates a new structure
     /// @todo See if const can be used here
-    static std::unique_ptr<CsrMatrixMkl> from(std::unique_ptr<SparseTriplet> &coo);
+    static std::unique_ptr<CsrMatrixMkl> from(std::unique_ptr<CooMatrix> &coo);
 
     /// @brief Deallocates memory
     ~CsrMatrixMkl() {

@@ -17,7 +17,7 @@ TEST_CASE("testing CsrMatrix") {
     // -4   .   2   7   .
     //  .   8   .   .  -5
     // first triplet with shuffled entries
-    auto coo_first_shuffled = SparseTriplet::make_new(FULL_MATRIX, 5, 13);
+    auto coo_first_shuffled = CooMatrix::make_new(FULL_MATRIX, 5, 13);
     coo_first_shuffled->put(2, 4, 4.0);
     coo_first_shuffled->put(4, 1, 8.0);
     coo_first_shuffled->put(0, 1, -1.0);
@@ -42,7 +42,7 @@ TEST_CASE("testing CsrMatrix") {
     // .  .  7  8  .
     // .  .  .  .  9
     // small triplet with shuffled entries
-    auto coo_small_shuffled = SparseTriplet::make_new(FULL_MATRIX, 5, 9);
+    auto coo_small_shuffled = CooMatrix::make_new(FULL_MATRIX, 5, 9);
     coo_small_shuffled->put(4, 4, 9.0);
     coo_small_shuffled->put(0, 0, 1.0);
     coo_small_shuffled->put(1, 0, 3.0);
@@ -63,7 +63,7 @@ TEST_CASE("testing CsrMatrix") {
     // .  .  7  8  .
     // .  .  .  .  9
     // with duplicates
-    auto coo_small_duplicates = SparseTriplet::make_new(FULL_MATRIX, 5, 11);
+    auto coo_small_duplicates = CooMatrix::make_new(FULL_MATRIX, 5, 11);
     coo_small_duplicates->put(4, 4, 9.0);
     coo_small_duplicates->put(0, 0, 1.0);
     coo_small_duplicates->put(1, 0, 3.0);
@@ -82,7 +82,7 @@ TEST_CASE("testing CsrMatrix") {
     //  0.75  0.0   0.0  0.625   0.0
     //  3.00  0.0   0.0  0.000  16.0
     // upper triangular with ordered entries
-    auto coo_upper_ordered = SparseTriplet::make_new(UPPER_TRIANGULAR, 5, 9);
+    auto coo_upper_ordered = CooMatrix::make_new(UPPER_TRIANGULAR, 5, 9);
     coo_upper_ordered->put(0, 0, 9.0);
     coo_upper_ordered->put(0, 1, 1.5);
     coo_upper_ordered->put(1, 1, 0.5);
@@ -103,7 +103,7 @@ TEST_CASE("testing CsrMatrix") {
     //  0.75  0.0   0.0  0.625   0.0
     //  3.00  0.0   0.0  0.000  16.0
     // upper triangular with shuffled entries
-    auto coo_upper_shuffled = SparseTriplet::make_new(UPPER_TRIANGULAR, 5, 9);
+    auto coo_upper_shuffled = CooMatrix::make_new(UPPER_TRIANGULAR, 5, 9);
     coo_upper_shuffled->put(2, 2, 12.0);
     coo_upper_shuffled->put(0, 0, 9.0);
     coo_upper_shuffled->put(3, 3, 0.625);
@@ -120,7 +120,7 @@ TEST_CASE("testing CsrMatrix") {
     //  0.75  0.0   0.0  0.625   0.0
     //  3.00  0.0   0.0  0.000  16.0
     // upper triangular with diagonal entries being set first
-    auto coo_upper_diagonal_first = SparseTriplet::make_new(UPPER_TRIANGULAR, 5, 9);
+    auto coo_upper_diagonal_first = CooMatrix::make_new(UPPER_TRIANGULAR, 5, 9);
     // diagonal
     coo_upper_diagonal_first->put(0, 0, 9.0);
     coo_upper_diagonal_first->put(1, 1, 0.5);
@@ -139,7 +139,7 @@ TEST_CASE("testing CsrMatrix") {
     //  0.75  0.0   0.0  0.625   0.0
     //  3.00  0.0   0.0  0.000  16.0
     // lower diagonal with ordered entries
-    auto coo_lower_ordered = SparseTriplet::make_new(LOWER_TRIANGULAR, 5, 9);
+    auto coo_lower_ordered = CooMatrix::make_new(LOWER_TRIANGULAR, 5, 9);
     coo_lower_ordered->put(0, 0, 9.0);
     coo_lower_ordered->put(1, 0, 1.5);
     coo_lower_ordered->put(1, 1, 0.5);
@@ -160,7 +160,7 @@ TEST_CASE("testing CsrMatrix") {
     //  0.75  0.0   0.0  0.625   0.0
     //  3.00  0.0   0.0  0.000  16.0
     // lower triangular with diagonal entries being set first
-    auto coo_lower_diagonal_first = SparseTriplet::make_new(LOWER_TRIANGULAR, 5, 9);
+    auto coo_lower_diagonal_first = CooMatrix::make_new(LOWER_TRIANGULAR, 5, 9);
     // diagonal
     coo_lower_diagonal_first->put(0, 0, 9.0);
     coo_lower_diagonal_first->put(1, 1, 0.5);

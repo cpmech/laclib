@@ -86,7 +86,7 @@ struct Report {
                            const std::string &matrix_name,
                            const std::string &ordering,
                            int omp_num_threads,
-                           const std::unique_ptr<SparseTriplet> &trip,
+                           const std::unique_ptr<CooMatrix> &coo,
                            const std::unique_ptr<Stats> &stats) {
 
         std::string suffix = "_open_seq";
@@ -106,7 +106,7 @@ struct Report {
 
         std::string filepath = output_dir + "/" + fnkey.str() + ".json";
 
-        std::string str_symmetric = is_symmetric(trip->layout) ? "true" : "false";
+        std::string str_symmetric = is_symmetric(coo->layout) ? "true" : "false";
 
         std::ofstream ofs(filepath, std::ofstream::out);
         ofs << "{\n";
@@ -117,9 +117,9 @@ struct Report {
         ofs << "  \"MpiSize\": " << effective_mpi_size << ",\n";
         ofs << "  \"OmpNumThreads\": " << effective_omp_num_threads << ",\n";
         ofs << "  \"Symmetric\": " << str_symmetric << ",\n";
-        ofs << "  \"NumberOfRows\": " << trip->dimension << ",\n";
-        ofs << "  \"NumberOfCols\": " << trip->dimension << ",\n";
-        ofs << "  \"NumberOfNonZeros\": " << trip->pos << ",\n";
+        ofs << "  \"NumberOfRows\": " << coo->dimension << ",\n";
+        ofs << "  \"NumberOfCols\": " << coo->dimension << ",\n";
+        ofs << "  \"NumberOfNonZeros\": " << coo->pos << ",\n";
         ofs << "  \"StepReadMatrix\": {\n";
         ofs << "    \"ElapsedTimeNanoseconds\": " << this->step_read_matrix.nanoseconds << ",\n";
         ofs << "    \"ElapsedTimeString\": \"" << SNSEC(this->step_read_matrix.nanoseconds) << "\",\n";

@@ -3,11 +3,11 @@
 #include <memory>
 #include <vector>
 
+#include "coo_matrix.h"
 #include "dmumps_c.h"
 #include "solver_mumps_constants.h"
 #include "solver_mumps_options.h"
 #include "solver_mumps_wrapper.h"
-#include "coo_matrix.h"
 
 /// @brief Wraps the MUMPS solver
 struct SolverMumps {
@@ -57,9 +57,9 @@ struct SolverMumps {
     }
 
     /// @brief Performs the analyze step
-    /// @param trip The matrix data in Triplet form (COO)
+    /// @param coo The matrix data in Triplet form (COO)
     /// @param verbose Show messages
-    void analyze(const std::unique_ptr<SparseTriplet> &trip,
+    void analyze(const std::unique_ptr<CooMatrix> &coo,
                  bool verbose = false);
 
     /// @brief Performs the factorization step
@@ -68,9 +68,9 @@ struct SolverMumps {
     void factorize(bool verbose = false);
 
     /// @brief Calls analyze and factorize
-    /// @param trip The matrix data in Triplet form (COO)
+    /// @param coo The matrix data in Triplet form (COO)
     /// @param verbose Show messages
-    void analyze_and_factorize(const std::unique_ptr<SparseTriplet> &trip,
+    void analyze_and_factorize(const std::unique_ptr<CooMatrix> &coo,
                                bool verbose = false);
 
     /// @brief Performs the solution step
