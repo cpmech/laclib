@@ -5,6 +5,8 @@
 #include <memory>
 #include <vector>
 
+using namespace std;
+
 void SparseTriplet::put(INT i, INT j, double aij) {
 
     // check range
@@ -72,6 +74,11 @@ size_t _csr_sum_duplicates(size_t dimension, INT ap[], INT aj[], double ax[]) {
     return static_cast<size_t>(nnz);
 }
 
+template <class T1, class T2>
+bool kv_pair_less(const std::pair<T1, T2> &x, const std::pair<T1, T2> &y) {
+    return x.first < y.first;
+}
+
 CompressedSparseRowData SparseTriplet::to_csr(bool sum_duplicates) {
 
     // Based on the SciPy code from here:
@@ -116,14 +123,34 @@ CompressedSparseRowData SparseTriplet::to_csr(bool sum_duplicates) {
     }
     bp[n_row] = nnz;
 
+    cout << "\nai = ";
+    for (size_t k = 0; k < nnz; k++) {
+        cout << ai[k] << ", ";
+    }
+    cout << "\naj = ";
+    for (size_t k = 0; k < nnz; k++) {
+        cout << aj[k] << ", ";
+    }
+    cout << "\nax = ";
+    for (size_t k = 0; k < nnz; k++) {
+        cout << ax[k] << ", ";
+    }
+    cout << endl;
+    cout << "\nrow dest bj[dest] bx[dest]" << endl;
+
     // write aj and ax into bj and bx (will use bp as workspace)
     for (size_t k = 0; k < nnz; k++) {
         INT row = ai[k];
         INT dest = bp[row];
         bj[dest] = aj[k];
         bx[dest] = ax[k];
+
+        cout << row << " " << dest << " " << bj[dest] << " " << bx[dest] << endl;
+
         bp[row]++;
     }
+
+    cout << endl;
 
     // fix bp
     size_t last = 0;
@@ -131,6 +158,38 @@ CompressedSparseRowData SparseTriplet::to_csr(bool sum_duplicates) {
         INT temp = bp[i];
         bp[i] = last;
         last = temp;
+    }
+
+    cout << "\nbp = ";
+    for (size_t k = 0; k < n_row + 1; k++) {
+        cout << bp[k] << ", ";
+    }
+    cout << "\naj = ";
+    for (size_t k = 0; k < nnz; k++) {
+        cout << bj[k] << ", ";
+    }
+    cout << "\nax = ";
+    for (size_t k = 0; k < nnz; k++) {
+        cout << bx[k] << ", ";
+    }
+    cout << endl;
+    cout << endl;
+
+    // sort rows
+    std::vector<std::pair<INT, double>> temp;
+    for (INT i = 0; i < n_row; i++) {
+        INT row_start = bp[i];
+        INT row_end = bp[i + 1];
+        temp.resize(row_end - row_start);
+        for (INT jj = row_start, n = 0; jj < row_end; jj++, n++) {
+            temp[n].first = bj[jj];
+            temp[n].second = bx[jj];
+        }
+        std::sort(temp.begin(), temp.end(), kv_pair_less<INT, double>);
+        for (INT jj = row_start, n = 0; jj < row_end; jj++, n++) {
+            bj[jj] = temp[n].first;
+            bx[jj] = temp[n].second;
+        }
     }
 
     // sum duplicates

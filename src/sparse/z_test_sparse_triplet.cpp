@@ -8,6 +8,8 @@
 #include "../util/print_vector.h"
 #include "sparse_triplet.h"
 
+#define _SUBCASE(name) if (false)
+
 using namespace std;
 
 TEST_CASE("testing SparseTriplet (put)") {
@@ -85,7 +87,42 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK_THROWS_WITH(trip->put(0, 0, 4.0), "SparseTriplet::put: max number of items has been exceeded");
     }
 
-    SUBCASE("convert to csr works with small matrix") {
+    SUBCASE("convert to csr works") {
+        //  1  -1   .  -3   .
+        // -2   5   .   .   .
+        //  .   .   4   6   4
+        // -4   .   2   7   .
+        //  .   8   .   .  -5
+        auto trip = SparseTriplet::make_new(FULL_MATRIX, 5, 13);
+
+        // random order
+        trip->put(2, 4, 4.0);
+        trip->put(4, 1, 8.0);
+        trip->put(0, 1, -1.0);
+        trip->put(2, 2, 4.0);
+        trip->put(4, 4, -5.0);
+        trip->put(3, 0, -4.0);
+        trip->put(0, 3, -3.0);
+        trip->put(2, 3, 6.0);
+        trip->put(0, 0, 1.0);
+        trip->put(1, 1, 5.0);
+        trip->put(3, 2, 2.0);
+        trip->put(1, 0, -2.0);
+        trip->put(3, 3, 7.0);
+
+        auto csr = trip->to_csr(false);
+        print_vector("p", csr.row_pointers);
+        print_vector("j", csr.column_indices);
+        print_vector("x", csr.values);
+        vector<INT> correct_p{0, 3, 5, 8, 11, 13};
+        vector<INT> correct_j{0, 1, 3, /**/ 0, 1, /**/ 2, 3, 4, /**/ 0, 2, 3, /**/ 1, 4};
+        vector<double> correct_x{1.0, -1.0, -3.0, -2.0, 5.0, 4.0, 6.0, 4.0, -4.0, 2.0, 7.0, 8.0, -5.0};
+        CHECK(equal_vectors(csr.row_pointers, correct_p));
+        CHECK(equal_vectors(csr.column_indices, correct_j));
+        CHECK(equal_vectors_tol(csr.values, correct_x, 1e-15));
+    }
+
+    _SUBCASE("convert to csr works with small matrix") {
         // 1  2  .  .  .
         // 3  4  .  .  .
         // .  .  5  6  .
@@ -115,7 +152,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(equal_vectors_tol(csr.values, correct_x, 1e-15));
     }
 
-    SUBCASE("convert to csr works with small matrix (sum duplicates)") {
+    _SUBCASE("convert to csr works with small matrix (sum duplicates)") {
         // 1  2  .  .  .
         // 3  4  .  .  .
         // .  .  5  6  .
@@ -152,7 +189,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(equal_vectors_tol(final_x, correct_x, 1e-15));
     }
 
-    SUBCASE("convert to csr works with symmetric matrix (upper triangular / ordered)") {
+    _SUBCASE("convert to csr works with symmetric matrix (upper triangular / ordered)") {
         //  9.00  1.5   6.0  0.750   3.0
         //  1.50  0.5   0.0  0.000   0.0
         //  6.00  0.0  12.0  0.000   0.0
@@ -184,7 +221,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(equal_vectors_tol(csr.values, correct_x, 1e-15));
     }
 
-    SUBCASE("convert to csr works with symmetric matrix (upper triangular / shuffled)") {
+    _SUBCASE("convert to csr works with symmetric matrix (upper triangular / shuffled)") {
         //  9.00  1.5   6.0  0.750   3.0
         //  1.50  0.5   0.0  0.000   0.0
         //  6.00  0.0  12.0  0.000   0.0
@@ -216,7 +253,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(equal_vectors_tol(csr.values, correct_x, 1e-15));
     }
 
-    SUBCASE("convert to csr works with symmetric matrix (upper triangular / diagonal first)") {
+    _SUBCASE("convert to csr works with symmetric matrix (upper triangular / diagonal first)") {
         //  9.00  1.5   6.0  0.750   3.0
         //  1.50  0.5   0.0  0.000   0.0
         //  6.00  0.0  12.0  0.000   0.0
@@ -250,7 +287,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(equal_vectors_tol(csr.values, correct_x, 1e-15));
     }
 
-    SUBCASE("convert to csr works with symmetric matrix (lower triangular / ordered)") {
+    _SUBCASE("convert to csr works with symmetric matrix (lower triangular / ordered)") {
         //  9.00  1.5   6.0  0.750   3.0
         //  1.50  0.5   0.0  0.000   0.0
         //  6.00  0.0  12.0  0.000   0.0
@@ -258,6 +295,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         //  3.00  0.0   0.0  0.000  16.0
         auto trip = SparseTriplet::make_new(LOWER_TRIANGULAR, 5, 9);
 
+        // ordered
         trip->put(0, 0, 9.0);
         trip->put(1, 0, 1.5);
         trip->put(1, 1, 0.5);
@@ -281,7 +319,7 @@ TEST_CASE("testing SparseTriplet (put)") {
         CHECK(equal_vectors_tol(csr.values, correct_x, 1e-15));
     }
 
-    SUBCASE("convert to csr works with symmetric matrix (lower triangular / diagonal first)") {
+    _SUBCASE("convert to csr works with symmetric matrix (lower triangular / diagonal first)") {
         //  9.00  1.5   6.0  0.750   3.0
         //  1.50  0.5   0.0  0.000   0.0
         //  6.00  0.0  12.0  0.000   0.0
