@@ -14,7 +14,7 @@ This directory contains some benchmark tests using the _laclib_ library.
 First, we need to download some (large) test matrices in the data subdirectory:
 
 ```bash
-cd benchmarks/sparse/data
+cd benchmarks/sparse-solver/data
 ./download.bash
 ```
 
@@ -28,7 +28,7 @@ Then, to test the performance with a matrix named _inline_1_ and two OpenMP thre
 
 ```bash
 cd build/benchmarks/sparse
-./bmark_sparse inline_1  2
+./bmark_sparse_open inline_1  2
 ```
 
 The results will be saved in the [benchmarks/sparse/results](https://github.com/cpmech/laclib/tree/main/benchmarks/sparse/results) directory.
