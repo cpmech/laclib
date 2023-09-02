@@ -89,14 +89,10 @@ struct Report {
                            const std::unique_ptr<CooMatrix> &coo,
                            const std::unique_ptr<Stats> &stats) {
 
-        std::string suffix = "_open";
+        std::string suffix = solver_kind == "intel" ? "_intel" : "_open";
         int effective_mpi_size = 0;
-#ifdef HAS_OMP
         int effective_omp_num_threads = omp_num_threads;
         suffix += "_omp" + std::to_string(omp_num_threads);
-#else
-        int effective_omp_num_threads = 0;
-#endif
 
         std::stringstream fnkey;
         fnkey << solver_kind

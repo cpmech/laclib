@@ -1,15 +1,19 @@
+#include <iostream>
 #include <string>
 
 #include "../../src/laclib.h"
 #include "check.h"
+
+#define BENCH_DIR "/../../../benchmarks/sparse-solver"
 
 #ifdef USE_MKL
 #define OPTIONS \
     auto options = DssOptions::make_new();
 #define SOLVER                                  \
     auto solver = SolverDss::make_new(options); \
-    std::string solver_name = "mumps";          \
+    std::string solver_name = "intel";          \
     std::string str_ordering = "unknown";       \
+    std::cout << "TODO" << std::endl;           \
     return; // TODO
 #else
 #define OPTIONS                                                       \
@@ -41,7 +45,7 @@ void run(int argc, char **argv) {
     auto omp_num_threads = std::atoi(args[1].c_str());
 
     // read matrix
-    auto path = path_get_current() + "/../../../benchmarks/sparse/data/";
+    auto path = path_get_current() + BENCH_DIR + "/data/";
     auto filename = path + matrix_name + ".mtx";
     auto coo = read_matrix_market(filename);
     report->measure_step(STEP_READ_MATRIX);
@@ -82,7 +86,7 @@ void run(int argc, char **argv) {
 
     // write report
     auto stats = Stats::make_new(coo, x, rhs);
-    auto out_dir = path_get_current() + "/../../../benchmarks/sparse/results/latest/";
+    auto out_dir = path_get_current() + BENCH_DIR + "/results/latest/";
     report->write_json(out_dir,
                        solver_name,
                        matrix_name,
