@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 # options ####################################################################################
 
-option(A1_OPTIMIZED "Make optimized (-O)" OFF)
+option(A1_OPTIMIZED "Make optimized (-O3)" OFF)
 
 set(WITH_MUMPS ON)
 
