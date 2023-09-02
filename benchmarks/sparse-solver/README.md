@@ -1,6 +1,6 @@
 # Benchmarks using the code for sparse matrices
 
-Results:
+## Previous results from 2021
 
 - [Open toolset: sequential + OpenMP](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/README-open_seq_ana_fact_total.md)
 - [Open toolset: MPI without OpenMP](https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/README-open_mpionly_ana_fact_total.md)
