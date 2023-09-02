@@ -12,6 +12,7 @@ build/
 *.tar.gz
 
 benchmarks/sparse/data/*.mtx
+benchmarks/sparse-solver/data/*.mtx
 
 # ts-code #################################################
 .DS_Store
