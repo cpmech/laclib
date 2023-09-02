@@ -1,0 +1,2 @@
+add_executable(bmark_coo_to_csr main.cpp)
+target_link_libraries(bmark_coo_to_csr PUBLIC laclib_intel)
