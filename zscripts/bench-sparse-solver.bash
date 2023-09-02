@@ -9,12 +9,12 @@ N_THREADS=1
 
 RESDIR=`pwd`/benchmarks/sparse-solver/results/latest
 
-MATS="bfwb62"
+# MATS="bfwb62"
 
-# MATS="
-#     bfwb62 \
-#     inline_1 \
-# "
+MATS="
+    bfwb62 \
+    inline_1 \
+"
 
 # MATS="
 #     bfwb62 \
