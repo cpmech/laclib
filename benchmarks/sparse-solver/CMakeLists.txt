@@ -1,7 +1,7 @@
-if(A0_MKL)
-    add_executable(bmark_sparse main_mkl.cpp)
-    target_link_libraries(bmark_sparse PUBLIC ${LACLIB_NAME})
-else()
-    add_executable(bmark_sparse main.cpp)
-    target_link_libraries(bmark_sparse PUBLIC ${LACLIB_NAME})
+add_executable(bmark_sparse_intel main.cpp)
+target_link_libraries(bmark_sparse_intel PUBLIC laclib_intel)
+
+if(WITH_MUMPS)
+    add_executable(bmark_sparse_open main.cpp)
+    target_link_libraries(bmark_sparse_open PUBLIC laclib_open)
 endif()

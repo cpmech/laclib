@@ -3,9 +3,13 @@
 set -e
 
 ORDERING=${1:-"metis"}
-SOLVER=${2:-"mumps"}
+
+N_THREADS=1
+#N_THREADS=1 2 3 4
 
 RESDIR=`pwd`/benchmarks/sparse-solver/results/latest
+
+# MATS="bfwb62"
 
 MATS="
     bfwb62 \
@@ -32,61 +36,46 @@ MATS="
 #     twotone \
 # "
 
-#MATS="bfwb62"
-
 gen_fnkey() {
-    local matrix=$1
-    local has_omp=$2
+    local solver=$1
+    local matrix=$2
     local omp_nt=$3
-    local plat="_open_seq"
-    if [ "${has_omp}" = "ON" ]; then
-        plat="${plat}_omp${omp_nt}"
+    local str_ord=$ORDERING
+    if [ "${solver}" = "intel" ]; then
+        str_ord="unknown"
     fi
-    echo "${SOLVER}_${matrix}_${ORDERING}${plat}"
+    echo "${solver}_${matrix}_${str_ord}_omp${omp_nt}"
 }
 
-here=`pwd`
+# compile optimized code
+bash all.bash ON
 
-compile() {
-    local omp=$1
-    echo
-    cd $here
-    rm -rf ./build
-    cmake -D A1_OMP=${omp} \
-        -D A2_OPTIMIZED="ON" \
-        -D A3_VERBOSE="OFF" \
-        -D CMAKE_BUILD_TYPE="Release" \
-        -B build
-    cd build/benchmarks/sparse-solver
-    make
-    echo
-}
+# change to build dir
+cd build/benchmarks/sparse-solver
 
 echo
 echo
-echo "### 1: no omp ###########################################"
-
-compile OFF
+echo "### Intel DSS ###########################################"
 
 for mat in $MATS; do
-    fnk=$(gen_fnkey $mat OFF 1)
-    log="${RESDIR}/${fnk}.txt"
-    echo "... $fnk"
-    ./bmark_sparse $mat 1 $ORDERING > $log
+    for n in $N_THREADS; do
+        fnk=$(gen_fnkey intel $mat $n)
+        log="${RESDIR}/${fnk}.txt"
+        echo "... $fnk"
+        ./bmark_sparse_intel $mat $n $ORDERING > $log
+    done
 done
 
 echo
 echo
-echo "### 2: with omp #########################################"
-
-compile ON
+echo "### MUMPS ###############################################"
 
 for mat in $MATS; do
-    for n in 1 2 3 4; do
-        fnk=$(gen_fnkey $mat ON $n)
+    for n in $N_THREADS; do
+        fnk=$(gen_fnkey mumps $mat $n)
         log="${RESDIR}/${fnk}.txt"
         echo "... $fnk"
-        ./bmark_sparse $mat $n $ORDERING > $log
+        ./bmark_sparse_open $mat $n $ORDERING > $log
     done
 done
 

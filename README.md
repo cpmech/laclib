@@ -37,12 +37,10 @@ First, follow the procedures from https://github.com/cpmech/script-install-mumps
 Then, execute
 
 ```bash
-./install.bash [OMP]
+./install.bash
 ```
 
 which will compile and install the header files in `/usr/local/include/laclib` and the library files in `/usr/local/lib/laclib`.
-
-The `OMP` option above enables the use of OpenMP when using OpenBLAS.
 
 ## Directory structure
 
@@ -65,18 +63,14 @@ We suggest looking at the [sparse](https://github.com/cpmech/laclib/tree/main/sr
 
 From: https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl-download.html
 
-Link advisor: https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl-link-line-advisor.html
+### Installing MKL on Linux
 
-Example: https://www.intel.com/content/www/us/en/docs/onemkl/tutorial-c/2023-2/multiplying-matrices-using-dgemm.html
-
-### Linux
-
-Select `Linux → APT Package Manager` and follow the instructions (see below).
+Select `Linux → APT Package Manager` and follow the instructions, or use the script below:
 
 ```bash
 bash ./zscripts/install-intel-mkl-linux.bash
 ```
 
-### Windows
+### Installing MKL on Windows
 
 Select `Windows → Online Installer` and follow the instructions.

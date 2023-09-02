@@ -89,20 +89,11 @@ struct Report {
                            const std::unique_ptr<CooMatrix> &coo,
                            const std::unique_ptr<Stats> &stats) {
 
-        std::string suffix = "_open_seq";
-        int effective_mpi_size = 0;
-#ifdef HAS_OMP
-        int effective_omp_num_threads = omp_num_threads;
-        suffix += "_omp" + std::to_string(omp_num_threads);
-#else
-        int effective_omp_num_threads = 0;
-#endif
-
         std::stringstream fnkey;
         fnkey << solver_kind
               << "_" << matrix_name
               << "_" << ordering
-              << suffix;
+              << "_omp" << std::to_string(omp_num_threads);
 
         std::string filepath = output_dir + "/" + fnkey.str() + ".json";
 
@@ -114,8 +105,8 @@ struct Report {
         ofs << "  \"SolverKind\": \"" << solver_kind << "\",\n";
         ofs << "  \"MatrixName\": \"" << matrix_name << "\",\n";
         ofs << "  \"Ordering\": \"" << ordering << "\",\n";
-        ofs << "  \"MpiSize\": " << effective_mpi_size << ",\n";
-        ofs << "  \"OmpNumThreads\": " << effective_omp_num_threads << ",\n";
+        ofs << "  \"MpiSize\": " << 0 << ",\n";
+        ofs << "  \"OmpNumThreads\": " << omp_num_threads << ",\n";
         ofs << "  \"Symmetric\": " << str_symmetric << ",\n";
         ofs << "  \"NumberOfRows\": " << coo->dimension << ",\n";
         ofs << "  \"NumberOfCols\": " << coo->dimension << ",\n";

@@ -13,6 +13,9 @@ using namespace std;
 TEST_CASE("memory_usage") {
     // allocate 2 GiB
     void *ptr = malloc(2 * BYTES_PER_GIB);
+    if (ptr == NULL) {
+        throw "cannot allocate memory";
+    }
 
     auto mem_bytes = memory_usage();
     auto mem_GiB = bytes_to_GiB(mem_bytes);
