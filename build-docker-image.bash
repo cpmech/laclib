@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # images name
-BASE="mumps_open"
-NAME="laclib_open"
+BASE="cpmech/mumps_open"
+NAME="cpmech/laclib_open"
 
 # message
 echo
