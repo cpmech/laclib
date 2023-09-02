@@ -79,6 +79,6 @@ endif()
 
 # subdirectories #############################################################################
 
-add_subdirectory(src)
 add_subdirectory(benchmarks)
 add_subdirectory(examples)
+add_subdirectory(src)

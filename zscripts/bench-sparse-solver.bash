@@ -5,15 +5,20 @@ set -e
 ORDERING=${1:-"metis"}
 SOLVER=${2:-"mumps"}
 
-RESDIR=`pwd`/benchmarks/sparse/results/latest
+RESDIR=`pwd`/benchmarks/sparse-solver/results/latest
 
 MATS="
     bfwb62 \
     inline_1 \
-    Flan_1565 \
-    pre2 \
-    tmt_unsym \
 "
+
+# MATS="
+#     bfwb62 \
+#     inline_1 \
+#     Flan_1565 \
+#     pre2 \
+#     tmt_unsym \
+# "
 
 # MATS="
 #     bfwb62 \
@@ -52,7 +57,7 @@ compile() {
         -D A3_VERBOSE="OFF" \
         -D CMAKE_BUILD_TYPE="Release" \
         -B build
-    cd build/benchmarks/sparse
+    cd build/benchmarks/sparse-solver
     make
     echo
 }
