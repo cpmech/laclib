@@ -1,4 +1,4 @@
-if(A0_MKL)
+if(A1_MKL)
 else()
 set(EXAMPLES
     ex_solver_mumps

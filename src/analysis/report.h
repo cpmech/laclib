@@ -89,7 +89,7 @@ struct Report {
                            const std::unique_ptr<CooMatrix> &coo,
                            const std::unique_ptr<Stats> &stats) {
 
-        std::string suffix = "_open_seq";
+        std::string suffix = "_open";
         int effective_mpi_size = 0;
 #ifdef HAS_OMP
         int effective_omp_num_threads = omp_num_threads;

@@ -1,4 +1,4 @@
-if(A0_MKL)
+if(A1_MKL)
     add_executable(bmark_sparse main_mkl.cpp)
     target_link_libraries(bmark_sparse PUBLIC ${LACLIB_NAME})
 else()

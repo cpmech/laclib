@@ -38,7 +38,7 @@ gen_fnkey() {
     local matrix=$1
     local has_omp=$2
     local omp_nt=$3
-    local plat="_open_seq"
+    local plat="_open"
     if [ "${has_omp}" = "ON" ]; then
         plat="${plat}_omp${omp_nt}"
     fi

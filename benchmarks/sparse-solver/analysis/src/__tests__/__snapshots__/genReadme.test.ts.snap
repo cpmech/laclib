@@ -110,10 +110,10 @@ _results with \\"metis\\" ordering:_
   <tr>
     <th style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\" rowspan=\\"10\\">Factorize</th>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">open_seq_omp#<br/>(speedup)</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_seq_omp1.txt\\">376.599µs</a><br/>(1)</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_seq_omp2.txt\\">8.76785ms</a>:worried:<br/>(0.043)</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_seq_omp3.txt\\">28.5722ms</a>:worried:<br/>(0.013)</td>
-    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_seq_omp4.txt\\">9.00163ms</a>:worried:<br/>(0.042)</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_omp1.txt\\">376.599µs</a><br/>(1)</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_omp2.txt\\">8.76785ms</a>:worried:<br/>(0.043)</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_omp3.txt\\">28.5722ms</a>:worried:<br/>(0.013)</td>
+    <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: center; padding: 5px;\\"><a href=\\"https://github.com/cpmech/laclib/blob/main/benchmarks/sparse/results/open/mumps_bfwb62_metis_open_omp4.txt\\">9.00163ms</a>:worried:<br/>(0.042)</td>
   </tr>
   <tr>
     <td style=\\"border: 1px solid #979797; border-collapse: collapse; text-align: right; padding: 5px;\\">intel_seq_omp#<br/>(speedup)</td>
