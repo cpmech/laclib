@@ -9,23 +9,15 @@ set(CMAKE_CXX_STANDARD 20)
 
 # options ####################################################################################
 
-option(A1_MKL "Use Intel MKL instead of OpenBLAS+MUMPS" OFF)
-option(A2_OPTIMIZED "Make optimized (-O)" OFF)
+option(A1_OPTIMIZED "Make optimized (-O)" OFF)
+
+set(WITH_MUMPS ON)
 
 if(WIN32)
-    set(A1_MKL ON)
+    set(WITH_MUMPS OFF)
 endif()
 
-if(A1_MKL)
-    message(">> Using Intel MKL <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-    add_definitions(-DUSE_MKL)
-    set(PLAT "_intel")
-else()
-    message(">> Using OpenBLAS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-    set(PLAT "_open")
-endif()
-
-if(A2_OPTIMIZED)
+if(A1_OPTIMIZED)
     add_definitions(-O)
 else()
     add_definitions(-g -Wall)
@@ -33,20 +25,16 @@ endif()
 
 # dependencies ###############################################################################
 
-if(A1_MKL)
-    find_package(MKL CONFIG REQUIRED PATHS $ENV{MKLROOT})
-else()
-    include(zscripts/FindOBLAS.cmake)
-    include_directories(${OBLAS_IDIRS})
-    set(LA_LIBS ${OBLAS_LIBS})
+find_package(MKL CONFIG REQUIRED PATHS $ENV{MKLROOT})
 
+if(WITH_MUMPS)
+    include(zscripts/FindOBLAS.cmake)
     include(zscripts/FindMUMPS.cmake)
+    include_directories(${OBLAS_IDIRS})
     include_directories(${MUMPS_IDIRS})
 endif()
 
 # library ####################################################################################
-
-set(LACLIB_NAME "laclib${PLAT}")
 
 set(COMMON_SRC_FILES
     src/sparse/coo_matrix.cpp
@@ -55,18 +43,13 @@ set(COMMON_SRC_FILES
     src/sparse/sparse_blas.cpp
 )
 
-if(A1_MKL)
-    add_library(${LACLIB_NAME} SHARED
-        ${COMMON_SRC_FILES}
-        src/sparse/solver_dss.cpp
-    )
-    target_link_libraries(${LACLIB_NAME} PUBLIC MKL::MKL)
-else()
-    add_library(${LACLIB_NAME} SHARED
-        ${COMMON_SRC_FILES}
-        src/sparse/solver_mumps.cpp
-    )
-    target_link_libraries(${LACLIB_NAME} PUBLIC ${MUMPS_LIBS} ${LA_LIBS})
+add_library(laclib_intel SHARED ${COMMON_SRC_FILES} src/sparse/solver_dss.cpp)
+target_compile_definitions(laclib_intel PUBLIC USE_MKL)
+target_link_libraries(laclib_intel PUBLIC MKL::MKL)
+
+if(WITH_MUMPS)
+    add_library(laclib_open SHARED ${COMMON_SRC_FILES} src/sparse/solver_mumps.cpp)
+    target_link_libraries(laclib_open PUBLIC ${MUMPS_LIBS} ${OBLAS_LIBS})
 endif()
 
 # subdirectories #############################################################################

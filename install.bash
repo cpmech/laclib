@@ -8,8 +8,7 @@ INCDIR=$PREFIX/include/laclib
 LIBDIR=$PREFIX/lib/laclib
 
 # build
-bash all.bash ON ON
-bash all.bash OFF ON
+bash all.bash
 
 # copy internal include files
 SUBDIRS="

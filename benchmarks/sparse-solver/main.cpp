@@ -1,9 +1,33 @@
+#include <string>
+
 #include "../../src/laclib.h"
 #include "check.h"
+
+#ifdef USE_MKL
+#define OPTIONS \
+    auto options = DssOptions::make_new();
+#define SOLVER                                  \
+    auto solver = SolverDss::make_new(options); \
+    std::string solver_name = "mumps";          \
+    std::string str_ordering = "unknown";       \
+    return; // TODO
+#else
+#define OPTIONS                                                       \
+    auto ordering = mumps_string_to_ordering(args[2]);                \
+    auto options = MumpsOptions::make_new(is_symmetric(coo->layout)); \
+    options->omp_num_threads = omp_num_threads;                       \
+    options->ordering = ordering;                                     \
+    options->max_work_memory = 30000;                                 \
+    std::string str_ordering = mumps_ordering_to_string(options->ordering);
+#define SOLVER                                    \
+    auto solver = SolverMumps::make_new(options); \
+    std::string solver_name = "mumps";
+#endif
+
 using namespace std;
 
 void run(int argc, char **argv) {
-    // allocate mpi and report
+    // allocate report
     auto report = Report::make_new();
 
     // get arguments from command line
@@ -15,7 +39,6 @@ void run(int argc, char **argv) {
     auto args = extract_arguments_or_use_defaults(argc, argv, defaults);
     auto matrix_name = args[0];
     auto omp_num_threads = std::atoi(args[1].c_str());
-    auto ordering = mumps_string_to_ordering(args[2]);
 
     // read matrix
     auto path = path_get_current() + "/../../../benchmarks/sparse/data/";
@@ -27,13 +50,12 @@ void run(int argc, char **argv) {
     set_num_threads(omp_num_threads);
 
     // set options
-    auto options = MumpsOptions::make_new(is_symmetric(coo->layout));
-    options->omp_num_threads = omp_num_threads;
-    options->ordering = ordering;
-    options->max_work_memory = 30000;
+    OPTIONS
 
     // allocate solver
-    auto solver = SolverMumps::make_new(options);
+    SOLVER
+
+    // set verbose mode
     auto verbose = true;
 
     // set right-hand-side and solution vector
@@ -62,10 +84,10 @@ void run(int argc, char **argv) {
     auto stats = Stats::make_new(coo, x, rhs);
     auto out_dir = path_get_current() + "/../../../benchmarks/sparse/results/latest/";
     report->write_json(out_dir,
-                       "mumps",
+                       solver_name,
                        matrix_name,
-                       mumps_ordering_to_string(options->ordering),
-                       options->omp_num_threads,
+                       str_ordering,
+                       omp_num_threads,
                        coo,
                        stats);
 }

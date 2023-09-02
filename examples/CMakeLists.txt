@@ -1,11 +1,9 @@
-if(A1_MKL)
-else()
-set(EXAMPLES
-    ex_solver_mumps
-)
+if(WITH_MUMPS)
+    set(EXAMPLES_MUMPS
+        ex_solver_mumps
+    )
+    foreach(var ${EXAMPLES_MUMPS})
+        add_executable(${var} "${var}.cpp")
+        target_link_libraries(${var} PUBLIC laclib_open)
+    endforeach(var)
 endif()
-
-foreach(var ${EXAMPLES})
-    add_executable(${var} "${var}.cpp")
-    target_link_libraries(${var} PUBLIC ${LACLIB_NAME})
-endforeach(var)
