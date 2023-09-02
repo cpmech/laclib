@@ -18,7 +18,7 @@ if(WIN32)
 endif()
 
 if(A1_OPTIMIZED)
-    add_definitions(-O)
+    add_definitions(-O3)
 else()
     add_definitions(-g -Wall)
 endif()
