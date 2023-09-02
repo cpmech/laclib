@@ -4,6 +4,8 @@
 #include "../../src/laclib.h"
 using namespace std;
 
+#define BENCH_DIR "/../../../benchmarks/sparse-solver"
+
 void run(int argc, char **argv)
 {
     // allocate mpi and report
@@ -21,7 +23,7 @@ void run(int argc, char **argv)
     auto ordering = mumps_string_to_ordering(args[2]);
 
     // read matrix
-    auto path = path_get_current() + "/../../../benchmarks/sparse/data/";
+    auto path = path_get_current() + BENCH_DIR + "/data/";
     auto filename = path + matrix_name + ".mtx";
     auto onebased = true;
     auto trip = read_matrix_market(filename, onebased);
