@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "coo_matrix.h"
+#include "csr_matrix.h"
 #include "mkl_dss.h"
 #include "mkl_spblas.h"
 #include "solver_dss_options.h"
@@ -26,24 +26,6 @@ struct SolverDss {
 
     /// @brief Indicates if analyze_and_factorize or factorize were called
     bool factorized;
-
-    /// @brief Handle to CSR matrix (delete only this one)
-    sparse_matrix_t csr_handle;
-
-    /// @brief Holds the row indices according to the CSR3 format
-    MKL_INT *csr_row_indices;
-
-    /// @brief Holds the first row indices according to the CSR format
-    MKL_INT *csr_pointer_b;
-
-    /// @brief Holds the last row indices according to the CSR format
-    MKL_INT *csr_pointer_e;
-
-    /// @brief Holds the columns according to the CSR or CSR3 format
-    MKL_INT *csr_columns;
-
-    /// @brief Holds the values according to the CSR or CSR3 format
-    double *csr_values;
 
     /// @brief Allocates a new structure
     /// @param options Holds options
@@ -76,45 +58,33 @@ struct SolverDss {
                 dss_type,
                 false,
                 false,
-                sparse_matrix_t(),
-                NULL,
-                NULL,
-                NULL,
-                NULL,
-                NULL,
             }};
     };
 
-    /// @brief Clears the memory allocated by analyze
-    /// @note This is an internal function that must not be called by the user
-    void _clear_memory_allocated_by_analyze() {
-        if (this->csr_row_indices != NULL) {
-            free(this->csr_row_indices);
-        }
-        mkl_sparse_destroy(this->csr_handle);
-    }
-
     /// @brief Clears temporary data
     ~SolverDss() {
-        _clear_memory_allocated_by_analyze();
         dss_delete(this->handle, this->dss_opt);
     }
 
     /// @brief Performs the analyze step
-    /// @param coo The matrix data in Triplet form (COO)
+    /// @param csr The matrix data in compressed sparse row form (CSR)
     /// @param verbose Show messages
-    void analyze(const std::unique_ptr<CooMatrix> &coo,
+    /// @note The matrix, if symmetric, must be given in UPPER_TRIANGULAR layout
+    void analyze(const std::unique_ptr<CsrMatrixMkl> &csr,
                  bool verbose = false);
 
     /// @brief Performs the factorization step
+    /// @param csr The same matrix passed to analyze
     /// @param verbose Show messages
     /// @note Must be called after analyze
-    void factorize(bool verbose = false);
+    void factorize(const std::unique_ptr<CsrMatrixMkl> &csr,
+                   bool verbose = false);
 
     /// @brief Calls analyze and factorize
-    /// @param coo The matrix data in Triplet form (COO)
+    /// @param csr The matrix data in compressed sparse row form (CSR)
     /// @param verbose Show messages
-    void analyze_and_factorize(const std::unique_ptr<CooMatrix> &coo,
+    /// @note The matrix, if symmetric, must be given in UPPER_TRIANGULAR layout
+    void analyze_and_factorize(const std::unique_ptr<CsrMatrixMkl> &csr,
                                bool verbose = false);
 
     /// @brief Performs the solution step
@@ -127,4 +97,5 @@ struct SolverDss {
                bool verbose = false);
 };
 
+// Reference:
 // https://www.intel.com/content/www/us/en/docs/onemkl/developer-reference-c/2023-2/direct-sparse-solver-dss-interface-routines.html
