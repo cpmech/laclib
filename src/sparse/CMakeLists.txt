@@ -14,6 +14,9 @@ foreach(var ${TESTS})
     target_compile_definitions(${var} PRIVATE "DATA_DIR=\"${CMAKE_SOURCE_DIR}/data\"")
 endforeach(var)
 
+#set_tests_properties(z_test_csr_matrix PROPERTIES LABELS doMemcheck)
+set_tests_properties(z_test_solver_dss PROPERTIES LABELS doMemcheck)
+
 if(WITH_MUMPS)
     set(TESTS_MUMPS
         z_test_solver_mumps
