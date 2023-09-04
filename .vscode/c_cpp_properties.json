@@ -8,7 +8,7 @@
       ],
       "defines": [
         "USE_MKL",
-        "WITH_MUMPSx",
+        "WITH_MUMPSx"
       ],
       "compilerPath": "/usr/bin/gcc",
       "cStandard": "c17",
