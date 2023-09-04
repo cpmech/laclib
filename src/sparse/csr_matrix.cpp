@@ -160,6 +160,9 @@ std::unique_ptr<CsrMatrixMkl> CsrMatrixMkl::from(std::unique_ptr<CooMatrix> &coo
         throw "Intel MKL failed to convert COO matrix to CSR matrix";
     }
 
+    // destroy handle to COO
+    mkl_sparse_destroy(coo_mkl);
+
     // get access to internal arrays
     sparse_index_base_t indexing;
     MKL_INT *pointer_b = NULL; // size = dimension
