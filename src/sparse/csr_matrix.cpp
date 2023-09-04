@@ -69,6 +69,7 @@ std::unique_ptr<CsrMatrix> CsrMatrix::from(std::unique_ptr<CooMatrix> &coo) {
     auto n_row = coo->dimension;
     auto nnz = coo->pos;
     auto csr = std::unique_ptr<CsrMatrix>{new CsrMatrix{
+        coo->layout,
         coo->dimension,
         nnz,
         std::vector<INT>(n_row + 1, 0), // row_pointers
@@ -191,6 +192,7 @@ std::unique_ptr<CsrMatrixMkl> CsrMatrixMkl::from(std::unique_ptr<CooMatrix> &coo
 
     // results
     return std::unique_ptr<CsrMatrixMkl>{new CsrMatrixMkl{
+        coo->layout,
         m,
         final_nnz,
         row_pointers,

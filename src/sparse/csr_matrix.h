@@ -9,6 +9,9 @@
 
 /// @brief Holds the arrays needed for a CSR (compressed sparse row) matrix
 struct CsrMatrix {
+    /// @brief layout
+    StoredLayout layout;
+
     /// @brief Equals the number of rows and number of columns
     size_t dimension;
 
@@ -42,6 +45,9 @@ struct CsrMatrix {
 #ifdef USE_MKL
 /// @brief Holds the arrays needed for a CSR (compressed sparse row) matrix (MKL version)
 struct CsrMatrixMkl {
+    /// @brief layout
+    StoredLayout layout;
+
     /// @brief Equals the number of rows and number of columns
     MKL_INT dimension;
 
