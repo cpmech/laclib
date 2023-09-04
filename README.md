@@ -30,13 +30,14 @@ The docker image is convenient with Visual Code remote development tools (but co
 ./build-docker-image.bash
 ```
 
-## Ubuntu/Linux 22.04
+## Ubuntu/Linux 22.04+
 
 First, follow the procedures from https://github.com/cpmech/script-install-mumps
 
 Then, execute
 
 ```bash
+./install-deps.bash
 ./install.bash
 ```
 
