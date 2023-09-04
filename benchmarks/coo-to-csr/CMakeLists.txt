@@ -1,2 +1,11 @@
-add_executable(bmark_coo_to_csr main.cpp)
-target_link_libraries(bmark_coo_to_csr PUBLIC laclib_intel)
+add_executable(bmark_conv_mkl main.cpp)
+target_link_libraries(bmark_conv_mkl PUBLIC laclib_intel)
+target_compile_definitions(bmark_conv_mkl PRIVATE "MTX_DIR=\"$ENV{HOME}/Downloads/matrix-market\"")
+target_compile_definitions(bmark_conv_mkl PRIVATE "OUT_DIR=\"${CMAKE_SOURCE_DIR}/benchmarks/coo-to-csr/results\"")
+
+if(WITH_MUMPS)
+    add_executable(bmark_conv_local main.cpp)
+    target_link_libraries(bmark_conv_local PUBLIC laclib_open)
+    target_compile_definitions(bmark_conv_local PRIVATE "MTX_DIR=\"$ENV{HOME}/Downloads/matrix-market\"")
+    target_compile_definitions(bmark_conv_local PRIVATE "OUT_DIR=\"${CMAKE_SOURCE_DIR}/benchmarks/coo-to-csr/results\"")
+endif()

@@ -1,0 +1,22 @@
+{
+  "Platform": "laclib",
+  "Method": "mkl",
+  "MatrixName": "Flan_1565",
+  "OmpNumThreads": 1,
+  "Symmetric": true,
+  "NumberOfRows": 1564794,
+  "NumberOfCols": 1564794,
+  "NumberOfNonZeros": 59485419,
+  "StepReadMatrix": {
+    "ElapsedTimeNanoseconds": 8780203945,
+    "ElapsedTimeString": "8.7802s",
+    "MemoryBytes": 1584648192,
+    "MemoryMiB": "1,511"
+  },
+  "StepConversion": {
+    "ElapsedTimeNanoseconds": 167722052,
+    "ElapsedTimeString": "167.722ms",
+    "MemoryBytes": 4369354752,
+    "MemoryMiB": "4,166"
+  }
+}
