@@ -14,6 +14,7 @@ using namespace std;
 
 TEST_CASE("testing sparse solver Intel DSS") {
     SUBCASE("from example") {
+        // enforce one thread (because tests may run concurrently)
         set_num_threads(1);
 
         //  9.00  1.5   6.0  0.750   3.0
@@ -34,25 +35,27 @@ TEST_CASE("testing sparse solver Intel DSS") {
         coo->put(0, 3, 0.75);
         coo->put(0, 4, 3.0);
 
-        // convert COO to CSR
-        auto csr = CsrMatrixMkl::from(coo);
-
+        // right-hand side and solution vector
         auto rhs = vector<double>{1.0, 2.0, 3.0, 4.0, 5.0};
         auto x = vector<double>{0.0, 0.0, 0.0, 0.0, 0.0};
 
+        // convert COO to CSR
+        auto csr = CsrMatrixMkl::from(coo);
+
+        // allocate the solver
         auto options = DssOptions::make_new();
         options->symmetric = true;
         options->positive_definite = true;
         auto solver = SolverDss::make_new(options);
 
+        // solve linear system
         solver->analyze(csr);
         solver->factorize(csr);
         solver->solve(x, rhs);
 
+        // results
         print_vector("x", x);
-
         auto x_correct = vector<double>{-979.0 / 3.0, 983.0, 1961.0 / 12.0, 398.0, 123.0 / 2.0};
-
         CHECK(equal_vectors_tol(x, x_correct, 1e-11));
     }
 }
