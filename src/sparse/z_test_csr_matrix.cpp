@@ -4,8 +4,10 @@
 
 #include "../check/index.h"
 #include "../util/doctest.h"
-#include "csr_matrix.h"
 #include "coo_matrix.h"
+#include "csr_matrix.h"
+
+#define _SUBCASE(name) if (false)
 
 using namespace std;
 
@@ -175,142 +177,146 @@ TEST_CASE("testing CsrMatrix") {
 
     // -------- local implementation (based on scipy) --------------------------------------------------------
 
-    SUBCASE("convert to csr works (shuffled order)") {
-        auto csr = CsrMatrix::from(coo_first_shuffled);
-        // csr->print("first_shuffled");
-        CHECK(equal_vectors(csr->row_pointers, correct_first_p));
-        CHECK(equal_vectors(csr->column_indices, correct_first_j));
-        CHECK(equal_vectors_tol(csr->values, correct_first_x, 1e-15));
-    }
+    SUBCASE("local") {
+        SUBCASE("convert to csr works (shuffled order)") {
+            auto csr = CsrMatrix::from(coo_first_shuffled);
+            // csr->print("first_shuffled");
+            CHECK(equal_vectors(csr->row_pointers, correct_first_p));
+            CHECK(equal_vectors(csr->column_indices, correct_first_j));
+            CHECK(equal_vectors_tol(csr->values, correct_first_x, 1e-15));
+        }
 
-    SUBCASE("convert to csr works with small matrix") {
-        auto csr = CsrMatrix::from(coo_small_shuffled);
-        // csr->print("small_shuffled");
-        CHECK(equal_vectors(csr->row_pointers, correct_small_p));
-        CHECK(equal_vectors(csr->column_indices, correct_small_j));
-        CHECK(equal_vectors_tol(csr->values, correct_small_x, 1e-15));
-    }
+        SUBCASE("convert to csr works with small matrix") {
+            auto csr = CsrMatrix::from(coo_small_shuffled);
+            // csr->print("small_shuffled");
+            CHECK(equal_vectors(csr->row_pointers, correct_small_p));
+            CHECK(equal_vectors(csr->column_indices, correct_small_j));
+            CHECK(equal_vectors_tol(csr->values, correct_small_x, 1e-15));
+        }
 
-    SUBCASE("convert to csr works with small matrix (sum duplicates)") {
-        auto csr = CsrMatrix::from(coo_small_duplicates);
-        // csr->print("small_duplicates");
+        SUBCASE("convert to csr works with small matrix (sum duplicates)") {
+            auto csr = CsrMatrix::from(coo_small_duplicates);
+            // csr->print("small_duplicates");
 
-        auto n_summed = coo_small_duplicates->pos - csr->nnz;
-        CHECK(n_summed == 2);
-        auto final_j = std::vector<INT>(csr->column_indices.begin(), csr->column_indices.end() - n_summed);
-        auto final_x = std::vector<double>(csr->values.begin(), csr->values.end() - n_summed);
+            auto n_summed = coo_small_duplicates->pos - csr->nnz;
+            CHECK(n_summed == 2);
+            auto final_j = std::vector<INT>(csr->column_indices.begin(), csr->column_indices.end() - n_summed);
+            auto final_x = std::vector<double>(csr->values.begin(), csr->values.end() - n_summed);
 
-        CHECK(equal_vectors(csr->row_pointers, correct_small_p));
-        CHECK(equal_vectors(final_j, correct_small_j));
-        CHECK(equal_vectors_tol(final_x, correct_small_x, 1e-15));
-    }
+            CHECK(equal_vectors(csr->row_pointers, correct_small_p));
+            CHECK(equal_vectors(final_j, correct_small_j));
+            CHECK(equal_vectors_tol(final_x, correct_small_x, 1e-15));
+        }
 
-    SUBCASE("convert to csr works with symmetric matrix (upper triangular / ordered)") {
-        auto csr = CsrMatrix::from(coo_upper_ordered);
-        // csr->print("upper_ordered");
-        CHECK(equal_vectors(csr->row_pointers, correct_upper_p));
-        CHECK(equal_vectors(csr->column_indices, correct_upper_j));
-        CHECK(equal_vectors_tol(csr->values, correct_upper_x, 1e-15));
-    }
+        SUBCASE("convert to csr works with symmetric matrix (upper triangular / ordered)") {
+            auto csr = CsrMatrix::from(coo_upper_ordered);
+            // csr->print("upper_ordered");
+            CHECK(equal_vectors(csr->row_pointers, correct_upper_p));
+            CHECK(equal_vectors(csr->column_indices, correct_upper_j));
+            CHECK(equal_vectors_tol(csr->values, correct_upper_x, 1e-15));
+        }
 
-    SUBCASE("convert to csr works with symmetric matrix (upper triangular / shuffled)") {
-        auto csr = CsrMatrix::from(coo_upper_shuffled);
-        // csr->print("upper_shuffled");
-        CHECK(equal_vectors(csr->row_pointers, correct_upper_p));
-        CHECK(equal_vectors(csr->column_indices, correct_upper_j));
-        CHECK(equal_vectors_tol(csr->values, correct_upper_x, 1e-15));
-    }
+        SUBCASE("convert to csr works with symmetric matrix (upper triangular / shuffled)") {
+            auto csr = CsrMatrix::from(coo_upper_shuffled);
+            // csr->print("upper_shuffled");
+            CHECK(equal_vectors(csr->row_pointers, correct_upper_p));
+            CHECK(equal_vectors(csr->column_indices, correct_upper_j));
+            CHECK(equal_vectors_tol(csr->values, correct_upper_x, 1e-15));
+        }
 
-    SUBCASE("convert to csr works with symmetric matrix (upper triangular / diagonal first)") {
-        auto csr = CsrMatrix::from(coo_upper_diagonal_first);
-        // csr->print("upper_diagonal_first");
-        CHECK(equal_vectors(csr->row_pointers, correct_upper_p));
-        CHECK(equal_vectors(csr->column_indices, correct_upper_j));
-        CHECK(equal_vectors_tol(csr->values, correct_upper_x, 1e-15));
-    }
+        SUBCASE("convert to csr works with symmetric matrix (upper triangular / diagonal first)") {
+            auto csr = CsrMatrix::from(coo_upper_diagonal_first);
+            // csr->print("upper_diagonal_first");
+            CHECK(equal_vectors(csr->row_pointers, correct_upper_p));
+            CHECK(equal_vectors(csr->column_indices, correct_upper_j));
+            CHECK(equal_vectors_tol(csr->values, correct_upper_x, 1e-15));
+        }
 
-    SUBCASE("convert to csr works with symmetric matrix (lower triangular / ordered)") {
-        auto csr = CsrMatrix::from(coo_lower_ordered);
-        // csr->print("lower_ordered");
-        CHECK(equal_vectors(csr->row_pointers, correct_lower_p));
-        CHECK(equal_vectors(csr->column_indices, correct_lower_j));
-        CHECK(equal_vectors_tol(csr->values, correct_lower_x, 1e-15));
-    }
+        SUBCASE("convert to csr works with symmetric matrix (lower triangular / ordered)") {
+            auto csr = CsrMatrix::from(coo_lower_ordered);
+            // csr->print("lower_ordered");
+            CHECK(equal_vectors(csr->row_pointers, correct_lower_p));
+            CHECK(equal_vectors(csr->column_indices, correct_lower_j));
+            CHECK(equal_vectors_tol(csr->values, correct_lower_x, 1e-15));
+        }
 
-    SUBCASE("convert to csr works with symmetric matrix (lower triangular / diagonal first)") {
-        auto csr = CsrMatrix::from(coo_lower_diagonal_first);
-        // csr->print("lower_diagonal_first");
-        CHECK(equal_vectors(csr->row_pointers, correct_lower_p));
-        CHECK(equal_vectors(csr->column_indices, correct_lower_j));
-        CHECK(equal_vectors_tol(csr->values, correct_lower_x, 1e-15));
+        SUBCASE("convert to csr works with symmetric matrix (lower triangular / diagonal first)") {
+            auto csr = CsrMatrix::from(coo_lower_diagonal_first);
+            // csr->print("lower_diagonal_first");
+            CHECK(equal_vectors(csr->row_pointers, correct_lower_p));
+            CHECK(equal_vectors(csr->column_indices, correct_lower_j));
+            CHECK(equal_vectors_tol(csr->values, correct_lower_x, 1e-15));
+        }
     }
 
     // -------- using intel mkl ------------------------------------------------------------------------------
 
 #ifdef USE_MKL
 
-    SUBCASE("intel mkl: convert to csr works (shuffled order)") {
-        auto csr = CsrMatrixMkl::from(coo_first_shuffled);
-        // csr->print("intel mkl: random_01");
-        CHECK(equal_arrays(csr->dimension + 1, csr->row_pointers, correct_first_p.data()));
-        CHECK(equal_arrays(csr->nnz, csr->column_indices, correct_first_j.data()));
-        CHECK(equal_arrays_tol(csr->nnz, csr->values, correct_first_x.data(), 1e-15));
-    }
+    SUBCASE("intel mkl") {
+        SUBCASE("intel mkl: convert to csr works (shuffled order)") {
+            auto csr = CsrMatrixMkl::from(coo_first_shuffled);
+            // csr->print("intel mkl: random_01");
+            CHECK(equal_arrays(csr->dimension + 1, csr->row_pointers, correct_first_p.data()));
+            CHECK(equal_arrays(csr->nnz, csr->column_indices, correct_first_j.data()));
+            CHECK(equal_arrays_tol(csr->nnz, csr->values, correct_first_x.data(), 1e-15));
+        }
 
-    SUBCASE("intel mkl: convert to csr works with small matrix") {
-        auto csr = CsrMatrixMkl::from(coo_small_shuffled);
-        // csr->print("intel mkl: small");
-        CHECK(equal_arrays(csr->dimension + 1, csr->row_pointers, correct_small_p.data()));
-        CHECK(equal_arrays(csr->nnz, csr->column_indices, correct_small_j.data()));
-        CHECK(equal_arrays_tol(csr->nnz, csr->values, correct_small_x.data(), 1e-15));
-    }
+        SUBCASE("intel mkl: convert to csr works with small matrix") {
+            auto csr = CsrMatrixMkl::from(coo_small_shuffled);
+            // csr->print("intel mkl: small");
+            CHECK(equal_arrays(csr->dimension + 1, csr->row_pointers, correct_small_p.data()));
+            CHECK(equal_arrays(csr->nnz, csr->column_indices, correct_small_j.data()));
+            CHECK(equal_arrays_tol(csr->nnz, csr->values, correct_small_x.data(), 1e-15));
+        }
 
-    SUBCASE("intel mkl: convert to csr works with small matrix (sum duplicates)") {
-        auto csr = CsrMatrixMkl::from(coo_small_duplicates);
-        // csr->print("intel mkl: small_duplicates");
-        CHECK(equal_arrays(csr->dimension + 1, csr->row_pointers, correct_small_p.data()));
-        CHECK(equal_arrays(csr->nnz, csr->column_indices, correct_small_j.data()));
-        CHECK(equal_arrays_tol(csr->nnz, csr->values, correct_small_x.data(), 1e-15));
-    }
+        SUBCASE("intel mkl: convert to csr works with small matrix (sum duplicates)") {
+            auto csr = CsrMatrixMkl::from(coo_small_duplicates);
+            // csr->print("intel mkl: small_duplicates");
+            CHECK(equal_arrays(csr->dimension + 1, csr->row_pointers, correct_small_p.data()));
+            CHECK(equal_arrays(csr->nnz, csr->column_indices, correct_small_j.data()));
+            CHECK(equal_arrays_tol(csr->nnz, csr->values, correct_small_x.data(), 1e-15));
+        }
 
-    SUBCASE("intel mkl: convert to csr works with symmetric matrix (upper triangular / ordered)") {
-        auto csr = CsrMatrixMkl::from(coo_upper_ordered);
-        // csr->print("intel mkl: upper_ordered");
-        CHECK(equal_arrays(csr->dimension + 1, csr->row_pointers, correct_upper_p.data()));
-        CHECK(equal_arrays(csr->nnz, csr->column_indices, correct_upper_j.data()));
-        CHECK(equal_arrays_tol(csr->nnz, csr->values, correct_upper_x.data(), 1e-15));
-    }
+        SUBCASE("intel mkl: convert to csr works with symmetric matrix (upper triangular / ordered)") {
+            auto csr = CsrMatrixMkl::from(coo_upper_ordered);
+            // csr->print("intel mkl: upper_ordered");
+            CHECK(equal_arrays(csr->dimension + 1, csr->row_pointers, correct_upper_p.data()));
+            CHECK(equal_arrays(csr->nnz, csr->column_indices, correct_upper_j.data()));
+            CHECK(equal_arrays_tol(csr->nnz, csr->values, correct_upper_x.data(), 1e-15));
+        }
 
-    SUBCASE("intel mkl: convert to csr works with symmetric matrix (upper triangular / shuffled)") {
-        auto csr = CsrMatrixMkl::from(coo_upper_shuffled);
-        // csr->print("intel mkl: upper_shuffled");
-        CHECK(equal_arrays(csr->dimension + 1, csr->row_pointers, correct_upper_p.data()));
-        CHECK(equal_arrays(csr->nnz, csr->column_indices, correct_upper_j.data()));
-        CHECK(equal_arrays_tol(csr->nnz, csr->values, correct_upper_x.data(), 1e-15));
-    }
+        SUBCASE("intel mkl: convert to csr works with symmetric matrix (upper triangular / shuffled)") {
+            auto csr = CsrMatrixMkl::from(coo_upper_shuffled);
+            // csr->print("intel mkl: upper_shuffled");
+            CHECK(equal_arrays(csr->dimension + 1, csr->row_pointers, correct_upper_p.data()));
+            CHECK(equal_arrays(csr->nnz, csr->column_indices, correct_upper_j.data()));
+            CHECK(equal_arrays_tol(csr->nnz, csr->values, correct_upper_x.data(), 1e-15));
+        }
 
-    SUBCASE("intel mkl: convert to csr works with symmetric matrix (upper triangular / diagonal first)") {
-        auto csr = CsrMatrixMkl::from(coo_upper_diagonal_first);
-        // csr->print("intel mkl: upper_diagonal_first");
-        CHECK(equal_arrays(csr->dimension + 1, csr->row_pointers, correct_upper_p.data()));
-        CHECK(equal_arrays(csr->nnz, csr->column_indices, correct_upper_j.data()));
-        CHECK(equal_arrays_tol(csr->nnz, csr->values, correct_upper_x.data(), 1e-15));
-    }
+        SUBCASE("intel mkl: convert to csr works with symmetric matrix (upper triangular / diagonal first)") {
+            auto csr = CsrMatrixMkl::from(coo_upper_diagonal_first);
+            // csr->print("intel mkl: upper_diagonal_first");
+            CHECK(equal_arrays(csr->dimension + 1, csr->row_pointers, correct_upper_p.data()));
+            CHECK(equal_arrays(csr->nnz, csr->column_indices, correct_upper_j.data()));
+            CHECK(equal_arrays_tol(csr->nnz, csr->values, correct_upper_x.data(), 1e-15));
+        }
 
-    SUBCASE("intel mkl: convert to csr works with symmetric matrix (lower triangular / ordered)") {
-        auto csr = CsrMatrixMkl::from(coo_lower_ordered);
-        // csr->print("intel mkl: lower_ordered");
-        CHECK(equal_arrays(csr->dimension + 1, csr->row_pointers, correct_lower_p.data()));
-        CHECK(equal_arrays(csr->nnz, csr->column_indices, correct_lower_j.data()));
-        CHECK(equal_arrays_tol(csr->nnz, csr->values, correct_lower_x.data(), 1e-15));
-    }
+        SUBCASE("intel mkl: convert to csr works with symmetric matrix (lower triangular / ordered)") {
+            auto csr = CsrMatrixMkl::from(coo_lower_ordered);
+            // csr->print("intel mkl: lower_ordered");
+            CHECK(equal_arrays(csr->dimension + 1, csr->row_pointers, correct_lower_p.data()));
+            CHECK(equal_arrays(csr->nnz, csr->column_indices, correct_lower_j.data()));
+            CHECK(equal_arrays_tol(csr->nnz, csr->values, correct_lower_x.data(), 1e-15));
+        }
 
-    SUBCASE("intel mkl: convert to csr works with symmetric matrix (lower triangular / diagonal first)") {
-        auto csr = CsrMatrixMkl::from(coo_lower_diagonal_first);
-        // csr->print("intel mkl: lower_diagonal_first");
-        CHECK(equal_arrays(csr->dimension + 1, csr->row_pointers, correct_lower_p.data()));
-        CHECK(equal_arrays(csr->nnz, csr->column_indices, correct_lower_j.data()));
-        CHECK(equal_arrays_tol(csr->nnz, csr->values, correct_lower_x.data(), 1e-15));
+        SUBCASE("intel mkl: convert to csr works with symmetric matrix (lower triangular / diagonal first)") {
+            auto csr = CsrMatrixMkl::from(coo_lower_diagonal_first);
+            // csr->print("intel mkl: lower_diagonal_first");
+            CHECK(equal_arrays(csr->dimension + 1, csr->row_pointers, correct_lower_p.data()));
+            CHECK(equal_arrays(csr->nnz, csr->column_indices, correct_lower_j.data()));
+            CHECK(equal_arrays_tol(csr->nnz, csr->values, correct_lower_x.data(), 1e-15));
+        }
     }
 #endif // USE_MKL
 }
