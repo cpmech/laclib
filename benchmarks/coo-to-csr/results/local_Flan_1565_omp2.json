@@ -8,14 +8,14 @@
   "NumberOfCols": 1564794,
   "NumberOfNonZeros": 59485419,
   "StepReadMatrix": {
-    "ElapsedTimeNanoseconds": 8874320815,
-    "ElapsedTimeString": "8.87432s",
+    "ElapsedTimeNanoseconds": 8863656507,
+    "ElapsedTimeString": "8.86366s",
     "MemoryBytes": 5430120448,
     "MemoryMiB": "5,178"
   },
   "StepConversion": {
-    "ElapsedTimeNanoseconds": 424726546,
-    "ElapsedTimeString": "424.727ms",
+    "ElapsedTimeNanoseconds": 424923211,
+    "ElapsedTimeString": "424.923ms",
     "MemoryBytes": 6150213632,
     "MemoryMiB": "5,865"
   }

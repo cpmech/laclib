@@ -2,20 +2,20 @@
   "Platform": "laclib",
   "Method": "mkl",
   "MatrixName": "Flan_1565",
-  "OmpNumThreads": 2,
+  "OmpNumThreads": 3,
   "Symmetric": true,
   "NumberOfRows": 1564794,
   "NumberOfCols": 1564794,
   "NumberOfNonZeros": 59485419,
   "StepReadMatrix": {
-    "ElapsedTimeNanoseconds": 8772146958,
-    "ElapsedTimeString": "8.77215s",
+    "ElapsedTimeNanoseconds": 8749277116,
+    "ElapsedTimeString": "8.74928s",
     "MemoryBytes": 1584648192,
     "MemoryMiB": "1,511"
   },
   "StepConversion": {
-    "ElapsedTimeNanoseconds": 135361557,
-    "ElapsedTimeString": "135.362ms",
+    "ElapsedTimeNanoseconds": 138331514,
+    "ElapsedTimeString": "138.332ms",
     "MemoryBytes": 4369354752,
     "MemoryMiB": "4,166"
   }

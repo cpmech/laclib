@@ -2,7 +2,7 @@
 
 set -e
 
-N_THREADS="1 2"
+N_THREADS="1 2 3 4"
 
 MATS="Flan_1565"
 
@@ -14,6 +14,7 @@ gen_fnkey() {
 }
 
 # compile optimized code
+touch benchmarks/coo-to-csr/main.cpp
 bash all.bash ON
 
 # change to build dir
