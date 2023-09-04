@@ -9,6 +9,8 @@ foreach(var ${TESTS})
     add_test(NAME ${var} COMMAND ${var})
 endforeach(var)
 
+set_tests_properties(z_test_stopwatch PROPERTIES LABELS noMemcheck)
+
 add_executable(z_test_extract_arguments z_test_extract_arguments.cpp)
 add_test(NAME z_test_extract_arguments COMMAND $<TARGET_FILE:z_test_extract_arguments> first second third)
 

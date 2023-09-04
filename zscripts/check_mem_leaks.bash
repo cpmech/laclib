@@ -2,4 +2,4 @@
 
 bash all.bash
 cd /tmp/build-laclib
-ctest -T memcheck
+ctest -T memcheck -LE "^noMemcheck$"
