@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd build
-make
+bash all.bash
+cd /tmp/build-laclib
 ctest -T memcheck

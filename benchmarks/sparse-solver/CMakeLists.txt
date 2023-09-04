@@ -1,10 +1,10 @@
-add_executable(bmark_sparse_intel main.cpp)
+add_executable(bmark_sparse_intel main_intel.cpp)
 target_link_libraries(bmark_sparse_intel PUBLIC laclib_intel)
 target_compile_definitions(bmark_sparse_intel PRIVATE "MTX_DIR=\"$ENV{HOME}/Downloads/matrix-market\"")
 target_compile_definitions(bmark_sparse_intel PRIVATE "OUT_DIR=\"${CMAKE_SOURCE_DIR}/benchmarks/sparse-solver/results/latest\"")
 
 if(WITH_MUMPS)
-    add_executable(bmark_sparse_open main.cpp)
+    add_executable(bmark_sparse_open main_open.cpp)
     target_link_libraries(bmark_sparse_open PUBLIC laclib_open)
     target_compile_definitions(bmark_sparse_open PRIVATE "MTX_DIR=\"$ENV{HOME}/Downloads/matrix-market\"")
     target_compile_definitions(bmark_sparse_open PRIVATE "OUT_DIR=\"${CMAKE_SOURCE_DIR}/benchmarks/sparse-solver/results/latest\"")

@@ -4,28 +4,6 @@
 #include "../../src/laclib.h"
 #include "check.h"
 
-#ifdef USE_MKL
-#define OPTIONS \
-    auto options = DssOptions::make_new();
-#define SOLVER                                  \
-    auto solver = SolverDss::make_new(options); \
-    std::string solver_name = "intel";          \
-    std::string str_ordering = "unknown";       \
-    std::cout << "TODO" << std::endl;           \
-    return; // TODO
-#else
-#define OPTIONS                                                       \
-    auto ordering = mumps_string_to_ordering(args[2]);                \
-    auto options = MumpsOptions::make_new(is_symmetric(coo->layout)); \
-    options->omp_num_threads = omp_num_threads;                       \
-    options->ordering = ordering;                                     \
-    options->max_work_memory = 30000;                                 \
-    std::string str_ordering = mumps_ordering_to_string(options->ordering);
-#define SOLVER                                    \
-    auto solver = SolverMumps::make_new(options); \
-    std::string solver_name = "mumps";
-#endif
-
 #ifndef MTX_DIR
 #define MTX_DIR "$HOME/Downloads/matrix-market"
 #endif
@@ -59,10 +37,12 @@ void run(int argc, char **argv) {
     set_num_threads(omp_num_threads);
 
     // set options
-    OPTIONS
+    auto options = DssOptions::make_new();
 
     // allocate solver
-    SOLVER
+    auto solver = SolverDss::make_new(options);
+    std::string solver_name = "intel";
+    std::string str_ordering = "unknown";
 
     // set verbose mode
     auto verbose = true;
@@ -74,10 +54,13 @@ void run(int argc, char **argv) {
     // start linear solver execution /////////////////////////////////////
     report->solver_start_stopwatch();
 
-    solver->analyze(coo, verbose);
+    auto csr = CsrMatrixMkl::from(coo);
+    report->measure_step(STEP_CONVERSION);
+
+    solver->analyze(csr, verbose);
     report->measure_step(STEP_ANALYZE);
 
-    solver->factorize(verbose);
+    solver->factorize(csr, verbose);
     report->measure_step(STEP_FACTORIZE);
 
     solver->solve(x, rhs, verbose);
