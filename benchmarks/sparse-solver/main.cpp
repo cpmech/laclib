@@ -4,8 +4,6 @@
 #include "../../src/laclib.h"
 #include "check.h"
 
-#define BENCH_DIR "/../../../benchmarks/sparse-solver"
-
 #ifdef USE_MKL
 #define OPTIONS \
     auto options = DssOptions::make_new();
@@ -28,6 +26,14 @@
     std::string solver_name = "mumps";
 #endif
 
+#ifndef MTX_DIR
+#define MTX_DIR "$HOME/Downloads/matrix-market"
+#endif
+
+#ifndef OUT_DIR
+#define OUT_DIR "/tmp/laclib/results/latest"
+#endif
+
 using namespace std;
 
 void run(int argc, char **argv) {
@@ -45,8 +51,7 @@ void run(int argc, char **argv) {
     auto omp_num_threads = std::atoi(args[1].c_str());
 
     // read matrix
-    auto path = path_get_current() + BENCH_DIR + "/data/";
-    auto filename = path + matrix_name + ".mtx";
+    auto filename = string(MTX_DIR) + "/" + matrix_name + ".mtx";
     auto coo = read_matrix_market(filename);
     report->measure_step(STEP_READ_MATRIX);
 
@@ -86,8 +91,7 @@ void run(int argc, char **argv) {
 
     // write report
     auto stats = Stats::make_new(coo, x, rhs);
-    auto out_dir = path_get_current() + BENCH_DIR + "/results/latest/";
-    report->write_json(out_dir,
+    report->write_json(OUT_DIR,
                        solver_name,
                        matrix_name,
                        str_ordering,

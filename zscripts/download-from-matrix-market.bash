@@ -1,5 +1,11 @@
 #!/bin/bash
 
+set -e
+
+cd ~/Downloads
+mkdir -p matrix-market
+cd matrix-market
+
 get_matrix() {
   GROUP=$1
   NAME=$2

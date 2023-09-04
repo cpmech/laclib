@@ -6,7 +6,6 @@
 #include <string>
 
 #include "../util/memory_usage.h"
-#include "../util/path_tools.h"
 #include "../util/stopwatch.h"
 #include "stats.h"
 
@@ -89,13 +88,13 @@ struct Report {
                            const std::unique_ptr<CooMatrix> &coo,
                            const std::unique_ptr<Stats> &stats) {
 
-        std::stringstream fnkey;
-        fnkey << solver_kind
-              << "_" << matrix_name
-              << "_" << ordering
-              << "_omp" << std::to_string(omp_num_threads);
+        std::stringstream filename_key;
+        filename_key << solver_kind
+                     << "_" << matrix_name
+                     << "_" << ordering
+                     << "_omp" << std::to_string(omp_num_threads);
 
-        std::string filepath = output_dir + "/" + fnkey.str() + ".json";
+        std::string filepath = output_dir + "/" + filename_key.str() + ".json";
 
         std::string str_symmetric = is_symmetric(coo->layout) ? "true" : "false";
 

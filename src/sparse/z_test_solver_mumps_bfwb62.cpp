@@ -1,17 +1,24 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+
 #include <iostream>
 #include <vector>
 
 #include "../../data/sparse-matrix/bfwb62_x_correct.h"
 #include "../laclib.h"
 #include "../util/doctest.h"
+
+#ifndef DATA_DIR
+#define DATA_DIR "data"
+#endif
+
 using namespace std;
 
 TEST_CASE("solve bfwb62 system") {
     set_num_threads(1);
 
-    auto data_path = path_get_current() + "/../../../data";
-    auto mtx_path = data_path + "/sparse-matrix/bfwb62.mtx";
+    auto data_path = string(DATA_DIR) + "/sparse-matrix/";
+
+    auto mtx_path = data_path + "bfwb62.mtx";
     auto coo = read_matrix_market(mtx_path);
 
     auto options = MumpsOptions::make_new(is_symmetric(coo->layout));

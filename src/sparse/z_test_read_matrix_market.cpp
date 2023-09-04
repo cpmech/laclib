@@ -1,15 +1,22 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+
+#include <iostream>
 #include <vector>
 
 #include "../check/index.h"
 #include "../util/doctest.h"
-#include "../util/path_tools.h"
 #include "../util/print_vector.h"
 #include "read_matrix_market.h"
+
+#ifndef DATA_DIR
+#define DATA_DIR "data"
+#endif
+
 using namespace std;
 
 TEST_CASE("read_matrix_market") {
-    auto data_path = path_get_current() + "/../../../data/sparse-matrix/";
+
+    auto data_path = string(DATA_DIR) + "/sparse-matrix/";
 
     SUBCASE("cannot open file") {
         CHECK_THROWS_WITH(read_matrix_market("invalid.mtx"), "read_matrix_market: cannot open file");

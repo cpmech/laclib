@@ -51,7 +51,7 @@ gen_fnkey() {
 bash all.bash ON
 
 # change to build dir
-cd build/benchmarks/sparse-solver
+cd /tmp/build-laclib/benchmarks/sparse-solver
 
 echo
 echo
