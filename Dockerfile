@@ -6,7 +6,6 @@ FROM ${BASE_IMAGE}
 ENV DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "-c"]
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
-  liblapacke-dev \
   wget \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -15,7 +14,7 @@ COPY . /tmp/laclib
 WORKDIR /tmp/laclib
 
 # install Intel MKL
-RUN bash zscripts/install-intel-mkl-linux.bash
+RUN bash install-deps.bash
 
 # configure image for remote development
 RUN bash zscripts/common-debian.sh

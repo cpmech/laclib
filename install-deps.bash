@@ -22,4 +22,4 @@ sudo apt-get install -y --no-install-recommends \
     make \
     patch
 
-bash ./zscripts/install-intel-mkl-linux.bash
+bash zscripts/install-intel-mkl-linux.bash
