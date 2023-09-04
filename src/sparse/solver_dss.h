@@ -9,7 +9,6 @@
 
 /// @brief Wraps the Intel DSS solver
 struct SolverDss {
-
     /// @brief Holds the Intel DSS options
     MKL_INT dss_opt;
 
