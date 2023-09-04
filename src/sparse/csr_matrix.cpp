@@ -201,6 +201,7 @@ std::unique_ptr<CsrMatrixMkl> CsrMatrixMkl::from(std::unique_ptr<CooMatrix> &coo
         row_pointers,
         columns,
         values,
+        csr,
     }};
 }
 #endif // USE_MKL
