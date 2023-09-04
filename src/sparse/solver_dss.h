@@ -9,8 +9,6 @@
 
 /// @brief Wraps the Intel DSS solver
 struct SolverDss {
-    /// @brief Holds the Intel DSS handle
-    _MKL_DSS_HANDLE_t handle;
 
     /// @brief Holds the Intel DSS options
     MKL_INT dss_opt;
@@ -27,12 +25,13 @@ struct SolverDss {
     /// @brief Indicates if analyze_and_factorize or factorize were called
     bool factorized;
 
+    /// @brief Holds the Intel DSS handle (allocated in analyze)
+    _MKL_DSS_HANDLE_t handle;
+
     /// @brief Allocates a new structure
     /// @param options Holds options
     /// @return A new structure
     inline static std::unique_ptr<SolverDss> make_new(const std::unique_ptr<DssOptions> &options) {
-        _MKL_DSS_HANDLE_t handle;
-
         MKL_INT dss_opt = MKL_DSS_MSG_LVL_WARNING + MKL_DSS_TERM_LVL_ERROR + MKL_DSS_ZERO_BASED_INDEXING;
 
         MKL_INT dss_sym = MKL_DSS_NON_SYMMETRIC;
@@ -45,25 +44,22 @@ struct SolverDss {
             dss_type = MKL_DSS_POSITIVE_DEFINITE;
         }
 
-        auto error = dss_create(handle, dss_opt);
-        if (error != MKL_DSS_SUCCESS) {
-            throw "Intel DSS create failed";
-        }
-
         return std::unique_ptr<SolverDss>{
             new SolverDss{
-                handle,
                 dss_opt,
                 dss_sym,
                 dss_type,
                 false,
                 false,
+                NULL,
             }};
     };
 
     /// @brief Clears temporary data
     ~SolverDss() {
-        dss_delete(this->handle, this->dss_opt);
+        if (this->handle != NULL) {
+            dss_delete(this->handle, this->dss_opt);
+        }
     }
 
     /// @brief Performs the analyze step
