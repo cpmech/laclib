@@ -1,4 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+
+#include "../check/check_arrays.h"
 #include "../util/doctest.h"
 
 #include "mkl_dss.h"
@@ -18,6 +20,7 @@ static _INTEGER_t rowIndex[NROWS + 1] = {1, 6, 7, 8, 9, 10};
 static _INTEGER_t columns[NNONZEROS] = {1, 2, 3, 4, 5, 2, 3, 4, 5};
 static _DOUBLE_PRECISION_t values[NNONZEROS] = {9, 1.5, 6, .75, 3, 0.5, 12, .625, 16};
 static _DOUBLE_PRECISION_t rhs[NCOLS] = {1, 2, 3, 4, 5};
+static _DOUBLE_PRECISION_t correct[5] = {-979.0 / 3.0, 983.0, 1961.0 / 12.0, 398.0, 123.0 / 2.0};
 
 // Define the format to printf MKL_INT values
 #if !defined(MKL_ILP64)
@@ -94,6 +97,7 @@ TEST_CASE("testing sparse solver Intel DSS") {
     for (i = 0; i < nCols; i++)
         printf(" %g", solValues[i]);
     printf("\n");
+    CHECK(equal_arrays_tol(5, solValues, correct, 1e-11, true));
 printError:
     printf("Solver returned error code " IFORMAT "\n", error);
 }
