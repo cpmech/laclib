@@ -123,6 +123,12 @@ struct Report {
         ofs << "    \"MemoryBytes\": " << this->step_read_matrix.bytes << ",\n";
         ofs << "    \"MemoryMiB\": \"" << SMIB(this->step_read_matrix.bytes) << "\"\n";
         ofs << "  },\n";
+        ofs << "  \"StepConversion\": {\n";
+        ofs << "    \"ElapsedTimeNanoseconds\": " << this->step_conversion.nanoseconds << ",\n";
+        ofs << "    \"ElapsedTimeString\": \"" << SNSEC(this->step_conversion.nanoseconds) << "\",\n";
+        ofs << "    \"MemoryBytes\": " << this->step_conversion.bytes << ",\n";
+        ofs << "    \"MemoryMiB\": \"" << SMIB(this->step_conversion.bytes) << "\"\n";
+        ofs << "  },\n";
         ofs << "  \"StepAnalyze\": {\n";
         ofs << "    \"ElapsedTimeNanoseconds\": " << this->step_analyze.nanoseconds << ",\n";
         ofs << "    \"ElapsedTimeString\": \"" << SNSEC(this->step_analyze.nanoseconds) << "\",\n";
