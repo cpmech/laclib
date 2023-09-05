@@ -45,8 +45,22 @@ TEST_CASE("read_matrix_market") {
         vector<double> correct_aij = {2, 3, 3, -1, 4, 4, -3, 1, 2, 2, 6, 1};
 
         CHECK(coo->layout == FULL_MATRIX);
-        CHECK(equal_vectors(coo->indices_i, correct_i) == true);
-        CHECK(equal_vectors(coo->indices_j, correct_j) == true);
-        CHECK(equal_vectors_tol(coo->values_aij, correct_aij, 1e-15) == true);
+        CHECK(equal_vectors(coo->indices_i, correct_i));
+        CHECK(equal_vectors(coo->indices_j, correct_j));
+        CHECK(equal_vectors_tol(coo->values_aij, correct_aij, 1e-15));
+    }
+
+    SUBCASE("symmetric cases") {
+        SUBCASE("'leave as lower' works") {
+            auto mtx = data_path + "sym1.mtx";
+            auto coo = read_matrix_market(mtx);
+            vector<INT> correct_i = {/*diag*/ 0, 1, 2, 3, 4, /*lower*/ 1, 2, 4, 2, 3, 4};
+            vector<INT> correct_j = {/*diag*/ 0, 1, 2, 3, 4, /*lower*/ 0, 0, 0, 1, 1, 3};
+            vector<double> correct_aij = {/*diag*/ 10.0, 20.0, 30.0, 40.0, 50.0, /*lower*/ 1.0, 2.0, 3.0, 4.0, 5.0, 6.0};
+            CHECK(coo->layout == LOWER_TRIANGULAR);
+            CHECK(equal_vectors(coo->indices_i, correct_i));
+            CHECK(equal_vectors(coo->indices_j, correct_j));
+            CHECK(equal_vectors_tol(coo->values_aij, correct_aij, 1e-15));
+        }
     }
 }
