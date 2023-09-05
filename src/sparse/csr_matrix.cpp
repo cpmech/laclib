@@ -148,14 +148,14 @@ std::unique_ptr<CsrMatrixMkl> CsrMatrixMkl::from(std::unique_ptr<CooMatrix> &coo
     // create COO MKL matrix
     auto m = make_int(coo->dimension);
     auto nnz = make_int(coo->pos);
-    sparse_matrix_t coo_mkl;
+    sparse_matrix_t coo_mkl = NULL;
     auto status = mkl_sparse_d_create_coo(&coo_mkl, SPARSE_INDEX_BASE_ZERO, m, m, nnz, ai, aj, ax);
     if (status != SPARSE_STATUS_SUCCESS) {
         throw "Intel MKL failed to create COO matrix";
     }
 
     // convert COO to CSR
-    sparse_matrix_t csr;
+    sparse_matrix_t csr = NULL;
     status = mkl_sparse_convert_csr(coo_mkl, SPARSE_OPERATION_NON_TRANSPOSE, &csr);
     if (status != SPARSE_STATUS_SUCCESS) {
         throw "Intel MKL failed to convert COO matrix to CSR matrix";

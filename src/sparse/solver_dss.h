@@ -29,7 +29,7 @@ struct SolverDss {
     bool factorized;
 
     /// @brief Holds the Intel DSS handle (allocated in analyze)
-    _MKL_DSS_HANDLE_t handle;
+    _MKL_DSS_HANDLE_t handle = NULL;
 
     /// @brief Allocates a new structure
     /// @param options Holds options

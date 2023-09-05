@@ -11,6 +11,8 @@ set(CMAKE_CXX_STANDARD 20)
 
 option(A1_OPTIMIZED "Make optimized (-O3)" OFF)
 
+# set(CMAKE_VERBOSE_MAKEFILE TRUE)
+
 set(WITH_MUMPS ON)
 
 if(WIN32)

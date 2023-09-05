@@ -59,18 +59,18 @@ struct CsrMatrixMkl {
     MKL_INT nnz;
 
     /// @brief Is the row pointers array with size = n_row + 1
-    MKL_INT *row_pointers;
+    MKL_INT *row_pointers = NULL;
 
     /// @brief Is the column indices array with size = nnz (number of non-zeros)
     /// @note The size of this vector may be greater than nnz because some duplicates have been summed up
-    MKL_INT *column_indices;
+    MKL_INT *column_indices = NULL;
 
     /// @brief Is the values array with size = nnz (number of non-zeros)
     /// @note The size of this vector may be greater than nnz because some duplicates have been summed up
-    double *values;
+    double *values = NULL;
 
     /// @brief Holds a handle to the CSR data (use this with mkl_sparse_destroy)
-    sparse_matrix_t handle;
+    sparse_matrix_t handle = NULL;
 
     /// @brief Allocates a new structure
     /// @todo See if const can be used here
@@ -81,7 +81,9 @@ struct CsrMatrixMkl {
         if (this->row_pointers != NULL) {
             free(this->row_pointers);
         }
-        mkl_sparse_destroy(this->handle);
+        if (this->handle != NULL) {
+            mkl_sparse_destroy(this->handle);
+        }
     }
 
     /// @brief Prints the matrix
