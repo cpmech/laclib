@@ -102,6 +102,9 @@ struct CsrMatrixMkl {
         }
         std::cout << std::endl;
     }
+
+    /// @brief Check if the matrix is OK for Intel DSS
+    bool ok_for_dss(bool verbose = false);
 };
 #endif
 

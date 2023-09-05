@@ -317,6 +317,36 @@ TEST_CASE("testing CsrMatrix") {
             CHECK(equal_arrays(csr->nnz, csr->column_indices, correct_lower_j.data()));
             CHECK(equal_arrays_tol(csr->nnz, csr->values, correct_lower_x.data(), 1e-15));
         }
+
+        SUBCASE("ok_for_dss returns true for a correct matrix") {
+            auto csr = CsrMatrixMkl::from(coo_lower_diagonal_first);
+            CHECK(csr->ok_for_dss(false));
+        }
+
+        SUBCASE("ok_for_dss returns false for an incorrect matrix") {
+            // 1  2  .  .  .
+            // 3  4  .  .  .
+            // .  .  5  6  .
+            // .  .  7  8  .
+            // .  .  .  .  9
+            // small triplet with shuffled entries
+            auto coo = CooMatrix::make_new(FULL_MATRIX, 5, 9);
+            coo->put(4, 4, 9.0);
+            coo->put(0, 0, 1.0);
+            coo->put(1, 0, 3.0);
+            coo->put(2, 2, 5.0);
+            coo->put(2, 3, 6.0);
+            coo->put(0, 1, 2.0);
+            coo->put(3, 2, 7.0);
+            coo->put(1, 1, 4.0);
+            coo->put(3, 3, 8.0);
+            auto csr = CsrMatrixMkl::from(coo);
+            // mess the indices up for the sake of testing
+            auto temp = csr->column_indices[0];
+            csr->column_indices[0] = csr->column_indices[1];
+            csr->column_indices[1] = temp;
+            CHECK(csr->ok_for_dss(true) == false);
+        }
     }
 #endif // USE_MKL
 }

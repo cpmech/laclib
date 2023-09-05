@@ -1,6 +1,7 @@
 #include "csr_matrix.h"
 
 #include <algorithm> // fill
+#include <iostream>
 #include <memory>
 
 /// @brief Sums duplicate column entries in each row of a CSR matrix
@@ -203,5 +204,65 @@ std::unique_ptr<CsrMatrixMkl> CsrMatrixMkl::from(std::unique_ptr<CooMatrix> &coo
         values,
         csr,
     }};
+}
+
+bool CsrMatrixMkl::ok_for_dss(bool verbose) {
+    sparse_checker_error_values check_err_val;
+    sparse_struct pt;
+
+    sparse_matrix_checker_init(&pt);
+    pt.n = this->dimension;
+    pt.csr_ia = this->row_pointers;
+    pt.csr_ja = this->column_indices;
+    pt.indexing = MKL_ZERO_BASED;
+    pt.matrix_structure = this->layout == UPPER_TRIANGULAR ? MKL_UPPER_TRIANGULAR : (this->layout == LOWER_TRIANGULAR ? MKL_LOWER_TRIANGULAR : MKL_GENERAL_STRUCTURE);
+    pt.print_style = MKL_C_STYLE;
+    pt.message_level = verbose ? MKL_PRINT : MKL_NO_PRINT;
+
+    check_err_val = sparse_matrix_checker(&pt);
+
+    bool ok = false;
+
+    switch (check_err_val) {
+    case MKL_SPARSE_CHECKER_SUCCESS:
+        if (verbose) {
+            std::cout << "SUCCESS: The input array successfully passed all checks." << std::endl;
+        }
+        ok = true;
+        break;
+    case MKL_SPARSE_CHECKER_NON_MONOTONIC:
+        if (verbose) {
+            std::cout << "FAIL: The input array is not 0 or 1 based (, ia[0] is not 0 or 1) or elements of ia are not in non-decreasing order as required." << std::endl;
+        }
+        ok = false;
+        break;
+    case MKL_SPARSE_CHECKER_OUT_OF_RANGE:
+        if (verbose) {
+            std::cout << "FAIL: The value of the ja array is lower than the number of the first column or greater than the number of the last column." << std::endl;
+        }
+        ok = false;
+        break;
+    case MKL_SPARSE_CHECKER_NONTRIANGULAR:
+        if (verbose) {
+            std::cout << "FAIL: The matrix_structure parameter is MKL_UPPER_TRIANGULAR and both ia and ja are not upper triangular, or the matrix_structure parameter is MKL_LOWER_TRIANGULAR and both ia and ja are not lower triangular." << std::endl;
+        }
+        ok = false;
+        break;
+    case MKL_SPARSE_CHECKER_NONORDERED:
+        if (verbose) {
+            std::cout << "FAIL: The elements of the ja array are not in non-decreasing order in each row as required." << std::endl;
+        }
+        ok = false;
+        break;
+    default:
+        throw "INTERNAL ERROR: unknown DSS case";
+    }
+
+    if (verbose && !ok) {
+        // pt.check_result: Indicates the location of the problem in the arrays
+        std::cout << "Matrix check details: (" << pt.check_result[0] << "," << pt.check_result[1] << "," << pt.check_result[2] << ")" << std::endl;
+    }
+
+    return ok;
 }
 #endif // USE_MKL

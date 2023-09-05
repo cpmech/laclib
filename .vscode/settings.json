@@ -55,6 +55,8 @@
     "linalg",
     "NCOLS",
     "NNONZEROS",
+    "NONORDERED",
+    "NONTRIANGULAR",
     "PARDISO",
     "PARMETIS",
     "PERMUT",
