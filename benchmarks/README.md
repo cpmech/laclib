@@ -23,4 +23,4 @@ Then, run:
 bash zscripts/bench-sparse-solver.bash
 ```
 
-The results will be saved in the [benchmarks/sparse/results](https://github.com/cpmech/laclib/tree/main/benchmarks/sparse/results) directory.
+The results will be saved in the [benchmarks/sparse-solver/results/latests](https://github.com/cpmech/laclib/tree/main/benchmarks/sparse-solver/results-results/latest) directory.
