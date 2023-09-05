@@ -30,14 +30,14 @@ void run(int argc, char **argv) {
 
     // read matrix
     auto filename = string(MTX_DIR) + "/" + matrix_name + ".mtx";
-    auto coo = read_matrix_market(filename);
+    auto coo = read_matrix_market(filename, SWAP_TO_UPPER);
     report->measure_step(STEP_READ_MATRIX);
 
     // set number of threads
     set_num_threads(omp_num_threads);
 
     // set options
-    auto options = DssOptions::make_new();
+    auto options = DssOptions::make_new(is_symmetric(coo->layout));
 
     // allocate solver
     auto solver = SolverDss::make_new(options);
