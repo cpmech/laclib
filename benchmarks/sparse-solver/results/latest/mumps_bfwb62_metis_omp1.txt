@@ -137,10 +137,10 @@ Entering DMUMPS 5.6.1 from C interface with JOB, N, NNZ =   3          62       
  ** Space in MBYTES used for solve                        :     14999
 
  Leaving solve with ...
- Time to build/scatter RHS        =       0.000019
- Time in solution step (fwd/bwd)  =       0.000030
+ Time to build/scatter RHS        =       0.000020
+ Time in solution step (fwd/bwd)  =       0.000029
   .. Time in forward (fwd) step   =          0.000016
-  .. Time in backward (bwd) step  =          0.000012
+  .. Time in backward (bwd) step  =          0.000011
  Time to gather solution(cent.sol)=       0.000001
  Time to copy/scale dist. solution=       0.000000
 

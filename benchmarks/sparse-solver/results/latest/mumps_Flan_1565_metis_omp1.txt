@@ -23,7 +23,7 @@ Matrix entries:    IRN()   ICN()
           10        1
  Average density of rows/columns =   74
  Ordering based on METIS
- ELAPSED TIME SPENT IN METIS reordering  =      6.4384
+ ELAPSED TIME SPENT IN METIS reordering  =      6.4156
  SYMBOLIC based on column counts 
  ELAPSED TIME IN symbolic factorization  =************
 NFSIZ(.)  =        0        0        0        0        0        0        0        0        0        0
@@ -59,7 +59,7 @@ Leaving analysis phase with  ...
     Total space in MBytes, IC factorization      (INFOG(17)):       29483
     Total space in MBytes,  OOC factorization    (INFOG(27)):        2761
 
- Elapsed time in analysis driver=       7.3507
+ Elapsed time in analysis driver=       7.3322
 
 Entering DMUMPS 5.6.1 from C interface with JOB, N, NNZ =   2     1564794       59485419
       executing #MPI =      1 and #OMP =      1
@@ -86,12 +86,12 @@ Entering DMUMPS 5.6.1 from C interface with JOB, N, NNZ =   2     1564794       
  Max difference from 1 after scaling the entries for ONE-NORM (option 7/8)   = 0.70D-01
  Effective size of S     (based on INFO(39))=           3589465589
 
- Elapsed time to reformat/distribute matrix =      0.5016
+ Elapsed time to reformat/distribute matrix =      0.5037
 
  ** Memory allocated, total in Mbytes           (INFOG(19)):       29742
  ** Memory effectively used, total in Mbytes    (INFOG(22)):       13961
 
- Elapsed time for factorization                     =    177.3101
+ Elapsed time for factorization                     =    176.2354
 
 Leaving factorization with ...
  RINFOG (2) Operations in node assembly             = 2.886D+09
@@ -107,7 +107,7 @@ Leaving factorization with ...
  Number of 2x2 pivots in type 2 nodes               =               0
  INFOG (14) Number of memory compress               =               0
 
- Elapsed time in factorization driver               =    178.1075
+ Elapsed time in factorization driver               =    177.0331
 
 Entering DMUMPS 5.6.1 from C interface with JOB, N, NNZ =   3     1564794       59485419
       executing #MPI =      1 and #OMP =      1
@@ -135,11 +135,11 @@ Entering DMUMPS 5.6.1 from C interface with JOB, N, NNZ =   3     1564794       
  ** Space in MBYTES used for solve                        :     29159
 
  Leaving solve with ...
- Time to build/scatter RHS        =       0.009322
- Time in solution step (fwd/bwd)  =       1.505197
-  .. Time in forward (fwd) step   =          0.793785
-  .. Time in backward (bwd) step  =          0.711409
- Time to gather solution(cent.sol)=       0.002051
+ Time to build/scatter RHS        =       0.009486
+ Time in solution step (fwd/bwd)  =       1.499008
+  .. Time in forward (fwd) step   =          0.792435
+  .. Time in backward (bwd) step  =          0.706569
+ Time to gather solution(cent.sol)=       0.001922
  Time to copy/scale dist. solution=       0.000000
 
- Elapsed time in solve driver=       1.5214
+ Elapsed time in solve driver=       1.5153

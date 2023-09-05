@@ -1,0 +1,52 @@
+{
+  "Platform": "laclib",
+  "SolverKind": "intel",
+  "MatrixName": "bfwb62",
+  "Ordering": "unknown",
+  "MpiSize": 0,
+  "OmpNumThreads": 8,
+  "Symmetric": true,
+  "NumberOfRows": 62,
+  "NumberOfCols": 62,
+  "NumberOfNonZeros": 202,
+  "StepReadMatrix": {
+    "ElapsedTimeNanoseconds": 45180,
+    "ElapsedTimeString": "45.18µs",
+    "MemoryBytes": 156999680,
+    "MemoryMiB": "149"
+  },
+  "StepConversion": {
+    "ElapsedTimeNanoseconds": 5400365,
+    "ElapsedTimeString": "5.40036ms",
+    "MemoryBytes": 756768768,
+    "MemoryMiB": "721"
+  },
+  "StepAnalyze": {
+    "ElapsedTimeNanoseconds": 280369,
+    "ElapsedTimeString": "280.369µs",
+    "MemoryBytes": 757174272,
+    "MemoryMiB": "722"
+  },
+  "StepFactorize": {
+    "ElapsedTimeNanoseconds": 111544,
+    "ElapsedTimeString": "111.544µs",
+    "MemoryBytes": 761913344,
+    "MemoryMiB": "726"
+  },
+  "StepSolve": {
+    "ElapsedTimeNanoseconds": 66013,
+    "ElapsedTimeString": "66.013µs",
+    "MemoryBytes": 761913344,
+    "MemoryMiB": "726"
+  },
+  "TimeSolverNanoseconds": 5850946,
+  "TimeSolverString": "5.85095ms",
+  "Stats": {
+    "MaxAbsA": 0.0001,
+    "MaxAbsAx": 1,
+    "MaxAbsDiff": 4.44089209850063e-16,
+    "RelativeError": 4.44044805369526e-16,
+    "ElapsedTimeNanoseconds": 15486,
+    "ElapsedTimeString": "15.486µs"
+  }
+}
