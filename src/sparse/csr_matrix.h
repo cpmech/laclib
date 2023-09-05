@@ -44,6 +44,10 @@ struct CsrMatrix {
 
 #ifdef USE_MKL
 /// @brief Holds the arrays needed for a CSR (compressed sparse row) matrix (MKL version)
+/// @note The DSS uses a row-major UPPER triangular storage format.
+/// @note The matrix is compressed row-by-row.
+/// @note For symmetric matrices only non-zero elements in the UPPER triangular half of the matrix are stored.
+/// @note For symmetric matrices, the zero diagonal entries must be stored as well.
 struct CsrMatrixMkl {
     /// @brief layout
     StoredLayout layout;
@@ -100,3 +104,6 @@ struct CsrMatrixMkl {
     }
 };
 #endif
+
+// Reference regarding symmetric matrix storage
+// https://www.intel.com/content/www/us/en/docs/onemkl/developer-reference-c/2023-2/dss-symmetric-matrix-storage.html

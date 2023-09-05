@@ -8,6 +8,10 @@
 #include "solver_dss_options.h"
 
 /// @brief Wraps the Intel DSS solver
+/// @note The DSS uses a row-major UPPER triangular storage format.
+/// @note The matrix is compressed row-by-row.
+/// @note For symmetric matrices only non-zero elements in the UPPER triangular half of the matrix are stored.
+/// @note For symmetric matrices, the zero diagonal entries must be stored as well.
 struct SolverDss {
     /// @brief Holds the Intel DSS options
     MKL_INT dss_opt;
@@ -91,6 +95,9 @@ struct SolverDss {
                const std::vector<double> &rhs,
                bool verbose = false);
 };
+
+// Reference:
+// https://www.intel.com/content/www/us/en/docs/onemkl/developer-reference-c/2023-2/direct-sparse-solver-dss-interface-routines.html
 
 // Reference:
 // https://www.intel.com/content/www/us/en/docs/onemkl/developer-reference-c/2023-2/direct-sparse-solver-dss-interface-routines.html
