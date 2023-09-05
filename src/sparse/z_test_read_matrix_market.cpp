@@ -62,5 +62,35 @@ TEST_CASE("read_matrix_market") {
             CHECK(equal_vectors(coo->indices_j, correct_j));
             CHECK(equal_vectors_tol(coo->values_aij, correct_aij, 1e-15));
         }
+
+        SUBCASE("'swap to upper' works") {
+            auto mtx = data_path + "sym1.mtx";
+            auto coo = read_matrix_market(mtx, SWAP_TO_UPPER);
+            vector<INT> correct_i = {/*diag*/ 0, 1, 2, 3, 4, /*upper*/ 0, 0, 0, 1, 1, 3};
+            vector<INT> correct_j = {/*diag*/ 0, 1, 2, 3, 4, /*upper*/ 1, 2, 4, 2, 3, 4};
+            vector<double> correct_aij = {/*diag*/ 10.0, 20.0, 30.0, 40.0, 50.0, /*upper*/ 1.0, 2.0, 3.0, 4.0, 5.0, 6.0};
+            CHECK(coo->layout == UPPER_TRIANGULAR);
+            CHECK(equal_vectors(coo->indices_i, correct_i));
+            CHECK(equal_vectors(coo->indices_j, correct_j));
+            CHECK(equal_vectors_tol(coo->values_aij, correct_aij, 1e-15));
+        }
+
+        SUBCASE("'make it full' works") {
+            auto mtx = data_path + "sym1.mtx";
+            auto coo = read_matrix_market(mtx, MAKE_IT_FULL);
+            vector<INT> correct_i = {/*diag*/ 0, 1, 2, 3, 4, /*off-diag*/ 1, 0, 2, 0, 4, 0, 2, 1, 3, 1, 4, 3};
+            vector<INT> correct_j = {/*diag*/ 0, 1, 2, 3, 4, /*off-diag*/ 0, 1, 0, 2, 0, 4, 1, 2, 1, 3, 3, 4};
+            vector<double> correct_aij = {/*diag*/ 10.0, 20.0, 30.0, 40.0, 50.0, /*off-diag*/ 1.0, 1.0, 2.0, 2.0, 3.0, 3.0, 4.0, 4.0, 5.0, 5.0, 6.0, 6.0};
+            size_t nnz_original = 11;
+            size_t nnz_lower = 6;
+            size_t max = 2 * nnz_original; // note: we have more space than needed; ok
+            size_t nnz = nnz_original + nnz_lower;
+            CHECK(coo->layout == FULL_MATRIX);
+            CHECK(coo->max == max);
+            CHECK(coo->pos == nnz);
+            CHECK(equal_arrays(nnz, coo->indices_i.data(), correct_i.data()));
+            CHECK(equal_arrays(nnz, coo->indices_j.data(), correct_j.data()));
+            CHECK(equal_arrays_tol(nnz, coo->values_aij.data(), correct_aij.data(), 1e-15));
+        }
     }
 }
