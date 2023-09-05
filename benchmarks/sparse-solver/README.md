@@ -1,5 +1,19 @@
 # Benchmarks using the code for sparse matrices
 
+First, we need to download some (large) test matrices:
+
+```bash
+bash zscripts/download-from-matrix-market.bash
+```
+
+Then, run:
+
+```bash
+bash zscripts/bench-sparse-solver.bash
+```
+
+The results will be saved in the [benchmarks/sparse-solver/results/latest](https://github.com/cpmech/laclib/tree/main/benchmarks/sparse-solver/results/latest) directory.
+
 ## Previous results from 2021
 
 - [Open: sequential + OpenMP](https://github.com/cpmech/laclib/tree/previous-2021-code/benchmarks/sparse/README-open_seq_ana_fact_total.md)
