@@ -15,7 +15,7 @@ TEST_CASE("equal_vectors") {
         vector<int> b{1, 2, 3};
         vector<int> c{1, 2, 4};
         vector<int> d{1, 2};
-        CHECK(equal_vectors(a, b) == true);
+        CHECK(equal_vectors(a, b));
         CHECK(equal_vectors(b, c) == false);
         CHECK(equal_vectors(c, d) == false);
     }
@@ -25,7 +25,7 @@ TEST_CASE("equal_vectors") {
         vector<size_t> b{1, 2, 3};
         vector<size_t> c{1, 2, 4};
         vector<size_t> d{1, 2};
-        CHECK(equal_vectors(a, b) == true);
+        CHECK(equal_vectors(a, b));
         CHECK(equal_vectors(b, c) == false);
         CHECK(equal_vectors(c, d) == false);
     }
@@ -35,7 +35,7 @@ TEST_CASE("equal_vectors") {
         vector<string> b{"1", "2", "3"};
         vector<string> c{"1", "2", "4"};
         vector<string> d{"1", "2"};
-        CHECK(equal_vectors(a, b) == true);
+        CHECK(equal_vectors(a, b));
         CHECK(equal_vectors(b, c) == false);
         CHECK(equal_vectors(c, d) == false);
     }
@@ -48,7 +48,7 @@ TEST_CASE("equal_vectors_tol") {
         vector<float> b{1.0f, 2.0f, 3.0f + tolerance};
         vector<float> c{1.0f, 2.0f, 3.0f + 1e-5};
         vector<float> d{1.0f, 2.0f};
-        CHECK(equal_vectors_tol(a, b, tolerance) == true);
+        CHECK(equal_vectors_tol(a, b, tolerance));
         CHECK(equal_vectors_tol(b, c, tolerance) == false);
         CHECK(equal_vectors_tol(c, d, tolerance) == false);
     }
@@ -59,7 +59,7 @@ TEST_CASE("equal_vectors_tol") {
         vector<double> b{1.0, 2.0, 3.0 + tolerance};
         vector<double> c{1.0, 2.0, 3.0 + 1e-14};
         vector<double> d{1.0, 2.0};
-        CHECK(equal_vectors_tol(a, b, tolerance) == true);
+        CHECK(equal_vectors_tol(a, b, tolerance));
         CHECK(equal_vectors_tol(b, c, tolerance) == false);
         CHECK(equal_vectors_tol(c, d, tolerance) == false);
     }
@@ -79,12 +79,12 @@ TEST_CASE("equal_complex_vectors_tol") {
         vector<complex<float>> bb3{complex<float>(1, 1), complex<float>(2, 2), complex<float>(3 + tol_real, 3 + tol_imag)};
         vector<complex<float>> cc{complex<float>(1, 1), complex<float>(2, 2), complex<float>(3, 3 + 1e-5)};
         vector<complex<float>> dd{complex<float>(1, 1), complex<float>(2, 2)};
-        CHECK(equal_complex_vectors_tol(a, b, tol_real, tol_imag) == true);
+        CHECK(equal_complex_vectors_tol(a, b, tol_real, tol_imag));
         CHECK(equal_complex_vectors_tol(b, c, tol_real, tol_imag) == false);
         CHECK(equal_complex_vectors_tol(c, d, tol_real, tol_imag) == false);
-        CHECK(equal_complex_vectors_tol(aa, bb1, tol_real, tol_imag) == true);
-        CHECK(equal_complex_vectors_tol(aa, bb2, tol_real, tol_imag) == true);
-        CHECK(equal_complex_vectors_tol(aa, bb3, tol_real, tol_imag) == true);
+        CHECK(equal_complex_vectors_tol(aa, bb1, tol_real, tol_imag));
+        CHECK(equal_complex_vectors_tol(aa, bb2, tol_real, tol_imag));
+        CHECK(equal_complex_vectors_tol(aa, bb3, tol_real, tol_imag));
         CHECK(equal_complex_vectors_tol(bb1, cc, tol_real, tol_imag) == false);
         CHECK(equal_complex_vectors_tol(bb2, cc, tol_real, tol_imag) == false);
         CHECK(equal_complex_vectors_tol(bb3, cc, tol_real, tol_imag) == false);
@@ -104,12 +104,12 @@ TEST_CASE("equal_complex_vectors_tol") {
         vector<complex<double>> bb3{complex<double>(1, 1), complex<double>(2, 2), complex<double>(3 + tol_real, 3 + tol_imag)};
         vector<complex<double>> cc{complex<double>(1, 1), complex<double>(2, 2), complex<double>(3, 3 + 1e-14)};
         vector<complex<double>> dd{complex<double>(1, 1), complex<double>(2, 2)};
-        CHECK(equal_complex_vectors_tol(a, b, tol_real, tol_imag) == true);
+        CHECK(equal_complex_vectors_tol(a, b, tol_real, tol_imag));
         CHECK(equal_complex_vectors_tol(b, c, tol_real, tol_imag) == false);
         CHECK(equal_complex_vectors_tol(c, d, tol_real, tol_imag) == false);
-        CHECK(equal_complex_vectors_tol(aa, bb1, tol_real, tol_imag) == true);
-        CHECK(equal_complex_vectors_tol(aa, bb2, tol_real, tol_imag) == true);
-        CHECK(equal_complex_vectors_tol(aa, bb3, tol_real, tol_imag) == true);
+        CHECK(equal_complex_vectors_tol(aa, bb1, tol_real, tol_imag));
+        CHECK(equal_complex_vectors_tol(aa, bb2, tol_real, tol_imag));
+        CHECK(equal_complex_vectors_tol(aa, bb3, tol_real, tol_imag));
         CHECK(equal_complex_vectors_tol(bb1, cc, tol_real, tol_imag) == false);
         CHECK(equal_complex_vectors_tol(bb2, cc, tol_real, tol_imag) == false);
         CHECK(equal_complex_vectors_tol(bb3, cc, tol_real, tol_imag) == false);

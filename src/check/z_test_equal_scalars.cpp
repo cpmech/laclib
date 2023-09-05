@@ -14,7 +14,7 @@ TEST_CASE("equal_scalars_tol") {
         float b = 1.0;
         float c = 1.0001;
         float tolerance = 1e-6;
-        CHECK(equal_scalars_tol(a, b, tolerance) == true);
+        CHECK(equal_scalars_tol(a, b, tolerance));
         CHECK(equal_scalars_tol(b, c, tolerance) == false);
     }
 
@@ -23,7 +23,7 @@ TEST_CASE("equal_scalars_tol") {
         double b = 1.0;
         double c = 1.0000001;
         double tolerance = 1e-15;
-        CHECK(equal_scalars_tol(a, b, tolerance) == true);
+        CHECK(equal_scalars_tol(a, b, tolerance));
         CHECK(equal_scalars_tol(b, c, tolerance) == false);
     }
 }

@@ -25,8 +25,8 @@ TEST_CASE("solve bfwb62 system") {
     auto solver = SolverMumps::make_new(options);
 
     solver->analyze_and_factorize(coo);
-    CHECK(solver.get()->analyzed == true);
-    CHECK(solver.get()->factorized == true);
+    CHECK(solver.get()->analyzed);
+    CHECK(solver.get()->factorized);
 
     auto rhs = vector<double>(coo->dimension, 1.0);
     auto x = vector<double>(coo->dimension, 0.0);
@@ -39,5 +39,5 @@ TEST_CASE("solve bfwb62 system") {
     print_vector("x_correct", bfwb62_x_correct);
     cout << "\n";
 
-    CHECK(equal_vectors_tol(x, bfwb62_x_correct, 1e-10, true) == true);
+    CHECK(equal_vectors_tol(x, bfwb62_x_correct, 1e-10, true));
 }

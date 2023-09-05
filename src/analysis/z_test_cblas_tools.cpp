@@ -14,7 +14,7 @@ TEST_CASE("CBLAS tools") {
     SUBCASE("max_abs_value") {
         auto x = std::vector<double>{1, 5, -9, 2, 6, 0, 3, 7, -1, 4, 8, -2};
         auto res = max_abs_value(x);
-        CHECK(equal_scalars_tol(res, 9.0, 1e-15) == true);
+        CHECK(equal_scalars_tol(res, 9.0, 1e-15));
     }
 
     SUBCASE("daxpy") {

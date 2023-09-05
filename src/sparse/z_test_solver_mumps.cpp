@@ -47,23 +47,23 @@ TEST_CASE("testing sparse solver MUMPS (NP1)") {
 
     SUBCASE("using analyze, factorize and solve") {
         solver->analyze(coo);
-        CHECK(solver.get()->analyzed == true);
+        CHECK(solver.get()->analyzed);
         CHECK(solver.get()->factorized == false);
 
         solver->factorize();
-        CHECK(solver.get()->analyzed == true);
-        CHECK(solver.get()->factorized == true);
+        CHECK(solver.get()->analyzed);
+        CHECK(solver.get()->factorized);
 
         solver->solve(x, rhs);
-        CHECK(equal_vectors_tol(x, x_correct, 1e-14) == true);
+        CHECK(equal_vectors_tol(x, x_correct, 1e-14));
     }
 
     SUBCASE("using analyze_and_factorize and solve") {
         solver->analyze_and_factorize(coo);
-        CHECK(solver.get()->analyzed == true);
-        CHECK(solver.get()->factorized == true);
+        CHECK(solver.get()->analyzed);
+        CHECK(solver.get()->factorized);
 
         solver->solve(x, rhs);
-        CHECK(equal_vectors_tol(x, x_correct, 1e-14) == true);
+        CHECK(equal_vectors_tol(x, x_correct, 1e-14));
     }
 }
