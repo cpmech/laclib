@@ -57,6 +57,10 @@ void run(int argc, char **argv) {
     auto csr = CsrMatrixMkl::from(coo);
     report->measure_step(STEP_CONVERSION);
 
+    // if (!csr->ok_for_dss(true)) {
+    //     throw "matrix is not OK for DSS";
+    // }
+
     solver->analyze(csr, verbose);
     report->measure_step(STEP_ANALYZE);
 
