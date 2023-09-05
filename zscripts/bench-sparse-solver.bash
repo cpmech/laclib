@@ -5,18 +5,18 @@ set -e
 ORDERING=${1:-"metis"}
 
 N_THREADS=1
-#N_THREADS=1 2 3 4
+#N_THREADS="1 2 3 4 5 6 7 8"
 
 RESDIR=`pwd`/benchmarks/sparse-solver/results/latest
 
 # MATS="bfwb62"
 
-MATS="Flan_1565"
+# MATS="Flan_1565"
 
-#MATS="
-#    bfwb62 \
-#    inline_1 \
-#"
+MATS="
+    bfwb62 \
+    inline_1 \
+"
 
 # MATS="
 #     bfwb62 \
