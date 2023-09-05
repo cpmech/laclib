@@ -13,10 +13,12 @@ RESDIR=`pwd`/benchmarks/sparse-solver/results/latest
 
 # MATS="Flan_1565"
 
-MATS="
-    bfwb62 \
-    inline_1 \
-"
+MATS="pre2"
+
+# MATS="
+#     bfwb62 \
+#     inline_1 \
+# "
 
 # MATS="
 #     bfwb62 \
