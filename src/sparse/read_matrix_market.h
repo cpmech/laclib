@@ -4,15 +4,29 @@
 
 #include "coo_matrix.h"
 
-enum PartitionOption {
-    PARTITION_BY_NNZ,
-    PARTITION_BY_ROW,
-    PARTITION_BY_COL,
+/// @brief Holds options to handle the data when the matrix is symmetric
+/// @note This is ignored if not symmetric
+enum SymmetricHandling {
+    /// @brief Leave the layout as lower triangular (if symmetric)
+    /// @note Lower triangular is the standard MatrixMarket format
+    /// @note Thus, do nothing
+    LEAVE_AS_LOWER,
+
+    /// @brief Convert the layout to upper triangular (if symmetric)
+    /// @note Thus, swap the lower triangle to the upper triangle
+    SWAP_TO_UPPER,
+
+    /// @brief Make the matrix full (if symmetric)
+    /// @note Mirror the lower triangle to the upper triangle (duplicate data)
+    /// @note The number of non-zeros will be slightly larger than just duplicating the lower triangle
+    MAKE_IT_FULL,
 };
 
 /// @brief Reads a MatrixMarket file into a CooMatrix
+/// @param symmetric_handling Options to handle symmetric matrices
 /// @note This function works only with square matrices.
-std::unique_ptr<CooMatrix> read_matrix_market(const std::string &filename);
+std::unique_ptr<CooMatrix> read_matrix_market(const std::string &filename,
+                                              SymmetricHandling symmetric_handling = LEAVE_AS_LOWER);
 
 // If the matrix is symmetric, only entries in the **lower triangular** portion
 // are present in the MatrixMarket file (see reference).

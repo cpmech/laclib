@@ -3,7 +3,8 @@
 #include <cstdio>
 #include <cstring>
 
-std::unique_ptr<CooMatrix> read_matrix_market(const std::string &filename) {
+std::unique_ptr<CooMatrix> read_matrix_market(const std::string &filename,
+                                              SymmetricHandling symmetric_handling) {
     FILE *f = fopen(filename.c_str(), "r");
     if (f == NULL) {
         throw "read_matrix_market: cannot open file";
@@ -52,7 +53,23 @@ std::unique_ptr<CooMatrix> read_matrix_market(const std::string &filename) {
 
     std::unique_ptr<CooMatrix> coo;
     bool symmetric = strncmp(sym, "symmetric", 9) == 0;
-    StoredLayout layout = symmetric ? LOWER_TRIANGULAR : FULL_MATRIX;
+
+    StoredLayout layout = FULL_MATRIX;
+    if (symmetric) {
+        switch (symmetric_handling) {
+        case LEAVE_AS_LOWER:
+            layout = LOWER_TRIANGULAR;
+            break;
+        case SWAP_TO_UPPER:
+            layout = UPPER_TRIANGULAR;
+            break;
+        case MAKE_IT_FULL:
+            layout = FULL_MATRIX;
+            break;
+        default:
+            throw "symmetric handling option is invalid";
+        }
+    }
 
     bool initialized = false;
     size_t m, n, nnz, i, j;
@@ -71,7 +88,12 @@ std::unique_ptr<CooMatrix> read_matrix_market(const std::string &filename) {
                 throw "read_matrix_market: cannot parse the dimensions (m,n,nnz)";
             }
 
-            coo = CooMatrix::make_new(layout, m, nnz);
+            auto max = nnz;
+            if (symmetric && symmetric_handling == MAKE_IT_FULL) {
+                max = 2 * nnz;
+            }
+
+            coo = CooMatrix::make_new(layout, m, max);
             initialized = true;
         }
 
@@ -83,7 +105,26 @@ std::unique_ptr<CooMatrix> read_matrix_market(const std::string &filename) {
                 throw "read_matrix_market: cannot parse the values (i,j,x)";
             }
 
-            coo->put(i - 1, j - 1, x);
+            if (symmetric) {
+                switch (symmetric_handling) {
+                case LEAVE_AS_LOWER:
+                    coo->put(i - 1, j - 1, x);
+                    break;
+                case SWAP_TO_UPPER:
+                    coo->put(j - 1, i - 1, x);
+                    break;
+                case MAKE_IT_FULL:
+                    coo->put(i - 1, j - 1, x);
+                    if (i != j) {
+                        coo->put(j - 1, i - 1, x);
+                    }
+                    break;
+                default:
+                    throw "symmetric handling option is invalid";
+                }
+            } else {
+                coo->put(i - 1, j - 1, x);
+            }
         }
     }
 
