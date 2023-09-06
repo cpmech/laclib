@@ -1,4 +1,3 @@
-#include <cmath>
 #include <iostream>
 #include <memory>
 
@@ -67,7 +66,6 @@ void SolverDss::factorize(const std::unique_ptr<CsrMatrixMkl> &csr, bool verbose
             // print the determinant
             std::cout << "the determinant power is " << stat_out[0] << std::endl;
             std::cout << "the determinant base is " << stat_out[1] << std::endl;
-            std::cout << "the determinant is " << (pow(10.0, stat_out[0])) * stat_out[1] << std::endl;
         }
     }
 
