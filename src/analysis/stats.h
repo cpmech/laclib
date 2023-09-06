@@ -5,10 +5,10 @@
 #include <string>
 #include <vector>
 
-#include "../sparse/sparse_blas.h"
+#include "../linalg/cblas_wrapper.h"
 #include "../sparse/coo_matrix.h"
+#include "../sparse/sparse_blas.h"
 #include "../util/stopwatch.h"
-#include "cblas_tools.h"
 
 #define SNSEC(ns) format_nanoseconds(ns).c_str()
 

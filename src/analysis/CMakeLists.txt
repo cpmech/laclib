@@ -1,5 +1,4 @@
 set(TESTS
-    z_test_cblas_tools
     z_test_stats
 )
 
