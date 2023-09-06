@@ -28,3 +28,19 @@ void CooMatrix::put(INT i, INT j, double aij) {
     this->values_aij[this->pos] = aij;
     this->pos++;
 }
+
+void CooMatrix::to_matrix(std::unique_ptr<Matrix> &a) {
+    auto m = a->nrow;
+    auto n = a->ncol;
+    if (m > this->dimension || n > this->dimension) {
+        throw "wrong matrix dimensions";
+    }
+    auto m_int = make_int(m);
+    auto n_int = make_int(n);
+    a->fill(0.0);
+    for (size_t p = 0; p < this->pos; p++) {
+        if (this->indices_i[p] < m_int && this->indices_j[p] < n_int) {
+            a->add(this->indices_i[p], this->indices_j[p], this->values_aij[p]);
+        }
+    }
+}
