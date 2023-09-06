@@ -5,13 +5,32 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "src/linalg{any}",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "/tmp/build-laclib/src/linalg/${fileBasenameNoExtension}",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "/tmp/build-laclib/src/linalg",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    },
+    {
       "name": "src/sparse{any}",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/src/sparse/${fileBasenameNoExtension}",
+      "program": "/tmp/build-laclib/src/sparse/${fileBasenameNoExtension}",
       "args": [],
       "stopAtEntry": false,
-      "cwd": "${workspaceFolder}/build/src/sparse",
+      "cwd": "/tmp/build-laclib/src/sparse",
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",
@@ -27,10 +46,10 @@
       "name": "benchmarks/sparse",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/benchmarks/sparse/bmark_sparse",
+      "program": "/tmp/build-laclib/benchmarks/sparse/bmark_sparse",
       "args": [],
       "stopAtEntry": false,
-      "cwd": "${workspaceFolder}/build/benchmarks/sparse",
+      "cwd": "/tmp/build-laclib/benchmarks/sparse",
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",

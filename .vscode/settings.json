@@ -45,6 +45,7 @@
     "**/cdk.out": true
   },
   "cSpell.words": [
+    "dgemv",
     "DSYEV",
     "envar",
     "GEMM",

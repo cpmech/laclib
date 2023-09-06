@@ -39,6 +39,8 @@ endif()
 # library ####################################################################################
 
 set(COMMON_SRC_FILES
+    src/linalg/mat_vec_mul.cpp
+    src/linalg/matrix.cpp
     src/sparse/coo_matrix.cpp
     src/sparse/csr_matrix.cpp
     src/sparse/read_matrix_market.cpp

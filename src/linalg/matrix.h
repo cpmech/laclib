@@ -6,7 +6,6 @@
 
 /// @brief Implements a matrix with numeric components for linear algebra
 /// @note Internally, the data is stored in the **col-major** order.
-///
 struct Matrix {
     //     ┌     ┐  row_major = {0, 3,
     //     │ 0 3 │               1, 4,
@@ -112,4 +111,7 @@ struct Matrix {
         assert(j < this->ncol);
         this->data[i + j * this->nrow] *= value;
     }
+
+    /// @brief Prints the matrix
+    void print();
 };

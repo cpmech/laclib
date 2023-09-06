@@ -1,4 +1,5 @@
 set(TESTS
+    z_test_mat_vec_mul
     z_test_matrix
 )
 
