@@ -25,12 +25,12 @@ TEST_CASE("matrix-vector-multiplication") {
         a->set(2, 0, 15.0);
         a->set(2, 1, -6.0);
         a->set(2, 3, 3.0);
-        a->print();
+        // a->print();
         auto u = vector<double>{1.0, 3.0, 8.0, 5.0};
         auto v = vector<double>(a->nrow, 0.0);
         mat_vec_mul(v, 1.0, a, u);
-        print_vector("v", v);
+        // print_vector("v", v);
         auto correct = vector<double>{4.0, 8.0, 12.0};
-        // CHECK(equal_vectors_tol(v, correct, 1e-15));
+        CHECK(equal_vectors_tol(v, correct, 1e-15));
     }
 }
