@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cassert>
+#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -113,5 +114,12 @@ struct Matrix {
     }
 
     /// @brief Prints the matrix
-    void print();
+    void print() {
+        for (size_t i = 0; i < this->nrow; i++) {
+            for (size_t j = 0; j < this->ncol; j++) {
+                std::cout << this->data[i + j * this->nrow] << ", ";
+            }
+            std::cout << std::endl;
+        }
+    }
 };
