@@ -59,5 +59,15 @@ TEST_CASE("matrix") {
         CHECK(equal_scalars_tol(mat->get(1, 0), 3.0, 1e-17));
         CHECK(equal_scalars_tol(mat->get(1, 1), 4.0, 1e-17));
     }
-    SUBCASE("set works") {}
+    SUBCASE("set works") {
+        auto mat = Matrix::make_new(2, 2);
+        // 1.0 2.0
+        // 3.0 4.0
+        mat->set(0, 0, 1.0);
+        mat->set(0, 1, 2.0);
+        mat->set(1, 0, 3.0);
+        mat->set(1, 1, 4.0);
+        auto correct = vector<double>{1.0, 3.0, 2.0, 4.0};
+        CHECK(equal_vectors_tol(mat->data, correct, 1e-17));
+    }
 }
