@@ -1,3 +1,4 @@
+#include <cmath>
 #include <iostream>
 #include <memory>
 
@@ -51,6 +52,23 @@ void SolverDss::factorize(const std::unique_ptr<CsrMatrixMkl> &csr, bool verbose
     auto error = dss_factor_real(this->handle, this->dss_type, csr->values);
     if (error != MKL_DSS_SUCCESS) {
         throw "DSS failed when factorizing the matrix";
+    }
+
+    // Important: dss_statistics must be called after dss_factor_real
+    if (verbose) {
+        // get the determinant (not for a diagonal matrix)
+        if (csr->dimension < csr->nnz) {
+            _CHARACTER_t stat_in[] = "determinant";
+            _DOUBLE_PRECISION_t stat_out[5];
+            auto error = dss_statistics(this->handle, this->dss_opt, stat_in, stat_out);
+            if (error != MKL_DSS_SUCCESS) {
+                throw "DSS statistics failed";
+            }
+            // print the determinant
+            std::cout << "the determinant power is " << stat_out[0] << std::endl;
+            std::cout << "the determinant base is " << stat_out[1] << std::endl;
+            std::cout << "the determinant is " << (pow(10.0, stat_out[0])) * stat_out[1] << std::endl;
+        }
     }
 
     this->factorized = true;
