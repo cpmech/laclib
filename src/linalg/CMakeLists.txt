@@ -1,5 +1,6 @@
 set(TESTS
-    z_test_stats
+    z_test_cblas_wrapper
+    z_test_matrix
 )
 
 foreach(var ${TESTS})
