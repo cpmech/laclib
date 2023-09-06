@@ -51,10 +51,10 @@ inline void daxpy(int n,
 
 /// @brief Performs the matrix-vector multiplication resulting in a vector
 /// @note This function throws errors if the arguments are incompatible
-void mat_vec_mul(std::vector<double> &v,
-                 double alpha,
-                 const std::unique_ptr<Matrix> &a,
-                 std::vector<double> &u) {
+inline void mat_vec_mul(std::vector<double> &v,
+                        double alpha,
+                        const std::unique_ptr<Matrix> &a,
+                        std::vector<double> &u) {
     auto m = v.size();
     auto n = u.size();
     if (m != a->nrow || n != a->ncol) {
@@ -63,13 +63,13 @@ void mat_vec_mul(std::vector<double> &v,
     if (m == 0 || n == 0) {
         return;
     }
-    INT_SIZE m_mkl = int_from_size_t(m);
-    INT_SIZE n_mkl = int_from_size_t(n);
+    INT_SIZE m_int = int_from_size_t(m);
+    INT_SIZE n_int = int_from_size_t(n);
     cblas_dgemv(
         CblasColMajor,
         CblasNoTrans,
-        m_mkl,
-        n_mkl,
+        m_int,
+        n_int,
         alpha,
         a->data.data(),
         m,
@@ -78,4 +78,41 @@ void mat_vec_mul(std::vector<double> &v,
         0.0,
         v.data(),
         1);
+}
+
+/// @brief Performs the matrix-matrix multiplication resulting in a matrix
+/// @note This function throws errors if the arguments are incompatible
+inline void mat_mat_mul(const std::unique_ptr<Matrix> &c,
+                        double alpha,
+                        const std::unique_ptr<Matrix> &a,
+                        const std::unique_ptr<Matrix> &b) {
+    auto m = c->nrow;
+    auto n = c->ncol;
+    auto k = a->ncol;
+    if (a->nrow != m || b->nrow != k || b->ncol != n) {
+        throw "matrices are incompatible";
+    }
+    if (m == 0 || n == 0) {
+        return;
+    }
+    auto m_int = int_from_size_t(m);
+    auto n_int = int_from_size_t(n);
+    auto k_int = int_from_size_t(k);
+    auto lda = m_int;
+    auto ldb = k_int;
+    cblas_dgemm(
+        CblasColMajor,
+        CblasNoTrans,
+        CblasNoTrans,
+        m_int,
+        n_int,
+        k_int,
+        alpha,
+        a->data.data(),
+        lda,
+        b->data.data(),
+        ldb,
+        0.0,
+        c->data.data(),
+        m);
 }
