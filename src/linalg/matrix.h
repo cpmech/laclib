@@ -61,20 +61,6 @@ struct Matrix {
         }};
     }
 
-    /// @brief Creates new matrix from a nested array
-    /// @note The values are accessed as values[i][j]
-    /// @note WARNING: no checks are made here and failures may occur
-    /// @note WARNING: avoid using this function (e.g., use only for small tests)
-    inline static std::unique_ptr<Matrix> from(size_t nrow, size_t ncol, double **values) {
-        auto matrix = Matrix::make_new(nrow, ncol);
-        for (size_t i = 0; i < nrow; i++) {
-            for (size_t j = 0; j < nrow; j++) {
-                matrix->data[i + j * nrow] = values[i][j];
-            }
-        }
-        return matrix;
-    }
-
     /// @brief  new diagonal matrix with given diagonal values
     inline static std::unique_ptr<Matrix> diagonal(std::vector<double> values) {
         auto nrow = values.size();
@@ -88,9 +74,9 @@ struct Matrix {
 
     /// @brief Fills this matrix with a given value
     inline void fill(double value) {
-        for (size_t i = 0; i < nrow; i++) {
-            for (size_t j = 0; j < nrow; j++) {
-                this->data[i + j * nrow] = value;
+        for (size_t i = 0; i < this->nrow; i++) {
+            for (size_t j = 0; j < this->ncol; j++) {
+                this->data[i + j * this->nrow] = value;
             }
         }
     }
