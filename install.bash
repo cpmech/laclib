@@ -8,7 +8,7 @@ INCDIR=$PREFIX/include/laclib
 LIBDIR=$PREFIX/lib/laclib
 
 # build
-bash all.bash
+bash all.bash ON
 
 # copy internal include files
 SUBDIRS="
@@ -26,7 +26,7 @@ done
 # copy main include file and library
 sudo mkdir -p $LIBDIR
 sudo cp -av src/laclib.h $INCDIR/
-sudo cp -av build/liblaclib*.so $LIBDIR/
+sudo cp -av /tmp/build-laclib/liblaclib*.so $LIBDIR/
 
 # update ldconfig
 echo "${LIBDIR}" | sudo tee /etc/ld.so.conf.d/laclib.conf >/dev/null

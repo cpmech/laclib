@@ -10,8 +10,8 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # copy files
-COPY . /tmp/laclib
-WORKDIR /tmp/laclib
+COPY . /tmp/docker-laclib
+WORKDIR /tmp/docker-laclib
 
 # install Intel MKL
 RUN bash install-deps.bash
@@ -20,4 +20,8 @@ RUN bash install-deps.bash
 RUN bash zscripts/common-debian.sh
 
 # install laclib
-# RUN bash install.bash
+RUN bash install.bash
+
+# clean up
+RUN rm -rf /tmp/docker-laclib
+RUN rm -rf /tmp/build-laclib
