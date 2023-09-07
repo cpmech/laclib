@@ -84,4 +84,64 @@ TEST_CASE("testing CooMatrix") {
 
         CHECK_THROWS_WITH(coo->put(0, 0, 4.0), "CooMatrix::put: max number of items has been exceeded");
     }
+
+    SUBCASE("to_matrix and as_matrix work") {
+
+        //  1  -1   .  -3   .
+        // -2   5   .   .   .
+        //  .   .   4   6   4
+        // -4   .   2   7   .
+        //  .   8   .   .  -5
+        // first triplet with shuffled entries
+        auto coo = CooMatrix::make_new(FULL_MATRIX, 5, 13);
+        coo->put(2, 4, 4.0);
+        coo->put(4, 1, 8.0);
+        coo->put(0, 1, -1.0);
+        coo->put(2, 2, 4.0);
+        coo->put(4, 4, -5.0);
+        coo->put(3, 0, -4.0);
+        coo->put(0, 3, -3.0);
+        coo->put(2, 3, 6.0);
+        coo->put(0, 0, 1.0);
+        coo->put(1, 1, 5.0);
+        coo->put(3, 2, 2.0);
+        coo->put(1, 0, -2.0);
+        coo->put(3, 3, 7.0);
+
+        auto part = Matrix::make_new(2, 3);
+        coo->to_matrix(part);
+        CHECK(equal_scalars_tol(part->get(0, 0), 1.0, 1e-15));
+        CHECK(equal_scalars_tol(part->get(0, 1), -1.0, 1e-15));
+        CHECK(equal_scalars_tol(part->get(0, 2), 0.0, 1e-15));
+        CHECK(equal_scalars_tol(part->get(1, 0), -2.0, 1e-15));
+        CHECK(equal_scalars_tol(part->get(1, 1), 5.0, 1e-15));
+        CHECK(equal_scalars_tol(part->get(1, 2), 0.0, 1e-15));
+
+        auto dense = coo->as_matrix();
+        CHECK(equal_scalars_tol(dense->get(0, 0), 1.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(0, 1), -1.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(0, 2), 0.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(0, 3), -3.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(0, 4), 0.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(1, 0), -2.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(1, 1), 5.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(1, 2), 0.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(1, 3), 0.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(1, 4), 0.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(2, 0), 0.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(2, 1), 0.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(2, 2), 4.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(2, 3), 6.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(2, 4), 4.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(3, 0), -4.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(3, 1), 0.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(3, 2), 2.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(3, 3), 7.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(3, 4), 0.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(4, 0), 0.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(4, 1), 8.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(4, 2), 0.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(4, 3), 0.0, 1e-15));
+        CHECK(equal_scalars_tol(dense->get(4, 4), -5.0, 1e-15));
+    }
 }

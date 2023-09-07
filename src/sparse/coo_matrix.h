@@ -3,6 +3,8 @@
 #include <memory>
 #include <vector>
 
+#include "../linalg/matrix.h"
+
 #ifdef USE_MKL
 #include "mkl.h"
 #define INT MKL_INT
@@ -89,4 +91,16 @@ struct CooMatrix {
     /// @param j Column index (indices start at zero; zero-based)
     /// @param aij The value A(i,j) (duplicate values will be summed up)
     void put(INT i, INT j, double aij);
+
+    /// @brief Converts the triplet data to a matrix, up to a limit
+    /// @param a -- (nrow_max, ncol_max) matrix to hold the triplet data. It may have fewer rows or fewer columns than the COO matrix
+    void to_matrix(std::unique_ptr<Matrix> &a);
+
+    /// @brief Converts the triplet to dense matrix and returns the matrix
+    /// @return The dense matrix
+    inline std::unique_ptr<Matrix> as_matrix() {
+        auto dense = Matrix::make_new(this->dimension, this->dimension);
+        this->to_matrix(dense);
+        return dense;
+    }
 };
