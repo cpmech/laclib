@@ -65,11 +65,4 @@ void run(int argc, char **argv) {
     }
 }
 
-// NOTE: the main function will "always" be like this:
-int main(int argc, char **argv) {
-    try {
-        run(argc, argv);
-    }
-    CATCH_ALL
-    return 0;
-}
+MAIN_FUNCTION(run)

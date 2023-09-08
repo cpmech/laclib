@@ -14,7 +14,6 @@
 using namespace std;
 
 void run(int argc, char **argv) {
-
     // get arguments from command line
     vector<string> defaults{
         "bfwb62", // default matrix_name
@@ -51,10 +50,4 @@ void run(int argc, char **argv) {
                                   coo);
 }
 
-int main(int argc, char **argv) {
-    try {
-        run(argc, argv);
-    }
-    CATCH_ALL
-    return 0;
-}
+MAIN_FUNCTION(run)
