@@ -61,13 +61,27 @@ struct Matrix {
         }};
     }
 
-    /// @brief  new diagonal matrix with given diagonal values
+    /// @brief Creates a new diagonal matrix with given diagonal values
     inline static std::unique_ptr<Matrix> diagonal(std::vector<double> values) {
         auto nrow = values.size();
         auto ncol = nrow;
         auto matrix = Matrix::make_new(nrow, ncol);
         for (size_t i = 0; i < nrow; i++) {
             matrix->data[i + i * nrow] = values[i];
+        }
+        return matrix;
+    }
+
+    /// @brief Creates a new matrix from a row-major array
+    inline static std::unique_ptr<Matrix> from_row_major(size_t nrow, size_t ncol, std::vector<double> values) {
+        if (nrow * ncol != values.size()) {
+            throw "there is not enough values to create the matrix";
+        }
+        auto matrix = Matrix::make_new(nrow, ncol);
+        for (size_t i = 0; i < nrow; i++) {
+            for (size_t j = 0; j < ncol; j++) {
+                matrix->data[i + j * nrow] = values[j + i * ncol];
+            }
         }
         return matrix;
     }
