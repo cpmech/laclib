@@ -86,6 +86,15 @@ struct Matrix {
         return matrix;
     }
 
+    /// @brief Returns a copy of this matrix
+    inline std::unique_ptr<Matrix> get_copy() {
+        auto matrix = Matrix::make_new(this->nrow, this->ncol);
+        for (size_t k = 0; k < this->nrow * this->ncol; k++) {
+            matrix->data[k] = this->data[k];
+        }
+        return matrix;
+    }
+
     /// @brief Fills this matrix with a given value
     inline void fill(double value) {
         for (size_t i = 0; i < this->nrow; i++) {
