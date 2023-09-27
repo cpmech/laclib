@@ -47,6 +47,17 @@ TEST_CASE("testing sparse solver Intel DSS") {
         print_vector("x_correct", bfwb62_x_correct);
         cout << "\n";
 
+        // call factorize and solve again
+        solver->factorize(csr);
+        solver->solve(x, rhs);
+
+        // results
+        cout << "\n";
+        print_vector("x", x);
+        cout << "\n";
+        print_vector("x_correct", bfwb62_x_correct);
+        cout << "\n";
+
         // check
         CHECK(equal_vectors_tol(x, bfwb62_x_correct, 1e-10));
     }
