@@ -31,12 +31,6 @@ void SolverDss::analyze(const std::unique_ptr<CsrMatrixMkl> &csr, bool verbose) 
         throw "DSS failed when defining the non-zero structure of the matrix";
     }
 
-    // reorder the matrix
-    error = dss_reorder(this->handle, this->dss_opt, 0);
-    if (error != MKL_DSS_SUCCESS) {
-        throw "DSS failed when reordering the matrix";
-    }
-
     this->analyzed = true;
 }
 
@@ -45,10 +39,16 @@ void SolverDss::factorize(const std::unique_ptr<CsrMatrixMkl> &csr, bool verbose
         throw "DSS factorize requires that the analysis be completed first";
     }
 
+    // reorder the matrix
+    auto error = dss_reorder(this->handle, this->dss_opt, 0);
+    if (error != MKL_DSS_SUCCESS) {
+        throw "DSS failed when reordering the matrix";
+    }
+
     this->factorized = false;
 
     // factor the matrix
-    auto error = dss_factor_real(this->handle, this->dss_type, csr->values);
+    error = dss_factor_real(this->handle, this->dss_type, csr->values);
     if (error != MKL_DSS_SUCCESS) {
         throw "DSS failed when factorizing the matrix";
     }
