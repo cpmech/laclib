@@ -66,7 +66,7 @@ for mat in $MATS; do
         fnk=$(gen_fnkey intel $mat $n)
         log="${RESDIR}/${fnk}.txt"
         echo "... $fnk"
-        ./bmark_sparse_intel $mat $n $ORDERING > $log
+        ./bmark_sparse dss $mat $n $ORDERING > $log
     done
 done
 
@@ -79,7 +79,7 @@ for mat in $MATS; do
         fnk=$(gen_fnkey mumps $mat $n)
         log="${RESDIR}/${fnk}.txt"
         echo "... $fnk"
-        ./bmark_sparse_open $mat $n $ORDERING > $log
+        ./bmark_sparse mumps $mat $n $ORDERING > $log
     done
 done
 

@@ -251,8 +251,6 @@ TEST_CASE("testing CsrMatrix") {
 
     // -------- using intel mkl ------------------------------------------------------------------------------
 
-#ifdef USE_MKL
-
     SUBCASE("intel mkl") {
         SUBCASE("intel mkl: convert to csr works (shuffled order)") {
             auto csr = CsrMatrixMkl::from(coo_first_shuffled);
@@ -348,5 +346,4 @@ TEST_CASE("testing CsrMatrix") {
             CHECK(csr->ok_for_dss(true) == false);
         }
     }
-#endif // USE_MKL
 }

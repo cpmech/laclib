@@ -1,17 +1,12 @@
 #pragma once
 
+#include <cinttypes>
 #include <memory>
 #include <vector>
 
 #include "../linalg/matrix.h"
 
-#ifdef USE_MKL
-#include "mkl.h"
-#define INT MKL_INT
-#else
-#include "dmumps_c.h"
-#define INT MUMPS_INT
-#endif
+#define INT int32_t
 
 /// @brief Casts a size_t integer to INT and checks if it worked
 /// @param a is the size_t integer
