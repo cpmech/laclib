@@ -138,7 +138,6 @@ std::unique_ptr<CsrMatrix> CsrMatrix::from(std::unique_ptr<CooMatrix> &coo) {
     return csr;
 }
 
-#ifdef USE_MKL
 std::unique_ptr<CsrMatrixMkl> CsrMatrixMkl::from(std::unique_ptr<CooMatrix> &coo) {
     // access triplet data
     auto ai = coo->indices_i.data();
@@ -265,4 +264,3 @@ bool CsrMatrixMkl::ok_for_dss(bool verbose) {
 
     return ok;
 }
-#endif // USE_MKL

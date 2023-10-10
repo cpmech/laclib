@@ -4,6 +4,8 @@
 #include <memory>
 #include <vector>
 
+#include "mkl.h"
+
 #include "../util/print_vector.h"
 #include "coo_matrix.h"
 
@@ -42,7 +44,6 @@ struct CsrMatrix {
     }
 };
 
-#ifdef USE_MKL
 /// @brief Holds the arrays needed for a CSR (compressed sparse row) matrix (MKL version)
 /// @note The DSS uses a row-major UPPER triangular storage format.
 /// @note The matrix is compressed row-by-row.
@@ -108,7 +109,6 @@ struct CsrMatrixMkl {
     /// @brief Check if the matrix is OK for Intel DSS
     bool ok_for_dss(bool verbose = false);
 };
-#endif
 
 // Reference regarding symmetric matrix storage
 // https://www.intel.com/content/www/us/en/docs/onemkl/developer-reference-c/2023-2/dss-symmetric-matrix-storage.html

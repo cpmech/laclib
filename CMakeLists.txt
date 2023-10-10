@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.25)
 project(Project)
 
 set(MEMORYCHECK_COMMAND_OPTIONS "--leak-check=full --show-leak-kinds=definite,indirect,possible")
@@ -13,12 +13,6 @@ option(A1_OPTIMIZED "Make optimized (-O3)" OFF)
 
 # set(CMAKE_VERBOSE_MAKEFILE TRUE)
 
-set(WITH_MUMPS ON)
-
-if(WIN32)
-    set(WITH_MUMPS OFF)
-endif()
-
 if(A1_OPTIMIZED)
     add_definitions(-O3)
 else()
@@ -27,32 +21,24 @@ endif()
 
 # dependencies ###############################################################################
 
+set(MKL_INTERFACE lp64)
 find_package(MKL CONFIG REQUIRED PATHS $ENV{MKLROOT})
 
-if(WITH_MUMPS)
-    include(zscripts/FindOBLAS.cmake)
-    include(zscripts/FindMUMPS.cmake)
-    include_directories(${OBLAS_IDIRS})
-    include_directories(${MUMPS_IDIRS})
-endif()
+include(zscripts/FindMUMPS.cmake)
+include_directories(${MUMPS_IDIRS})
 
 # library ####################################################################################
 
-set(COMMON_SRC_FILES
+add_library(laclib SHARED ${COMMON_SRC_FILES} 
     src/sparse/coo_matrix.cpp
     src/sparse/csr_matrix.cpp
     src/sparse/read_matrix_market.cpp
+    src/sparse/solver_dss.cpp
+    src/sparse/solver_mumps.cpp
     src/sparse/sparse_blas.cpp
 )
-
-add_library(laclib_intel SHARED ${COMMON_SRC_FILES} src/sparse/solver_dss.cpp)
-target_compile_definitions(laclib_intel PUBLIC USE_MKL)
-target_link_libraries(laclib_intel PUBLIC MKL::MKL)
-
-if(WITH_MUMPS)
-    add_library(laclib_open SHARED ${COMMON_SRC_FILES} src/sparse/solver_mumps.cpp)
-    target_link_libraries(laclib_open PUBLIC ${MUMPS_LIBS} ${OBLAS_LIBS})
-endif()
+target_compile_definitions(laclib PUBLIC USE_MKL)
+target_link_libraries(laclib PUBLIC ${MUMPS_LIBS} MKL::MKL)
 
 # subdirectories #############################################################################
 

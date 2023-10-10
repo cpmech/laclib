@@ -16,12 +16,14 @@ using namespace std;
 void run(int argc, char **argv) {
     // get arguments from command line
     vector<string> defaults{
+        "mkl",    // use mkl conversion instead of local code
         "bfwb62", // default matrix_name
         "1",      // default omp_num_threads
     };
     auto args = extract_arguments_or_use_defaults(argc, argv, defaults);
-    auto matrix_name = args[0];
-    auto omp_num_threads = std::atoi(args[1].c_str());
+    auto method = args[0];
+    auto matrix_name = args[1];
+    auto omp_num_threads = std::atoi(args[2].c_str());
 
     // allocate report
     auto report = Report::make_new();
@@ -32,15 +34,13 @@ void run(int argc, char **argv) {
     report->measure_step(STEP_READ_MATRIX);
 
     // convert from coo to csr
-#ifdef USE_MKL
-    auto method = "mkl";
-    auto csr = CsrMatrixMkl::from(coo);
-    report->measure_step(STEP_CONVERSION);
-#else
-    auto method = "local";
-    auto csr = CsrMatrix::from(coo);
-    report->measure_step(STEP_CONVERSION);
-#endif
+    if (method == "mkl") {
+        auto csr = CsrMatrixMkl::from(coo);
+        report->measure_step(STEP_CONVERSION);
+    } else {
+        auto csr = CsrMatrix::from(coo);
+        report->measure_step(STEP_CONVERSION);
+    }
 
     // write report
     report->write_json_conversion(OUT_DIR,

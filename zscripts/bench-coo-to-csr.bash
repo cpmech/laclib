@@ -28,7 +28,7 @@ for mat in $MATS; do
     for n in $N_THREADS; do
         fnk=$(gen_fnkey mkl $mat $n)
         echo "... $fnk"
-        ./bmark_conv_mkl $mat $n
+        ./bmark_conv $mat $n
     done
 done
 

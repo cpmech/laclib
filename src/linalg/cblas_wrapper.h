@@ -3,13 +3,8 @@
 #include <cmath>
 #include <vector>
 
-#ifdef USE_MKL
 #include "mkl.h"
 #define INT_SIZE MKL_INT
-#else
-#include "cblas.h"
-#define INT_SIZE int
-#endif
 
 #include "matrix.h"
 
@@ -27,11 +22,7 @@ inline INT_SIZE int_from_size_t(size_t a) {
 
 /// @brief Sets the number of threads
 inline void set_num_threads(int n) {
-#ifdef USE_MKL
     mkl_set_num_threads(n);
-#else
-    openblas_set_num_threads(n);
-#endif
 }
 
 /// @brief Finds the max absolute value
