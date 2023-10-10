@@ -58,7 +58,7 @@ std::unique_ptr<CsrMatrix> CsrMatrix::from(std::unique_ptr<CooMatrix> &coo) {
     //
     // Notes:
     //
-    // * The row and column indices may be unordered (NOT TRUE)
+    // * The row and column indices may be unordered
     // * Linear complexity: O(nnz(A) + max(n_row,n_col))
 
     // access triplet data

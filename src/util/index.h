@@ -1,4 +1,3 @@
-#include "catch_all.h"
 #include "constants.h"
 #include "extract_arguments.h"
 #include "formaters.h"
@@ -7,3 +6,4 @@
 #include "print_vector.h"
 #include "sleep.h"
 #include "stopwatch.h"
+#include "wrap_main_function.h"

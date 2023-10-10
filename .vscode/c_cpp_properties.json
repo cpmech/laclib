@@ -4,7 +4,8 @@
       "name": "Linux",
       "includePath": [
         "${default}",
-        "/opt/intel/oneapi/mkl/latest/include"
+        "/opt/intel/oneapi/mkl/latest/include",
+        "/usr/local/include/mumps"
       ],
       "defines": [
         "USE_MKL",

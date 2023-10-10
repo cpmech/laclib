@@ -49,7 +49,7 @@ inline void daxpy(int n,
     cblas_daxpy(n, alpha, x.data(), 1, y.data(), 1);
 }
 
-/// @brief Performs the matrix-vector multiplication resulting in a vector
+/// @brief Performs the matrix-vector multiplication
 /// @note This function throws errors if the arguments are incompatible
 inline void mat_vec_mul(std::vector<double> &v,
                         double alpha,
@@ -80,12 +80,17 @@ inline void mat_vec_mul(std::vector<double> &v,
         1);
 }
 
-/// @brief Performs the matrix-matrix multiplication resulting in a matrix
+/// @brief Performs the matrix-matrix multiplication
 /// @note This function throws errors if the arguments are incompatible
 inline void mat_mat_mul(const std::unique_ptr<Matrix> &c,
                         double alpha,
                         const std::unique_ptr<Matrix> &a,
                         const std::unique_ptr<Matrix> &b) {
+    // trans_a = false, trans_b = false:
+    //
+    //   c  := α ⋅  a  ⋅  b  +  β ⋅  c
+    // (m,n)      (m,k) (k,n)     (m,n)
+    //
     auto m = c->nrow;
     auto n = c->ncol;
     auto k = a->ncol;
@@ -103,6 +108,49 @@ inline void mat_mat_mul(const std::unique_ptr<Matrix> &c,
     cblas_dgemm(
         CblasColMajor,
         CblasNoTrans,
+        CblasNoTrans,
+        m_int,
+        n_int,
+        k_int,
+        alpha,
+        a->data.data(),
+        lda,
+        b->data.data(),
+        ldb,
+        0.0,
+        c->data.data(),
+        m);
+}
+
+/// @brief Performs the transpose(matrix)-matrix multiplication
+/// @note This function throws errors if the arguments are incompatible
+inline void mat_t_mat_mul(const std::unique_ptr<Matrix> &c,
+                          double alpha,
+                          const std::unique_ptr<Matrix> &a,
+                          const std::unique_ptr<Matrix> &b) {
+    // trans_a = true, trans_b = false:
+    //
+    //   c  := α ⋅  aᵀ  ⋅  b  +  β ⋅  c
+    // (m,n)      (m,k) (k,n)      (m,n)
+    //          a:(k,m)
+    //
+    auto m = c->nrow;
+    auto n = c->ncol;
+    auto k = a->nrow;
+    if (a->ncol != m || b->nrow != k || b->ncol != n) {
+        throw "matrices are incompatible";
+    }
+    if (m == 0 || n == 0) {
+        return;
+    }
+    auto m_int = int_from_size_t(m);
+    auto n_int = int_from_size_t(n);
+    auto k_int = int_from_size_t(k);
+    auto lda = k_int;
+    auto ldb = k_int;
+    cblas_dgemm(
+        CblasColMajor,
+        CblasTrans,
         CblasNoTrans,
         m_int,
         n_int,

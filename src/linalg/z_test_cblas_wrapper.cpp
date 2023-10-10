@@ -97,4 +97,41 @@ TEST_CASE("CBLAS wrapper") {
         auto correct = vector<double>{2.8, 1.3, 12.0, 5.0, 12.0, 5.0, 12.5, 5.25};
         CHECK(equal_vectors_tol(c->data, correct, 1e-17));
     }
+
+    SUBCASE("mat_t_mat_mul works") {
+        auto a = Matrix::make_new(3, 2);
+        // 1.0, 0.5
+        // 2.0, 0.75
+        // 3.0, 1.5
+        a->set(0, 0, 1.0);
+        a->set(0, 1, 0.5);
+        a->set(1, 0, 2.0);
+        a->set(1, 1, 0.75);
+        a->set(2, 0, 3.0);
+        a->set(2, 1, 1.5);
+        auto b = Matrix::make_new(3, 4);
+        // 0.1, 0.5, 0.5, 0.75
+        // 0.2, 2.0, 2.0, 2.00
+        // 0.3, 0.5, 0.5, 0.50
+        b->set(0, 0, 0.1);
+        b->set(0, 1, 0.5);
+        b->set(0, 2, 0.5);
+        b->set(0, 3, 0.75);
+        b->set(1, 0, 0.2);
+        b->set(1, 1, 2.0);
+        b->set(1, 2, 2.0);
+        b->set(1, 3, 2.0);
+        b->set(2, 0, 0.3);
+        b->set(2, 1, 0.5);
+        b->set(2, 2, 0.5);
+        b->set(2, 3, 0.5);
+        auto c = Matrix::make_new(2, 4);
+        // c := 2⋅aᵀ⋅b
+        // 2.80, 12.0, 12.0, 12.50
+        // 1.30,  5.0,  5.0, 5.25
+        mat_t_mat_mul(c, 2.0, a, b);
+        c->print();
+        auto correct = vector<double>{2.8, 1.3, 12.0, 5.0, 12.0, 5.0, 12.5, 5.25};
+        CHECK(equal_vectors_tol(c->data, correct, 1e-15));
+    }
 }

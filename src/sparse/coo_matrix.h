@@ -67,7 +67,7 @@ struct CooMatrix {
     std::vector<double> values_aij;
 
     /// @brief Allocates a new structure
-    /// @param lower_triangular Indicates that this triplet holds the lower triangular part of a matrix
+    /// @param layout Defines the layout of the associated matrix
     /// @param dimension number of rows (= number of columns)
     /// @param max Maximum number of entries ≥ nnz (number of non-zeros)
     /// @return Returns a new structure
@@ -89,7 +89,7 @@ struct CooMatrix {
     /// @brief Puts a new entry and updates pos (may be duplicate)
     /// @param i Row index (indices start at zero; zero-based)
     /// @param j Column index (indices start at zero; zero-based)
-    /// @param aij The value A(i,j) (duplicate values will be summed up)
+    /// @param aij The value A(i,j)
     void put(INT i, INT j, double aij);
 
     /// @brief Converts the triplet data to a matrix, up to a limit

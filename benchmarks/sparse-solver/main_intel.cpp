@@ -87,10 +87,4 @@ void run(int argc, char **argv) {
                        stats);
 }
 
-int main(int argc, char **argv) {
-    try {
-        run(argc, argv);
-    }
-    CATCH_ALL
-    return 0;
-}
+MAIN_FUNCTION(run)

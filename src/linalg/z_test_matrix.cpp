@@ -38,6 +38,27 @@ TEST_CASE("matrix") {
         auto correct = vector<double>{1.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 3.0};
         CHECK(equal_vectors_tol(mat->data, correct, 1e-17));
     }
+    SUBCASE("from_row_major works") {
+        auto mat = Matrix::from_row_major(3, 3, vector<double>{
+                                                    1.0, 2.0, 3.0, // 0
+                                                    4.0, 5.0, 6.0, // 0
+                                                    7.0, 8.0, 9.0, // 0
+                                                });
+        auto correct = vector<double>{1.0, 4.0, 7.0, 2.0, 5.0, 8.0, 3.0, 6.0, 9.0};
+        CHECK(equal_vectors_tol(mat->data, correct, 1e-17));
+    }
+    SUBCASE("get_copy works") {
+        auto original = Matrix::make_new(2, 3);
+        original->data[0] = 1.0;
+        original->data[1] = 2.0;
+        original->data[2] = 3.0;
+        original->data[3] = 4.0;
+        original->data[4] = 5.0;
+        original->data[5] = 6.0;
+        auto copy = original->get_copy();
+        auto correct = vector<double>{1.0, 2.0, 3.0, 4.0, 5.0, 6.0};
+        CHECK(equal_vectors_tol(copy->data, correct, 1e-17));
+    }
     SUBCASE("fill works") {
         auto mat = Matrix::make_new(3, 2);
         mat->fill(10.0);
