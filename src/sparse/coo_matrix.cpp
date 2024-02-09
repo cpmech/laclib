@@ -72,15 +72,11 @@ int coo_to_csc(
     auto rc = std::vector<int>(nrow);
     auto w = std::vector<int>(nn);
 
-    /* ---------------------------------------------------------------------- */
-    /* count the entries in each row (also counting duplicates) */
-    /* ---------------------------------------------------------------------- */
-
-    /* use W as workspace for row counts (including duplicates) */
+    // count the entries in each row (also counting duplicates)
+    // use w as workspace for row counts (including duplicates)
     for (int i = 0; i < nrow; i++) {
         w[i] = 0;
     }
-
     for (int k = 0; k < nz; k++) {
         int i = ai[k];
         int j = aj[k];
@@ -90,110 +86,72 @@ int coo_to_csc(
         w[i] += 1;
     }
 
-    /* ---------------------------------------------------------------------- */
-    /* compute the row pointers */
-    /* ---------------------------------------------------------------------- */
-
+    // compute the row pointers (save them in workspace)
     rp[0] = 0;
     for (int i = 0; i < nrow; i++) {
         rp[i + 1] = rp[i] + w[i];
         w[i] = rp[i];
     }
 
-    /* W is now equal to the row pointers */
-
-    /* ---------------------------------------------------------------------- */
-    /* construct the row form */
-    /* ---------------------------------------------------------------------- */
-
+    // construct the row form
     for (int k = 0; k < nz; k++) {
         int i = ai[k];
         int p = w[i];
         rj[p] = aj[k];
         rx[p] = ax[k];
-        w[i] += 1;
+        w[i] += 1; // w[i] is advanced to the start of row i+1
     }
 
-    /* Rp stays the same, but W [i] is advanced to the start of row i+1 */
-
-    /* ---------------------------------------------------------------------- */
-    /* sum up duplicates */
-    /* ---------------------------------------------------------------------- */
-
-    /* use W [j] to hold position in Ri/Rx/Rz of a_ij, for row i [ */
-
+    // sum duplicates. w[j] will hold the position in rj and rx of aij
     for (int j = 0; j < ncol; j++) {
         w[j] = EMPTY;
     }
-
     for (int i = 0; i < nrow; i++) {
         int p1 = rp[i];
         int p2 = rp[i + 1];
-        int pdest = p1;
-        /* At this point, W [j] < p1 holds true for all columns j, */
-        /* because Ri/Rx/Rz is stored in row oriented order. */
+        int dest = p1;
+        // w[j] < p1 for all columns j (note that rj and rx are stored in row oriented order)
         for (int p = p1; p < p2; p++) {
             int j = rj[p];
-            // ASSERT(j >= 0 && j < n_col);
             int pj = w[j];
             if (pj >= p1) {
-                /* this column index, j, is already in row i, at position pj */
-                // ASSERT(pj < p);
-                // ASSERT(Rj[pj] == j);
-                /* sum the entry */
-                rx[pj] += rx[p];
+                // j is already in row i, at position pj
+                rx[pj] += rx[p]; // sum the entry
             } else {
-                /* keep the entry */
-                /* also keep track in W[j] of position of a_ij for case above */
-                w[j] = pdest;
-                /* no need to move the entry if pdest is equal to p */
-                if (pdest != p) {
-                    rj[pdest] = j;
-                    rx[pdest] = rx[p];
+                // keep the entry
+                w[j] = dest;
+                if (dest != p) {
+                    // move is not needed
+                    rj[dest] = j;
+                    rx[dest] = rx[p];
                 }
-                pdest += 1;
+                dest += 1;
             }
         }
-        rc[i] = pdest - p1;
+        rc[i] = dest - p1;
     }
 
-    /* done using W for position of a_ij ] */
-
-    /* ---------------------------------------------------------------------- */
-    /* count the entries in each column */
-    /* ---------------------------------------------------------------------- */
-
-    /* [ use W as work space for column counts of A */
+    // count the entries in each column
     for (int j = 0; j < ncol; j++) {
-        w[j] = 0;
+        w[j] = 0; // use the workspace for column counts
     }
-
     for (int i = 0; i < nrow; i++) {
         for (int p = rp[i]; p < rp[i] + rc[i]; p++) {
             int j = rj[p];
-            // ASSERT(j >= 0 && j < n_col);
             w[j] += 1;
         }
     }
 
-    /* ---------------------------------------------------------------------- */
-    /* create the column pointers */
-    /* ---------------------------------------------------------------------- */
-
+    // create the column pointers
     bp[0] = 0;
     for (int j = 0; j < ncol; j++) {
         bp[j + 1] = bp[j] + w[j];
     }
-    /* done using W as workspace for column counts of A ] */
-
     for (int j = 0; j < ncol; j++) {
         w[j] = bp[j];
     }
 
-    /* ---------------------------------------------------------------------- */
-    /* construct the column form */
-    /* ---------------------------------------------------------------------- */
-
+    // construct the column form
     for (int i = 0; i < nrow; i++) {
         for (int p = rp[i]; p < rp[i] + rc[i]; p++) {
             int cp = w[rj[p]]++;
