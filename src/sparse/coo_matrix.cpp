@@ -56,9 +56,9 @@ int coo_to_csc(
     int bp[],         /* size ncol + 1 */
     int bi[],         /* size nz */
     double bx[],      /* size nz */
-    const int Ti[],   /* size nz */
-    const int Tj[],   /* size nz */
-    const double Tx[] /* size nz */
+    const int ai[],   /* size nz */
+    const int aj[],   /* size nz */
+    const double ax[] /* size nz */
 ) {
 
     int nn = nrow;
@@ -66,11 +66,11 @@ int coo_to_csc(
         nn = ncol;
     }
 
-    auto Rp = std::vector<int>(nrow + 1);
-    auto Rj = std::vector<int>(nz);
-    auto Rx = std::vector<double>(nz);
-    auto RowCount = std::vector<int>(nrow);
-    auto W = std::vector<int>(nn);
+    auto rp = std::vector<int>(nrow + 1);
+    auto rj = std::vector<int>(nz);
+    auto rx = std::vector<double>(nz);
+    auto rc = std::vector<int>(nrow);
+    auto w = std::vector<int>(nn);
 
     /* ---------------------------------------------------------------------- */
     /* count the entries in each row (also counting duplicates) */
@@ -78,26 +78,26 @@ int coo_to_csc(
 
     /* use W as workspace for row counts (including duplicates) */
     for (int i = 0; i < nrow; i++) {
-        W[i] = 0;
+        w[i] = 0;
     }
 
     for (int k = 0; k < nz; k++) {
-        int i = Ti[k];
-        int j = Tj[k];
+        int i = ai[k];
+        int j = aj[k];
         if (i < 0 || i >= nrow || j < 0 || j >= ncol) {
             return 666; // UMFPACK_ERROR_invalid_matrix
         }
-        W[i] += 1;
+        w[i] += 1;
     }
 
     /* ---------------------------------------------------------------------- */
     /* compute the row pointers */
     /* ---------------------------------------------------------------------- */
 
-    Rp[0] = 0;
+    rp[0] = 0;
     for (int i = 0; i < nrow; i++) {
-        Rp[i + 1] = Rp[i] + W[i];
-        W[i] = Rp[i];
+        rp[i + 1] = rp[i] + w[i];
+        w[i] = rp[i];
     }
 
     /* W is now equal to the row pointers */
@@ -107,11 +107,11 @@ int coo_to_csc(
     /* ---------------------------------------------------------------------- */
 
     for (int k = 0; k < nz; k++) {
-        int i = Ti[k];
-        int p = W[i];
-        Rj[p] = Tj[k];
-        Rx[p] = Tx[k];
-        W[i] += 1;
+        int i = ai[k];
+        int p = w[i];
+        rj[p] = aj[k];
+        rx[p] = ax[k];
+        w[i] += 1;
     }
 
     /* Rp stays the same, but W [i] is advanced to the start of row i+1 */
@@ -123,38 +123,38 @@ int coo_to_csc(
     /* use W [j] to hold position in Ri/Rx/Rz of a_ij, for row i [ */
 
     for (int j = 0; j < ncol; j++) {
-        W[j] = EMPTY;
+        w[j] = EMPTY;
     }
 
     for (int i = 0; i < nrow; i++) {
-        int p1 = Rp[i];
-        int p2 = Rp[i + 1];
+        int p1 = rp[i];
+        int p2 = rp[i + 1];
         int pdest = p1;
         /* At this point, W [j] < p1 holds true for all columns j, */
         /* because Ri/Rx/Rz is stored in row oriented order. */
         for (int p = p1; p < p2; p++) {
-            int j = Rj[p];
+            int j = rj[p];
             // ASSERT(j >= 0 && j < n_col);
-            int pj = W[j];
+            int pj = w[j];
             if (pj >= p1) {
                 /* this column index, j, is already in row i, at position pj */
                 // ASSERT(pj < p);
                 // ASSERT(Rj[pj] == j);
                 /* sum the entry */
-                Rx[pj] += Rx[p];
+                rx[pj] += rx[p];
             } else {
                 /* keep the entry */
                 /* also keep track in W[j] of position of a_ij for case above */
-                W[j] = pdest;
+                w[j] = pdest;
                 /* no need to move the entry if pdest is equal to p */
                 if (pdest != p) {
-                    Rj[pdest] = j;
-                    Rx[pdest] = Rx[p];
+                    rj[pdest] = j;
+                    rx[pdest] = rx[p];
                 }
                 pdest += 1;
             }
         }
-        RowCount[i] = pdest - p1;
+        rc[i] = pdest - p1;
     }
 
     /* done using W for position of a_ij ] */
@@ -165,14 +165,14 @@ int coo_to_csc(
 
     /* [ use W as work space for column counts of A */
     for (int j = 0; j < ncol; j++) {
-        W[j] = 0;
+        w[j] = 0;
     }
 
     for (int i = 0; i < nrow; i++) {
-        for (int p = Rp[i]; p < Rp[i] + RowCount[i]; p++) {
-            int j = Rj[p];
+        for (int p = rp[i]; p < rp[i] + rc[i]; p++) {
+            int j = rj[p];
             // ASSERT(j >= 0 && j < n_col);
-            W[j] += 1;
+            w[j] += 1;
         }
     }
 
@@ -182,12 +182,12 @@ int coo_to_csc(
 
     bp[0] = 0;
     for (int j = 0; j < ncol; j++) {
-        bp[j + 1] = bp[j] + W[j];
+        bp[j + 1] = bp[j] + w[j];
     }
     /* done using W as workspace for column counts of A ] */
 
     for (int j = 0; j < ncol; j++) {
-        W[j] = bp[j];
+        w[j] = bp[j];
     }
 
     /* ---------------------------------------------------------------------- */
@@ -195,10 +195,10 @@ int coo_to_csc(
     /* ---------------------------------------------------------------------- */
 
     for (int i = 0; i < nrow; i++) {
-        for (int p = Rp[i]; p < Rp[i] + RowCount[i]; p++) {
-            int cp = W[Rj[p]]++;
+        for (int p = rp[i]; p < rp[i] + rc[i]; p++) {
+            int cp = w[rj[p]]++;
             bi[cp] = i;
-            bx[cp] = Rx[p];
+            bx[cp] = rx[p];
         }
     }
 
