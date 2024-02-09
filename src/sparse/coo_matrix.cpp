@@ -52,13 +52,13 @@ void CooMatrix::to_matrix(std::unique_ptr<Matrix> &a) {
 int coo_to_csc(
     int nrow,
     int ncol,
-    int nz,
-    int bp[],         /* size ncol + 1 */
-    int bi[],         /* size nz */
-    double bx[],      /* size nz */
-    const int ai[],   /* size nz */
-    const int aj[],   /* size nz */
-    const double ax[] /* size nz */
+    int nnz,
+    int bp[],         // ncol + 1
+    int bi[],         // nnz
+    double bx[],      // nnz
+    const int ai[],   // nnz
+    const int aj[],   // nnz
+    const double ax[] // nnz
 ) {
 
     int nn = nrow;
@@ -67,8 +67,8 @@ int coo_to_csc(
     }
 
     auto rp = std::vector<int>(nrow + 1);
-    auto rj = std::vector<int>(nz);
-    auto rx = std::vector<double>(nz);
+    auto rj = std::vector<int>(nnz);
+    auto rx = std::vector<double>(nnz);
     auto rc = std::vector<int>(nrow);
     auto w = std::vector<int>(nn);
 
@@ -77,7 +77,7 @@ int coo_to_csc(
     for (int i = 0; i < nrow; i++) {
         w[i] = 0;
     }
-    for (int k = 0; k < nz; k++) {
+    for (int k = 0; k < nnz; k++) {
         int i = ai[k];
         int j = aj[k];
         if (i < 0 || i >= nrow || j < 0 || j >= ncol) {
@@ -94,7 +94,7 @@ int coo_to_csc(
     }
 
     // construct the row form
-    for (int k = 0; k < nz; k++) {
+    for (int k = 0; k < nnz; k++) {
         int i = ai[k];
         int p = w[i];
         rj[p] = aj[k];
