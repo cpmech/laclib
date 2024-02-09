@@ -154,6 +154,7 @@ TEST_CASE("testing CooMatrix") {
         //  .   8   .   .  -5
         // first triplet with shuffled entries
         auto nrow = 5;
+        auto ncol = nrow;
         auto nnz = 15;
         auto coo = CooMatrix::make_new(FULL_MATRIX, nrow, nnz);
         coo->put(2, 4, 4.0);
@@ -172,42 +173,62 @@ TEST_CASE("testing CooMatrix") {
         coo->put(3, 3, 3.5); // duplicate
         coo->put(3, 3, 3.5); // duplicate
 
-        auto ncol = nrow;
-        int *Ap = new int[ncol];
-        int *Ai = new int[nnz];
-        double *Ax = new double[nnz];
+        auto Ap = vector<int>(ncol + 1);
+        auto Ai = vector<int>(nnz);
+        auto Ax = vector<double>(nnz);
 
         int status = coo_to_csc(
             nrow,
             ncol,
             nnz,
-            Ap,
-            Ai,
-            Ax,
+            Ap.data(),
+            Ai.data(),
+            Ax.data(),
             coo->indices_i.data(),
             coo->indices_j.data(),
             coo->values_aij.data());
+        CHECK(status == 0);
 
         std::cout << "Ap = ";
-        for (auto j = 0; j < ncol; j++) {
+        for (auto j = 0; j < ncol + 1; j++) {
             std::cout << Ap[j] << ", ";
         }
         std::cout << std::endl;
         std::cout << "Ai = ";
-        for (auto j = 0; j < ncol; j++) {
+        for (auto j = 0; j < nnz; j++) {
             std::cout << Ai[j] << ", ";
         }
         std::cout << std::endl;
         std::cout << "Ax = ";
-        for (auto j = 0; j < ncol; j++) {
+        for (auto j = 0; j < nnz; j++) {
             std::cout << Ax[j] << ", ";
         }
         std::cout << std::endl;
 
-        delete[] Ap;
-        delete[] Ai;
-        delete[] Ax;
+        vector<double> correct_ax{
+            1.0, -2.0, -4.0, // j=0, p=( 0),1,2
+            -1.0, 5.0, 8.0,  // j=1, p=( 3),4,5
+            4.0, 2.0,        // j=2, p=( 6),7
+            -3.0, 6.0, 7.0,  // j=3, p=( 8),9,10
+            4.0, -5.0,       // j=4, p=(11),12
+        };                   //      p=(13)
+        vector<int> correct_ai{
+            0, 1, 3, //
+            0, 1, 4, //
+            2, 3,    //
+            0, 2, 3, //
+            2, 4,    //
+        };
+        vector<int> correct_ap{0, 3, 6, 8, 11, 13};
 
-        CHECK(status == 0);
+        // previous duplicates
+        correct_ax.push_back(0.0);
+        correct_ax.push_back(0.0);
+        correct_ai.push_back(0);
+        correct_ai.push_back(0);
+
+        CHECK(equal_vectors(Ap, correct_ap));
+        CHECK(equal_vectors(Ai, correct_ai));
+        CHECK(equal_vectors_tol(Ax, correct_ax, 1e-15));
     }
 }
