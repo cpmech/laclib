@@ -50,47 +50,41 @@ void CooMatrix::to_matrix(std::unique_ptr<Matrix> &a) {
 
 // Tim Davis' UMFPACK::UMF_triplet_map_x (umf_triplet.c)
 int coo_to_csc(
-    int n_row,
-    int n_col,
+    int nrow,
+    int ncol,
     int nz,
-    int Ap[],         /* size n_col + 1 */
-    int Ai[],         /* size nz */
-    double Ax[],      /* size nz */
+    int bp[],         /* size ncol + 1 */
+    int bi[],         /* size nz */
+    double bx[],      /* size nz */
     const int Ti[],   /* size nz */
     const int Tj[],   /* size nz */
     const double Tx[] /* size nz */
 ) {
 
-    int nn = n_row;
-    if (n_col > nn) {
-        nn = n_col;
+    int nn = nrow;
+    if (ncol > nn) {
+        nn = ncol;
     }
 
-    auto Rp = std::vector<int>(n_row + 1);
+    auto Rp = std::vector<int>(nrow + 1);
     auto Rj = std::vector<int>(nz);
     auto Rx = std::vector<double>(nz);
-    auto RowCount = std::vector<int>(n_row);
+    auto RowCount = std::vector<int>(nrow);
     auto W = std::vector<int>(nn);
-
-    /* ---------------------------------------------------------------------- */
-    /* local variables */
-    /* ---------------------------------------------------------------------- */
-
-    int i, j, k, p, cp, p1, p2, pdest, pj;
 
     /* ---------------------------------------------------------------------- */
     /* count the entries in each row (also counting duplicates) */
     /* ---------------------------------------------------------------------- */
 
     /* use W as workspace for row counts (including duplicates) */
-    for (i = 0; i < n_row; i++) {
+    for (int i = 0; i < nrow; i++) {
         W[i] = 0;
     }
 
-    for (k = 0; k < nz; k++) {
-        i = Ti[k];
-        j = Tj[k];
-        if (i < 0 || i >= n_row || j < 0 || j >= n_col) {
+    for (int k = 0; k < nz; k++) {
+        int i = Ti[k];
+        int j = Tj[k];
+        if (i < 0 || i >= nrow || j < 0 || j >= ncol) {
             return 666; // UMFPACK_ERROR_invalid_matrix
         }
         W[i] += 1;
@@ -101,7 +95,7 @@ int coo_to_csc(
     /* ---------------------------------------------------------------------- */
 
     Rp[0] = 0;
-    for (i = 0; i < n_row; i++) {
+    for (int i = 0; i < nrow; i++) {
         Rp[i + 1] = Rp[i] + W[i];
         W[i] = Rp[i];
     }
@@ -112,9 +106,9 @@ int coo_to_csc(
     /* construct the row form */
     /* ---------------------------------------------------------------------- */
 
-    for (k = 0; k < nz; k++) {
-        i = Ti[k];
-        p = W[i];
+    for (int k = 0; k < nz; k++) {
+        int i = Ti[k];
+        int p = W[i];
         Rj[p] = Tj[k];
         Rx[p] = Tx[k];
         W[i] += 1;
@@ -128,20 +122,20 @@ int coo_to_csc(
 
     /* use W [j] to hold position in Ri/Rx/Rz of a_ij, for row i [ */
 
-    for (j = 0; j < n_col; j++) {
+    for (int j = 0; j < ncol; j++) {
         W[j] = EMPTY;
     }
 
-    for (i = 0; i < n_row; i++) {
-        p1 = Rp[i];
-        p2 = Rp[i + 1];
-        pdest = p1;
+    for (int i = 0; i < nrow; i++) {
+        int p1 = Rp[i];
+        int p2 = Rp[i + 1];
+        int pdest = p1;
         /* At this point, W [j] < p1 holds true for all columns j, */
         /* because Ri/Rx/Rz is stored in row oriented order. */
-        for (p = p1; p < p2; p++) {
-            j = Rj[p];
+        for (int p = p1; p < p2; p++) {
+            int j = Rj[p];
             // ASSERT(j >= 0 && j < n_col);
-            pj = W[j];
+            int pj = W[j];
             if (pj >= p1) {
                 /* this column index, j, is already in row i, at position pj */
                 // ASSERT(pj < p);
@@ -166,23 +160,17 @@ int coo_to_csc(
     /* done using W for position of a_ij ] */
 
     /* ---------------------------------------------------------------------- */
-    /* merge Map and Map2 into a single Map */
-    /* ---------------------------------------------------------------------- */
-
-    /* now the kth triplet maps to p = Map [k], and thus to Rj/Rx [p] */
-
-    /* ---------------------------------------------------------------------- */
     /* count the entries in each column */
     /* ---------------------------------------------------------------------- */
 
     /* [ use W as work space for column counts of A */
-    for (j = 0; j < n_col; j++) {
+    for (int j = 0; j < ncol; j++) {
         W[j] = 0;
     }
 
-    for (i = 0; i < n_row; i++) {
-        for (p = Rp[i]; p < Rp[i] + RowCount[i]; p++) {
-            j = Rj[p];
+    for (int i = 0; i < nrow; i++) {
+        for (int p = Rp[i]; p < Rp[i] + RowCount[i]; p++) {
+            int j = Rj[p];
             // ASSERT(j >= 0 && j < n_col);
             W[j] += 1;
         }
@@ -192,25 +180,25 @@ int coo_to_csc(
     /* create the column pointers */
     /* ---------------------------------------------------------------------- */
 
-    Ap[0] = 0;
-    for (j = 0; j < n_col; j++) {
-        Ap[j + 1] = Ap[j] + W[j];
+    bp[0] = 0;
+    for (int j = 0; j < ncol; j++) {
+        bp[j + 1] = bp[j] + W[j];
     }
     /* done using W as workspace for column counts of A ] */
 
-    for (j = 0; j < n_col; j++) {
-        W[j] = Ap[j];
+    for (int j = 0; j < ncol; j++) {
+        W[j] = bp[j];
     }
 
     /* ---------------------------------------------------------------------- */
     /* construct the column form */
     /* ---------------------------------------------------------------------- */
 
-    for (i = 0; i < n_row; i++) {
-        for (p = Rp[i]; p < Rp[i] + RowCount[i]; p++) {
-            cp = W[Rj[p]]++;
-            Ai[cp] = i;
-            Ax[cp] = Rx[p];
+    for (int i = 0; i < nrow; i++) {
+        for (int p = Rp[i]; p < Rp[i] + RowCount[i]; p++) {
+            int cp = W[Rj[p]]++;
+            bi[cp] = i;
+            bx[cp] = Rx[p];
         }
     }
 
