@@ -155,7 +155,9 @@ int coo_to_csc(
 
     // construct the column form
     for (int i = 0; i < nrow; i++) {
-        for (int p = rp[i]; p < rp[i] + rc[i]; p++) {
+        int p1 = rp[i];
+        int p2 = p1 + rc[i];
+        for (int p = p1; p < p2; p++) {
             int j = rj[p];
             int cp = w[j];
             bi[cp] = i;
