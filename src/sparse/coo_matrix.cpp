@@ -113,9 +113,9 @@ int coo_to_csc(
         // w[j] < p1 for all columns j (note that rj and rx are stored in row oriented order)
         for (int p = p1; p < p2; p++) {
             int j = rj[p];
-            int pj = w[j];
-            if (pj >= p1) {
+            if (w[j] >= p1) {
                 // j is already in row i, at position pj
+                int pj = w[j];
                 rx[pj] += rx[p]; // sum the entry
             } else {
                 // keep the entry
