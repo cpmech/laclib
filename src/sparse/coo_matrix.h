@@ -99,3 +99,16 @@ struct CooMatrix {
         return dense;
     }
 };
+
+// Tim Davis' UMFPACK::UMF_triplet_map_x (umf_triplet.c)
+int coo_to_csc(
+    int n_row,
+    int n_col,
+    int nz,
+    int Ap[],         /* size n_col + 1 */
+    int Ai[],         /* size nz */
+    double Ax[],      /* size nz */
+    const int Ti[],   /* size nz */
+    const int Tj[],   /* size nz */
+    const double Tx[] /* size nz */
+);

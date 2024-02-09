@@ -1,5 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
+#include <iostream>
 #include <vector>
 
 #include "../check/index.h"
@@ -143,5 +144,70 @@ TEST_CASE("testing CooMatrix") {
         CHECK(equal_scalars_tol(dense->get(4, 2), 0.0, 1e-15));
         CHECK(equal_scalars_tol(dense->get(4, 3), 0.0, 1e-15));
         CHECK(equal_scalars_tol(dense->get(4, 4), -5.0, 1e-15));
+    }
+
+    SUBCASE("coo_to_csc works") {
+        //  1  -1   .  -3   .
+        // -2   5   .   .   .
+        //  .   .   4   6   4
+        // -4   .   2   7   .
+        //  .   8   .   .  -5
+        // first triplet with shuffled entries
+        auto nrow = 5;
+        auto nnz = 15;
+        auto coo = CooMatrix::make_new(FULL_MATRIX, nrow, nnz);
+        coo->put(2, 4, 4.0);
+        coo->put(4, 1, 8.0);
+        coo->put(0, 1, -0.5); // duplicate
+        coo->put(0, 1, -0.5); // duplicate
+        coo->put(2, 2, 4.0);
+        coo->put(4, 4, -5.0);
+        coo->put(3, 0, -4.0);
+        coo->put(0, 3, -3.0);
+        coo->put(2, 3, 6.0);
+        coo->put(0, 0, 1.0);
+        coo->put(1, 1, 5.0);
+        coo->put(3, 2, 2.0);
+        coo->put(1, 0, -2.0);
+        coo->put(3, 3, 3.5); // duplicate
+        coo->put(3, 3, 3.5); // duplicate
+
+        auto ncol = nrow;
+        int *Ap = new int[ncol];
+        int *Ai = new int[nnz];
+        double *Ax = new double[nnz];
+
+        int status = coo_to_csc(
+            nrow,
+            ncol,
+            nnz,
+            Ap,
+            Ai,
+            Ax,
+            coo->indices_i.data(),
+            coo->indices_j.data(),
+            coo->values_aij.data());
+
+        std::cout << "Ap = ";
+        for (auto j = 0; j < ncol; j++) {
+            std::cout << Ap[j] << ", ";
+        }
+        std::cout << std::endl;
+        std::cout << "Ai = ";
+        for (auto j = 0; j < ncol; j++) {
+            std::cout << Ai[j] << ", ";
+        }
+        std::cout << std::endl;
+        std::cout << "Ax = ";
+        for (auto j = 0; j < ncol; j++) {
+            std::cout << Ax[j] << ", ";
+        }
+        std::cout << std::endl;
+
+        delete[] Ap;
+        delete[] Ai;
+        delete[] Ax;
+
+        CHECK(status == 0);
     }
 }
