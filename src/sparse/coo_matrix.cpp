@@ -66,11 +66,11 @@ int coo_to_csc(
         nn = n_col;
     }
 
-    int *Rp = new int[n_row + 1];
-    int *Rj = new int[nz];
-    double *Rx = new double[nz];
-    int *RowCount = new int[n_row];
-    int *W = new int[nn];
+    auto Rp = std::vector<int>(n_row + 1);
+    auto Rj = std::vector<int>(nz);
+    auto Rx = std::vector<double>(nz);
+    auto RowCount = std::vector<int>(n_row);
+    auto W = std::vector<int>(nn);
 
     /* ---------------------------------------------------------------------- */
     /* local variables */
@@ -93,7 +93,7 @@ int coo_to_csc(
         if (i < 0 || i >= n_row || j < 0 || j >= n_col) {
             return 666; // UMFPACK_ERROR_invalid_matrix
         }
-        W[i]++;
+        W[i] += 1;
     }
 
     /* ---------------------------------------------------------------------- */
@@ -113,9 +113,11 @@ int coo_to_csc(
     /* ---------------------------------------------------------------------- */
 
     for (k = 0; k < nz; k++) {
-        p = W[Ti[k]]++;
+        i = Ti[k];
+        p = W[i];
         Rj[p] = Tj[k];
         Rx[p] = Tx[k];
+        W[i] += 1;
     }
 
     /* Rp stays the same, but W [i] is advanced to the start of row i+1 */
@@ -155,7 +157,7 @@ int coo_to_csc(
                     Rj[pdest] = j;
                     Rx[pdest] = Rx[p];
                 }
-                pdest++;
+                pdest += 1;
             }
         }
         RowCount[i] = pdest - p1;
@@ -182,7 +184,7 @@ int coo_to_csc(
         for (p = Rp[i]; p < Rp[i] + RowCount[i]; p++) {
             j = Rj[p];
             // ASSERT(j >= 0 && j < n_col);
-            W[j]++;
+            W[j] += 1;
         }
     }
 
@@ -212,11 +214,6 @@ int coo_to_csc(
         }
     }
 
-    delete[] Rp;
-    delete[] Rj;
-    delete[] Rx;
-    delete[] RowCount;
-    delete[] W;
-
+    // success
     return 0;
 }
