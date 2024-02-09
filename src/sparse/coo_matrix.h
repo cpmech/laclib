@@ -100,15 +100,25 @@ struct CooMatrix {
     }
 };
 
-// Tim Davis' UMFPACK::UMF_triplet_map_x (umf_triplet.c)
+/// @brief Converts COO matrix to CSC matrix
+/// @param nrow number of rows
+/// @param ncol number of columns
+/// @param nnz number of non-zero values
+/// @param bp output: pointers. size = ncol + 1
+/// @param bi output: row indices. size = nnz
+/// @param bx output: values. size = nnz
+/// @param ai input: row indices. size = nnz
+/// @param aj input: column indices. size = nnz
+/// @param ax input: values. size = nnz
+/// @return 0 if success; otherwise returns 1
+/// @note This is Tim Davis' UMFPACK::UMF_triplet_map_x function from umf_triplet.c
 int coo_to_csc(
     int nrow,
     int ncol,
     int nnz,
-    int bp[],         // ncol + 1
-    int bi[],         // nnz
-    double bx[],      // nnz
-    const int ai[],   // nnz
-    const int aj[],   // nnz
-    const double ax[] // nnz
-);
+    int bp[],
+    int bi[],
+    double bx[],
+    const int ai[],
+    const int aj[],
+    const double ax[]);
